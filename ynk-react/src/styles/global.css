@@ -190,13 +190,21 @@ img {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    overflow: visible;
+    position: relative;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .nav-logo img {
-    height: 250px;
+    height: auto;
     width: auto;
     object-fit: contain;
-    max-height: var(--nav-height);
+    max-height: calc(var(--nav-height) - 16px);
 }
 
 .nav-menu {
@@ -242,6 +250,8 @@ img {
     border: none;
     cursor: pointer;
     padding: 8px;
+    z-index: 1001;
+    flex-shrink: 0;
 }
 
 .nav-toggle span {
@@ -1416,7 +1426,7 @@ img {
     }
 
     .nav-logo img {
-        height: 120px;
+        max-height: calc(var(--nav-height) - 12px);
     }
 
     .footer-logo {
@@ -1430,6 +1440,7 @@ img {
         width: 280px;
         height: calc(100vh - var(--nav-height));
         flex-direction: column;
+        align-items: stretch;
         background: rgba(11, 17, 32, 0.98);
         backdrop-filter: blur(20px);
         padding: 32px 24px;
@@ -1437,13 +1448,19 @@ img {
         transition: right var(--transition-base);
         border-left: 1px solid var(--color-border);
         overflow-y: auto;
+        z-index: 999;
     }
 
     .nav-menu.active {
         right: 0;
     }
 
+    .nav-menu li {
+        list-style: none;
+    }
+
     .nav-link {
+        display: block;
         width: 100%;
         padding: 14px 16px;
         font-size: 16px;
@@ -1453,6 +1470,7 @@ img {
         margin-left: 0;
         margin-top: 16px;
         text-align: center;
+        display: block;
     }
 
     .nav-toggle {

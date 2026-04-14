@@ -17,6 +17,12 @@ export default function Navbar() {
     setMenuOpen(false)
   }, [location])
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   const handleAnchor = (e, id) => {
     if (location.pathname === '/') {
       e.preventDefault()
