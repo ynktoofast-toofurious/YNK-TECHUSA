@@ -96,7 +96,7 @@ export default function ConsultantsPortal() {
 
     try {
       // Send notification email to admin
-      await emailjs.send('service_sw3zais', 'template_8yj65yj', {
+      await emailjs.send('service_sw3zais', 'template_99cacr8', {
         to_email: 'yannicknkongolo7@gmail.com',
         heading: 'New Access Code Request',
         content_html: `<p>A visitor has requested access to the <strong>Consultants Portal</strong>.</p>

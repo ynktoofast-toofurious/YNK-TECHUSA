@@ -28,7 +28,7 @@ window.ADMIN_CONFIG = {
        Template body uses {{heading}}, {{{content_html}}}, {{footer_note}}. */
     emailjs: {
         serviceId:  'service_sw3zais',
-        templateId: 'template_8yj65yj',
+        templateId: 'template_99cacr8',
         publicKey:  'zG_jERVPbUUfiZ6IL'
     },
 
