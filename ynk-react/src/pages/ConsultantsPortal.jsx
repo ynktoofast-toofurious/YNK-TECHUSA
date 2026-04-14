@@ -97,10 +97,18 @@ export default function ConsultantsPortal() {
     try {
       // Send notification email to admin
       await emailjs.send('service_sw3zais', 'template_8yj65yj', {
-        from_name: requestData.name,
-        from_email: requestData.email,
-        message: `Access Code Request\n\nName: ${requestData.name}\nEmail: ${requestData.email}\nCompany: ${requestData.company}\nIndustry: ${requestData.industry}\nReason: ${requestData.reason}`,
-        service: 'Consultants Portal — Access Request',
+        to_email: 'yannicknkongolo7@gmail.com',
+        heading: 'New Access Code Request',
+        content_html: `<p>A visitor has requested access to the <strong>Consultants Portal</strong>.</p>
+<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
+<strong>Name:</strong> ${requestData.name}<br/>
+<strong>Email:</strong> ${requestData.email}<br/>
+<strong>Company:</strong> ${requestData.company}<br/>
+<strong>Industry:</strong> ${requestData.industry}<br/>
+<strong>Reason:</strong> ${requestData.reason}
+</div>
+<p><a href="https://ynk-techusa.com/Admin/" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Review Request</a></p>`,
+        footer_note: 'You received this email because you are an administrator of YNK-Tech USA',
       })
 
       // Save to localStorage for admin portal

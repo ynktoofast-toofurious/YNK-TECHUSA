@@ -977,14 +977,16 @@
             safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
 
             // Try to send approval email via EmailJS
-            if (window.emailjs && cfg.serviceId && cfg.approvalTemplateId) {
-                window.emailjs.send(cfg.serviceId, cfg.approvalTemplateId, {
-                    to_email:    req.email,
-                    from_name:   req.name,
-                    from_email:  'yannicknkongolo7@gmail.com',
-                    access_code: generatedCode,
-                    message:     'Your access request has been approved!\n\nIndustry: ' + industry + '\n\nUse your code at: https://ynk-techusa.com/consultants',
-                    service:     'Consultants Portal — Approved'
+            if (window.emailjs && cfg.serviceId && cfg.templateId) {
+                window.emailjs.send(cfg.serviceId, cfg.templateId, {
+                    to_email:     req.email,
+                    heading:      'Your Access Code Is Ready',
+                    content_html: '<p>Hello ' + escapeHtml(req.name) + ',</p>' +
+                        '<p>Your request to access the <strong>Consultants Portal</strong> has been approved. Use the code below to access your industry-specific resources:</p>' +
+                        '<div style="background-color:#0b1120;color:#29B5E8;font-family:Courier New,monospace;font-size:22px;font-weight:700;letter-spacing:3px;text-align:center;padding:18px;border-radius:4px;margin:24px 0">' + escapeHtml(generatedCode) + '</div>' +
+                        '<p><a href="https://ynk-techusa.com/consultants" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Open Consultants Portal</a></p>' +
+                        '<p>If you did not request this access code, please ignore this email.</p>',
+                    footer_note:  'You received this email because you requested access to the YNK-Tech USA Consultants Portal'
                 }).then(function () {
                     sucEl.textContent = 'Approved! Email sent to ' + req.email;
                     setTimeout(function () {

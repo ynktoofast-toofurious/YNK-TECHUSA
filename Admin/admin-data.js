@@ -23,14 +23,13 @@ window.ADMIN_CONFIG = {
         consultants: 'https://ynk-techusa.com/consultants'
     },
 
-    /* EmailJS config for sending approval emails.
-       NOTE: To send approval emails to requestors, create a second EmailJS template
-       with {{to_email}} in the "To Email" field. Update approvalTemplateId below. */
+    /* EmailJS config — single template handles both notification & approval.
+       Template "To Email" must be set to {{to_email}}.
+       Template body uses {{heading}}, {{{content_html}}}, {{footer_note}}. */
     emailjs: {
-        serviceId: 'service_sw3zais',
-        notifyTemplateId: 'template_8yj65yj',
-        approvalTemplateId: 'template_8yj65yj',
-        publicKey: 'zG_jERVPbUUfiZ6IL'
+        serviceId:  'service_sw3zais',
+        templateId: 'template_8yj65yj',
+        publicKey:  'zG_jERVPbUUfiZ6IL'
     },
 
     /* Industries for consultant access codes */
