@@ -6,12 +6,12 @@ import { saveAccessRequest, getDynamicCodes } from '../utils/tracking'
 emailjs.init('zG_jERVPbUUfiZ6IL')
 
 const RESUME_MAP = [
-  { hash: '855ce6489207eff8d2c830bb74012fe5beece4980aa5ddffe8e4e1e55a0c3e4d', industry: 'Healthcare', file: 'Admin/resumes/healthcare.pdf', icon: '🏥' },
-  { hash: 'f125a06e61497cd5ccbadd5e3c1418a270af4c42f62c7f88783a157e77981427', industry: 'Finance', file: 'Admin/resumes/finance.pdf', icon: '💰' },
-  { hash: 'e57fcf9130a8154f4dddb103cdb9abb4db0aac94f81f879c209f6c530339bc34', industry: 'Education', file: 'Admin/resumes/education.pdf', icon: '🎓' },
-  { hash: '71ad716e562ce56963afd1db2d3934d68205a2dde6624fada37b18cde3cd6e1b', industry: 'Technology', file: 'Admin/resumes/technology.pdf', icon: '💻' },
-  { hash: '0abcfb49a64bea10e061da7ab94c7f4294f1e7e100083d40d9b2de9b313414d8', industry: 'Government', file: 'Admin/resumes/government.pdf', icon: '🏛️' },
-  { hash: 'bcbc9804c46b36ee3a6f8801821a4256eca3175f0a913f12f506ecc1edc07d07', industry: 'Retail', file: 'Admin/resumes/retail.pdf', icon: '🛍️' },
+  { hash: 'd949343d40287395916ef061561782c1a506cdaca890a92f8c12d1faa4b65def', industry: 'Healthcare', file: 'Admin/resumes/healthcare.pdf', icon: '🏥' },
+  { hash: 'f9f5f3d76bbd21f24148fbf487ace9328f8a51367e014bfcf4fd06e156ba568c', industry: 'Finance', file: 'Admin/resumes/finance.pdf', icon: '💰' },
+  { hash: '0384cec16354f94cab65c250d3d94693ec774796f9e50b2213c2663fd45240ea', industry: 'Education', file: 'Admin/resumes/education.pdf', icon: '🎓' },
+  { hash: '336fb457589f78fc54e4f24215c4133dbf85a74a30904eb774a0272bb7c6428d', industry: 'Technology', file: 'Admin/resumes/technology.pdf', icon: '💻' },
+  { hash: '23040e83f99dd6e07994719e499ed59f460562441bdb6a50ac9b5ccdf921dc30', industry: 'Government', file: 'Admin/resumes/government.pdf', icon: '🏛️' },
+  { hash: '78c1cb1cc907f88da58c31075e2829a32b5965583e680fe2bffeba95296e35b8', industry: 'Retail', file: 'Admin/resumes/retail.pdf', icon: '🛍️' },
 ]
 
 async function sha256(text) {
