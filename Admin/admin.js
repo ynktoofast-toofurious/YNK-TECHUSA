@@ -21,6 +21,47 @@
     var STORAGE_DYNAMIC_CODES  = 'ynk_dynamic_codes';
     var STORAGE_SITE_STATS     = 'ynk_site_stats';
 
+    /* ── Cloud API (S3 backend) ───────────────────────── */
+    var API_URL = (window.ADMIN_CONFIG || {}).apiUrl || '';
+
+    function apiGet(collection) {
+        return fetch(API_URL + '/api/data/' + collection)
+            .then(function (r) { return r.json(); });
+    }
+    function apiPost(path, data) {
+        return fetch(API_URL + path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(function (r) { return r.json(); });
+    }
+    function apiPatch(path, data) {
+        return fetch(API_URL + path, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(function (r) { return r.json(); });
+    }
+    function fetchFromApi() {
+        if (!API_URL) return;
+        Promise.all([
+            apiGet('access-requests'),
+            apiGet('dynamic-codes'),
+            apiGet('site-stats')
+        ]).then(function (results) {
+            state.accessRequests = results[0] || [];
+            state.dynamicCodes   = results[1] || [];
+            state.siteStats      = results[2] || {};
+            safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
+            safeSave(STORAGE_DYNAMIC_CODES, state.dynamicCodes);
+            safeSave(STORAGE_SITE_STATS, state.siteStats);
+            renderAll();
+        }).catch(function (err) {
+            console.error('API fetch error:', err);
+            showToast('Cloud sync failed — showing cached data.');
+        });
+    }
+
     var gate    = document.getElementById('access-gate');
     var content = document.getElementById('admin-content');
     var input   = document.getElementById('access-input');
@@ -461,6 +502,9 @@
         state.accessRequests = safeJSON(localStorage.getItem(STORAGE_ACCESS_REQS)) || [];
         state.dynamicCodes   = safeJSON(localStorage.getItem(STORAGE_DYNAMIC_CODES)) || [];
         state.siteStats      = safeJSON(localStorage.getItem(STORAGE_SITE_STATS)) || {};
+
+        // Fetch fresh data from cloud API (overwrites localStorage cache)
+        fetchFromApi();
     }
 
     function saveProspectsToStorage() { safeSave(STORAGE_PROS, state.prospects); }
@@ -834,11 +878,16 @@
     };
 
     window.refreshRequests = function () {
-        state.accessRequests = safeJSON(localStorage.getItem(STORAGE_ACCESS_REQS)) || [];
-        state.dynamicCodes   = safeJSON(localStorage.getItem(STORAGE_DYNAMIC_CODES)) || [];
-        state.siteStats      = safeJSON(localStorage.getItem(STORAGE_SITE_STATS)) || {};
-        renderAll();
-        showToast('Data refreshed.');
+        if (API_URL) {
+            showToast('Syncing from cloud...');
+            fetchFromApi();
+        } else {
+            state.accessRequests = safeJSON(localStorage.getItem(STORAGE_ACCESS_REQS)) || [];
+            state.dynamicCodes   = safeJSON(localStorage.getItem(STORAGE_DYNAMIC_CODES)) || [];
+            state.siteStats      = safeJSON(localStorage.getItem(STORAGE_SITE_STATS)) || {};
+            renderAll();
+            showToast('Data refreshed.');
+        }
     };
 
     function renderAccessRequests() {
@@ -984,6 +1033,19 @@
             req.approvedIndustry = industry;
             safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
 
+            // Sync to cloud API
+            if (API_URL) {
+                apiPost('/api/dynamic-codes', {
+                    hash: hash, industry: industry,
+                    file: indInfo ? indInfo.file : '', icon: indInfo ? indInfo.icon : '',
+                    name: req.name, email: req.email, created: new Date().toISOString()
+                }).catch(function (e) { console.error('API sync (code):', e); });
+                apiPatch('/api/access-requests/' + pendingApprovalId, {
+                    status: 'approved', approvedCode: generatedCode,
+                    approvedDate: req.approvedDate, approvedIndustry: industry
+                }).catch(function (e) { console.error('API sync (request):', e); });
+            }
+
             // Try to send approval email via EmailJS
             if (window.emailjs && cfg.serviceId && cfg.templateId) {
                 window.emailjs.send(cfg.serviceId, cfg.templateId, {
@@ -1029,6 +1091,14 @@
         req.status = 'denied';
         req.deniedDate = new Date().toISOString();
         safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
+
+        // Sync to cloud API
+        if (API_URL) {
+            apiPatch('/api/access-requests/' + reqId, {
+                status: 'denied', deniedDate: req.deniedDate
+            }).catch(function (e) { console.error('API sync (deny):', e); });
+        }
+
         renderAll();
         showToast('Request denied.');
     };

@@ -3,3 +3,5 @@ node_modules/
 dist/
 *.local
 .DS_Store
+lambda-deploy.zip
+ynk-react/.env

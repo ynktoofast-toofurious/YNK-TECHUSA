@@ -45,9 +45,9 @@ export default function ConsultantsPortal() {
     // Check static codes
     let found = RESUME_MAP.find((r) => r.hash === hash)
 
-    // Check dynamic codes from localStorage (admin-approved)
+    // Check dynamic codes from API/localStorage (admin-approved)
     if (!found) {
-      const dynamicCodes = getDynamicCodes()
+      const dynamicCodes = await getDynamicCodes()
       found = dynamicCodes.find((r) => r.hash === hash)
     }
 
@@ -111,8 +111,8 @@ export default function ConsultantsPortal() {
         footer_note: 'You received this email because you are an administrator of YNK-Tech USA',
       })
 
-      // Save to localStorage for admin portal
-      saveAccessRequest(requestData)
+      // Save to cloud/localStorage for admin portal
+      await saveAccessRequest(requestData)
       setRequestSent(true)
     } catch (err) {
       console.error('EmailJS error:', err)

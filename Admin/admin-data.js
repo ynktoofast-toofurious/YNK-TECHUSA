@@ -1,5 +1,11 @@
-/* YNK-TechUSA Admin runtime config */
+﻿/* YNK-TechUSA Admin runtime config */
 window.ADMIN_CONFIG = {
+    /* API URL for cloud storage (S3 backend via Lambda + API Gateway).
+       When set, access requests / dynamic codes / site stats are
+       read from and written to S3 instead of only localStorage.
+       The deploy-aws.ps1 script fills this in automatically. */
+    apiUrl: 'https://enf1mo6r68.execute-api.us-east-1.amazonaws.com',
+
     /* SHA-256 hash of the admin access code.
        Default code: "YNK-ADMIN2026"
        To change: run in browser console:
