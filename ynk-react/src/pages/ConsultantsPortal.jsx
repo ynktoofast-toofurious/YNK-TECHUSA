@@ -18,7 +18,7 @@ async function sha256(text) {
     .join('')
 }
 
-export default function Portfolio() {
+export default function ConsultantsPortal() {
   const [unlocked, setUnlocked] = useState(false)
   const [match, setMatch] = useState(null)
   const [error, setError] = useState('')
@@ -67,8 +67,8 @@ export default function Portfolio() {
       <section className="page-hero">
         <div className="container">
           <span className="section-tag">03</span>
-          <h1 className="section-title">Portfolio</h1>
-          <p className="section-subtitle">Explore my work and expertise</p>
+          <h1 className="section-title">Consultants Portal</h1>
+          <p className="section-subtitle">Secure access for consultants and partners</p>
         </div>
       </section>
 
@@ -80,8 +80,8 @@ export default function Portfolio() {
                 <div className="gate-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
                 </div>
-                <h3>View Industry Resume</h3>
-                <p>Enter your industry-specific access code to view the tailored resume.</p>
+                <h3>Consultant Access</h3>
+                <p>Enter your industry-specific access code to view curated resources and documentation.</p>
                 <div className="gate-form">
                   <input
                     type="password"
@@ -91,7 +91,7 @@ export default function Portfolio() {
                     autoComplete="off"
                     onKeyDown={(e) => e.key === 'Enter' && handleAccess()}
                   />
-                  <button className="btn btn-primary" onClick={handleAccess}>View Resume</button>
+                  <button className="btn btn-primary" onClick={handleAccess}>Access Portal</button>
                 </div>
                 <div className="gate-error">{error}</div>
                 <div className="gate-divider"><span>or</span></div>
@@ -114,13 +114,13 @@ export default function Portfolio() {
                 {loading && (
                   <div className="pdf-loading-indicator">
                     <div className="pdf-spinner"></div>
-                    <p>Loading resume...</p>
+                    <p>Loading document...</p>
                   </div>
                 )}
                 <iframe
                   src={match.file}
                   className="resume-pdf-frame"
-                  title="Resume PDF"
+                  title="Consultant Document"
                   onLoad={() => setLoading(false)}
                   style={{ opacity: loading ? 0 : 1 }}
                 ></iframe>
@@ -130,7 +130,7 @@ export default function Portfolio() {
 
           {!unlocked && (
             <div className="detail-action">
-              <Link to="/" className="btn btn-secondary">← Back to Home</Link>
+              <Link to="/" className="btn btn-secondary">&larr; Back to Home</Link>
             </div>
           )}
         </div>

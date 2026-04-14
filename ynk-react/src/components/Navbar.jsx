@@ -50,7 +50,7 @@ export default function Navbar() {
               <Link to="/#thumbnails" className="nav-link">Services</Link>
             )}
           </li>
-          <li><Link to="/portfolio" className="nav-link">Portfolio</Link></li>
+          <li><Link to="/consultants" className="nav-link">Consultants Portal</Link></li>
           <li><Link to="/request-quote" className="nav-link">Request Free Quote</Link></li>
           <li>
             {location.pathname === '/' ? (

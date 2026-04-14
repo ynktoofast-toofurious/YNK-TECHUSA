@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="footer-nav">
             <Link to="/it-services">IT Services</Link>
             <Link to="/branding">Branding</Link>
-            <Link to="/portfolio">Portfolio</Link>
+            <Link to="/consultants">Consultants Portal</Link>
             <Link to="/request-quote">Request Free Quote</Link>
             <Link to="/#contact">Contact</Link>
             <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer">Book a Consultation</a>

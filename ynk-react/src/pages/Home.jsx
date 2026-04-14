@@ -34,7 +34,7 @@ export default function Home() {
             <span className="hero-line">Meets</span>
             <span className="hero-line"><span className="text-gradient">Vision</span></span>
           </h1>
-          <p className="hero-subtext">IT Solutions · Branding · Portfolio</p>
+          <p className="hero-subtext">IT Solutions · Branding · Consultants Portal</p>
           <div className="hero-scroll-cue">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
@@ -50,7 +50,7 @@ export default function Home() {
             <span className="section-tag">Who We Are</span>
             <h2 className="section-title">At the Intersection of Technology, Creativity &amp; Data</h2>
             <p className="intro-lead">I provide end-to-end solutions that empower individuals and organizations to build, scale, and stand out.</p>
-            <p className="intro-text">This platform is designed as a multi-service hub combining <strong>IT Services</strong>, <strong>Branding Solutions</strong>, and a curated <strong>Portfolio Network</strong>, offering both execution and visibility across industries.</p>
+            <p className="intro-text">This platform is designed as a multi-service hub combining <strong>IT Services</strong>, <strong>Branding Solutions</strong>, and a secure <strong>Consultants Portal</strong>, offering both execution and visibility across industries.</p>
           </div>
 
           <div className="intro-grid">
@@ -83,8 +83,8 @@ export default function Home() {
 
             <div className="intro-card" data-aos="">
               <div className="intro-card-number">03</div>
-              <h3>Access-Driven Portfolio</h3>
-              <p>A secure, access-based portfolio showcasing curated work and expertise across multiple industries.</p>
+              <h3>Consultants Portal</h3>
+              <p>A secure, access-controlled portal for consultants and partners to view curated resources, documentation, and expertise across industries.</p>
             </div>
           </div>
 
@@ -103,7 +103,7 @@ export default function Home() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
                 <div>
                   <strong>Access-controlled environment</strong>
-                  <p>Professional and secure portfolio sharing</p>
+                  <p>Professional and secure consultant access</p>
                 </div>
               </div>
               <div className="intro-why-item">
@@ -168,21 +168,23 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link to="/portfolio" className="thumb-card">
+          <Link to="/consultants" className="thumb-card">
             <div className="thumb-overlay"></div>
             <div className="thumb-icon">
               <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="12" y="8" width="40" height="48" rx="4" />
-                <path d="M20 20h24M20 28h24M20 36h16" />
-                <circle cx="44" cy="44" r="8" />
-                <path d="M41 44l2 2 4-4" />
+                <circle cx="22" cy="20" r="8" />
+                <path d="M14 36c0-4.418 3.582-8 8-8s8 3.582 8 8" />
+                <circle cx="42" cy="20" r="8" />
+                <path d="M34 36c0-4.418 3.582-8 8-8s8 3.582 8 8" />
+                <rect x="16" y="42" width="32" height="6" rx="3" />
+                <path d="M28 24h8" />
               </svg>
             </div>
             <div className="thumb-content">
               <span className="thumb-number">03</span>
-              <h2 className="thumb-title">Portfolio</h2>
-              <p className="thumb-desc">Resume, certifications, and project showcases across Healthcare, Finance, and Engineering.</p>
-              <span className="thumb-cta">View Portfolio <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
+              <h2 className="thumb-title">Consultants Portal</h2>
+              <p className="thumb-desc">Secure access for consultants and partners to industry-specific resources and documentation.</p>
+              <span className="thumb-cta">Enter Portal <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
             </div>
           </Link>
         </div>

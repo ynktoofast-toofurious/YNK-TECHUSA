@@ -5,7 +5,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import ITServices from './pages/ITServices'
 import Branding from './pages/Branding'
-import Portfolio from './pages/Portfolio'
+import ConsultantsPortal from './pages/ConsultantsPortal'
 import RequestQuote from './pages/RequestQuote'
 import NotFound from './pages/NotFound'
 
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/it-services" element={<ITServices />} />
         <Route path="/branding" element={<Branding />} />
-        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/consultants" element={<ConsultantsPortal />} />
         <Route path="/request-quote" element={<RequestQuote />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
