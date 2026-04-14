@@ -57,7 +57,7 @@ export default function ConsultantsPortal() {
       setLoading(true)
       setError('')
     } else {
-      setError('Invalid code. Request access below.')
+      setError('Invalid or expired code. Request access below.')
       codeRef.current.value = ''
       codeRef.current.focus()
     }
@@ -191,6 +191,19 @@ export default function ConsultantsPortal() {
                         Fill out the form below and we'll review your request. Once approved,
                         you'll receive your access code via email.
                       </p>
+                      <div
+                        style={{
+                          background: 'rgba(245, 158, 11, 0.1)',
+                          borderLeft: '4px solid #f59e0b',
+                          padding: '12px 16px',
+                          borderRadius: '4px',
+                          marginBottom: '24px',
+                          color: '#f59e0b',
+                          fontSize: '0.85rem',
+                        }}
+                      >
+                        <strong>⚠ Please note:</strong> Access codes are valid for <strong>7 days</strong> from the date of approval. After 7 days, the code will automatically expire and access will be revoked.
+                      </div>
                       <div className="quote-form-grid">
                         <div className="form-group">
                           <label htmlFor="req_name">
@@ -344,6 +357,15 @@ export default function ConsultantsPortal() {
                   <p>
                     We've received your request and will review it within 24 hours. You'll
                     receive your access code via email once approved.
+                  </p>
+                  <p
+                    style={{
+                      marginTop: '12px',
+                      color: '#f59e0b',
+                      fontSize: '0.85rem',
+                    }}
+                  >
+                    ⚠ Please note: Access codes are valid for 7 days from approval. After expiry, you may request a new code.
                   </p>
                   <div className="cta-buttons" style={{ marginTop: '24px' }}>
                     <button

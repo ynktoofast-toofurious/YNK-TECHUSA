@@ -1,20 +1,22 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 
 emailjs.init('zG_jERVPbUUfiZ6IL')
 
-const SERVICE_OPTIONS = [
+const IT_SERVICES = [
   'Website Development',
   'AI Enablement & Automation',
   'Big Data Engineering & Analytics',
   'Cloud & Infrastructure Setup',
   'Dashboard & BI Development',
+]
+
+const BRANDING_SERVICES = [
   'Brand Strategy & Identity Design',
   'Event Technicians',
   'Stage Lighting & Rental',
   'Custom T-Shirt Printing',
-  'Other',
 ]
 
 const BUDGET_OPTIONS = [
@@ -39,6 +41,13 @@ export default function RequestQuote() {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
+  const [searchParams] = useSearchParams()
+  const category = searchParams.get('category')
+
+  const isIT = category === 'it'
+  const isBranding = category === 'branding'
+  const serviceOptions = isIT ? IT_SERVICES : isBranding ? BRANDING_SERVICES : [...IT_SERVICES, ...BRANDING_SERVICES]
+  const categoryLabel = isIT ? 'IT Services' : isBranding ? 'Branding Services' : 'All Services'
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -103,7 +112,7 @@ export default function RequestQuote() {
         <div className="container">
           <span className="section-tag">Free Quote</span>
           <h1 className="section-title">Request a Free Quote</h1>
-          <p className="section-subtitle">Tell us about your project and we'll get back to you within 24 hours</p>
+          <p className="section-subtitle">Tell us about your {categoryLabel.toLowerCase()} project and we'll get back to you within 24 hours</p>
         </div>
       </section>
 
@@ -139,12 +148,13 @@ export default function RequestQuote() {
 
                 {/* Service */}
                 <div className="form-group form-group--full">
-                  <label htmlFor="service">Service Needed <span className="required">*</span></label>
+                  <label htmlFor="service">{categoryLabel} — Service Needed <span className="required">*</span></label>
                   <select id="service" name="service" required defaultValue="">
                     <option value="" disabled>Select a service</option>
-                    {SERVICE_OPTIONS.map((s) => (
+                    {serviceOptions.map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
+                    <option value="Other">Other</option>
                   </select>
                 </div>
 

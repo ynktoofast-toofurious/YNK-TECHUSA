@@ -59,15 +59,25 @@ export async function saveAccessRequest(request) {
 }
 
 export async function getDynamicCodes() {
+  const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000
+  let codes = []
   if (API_URL) {
     try {
       const res = await fetch(`${API_URL}/api/data/dynamic-codes`)
-      if (res.ok) return await res.json()
+      if (res.ok) codes = await res.json()
     } catch (e) { /* fall through to localStorage */ }
   }
-  try {
-    return JSON.parse(localStorage.getItem(DYNAMIC_CODES_KEY) || '[]')
-  } catch (e) {
-    return []
+  if (!codes.length) {
+    try {
+      codes = JSON.parse(localStorage.getItem(DYNAMIC_CODES_KEY) || '[]')
+    } catch (e) {
+      codes = []
+    }
   }
+  // Filter out expired codes (created > 7 days ago)
+  const now = Date.now()
+  return codes.filter(c => {
+    if (!c.created) return true // static codes without created date
+    return now - new Date(c.created).getTime() < SEVEN_DAYS
+  })
 }

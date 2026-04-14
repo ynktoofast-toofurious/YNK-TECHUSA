@@ -42,6 +42,12 @@
             body: JSON.stringify(data)
         }).then(function (r) { return r.json(); });
     }
+    function apiDelete(path) {
+        return fetch(API_URL + path, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function (r) { return r.json(); });
+    }
     function fetchFromApi() {
         if (!API_URL) return;
         Promise.all([
@@ -890,13 +896,38 @@
         }
     };
 
+    function isExpired(req) {
+        if (!req.approvedDate) return false;
+        var approved = new Date(req.approvedDate);
+        var expiry = req.expiresAt ? new Date(req.expiresAt) : new Date(approved.getTime() + 7 * 24 * 60 * 60 * 1000);
+        return new Date() > expiry;
+    }
+
+    function getEffectiveStatus(req) {
+        if (req.status === 'disabled' || req.status === 'archived' || req.status === 'expired') return req.status;
+        if (req.status === 'approved' && isExpired(req)) return 'expired';
+        return req.status || 'pending';
+    }
+
     function renderAccessRequests() {
         var el = document.getElementById('access-requests-list');
         if (!el) return;
 
+        // Auto-expire approved requests older than 7 days
+        var needsSave = false;
+        state.accessRequests.forEach(function (r) {
+            if (r.status === 'approved' && isExpired(r)) {
+                r.status = 'expired';
+                needsSave = true;
+            }
+        });
+        if (needsSave) {
+            safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
+        }
+
         var list = state.activeReqFilter === 'all'
             ? state.accessRequests
-            : state.accessRequests.filter(function (r) { return r.status === state.activeReqFilter; });
+            : state.accessRequests.filter(function (r) { return getEffectiveStatus(r) === state.activeReqFilter; });
 
         if (!list.length) {
             el.innerHTML = '<p style="padding:28px;color:var(--color-text-muted);font-size:13px;">No access requests found.</p>';
@@ -905,13 +936,20 @@
 
         var html = '';
         list.slice().reverse().forEach(function (r) {
-            var statusClass = 'req-status-' + (r.status || 'pending');
+            var effStatus = getEffectiveStatus(r);
+            var statusClass = 'req-status-' + effStatus;
             var dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+            var expiryStr = '';
+            if (r.approvedDate) {
+                var approved = new Date(r.approvedDate);
+                var expiry = r.expiresAt ? new Date(r.expiresAt) : new Date(approved.getTime() + 7 * 24 * 60 * 60 * 1000);
+                expiryStr = expiry.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
             html +=
                 '<div class="req-card ' + statusClass + '">' +
                     '<div class="req-card-header">' +
                         '<div class="req-card-name">' + escapeHtml(r.name) + '</div>' +
-                        '<span class="req-badge ' + statusClass + '">' + escapeHtml(r.status || 'pending') + '</span>' +
+                        '<span class="req-badge ' + statusClass + '">' + escapeHtml(effStatus) + '</span>' +
                     '</div>' +
                     '<div class="req-card-details">' +
                         '<div class="req-detail"><span class="req-label">Email:</span> ' + escapeHtml(r.email) + '</div>' +
@@ -919,6 +957,7 @@
                         '<div class="req-detail"><span class="req-label">Industry:</span> ' + escapeHtml(r.industry) + '</div>' +
                         '<div class="req-detail"><span class="req-label">Reason:</span> ' + escapeHtml(r.reason) + '</div>' +
                         '<div class="req-detail"><span class="req-label">Date:</span> ' + escapeHtml(dateStr) + '</div>' +
+                        (expiryStr ? '<div class="req-detail"><span class="req-label">Expires:</span> ' + escapeHtml(expiryStr) + '</div>' : '') +
                     '</div>' +
                     (r.status === 'pending' ?
                         '<div class="req-card-actions">' +
@@ -926,7 +965,24 @@
                             '<button class="req-deny-btn" onclick="denyRequest(\'' + escapeHtml(r.id) + '\')">DENY</button>' +
                         '</div>' : '') +
                     (r.status === 'approved' && r.approvedCode ?
-                        '<div class="req-approved-info">Code: <code>' + escapeHtml(r.approvedCode) + '</code></div>' : '') +
+                        '<div class="req-approved-info">Code: <code>' + escapeHtml(r.approvedCode) + '</code>' +
+                            '<div class="req-card-actions" style="margin-top:8px">' +
+                                '<button class="req-deny-btn" onclick="disableRequest(\'' + escapeHtml(r.id) + '\')" style="background:#c59000;border-color:#c59000">DISABLE</button>' +
+                                '<button class="req-deny-btn" onclick="archiveRequest(\'' + escapeHtml(r.id) + '\')" style="background:#666;border-color:#666">ARCHIVE</button>' +
+                            '</div>' +
+                        '</div>' : '') +
+                    (effStatus === 'expired' ?
+                        '<div class="req-approved-info" style="color:#f59e0b">\u26a0 Expired (7-day access period ended)' +
+                            '<div class="req-card-actions" style="margin-top:8px">' +
+                                '<button class="req-deny-btn" onclick="archiveRequest(\'' + escapeHtml(r.id) + '\')" style="background:#666;border-color:#666">ARCHIVE</button>' +
+                            '</div>' +
+                        '</div>' : '') +
+                    (effStatus === 'disabled' ?
+                        '<div class="req-approved-info" style="color:#f59e0b">\u26d4 Manually disabled' +
+                            '<div class="req-card-actions" style="margin-top:8px">' +
+                                '<button class="req-deny-btn" onclick="archiveRequest(\'' + escapeHtml(r.id) + '\')" style="background:#666;border-color:#666">ARCHIVE</button>' +
+                            '</div>' +
+                        '</div>' : '') +
                 '</div>';
         });
 
@@ -1031,6 +1087,7 @@
             req.approvedCode = generatedCode;
             req.approvedDate = new Date().toISOString();
             req.approvedIndustry = industry;
+            req.expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
             safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
 
             // Sync to cloud API
@@ -1042,7 +1099,8 @@
                 }).catch(function (e) { console.error('API sync (code):', e); });
                 apiPatch('/api/access-requests/' + pendingApprovalId, {
                     status: 'approved', approvedCode: generatedCode,
-                    approvedDate: req.approvedDate, approvedIndustry: industry
+                    approvedDate: req.approvedDate, approvedIndustry: industry,
+                    expiresAt: req.expiresAt
                 }).catch(function (e) { console.error('API sync (request):', e); });
             }
 
@@ -1055,6 +1113,9 @@
                         '<p>Your request to access the <strong>Consultants Portal</strong> has been approved. Use the code below to access your industry-specific resources:</p>' +
                         '<div style="background-color:#0b1120;color:#29B5E8;font-family:Courier New,monospace;font-size:22px;font-weight:700;letter-spacing:3px;text-align:center;padding:18px;border-radius:4px;margin:24px 0">' + escapeHtml(generatedCode) + '</div>' +
                         '<p><a href="https://ynk-techusa.com/consultants" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Open Consultants Portal</a></p>' +
+                        '<div style="background-color:#1a1a2e;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:4px;margin:20px 0;color:#f59e0b;font-size:13px">' +
+                            '<strong>\u26a0 Important:</strong> This access code is valid for <strong>7 days</strong> from the date of approval. After 7 days, the code will automatically expire and access will be revoked.' +
+                        '</div>' +
                         '<p>If you did not request this access code, please ignore this email.</p>',
                     footer_note:  'You received this email because you requested access to the YNK-Tech USA Consultants Portal'
                 }).then(function () {
@@ -1101,6 +1162,68 @@
 
         renderAll();
         showToast('Request denied.');
+    };
+
+    window.disableRequest = function (reqId) {
+        if (!confirm('Disable this access code? The consultant will no longer be able to use it.')) return;
+        var req = state.accessRequests.find(function (r) { return r.id === reqId; });
+        if (!req) return;
+
+        // Remove the dynamic code by finding its hash
+        if (req.approvedCode) {
+            sha256Hex(req.approvedCode).then(function (hash) {
+                state.dynamicCodes = state.dynamicCodes.filter(function (c) { return c.hash !== hash; });
+                safeSave(STORAGE_DYNAMIC_CODES, state.dynamicCodes);
+                if (API_URL) {
+                    apiDelete('/api/dynamic-codes/' + encodeURIComponent(hash))
+                        .catch(function (e) { console.error('API sync (delete code):', e); });
+                }
+            });
+        }
+
+        req.status = 'disabled';
+        req.disabledDate = new Date().toISOString();
+        safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
+
+        if (API_URL) {
+            apiPatch('/api/access-requests/' + reqId, {
+                status: 'disabled', disabledDate: req.disabledDate
+            }).catch(function (e) { console.error('API sync (disable):', e); });
+        }
+
+        renderAll();
+        showToast('Access code disabled.');
+    };
+
+    window.archiveRequest = function (reqId) {
+        if (!confirm('Archive this request? It will be moved to the Archived filter.')) return;
+        var req = state.accessRequests.find(function (r) { return r.id === reqId; });
+        if (!req) return;
+
+        // Remove dynamic code if still active
+        if (req.approvedCode && (req.status === 'approved' || req.status === 'expired')) {
+            sha256Hex(req.approvedCode).then(function (hash) {
+                state.dynamicCodes = state.dynamicCodes.filter(function (c) { return c.hash !== hash; });
+                safeSave(STORAGE_DYNAMIC_CODES, state.dynamicCodes);
+                if (API_URL) {
+                    apiDelete('/api/dynamic-codes/' + encodeURIComponent(hash))
+                        .catch(function (e) { console.error('API sync (delete code):', e); });
+                }
+            });
+        }
+
+        req.status = 'archived';
+        req.archivedDate = new Date().toISOString();
+        safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
+
+        if (API_URL) {
+            apiPatch('/api/access-requests/' + reqId, {
+                status: 'archived', archivedDate: req.archivedDate
+            }).catch(function (e) { console.error('API sync (archive):', e); });
+        }
+
+        renderAll();
+        showToast('Request archived.');
     };
 
     /* ══════════════════════════════════════════════════

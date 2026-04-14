@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [quoteDropdown, setQuoteDropdown] = useState(false)
+  const quoteRef = useRef(null)
   const location = useLocation()
 
   useEffect(() => {
@@ -15,6 +17,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false)
+    setQuoteDropdown(false)
   }, [location])
 
   // Lock body scroll when mobile menu is open
@@ -22,6 +25,17 @@ export default function Navbar() {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
+
+  // Close quote dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (quoteRef.current && !quoteRef.current.contains(e.target)) {
+        setQuoteDropdown(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleAnchor = (e, id) => {
     if (location.pathname === '/') {
@@ -51,7 +65,36 @@ export default function Navbar() {
             )}
           </li>
           <li><Link to="/consultants" className="nav-link">Consultants Portal</Link></li>
-          <li><Link to="/request-quote" className="nav-link">Request Free Quote</Link></li>
+          <li className="nav-dropdown" ref={quoteRef}>
+            <button
+              className="nav-link nav-dropdown-toggle"
+              onClick={() => setQuoteDropdown(!quoteDropdown)}
+              type="button"
+            >
+              Request Free Quote
+              <svg className={`nav-dropdown-arrow${quoteDropdown ? ' open' : ''}`} width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M2 4l3 3 3-3" />
+              </svg>
+            </button>
+            {quoteDropdown && (
+              <div className="nav-dropdown-menu">
+                <Link to="/request-quote?category=it" className="nav-dropdown-item" onClick={() => setQuoteDropdown(false)}>
+                  <span className="nav-dropdown-icon">💻</span>
+                  <div>
+                    <strong>IT Services</strong>
+                    <small>Web, AI, Cloud, Data & BI</small>
+                  </div>
+                </Link>
+                <Link to="/request-quote?category=branding" className="nav-dropdown-item" onClick={() => setQuoteDropdown(false)}>
+                  <span className="nav-dropdown-icon">🎨</span>
+                  <div>
+                    <strong>Branding Services</strong>
+                    <small>Design, Events, Lighting, Printing</small>
+                  </div>
+                </Link>
+              </div>
+            )}
+          </li>
           <li>
             {location.pathname === '/' ? (
               <a href="#contact" className="nav-link" onClick={(e) => handleAnchor(e, 'contact')}>Contact</a>

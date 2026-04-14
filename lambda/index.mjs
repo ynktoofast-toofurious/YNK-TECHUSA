@@ -11,7 +11,7 @@ const COLLECTIONS = {
 
 const CORS = {
   'Access-Control-Allow-Origin':  '*',
-  'Access-Control-Allow-Methods': 'GET,POST,PATCH,OPTIONS',
+  'Access-Control-Allow-Methods': 'GET,POST,PATCH,DELETE,OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
@@ -95,11 +95,21 @@ export async function handler(event) {
       const req = requests.find(r => r.id === id);
       if (!req) return respond(404, { error: 'Request not found' });
       // Only allow specific fields to be updated
-      const allowed = ['status', 'approvedCode', 'approvedDate', 'approvedIndustry', 'deniedDate'];
+      const allowed = ['status', 'approvedCode', 'approvedDate', 'approvedIndustry', 'deniedDate', 'disabledDate', 'archivedDate', 'expiresAt'];
       for (const key of allowed) {
         if (updates[key] !== undefined) req[key] = updates[key];
       }
       await writeS3(COLLECTIONS['access-requests'], requests);
+      return respond(200, { ok: true });
+    }
+
+    // ── DELETE /api/dynamic-codes/{hash} ─────────────
+    if (method === 'DELETE' && path.startsWith('/api/dynamic-codes/')) {
+      const hash = decodeURIComponent(path.replace('/api/dynamic-codes/', ''));
+      if (!hash) return respond(400, { error: 'Missing hash' });
+      const codes = await readS3(COLLECTIONS['dynamic-codes']);
+      const filtered = codes.filter(c => c.hash !== hash);
+      await writeS3(COLLECTIONS['dynamic-codes'], filtered);
       return respond(200, { ok: true });
     }
 

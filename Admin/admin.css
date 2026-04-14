@@ -755,6 +755,9 @@ textarea.content-field-input {
 .req-badge.req-status-pending  { background: rgba(245,158,11,0.15); color: #f59e0b; }
 .req-badge.req-status-approved { background: rgba(34,197,94,0.15);  color: #22c55e; }
 .req-badge.req-status-denied   { background: rgba(239,68,68,0.15);  color: #ef4444; }
+.req-badge.req-status-disabled { background: rgba(197,144,0,0.15);  color: #c59000; }
+.req-badge.req-status-archived { background: rgba(102,102,102,0.15); color: #888; }
+.req-badge.req-status-expired  { background: rgba(245,158,11,0.15); color: #f59e0b; }
 
 .req-card-details {
     display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px;
