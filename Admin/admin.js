@@ -979,11 +979,12 @@
             // Try to send approval email via EmailJS
             if (window.emailjs && cfg.serviceId && cfg.approvalTemplateId) {
                 window.emailjs.send(cfg.serviceId, cfg.approvalTemplateId, {
-                    to_email:   req.email,
-                    from_name:  'YNK-Tech USA',
-                    from_email: 'yannicknkongolo7@gmail.com',
-                    message:    'Hello ' + req.name + ',\n\nYour access request has been approved!\n\nYour Consultant Portal Access Code: ' + generatedCode + '\n\nIndustry: ' + industry + '\n\nUse your code at: https://ynk-techusa.com/consultants\n\nBest regards,\nYNK-Tech USA',
-                    service:    'Consultants Portal — Approved'
+                    to_email:    req.email,
+                    from_name:   req.name,
+                    from_email:  'yannicknkongolo7@gmail.com',
+                    access_code: generatedCode,
+                    message:     'Your access request has been approved!\n\nIndustry: ' + industry + '\n\nUse your code at: https://ynk-techusa.com/consultants',
+                    service:     'Consultants Portal — Approved'
                 }).then(function () {
                     sucEl.textContent = 'Approved! Email sent to ' + req.email;
                     setTimeout(function () {
