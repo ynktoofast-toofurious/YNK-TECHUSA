@@ -643,6 +643,93 @@ img {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Resume Viewer Bar */
+.resume-viewer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+}
+
+.industry-badge-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.resume-viewer-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px !important;
+    font-size: 12px !important;
+}
+
+/* Resume PDF Frame */
+.resume-pdf-wrapper {
+    position: relative;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    min-height: 70vh;
+}
+
+.resume-pdf-frame {
+    width: 100%;
+    height: 80vh;
+    border: none;
+    transition: opacity 0.3s ease;
+}
+
+.pdf-loading-indicator {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--color-bg-card);
+    z-index: 5;
+}
+
+.pdf-loading-indicator p {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.pdf-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: pdfSpin 0.8s linear infinite;
+}
+
+@keyframes pdfSpin {
+    to { transform: rotate(360deg); }
+}
+
 .portfolio-block {
     margin-bottom: 64px;
 }
@@ -1148,6 +1235,16 @@ img {
 
     .gate-card {
         padding: 36px 24px;
+    }
+
+    .resume-viewer-bar {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .resume-pdf-frame {
+        height: 60vh;
     }
 }
 

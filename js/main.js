@@ -46,28 +46,66 @@
     // --- Thumbnail Click → Scroll to Detail Section ---
     // Thumbnails are now <a> links to separate pages — no JS needed
 
-    // --- Portfolio Access Gate ---
+    // --- Portfolio Access Gate (SHA-256 hashed, per-industry resume PDFs) ---
     var accessBtn = document.getElementById('accessBtn');
     var accessCode = document.getElementById('accessCode');
     var gateError = document.getElementById('gateError');
     var portfolioGate = document.getElementById('portfolioGate');
     var portfolioContent = document.getElementById('portfolioContent');
 
-    // Access code (simple client-side gate — not security-critical)
-    var VALID_CODE = 'YNK2026';
+    // Industry resume map: hash → { industry, file, icon }
+    var RESUME_MAP = [
+        { hash: '855ce6489207eff8d2c830bb74012fe5beece4980aa5ddffe8e4e1e55a0c3e4d', industry: 'Healthcare', file: 'Admin/resumes/healthcare.pdf', icon: '🏥' },
+        { hash: 'f125a06e61497cd5ccbadd5e3c1418a270af4c42f62c7f88783a157e77981427', industry: 'Finance', file: 'Admin/resumes/finance.pdf', icon: '💰' },
+        { hash: 'e57fcf9130a8154f4dddb103cdb9abb4db0aac94f81f879c209f6c530339bc34', industry: 'Education', file: 'Admin/resumes/education.pdf', icon: '🎓' },
+        { hash: '71ad716e562ce56963afd1db2d3934d68205a2dde6624fada37b18cde3cd6e1b', industry: 'Technology', file: 'Admin/resumes/technology.pdf', icon: '💻' },
+        { hash: '0abcfb49a64bea10e061da7ab94c7f4294f1e7e100083d40d9b2de9b313414d8', industry: 'Government', file: 'Admin/resumes/government.pdf', icon: '🏛️' },
+        { hash: 'bcbc9804c46b36ee3a6f8801821a4256eca3175f0a913f12f506ecc1edc07d07', industry: 'Retail', file: 'Admin/resumes/retail.pdf', icon: '🛍️' }
+    ];
+
+    async function sha256(text) {
+        var enc = new TextEncoder().encode(text);
+        var buf = await crypto.subtle.digest('SHA-256', enc);
+        return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    }
+
+    var currentResumeFile = null;
 
     if (accessBtn) {
-        accessBtn.addEventListener('click', function () {
+        accessBtn.addEventListener('click', async function () {
             var code = accessCode.value.trim();
             if (!code) {
                 gateError.textContent = 'Please enter an access code.';
                 return;
             }
-            if (code.toUpperCase() === VALID_CODE) {
+            var hash = await sha256(code);
+            var match = RESUME_MAP.find(function (r) { return r.hash === hash; });
+
+            if (match) {
+                currentResumeFile = match.file;
                 portfolioGate.style.display = 'none';
                 portfolioContent.style.display = 'block';
-                // Save access in session so refresh keeps it open
-                try { sessionStorage.setItem('ynk_portfolio_access', '1'); } catch (e) {}
+
+                // Show industry badge
+                var badge = document.getElementById('industryBadge');
+                if (badge) badge.innerHTML = match.icon + ' ' + match.industry + ' Resume';
+
+                // Load PDF
+                var frame = document.getElementById('resumePdfFrame');
+                var loading = document.getElementById('pdfLoading');
+                if (frame) {
+                    frame.style.opacity = '0';
+                    if (loading) loading.style.display = 'flex';
+                    frame.onload = function () {
+                        if (loading) loading.style.display = 'none';
+                        frame.style.opacity = '1';
+                    };
+                    frame.src = match.file;
+                }
+
+                // Hide back-to-home while viewing
+                var backLink = document.getElementById('backHomeLink');
+                if (backLink) backLink.style.display = 'none';
             } else {
                 gateError.textContent = 'Invalid code. Request one via the link below.';
                 accessCode.value = '';
@@ -81,36 +119,37 @@
                 accessBtn.click();
             }
         });
-
-        // Restore session access
-        try {
-            if (sessionStorage.getItem('ynk_portfolio_access') === '1') {
-                portfolioGate.style.display = 'none';
-                portfolioContent.style.display = 'block';
-            }
-        } catch (e) {}
     }
 
-    // --- Industry Tab Switching ---
-    var tabBtns = document.querySelectorAll('.tab-btn');
-    var tabPanels = document.querySelectorAll('.tab-panel');
-
-    tabBtns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            var tabId = btn.getAttribute('data-tab');
-
-            // Update active button
-            tabBtns.forEach(function (b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-
-            // Update active panel
-            tabPanels.forEach(function (panel) { panel.classList.remove('active'); });
-            var target = document.getElementById('tab-' + tabId);
-            if (target) {
-                target.classList.add('active');
-            }
+    // Download button
+    var downloadBtn = document.getElementById('downloadResumeBtn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function () {
+            if (!currentResumeFile) return;
+            var a = document.createElement('a');
+            a.href = currentResumeFile;
+            a.download = '';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         });
-    });
+    }
+
+    // Exit button
+    var exitBtn = document.getElementById('exitResumeBtn');
+    if (exitBtn) {
+        exitBtn.addEventListener('click', function () {
+            currentResumeFile = null;
+            var frame = document.getElementById('resumePdfFrame');
+            if (frame) frame.src = '';
+            portfolioContent.style.display = 'none';
+            portfolioGate.style.display = '';
+            accessCode.value = '';
+            gateError.textContent = '';
+            var backLink = document.getElementById('backHomeLink');
+            if (backLink) backLink.style.display = '';
+        });
+    }
 
     // --- Scroll Reveal (Intersection Observer) ---
     function initScrollReveal() {
