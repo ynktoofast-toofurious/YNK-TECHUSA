@@ -44,18 +44,7 @@
     }
 
     // --- Thumbnail Click → Scroll to Detail Section ---
-    var thumbCards = document.querySelectorAll('.thumb-card');
-    thumbCards.forEach(function (card) {
-        card.addEventListener('click', function () {
-            var sectionId = card.getAttribute('data-section');
-            var target = document.getElementById(sectionId);
-            if (target) {
-                var offset = navbar.offsetHeight + 20;
-                var pos = target.getBoundingClientRect().top + window.scrollY - offset;
-                window.scrollTo({ top: pos, behavior: 'smooth' });
-            }
-        });
-    });
+    // Thumbnails are now <a> links to separate pages — no JS needed
 
     // --- Portfolio Access Gate ---
     var accessBtn = document.getElementById('accessBtn');
