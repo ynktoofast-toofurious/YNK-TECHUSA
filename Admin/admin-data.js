@@ -20,8 +20,28 @@ window.ADMIN_CONFIG = {
         home:        'https://ynk-techusa.com/',
         itServices:  'https://ynk-techusa.com/it-services',
         branding:    'https://ynk-techusa.com/branding',
-        portfolio:   'https://ynk-techusa.com/portfolio'
+        consultants: 'https://ynk-techusa.com/consultants'
     },
+
+    /* EmailJS config for sending approval emails.
+       NOTE: To send approval emails to requestors, create a second EmailJS template
+       with {{to_email}} in the "To Email" field. Update approvalTemplateId below. */
+    emailjs: {
+        serviceId: 'service_sw3zais',
+        notifyTemplateId: 'template_8yj65yj',
+        approvalTemplateId: 'template_8yj65yj',
+        publicKey: 'zG_jERVPbUUfiZ6IL'
+    },
+
+    /* Industries for consultant access codes */
+    industries: [
+        { name: 'Healthcare', file: 'Admin/resumes/healthcare.pdf', icon: '🏥' },
+        { name: 'Finance',    file: 'Admin/resumes/finance.pdf',    icon: '💰' },
+        { name: 'Education',  file: 'Admin/resumes/education.pdf',  icon: '🎓' },
+        { name: 'Technology', file: 'Admin/resumes/technology.pdf',  icon: '💻' },
+        { name: 'Government', file: 'Admin/resumes/government.pdf', icon: '🏛️' },
+        { name: 'Retail',     file: 'Admin/resumes/retail.pdf',     icon: '🛍️' }
+    ],
 
     /* Seed data for website tasks */
     websiteTasks: [
@@ -102,10 +122,10 @@ window.ADMIN_CONFIG = {
             { key: 'brand_service_1_desc', label: 'Service 1 — Desc', type: 'textarea', hint: 'Description' },
             { key: 'brand_cta',        label: 'CTA Button Text',     type: 'text',     hint: 'Call-to-action button label' }
         ],
-        portfolio: [
-            { key: 'port_headline',    label: 'Page Headline',       type: 'text',     hint: 'Main heading on Portfolio page' },
-            { key: 'port_intro',       label: 'Intro Paragraph',     type: 'textarea', hint: 'Opening description' },
-            { key: 'port_access_code', label: 'Access Code',         type: 'text',     hint: 'Code visitors enter to view portfolio' }
+        consultants: [
+            { key: 'cons_headline',    label: 'Page Headline',       type: 'text',     hint: 'Main heading on Consultants Portal page' },
+            { key: 'cons_intro',       label: 'Intro Paragraph',     type: 'textarea', hint: 'Opening description' },
+            { key: 'cons_gate_text',   label: 'Gate Text',           type: 'textarea', hint: 'Instructions shown at the access gate' }
         ]
     }
 };

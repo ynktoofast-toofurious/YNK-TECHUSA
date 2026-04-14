@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | YNK-Tech USA</title>
     <meta name="robots" content="noindex, nofollow">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'self' https://ynk-techusa.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'self' https://ynk-techusa.com; connect-src 'self' https://api.emailjs.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     <link rel="stylesheet" href="admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -204,6 +204,20 @@
                 <div id="crm-table"><!-- Populated by JS --></div>
             </section>
 
+            <!-- ── Access Requests ── -->
+            <section class="admin-panel" id="panel-access-requests">
+                <div class="panel-header">
+                    <h2 class="panel-title">Access Requests</h2>
+                    <div class="request-filter-row">
+                        <button class="filter-btn active" data-filter="all" onclick="filterRequests('all', this)">All</button>
+                        <button class="filter-btn" data-filter="pending" onclick="filterRequests('pending', this)">Pending</button>
+                        <button class="filter-btn" data-filter="approved" onclick="filterRequests('approved', this)">Approved</button>
+                        <button class="filter-btn" data-filter="denied" onclick="filterRequests('denied', this)">Denied</button>
+                    </div>
+                </div>
+                <div id="access-requests-list"><!-- Populated by JS --></div>
+            </section>
+
             <!-- ── Website Tasks ── -->
             <section class="admin-panel" id="panel-tasks">
                 <div class="panel-header">
@@ -222,6 +236,7 @@
                 <div class="tools-tabs">
                     <button class="tool-tab active" onclick="switchTool('content', this)">CONTENT EDITOR</button>
                     <button class="tool-tab" onclick="switchTool('pages', this)">PAGE MANAGER</button>
+                    <button class="tool-tab" onclick="switchTool('stats', this)">SITE STATS</button>
                 </div>
             </div>
 
@@ -233,7 +248,7 @@
                         <button class="ctab active" onclick="switchContentTab('home', this)">HOME</button>
                         <button class="ctab" onclick="switchContentTab('itServices', this)">IT SERVICES</button>
                         <button class="ctab" onclick="switchContentTab('branding', this)">BRANDING</button>
-                        <button class="ctab" onclick="switchContentTab('portfolio', this)">PORTFOLIO</button>
+                        <button class="ctab" onclick="switchContentTab('consultants', this)">CONSULTANTS</button>
                     </div>
                     <button id="preview-toggle-btn" class="preview-toggle-btn" onclick="toggleContentPreview()">&#9633; PREVIEW LIVE</button>
                 </div>
@@ -246,6 +261,14 @@
                     <button class="panel-btn content-undo-btn" onclick="undoContentDraft()">&#8630; UNDO</button>
                     <button class="panel-btn content-view-btn" onclick="viewContentChanges()">VIEW ALL CHANGES</button>
                 </div>
+            </div>
+
+            <!-- Site Stats -->
+            <div id="tool-stats" class="tool-panel hidden">
+                <p class="tool-desc">Website traffic and access request analytics.</p>
+                <div id="stats-overview" class="stats-overview-grid"><!-- Populated by JS --></div>
+                <div id="stats-daily" class="stats-daily-section"><!-- Populated by JS --></div>
+                <div id="stats-pages" class="stats-pages-section"><!-- Populated by JS --></div>
             </div>
 
             <!-- Page Manager -->
@@ -379,10 +402,39 @@
         </div>
     </div>
 
+    <!-- ════════════════════════════════════════════
+         APPROVE ACCESS REQUEST MODAL
+         ════════════════════════════════════════════ -->
+    <div id="modal-approve" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3 class="modal-title">Approve Access Request</h3>
+            <div id="approve-request-details"></div>
+            <div class="form-row">
+                <label class="form-label">INDUSTRY</label>
+                <select id="approve-industry" class="form-input"></select>
+            </div>
+            <div class="form-row">
+                <label class="form-label">GENERATED ACCESS CODE</label>
+                <div class="generated-code-display">
+                    <code id="approve-code"></code>
+                    <button class="copy-btn" onclick="copyApprovalCode()">COPY</button>
+                    <button class="copy-btn" onclick="regenerateCode()" style="margin-left:4px">REGENERATE</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="modal-cancel" onclick="closeModal('modal-approve')">CANCEL</button>
+                <button type="button" class="modal-save" onclick="confirmApproval()">APPROVE &amp; SEND CODE</button>
+            </div>
+            <p id="approve-error" class="gate-error" style="margin-top:8px"></p>
+            <p id="approve-success" class="gate-error" style="color:var(--color-accent);margin-top:4px"></p>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div id="admin-toast" class="admin-toast" aria-live="polite"></div>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="admin-data.js"></script>
     <script src="admin.js"></script>
 </body>

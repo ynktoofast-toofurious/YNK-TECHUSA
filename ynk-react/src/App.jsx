@@ -1,4 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { trackPageView } from './utils/tracking'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -9,7 +11,22 @@ import ConsultantsPortal from './pages/ConsultantsPortal'
 import RequestQuote from './pages/RequestQuote'
 import NotFound from './pages/NotFound'
 
+const PAGE_MAP = {
+  '/': 'home',
+  '/it-services': 'it-services',
+  '/branding': 'branding',
+  '/consultants': 'consultants',
+  '/request-quote': 'request-quote',
+}
+
 function App() {
+  const location = useLocation()
+
+  useEffect(() => {
+    const page = PAGE_MAP[location.pathname] || 'other'
+    trackPageView(page)
+  }, [location.pathname])
+
   return (
     <>
       <ScrollToTop />

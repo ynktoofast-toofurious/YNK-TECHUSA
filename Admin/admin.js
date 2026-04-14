@@ -17,6 +17,9 @@
     var STORAGE_TASKS   = 'ynk_admin_tasks';
     var STORAGE_CONTENT = 'ynk_content_drafts';
     var STORAGE_CONTENT_HISTORY = 'ynk_content_drafts_history';
+    var STORAGE_ACCESS_REQS    = 'ynk_access_requests';
+    var STORAGE_DYNAMIC_CODES  = 'ynk_dynamic_codes';
+    var STORAGE_SITE_STATS     = 'ynk_site_stats';
 
     var gate    = document.getElementById('access-gate');
     var content = document.getElementById('admin-content');
@@ -24,9 +27,13 @@
 
     /* ── State ─────────────────────────────────────────── */
     var state = {
-        prospects:    [],
-        tasks:        [],
-        activeFilter: 'all'
+        prospects:       [],
+        tasks:           [],
+        accessRequests:  [],
+        dynamicCodes:    [],
+        siteStats:       {},
+        activeFilter:    'all',
+        activeReqFilter: 'all'
     };
     var contentDrafts        = {};
     var activeContentPage    = 'home';
@@ -398,6 +405,11 @@
     function showDashboard() {
         gate.style.display = 'none';
         content.classList.remove('hidden');
+        // Init EmailJS for approval emails
+        var ejsCfg = (window.ADMIN_CONFIG || {}).emailjs || {};
+        if (ejsCfg.publicKey && window.emailjs) {
+            window.emailjs.init(ejsCfg.publicKey);
+        }
         loadState();
         renderAll();
     }
@@ -446,6 +458,9 @@
         var storedT = safeJSON(localStorage.getItem(STORAGE_TASKS));
         state.tasks = Array.isArray(storedT) && storedT.length ? storedT : (cfg.websiteTasks || []).slice();
         contentDrafts = safeJSON(localStorage.getItem(STORAGE_CONTENT)) || {};
+        state.accessRequests = safeJSON(localStorage.getItem(STORAGE_ACCESS_REQS)) || [];
+        state.dynamicCodes   = safeJSON(localStorage.getItem(STORAGE_DYNAMIC_CODES)) || [];
+        state.siteStats      = safeJSON(localStorage.getItem(STORAGE_SITE_STATS)) || {};
     }
 
     function saveProspectsToStorage() { safeSave(STORAGE_PROS, state.prospects); }
@@ -456,8 +471,10 @@
         renderStats();
         renderProspects();
         renderTasks();
+        renderAccessRequests();
         renderContentEditor();
         renderPageManager();
+        renderSiteStats();
     }
 
     /* ══════════════════════════════════════════════════
@@ -472,14 +489,16 @@
         var newLeads   = state.prospects.filter(function (p) { return p.status === 'New Lead'; }).length;
         var signed     = state.prospects.filter(function (p) { return p.status === 'Signed'; }).length;
         var pendTasks  = state.tasks.filter(function (t) { return t.status !== 'Done'; }).length;
-        var pages      = Object.keys((window.ADMIN_CONFIG || {}).pages || {}).length;
+        var pendReqs   = state.accessRequests.filter(function (r) { return r.status === 'pending'; }).length;
+        var totalViews = (state.siteStats.totalViews || 0);
 
         row.innerHTML =
             '<div class="stat-card"><div class="stat-number">' + totalLeads + '</div><div class="stat-label">TOTAL LEADS</div></div>' +
             '<div class="stat-card"><div class="stat-number">' + newLeads + '</div><div class="stat-label">NEW LEADS</div></div>' +
             '<div class="stat-card"><div class="stat-number">' + signed + '</div><div class="stat-label">SIGNED</div></div>' +
             '<div class="stat-card"><div class="stat-number">' + pendTasks + '</div><div class="stat-label">PENDING TASKS</div></div>' +
-            '<div class="stat-card"><div class="stat-number">' + pages + '</div><div class="stat-label">MANAGED PAGES</div></div>';
+            '<div class="stat-card"><div class="stat-number">' + pendReqs + '</div><div class="stat-label">PENDING ACCESS</div></div>' +
+            '<div class="stat-card"><div class="stat-number">' + totalViews + '</div><div class="stat-label">PAGE VIEWS</div></div>';
     }
 
     /* ══════════════════════════════════════════════════
@@ -804,6 +823,273 @@
     };
 
     /* ══════════════════════════════════════════════════
+       ACCESS REQUESTS Management
+    ══════════════════════════════════════════════════ */
+
+    window.filterRequests = function (filter, btn) {
+        state.activeReqFilter = filter;
+        document.querySelectorAll('#panel-access-requests .filter-btn').forEach(function (b) { b.classList.remove('active'); });
+        if (btn) btn.classList.add('active');
+        renderAccessRequests();
+    };
+
+    function renderAccessRequests() {
+        var el = document.getElementById('access-requests-list');
+        if (!el) return;
+
+        var list = state.activeReqFilter === 'all'
+            ? state.accessRequests
+            : state.accessRequests.filter(function (r) { return r.status === state.activeReqFilter; });
+
+        if (!list.length) {
+            el.innerHTML = '<p style="padding:28px;color:var(--color-text-muted);font-size:13px;">No access requests found.</p>';
+            return;
+        }
+
+        var html = '';
+        list.slice().reverse().forEach(function (r) {
+            var statusClass = 'req-status-' + (r.status || 'pending');
+            var dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+            html +=
+                '<div class="req-card ' + statusClass + '">' +
+                    '<div class="req-card-header">' +
+                        '<div class="req-card-name">' + escapeHtml(r.name) + '</div>' +
+                        '<span class="req-badge ' + statusClass + '">' + escapeHtml(r.status || 'pending') + '</span>' +
+                    '</div>' +
+                    '<div class="req-card-details">' +
+                        '<div class="req-detail"><span class="req-label">Email:</span> ' + escapeHtml(r.email) + '</div>' +
+                        '<div class="req-detail"><span class="req-label">Company:</span> ' + escapeHtml(r.company || 'N/A') + '</div>' +
+                        '<div class="req-detail"><span class="req-label">Industry:</span> ' + escapeHtml(r.industry) + '</div>' +
+                        '<div class="req-detail"><span class="req-label">Reason:</span> ' + escapeHtml(r.reason) + '</div>' +
+                        '<div class="req-detail"><span class="req-label">Date:</span> ' + escapeHtml(dateStr) + '</div>' +
+                    '</div>' +
+                    (r.status === 'pending' ?
+                        '<div class="req-card-actions">' +
+                            '<button class="req-approve-btn" onclick="openApproval(\'' + escapeHtml(r.id) + '\')">APPROVE</button>' +
+                            '<button class="req-deny-btn" onclick="denyRequest(\'' + escapeHtml(r.id) + '\')">DENY</button>' +
+                        '</div>' : '') +
+                    (r.status === 'approved' && r.approvedCode ?
+                        '<div class="req-approved-info">Code: <code>' + escapeHtml(r.approvedCode) + '</code></div>' : '') +
+                '</div>';
+        });
+
+        el.innerHTML = html;
+    }
+
+    /* ── Approval Flow ─────────────────────────────── */
+
+    var pendingApprovalId = null;
+    var generatedCode     = '';
+
+    function generateAccessCode() {
+        var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        var code = 'YNK-';
+        for (var i = 0; i < 4; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+        code += '-';
+        for (var j = 0; j < 4; j++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+        return code;
+    }
+
+    window.openApproval = function (reqId) {
+        var req = state.accessRequests.find(function (r) { return r.id === reqId; });
+        if (!req) return;
+
+        pendingApprovalId = reqId;
+        generatedCode = generateAccessCode();
+
+        // Populate modal
+        var details = document.getElementById('approve-request-details');
+        if (details) {
+            details.innerHTML =
+                '<div class="req-detail" style="margin-bottom:12px">' +
+                    '<strong>' + escapeHtml(req.name) + '</strong> (' + escapeHtml(req.email) + ')' +
+                    '<br><span style="color:var(--color-text-muted)">' + escapeHtml(req.company || 'N/A') + ' — ' + escapeHtml(req.industry) + '</span>' +
+                '</div>';
+        }
+
+        // Populate industry dropdown
+        var sel = document.getElementById('approve-industry');
+        if (sel) {
+            var industries = (window.ADMIN_CONFIG || {}).industries || [];
+            sel.innerHTML = '';
+            industries.forEach(function (ind) {
+                var opt = document.createElement('option');
+                opt.value = ind.name;
+                opt.textContent = ind.icon + ' ' + ind.name;
+                if (ind.name === req.industry) opt.selected = true;
+                sel.appendChild(opt);
+            });
+        }
+
+        document.getElementById('approve-code').textContent = generatedCode;
+        clearErr('approve-error');
+        document.getElementById('approve-success').textContent = '';
+        document.getElementById('modal-approve').classList.remove('hidden');
+    };
+
+    window.regenerateCode = function () {
+        generatedCode = generateAccessCode();
+        document.getElementById('approve-code').textContent = generatedCode;
+    };
+
+    window.copyApprovalCode = function () {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(generatedCode).then(function () {
+                showToast('Code copied to clipboard.');
+            });
+        }
+    };
+
+    window.confirmApproval = function () {
+        if (!pendingApprovalId || !generatedCode) return;
+
+        var req = state.accessRequests.find(function (r) { return r.id === pendingApprovalId; });
+        if (!req) return;
+
+        var industry = document.getElementById('approve-industry').value;
+        var cfg      = (window.ADMIN_CONFIG || {}).emailjs || {};
+        var indInfo  = ((window.ADMIN_CONFIG || {}).industries || []).find(function (i) { return i.name === industry; });
+
+        var errEl = document.getElementById('approve-error');
+        var sucEl = document.getElementById('approve-success');
+        errEl.textContent = '';
+        sucEl.textContent = '';
+
+        // Hash the code and store it for portal validation
+        sha256Hex(generatedCode).then(function (hash) {
+            // Save dynamic code to localStorage
+            state.dynamicCodes.push({
+                hash:     hash,
+                industry: industry,
+                file:     indInfo ? indInfo.file : '',
+                icon:     indInfo ? indInfo.icon : '',
+                name:     req.name,
+                email:    req.email,
+                created:  new Date().toISOString()
+            });
+            safeSave(STORAGE_DYNAMIC_CODES, state.dynamicCodes);
+
+            // Mark request as approved
+            req.status       = 'approved';
+            req.approvedCode = generatedCode;
+            req.approvedDate = new Date().toISOString();
+            req.approvedIndustry = industry;
+            safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
+
+            // Try to send approval email via EmailJS
+            if (window.emailjs && cfg.serviceId && cfg.approvalTemplateId) {
+                window.emailjs.send(cfg.serviceId, cfg.approvalTemplateId, {
+                    to_email:   req.email,
+                    from_name:  'YNK-Tech USA',
+                    from_email: 'yannicknkongolo7@gmail.com',
+                    message:    'Hello ' + req.name + ',\n\nYour access request has been approved!\n\nYour Consultant Portal Access Code: ' + generatedCode + '\n\nIndustry: ' + industry + '\n\nUse your code at: https://ynk-techusa.com/consultants\n\nBest regards,\nYNK-Tech USA',
+                    service:    'Consultants Portal — Approved'
+                }).then(function () {
+                    sucEl.textContent = 'Approved! Email sent to ' + req.email;
+                    setTimeout(function () {
+                        closeModal('modal-approve');
+                        renderAll();
+                    }, 1500);
+                }).catch(function (err) {
+                    console.error('EmailJS error:', err);
+                    sucEl.textContent = 'Approved & code saved. Email failed — use mailto below.';
+                    // Fallback mailto
+                    var subject = encodeURIComponent('Your YNK-Tech Consultant Portal Access Code');
+                    var body    = encodeURIComponent('Hello ' + req.name + ',\n\nYour access code is: ' + generatedCode + '\n\nUse it at: https://ynk-techusa.com/consultants\n\nBest regards,\nYNK-Tech USA');
+                    sucEl.innerHTML += '<br><a href="mailto:' + encodeURIComponent(req.email) + '?subject=' + subject + '&body=' + body + '" style="color:var(--color-accent)">Open Email Client</a>';
+                    renderAll();
+                });
+            } else {
+                // No EmailJS — fallback to mailto
+                var subject = encodeURIComponent('Your YNK-Tech Consultant Portal Access Code');
+                var body    = encodeURIComponent('Hello ' + req.name + ',\n\nYour access code is: ' + generatedCode + '\n\nUse it at: https://ynk-techusa.com/consultants\n\nBest regards,\nYNK-Tech USA');
+                sucEl.innerHTML = 'Approved & code saved. <a href="mailto:' + encodeURIComponent(req.email) + '?subject=' + subject + '&body=' + body + '" style="color:var(--color-accent)">Send via Email Client</a>';
+                renderAll();
+            }
+
+            pendingApprovalId = null;
+        });
+    };
+
+    window.denyRequest = function (reqId) {
+        if (!confirm('Deny this access request?')) return;
+        var req = state.accessRequests.find(function (r) { return r.id === reqId; });
+        if (!req) return;
+        req.status = 'denied';
+        req.deniedDate = new Date().toISOString();
+        safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
+        renderAll();
+        showToast('Request denied.');
+    };
+
+    /* ══════════════════════════════════════════════════
+       SITE STATS (Admin Tools tab)
+    ══════════════════════════════════════════════════ */
+
+    function renderSiteStats() {
+        var overviewEl = document.getElementById('stats-overview');
+        var dailyEl    = document.getElementById('stats-daily');
+        var pagesEl    = document.getElementById('stats-pages');
+        if (!overviewEl) return;
+
+        var stats = state.siteStats;
+        var totalViews  = stats.totalViews || 0;
+        var totalReqs   = state.accessRequests.length;
+        var approvedCnt = state.accessRequests.filter(function (r) { return r.status === 'approved'; }).length;
+        var pendingCnt  = state.accessRequests.filter(function (r) { return r.status === 'pending'; }).length;
+        var deniedCnt   = state.accessRequests.filter(function (r) { return r.status === 'denied'; }).length;
+        var lastVisit   = stats.lastVisit ? new Date(stats.lastVisit).toLocaleString() : 'N/A';
+
+        overviewEl.innerHTML =
+            '<div class="stats-metric"><div class="stats-metric-val">' + totalViews + '</div><div class="stats-metric-label">Total Page Views</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val">' + totalReqs + '</div><div class="stats-metric-label">Total Access Requests</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val">' + approvedCnt + '</div><div class="stats-metric-label">Approved</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val">' + pendingCnt + '</div><div class="stats-metric-label">Pending</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val">' + deniedCnt + '</div><div class="stats-metric-label">Denied</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="font-size:14px">' + escapeHtml(lastVisit) + '</div><div class="stats-metric-label">Last Visitor</div></div>';
+
+        // Page views breakdown
+        var pageViews = stats.pageViews || {};
+        var pageKeys  = Object.keys(pageViews);
+        if (pagesEl && pageKeys.length) {
+            var maxViews = Math.max.apply(null, pageKeys.map(function (k) { return pageViews[k]; }));
+            var html = '<h4 style="font-family:var(--font-heading);font-size:12px;letter-spacing:2px;color:var(--color-text-muted);margin-bottom:16px;">PAGE VIEWS BREAKDOWN</h4>';
+            pageKeys.sort(function (a, b) { return pageViews[b] - pageViews[a]; });
+            pageKeys.forEach(function (page) {
+                var count = pageViews[page];
+                var pct   = maxViews > 0 ? Math.round((count / maxViews) * 100) : 0;
+                html +=
+                    '<div class="stats-bar-row">' +
+                        '<span class="stats-bar-label">' + escapeHtml(page) + '</span>' +
+                        '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%"></div></div>' +
+                        '<span class="stats-bar-count">' + count + '</span>' +
+                    '</div>';
+            });
+            pagesEl.innerHTML = html;
+        }
+
+        // Daily views (last 7 days)
+        var dailyViews = stats.dailyViews || {};
+        var days = Object.keys(dailyViews).sort().slice(-7);
+        if (dailyEl && days.length) {
+            var html2 = '<h4 style="font-family:var(--font-heading);font-size:12px;letter-spacing:2px;color:var(--color-text-muted);margin:24px 0 16px;">DAILY TRAFFIC (LAST 7 DAYS)</h4>';
+            var maxDay = Math.max.apply(null, days.map(function (d) { return dailyViews[d]._total || 0; }));
+            days.forEach(function (day) {
+                var total = dailyViews[day]._total || 0;
+                var pct   = maxDay > 0 ? Math.round((total / maxDay) * 100) : 0;
+                var label = new Date(day + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                html2 +=
+                    '<div class="stats-bar-row">' +
+                        '<span class="stats-bar-label">' + escapeHtml(label) + '</span>' +
+                        '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%"></div></div>' +
+                        '<span class="stats-bar-count">' + total + '</span>' +
+                    '</div>';
+            });
+            dailyEl.innerHTML = html2;
+        }
+    }
+
+    /* ══════════════════════════════════════════════════
        ADMIN TOOLS — TAB SWITCHING
     ══════════════════════════════════════════════════ */
 
@@ -826,10 +1112,10 @@
 
         var pages = (window.ADMIN_CONFIG || {}).pages || {};
         var pageNames = {
-            home:       { title: 'Home',         file: 'index.html' },
-            itServices: { title: 'IT Services',   file: 'it-services.html' },
-            branding:   { title: 'Branding',      file: 'branding.html' },
-            portfolio:  { title: 'Portfolio',      file: 'portfolio.html' }
+            home:        { title: 'Home',               file: 'index.html' },
+            itServices:  { title: 'IT Services',         file: 'it-services.html' },
+            branding:    { title: 'Branding',            file: 'branding.html' },
+            consultants: { title: 'Consultants Portal',  file: 'consultants.html' }
         };
 
         var html = '';
