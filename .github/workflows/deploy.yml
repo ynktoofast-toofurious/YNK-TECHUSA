@@ -33,6 +33,8 @@ jobs:
       - name: Build
         working-directory: ynk-react
         run: npm run build
+        env:
+          VITE_API_URL: https://enf1mo6r68.execute-api.us-east-1.amazonaws.com
 
       - name: Copy Admin portal into dist
         run: cp -r Admin ynk-react/dist/Admin
