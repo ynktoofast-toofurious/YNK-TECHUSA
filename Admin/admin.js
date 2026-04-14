@@ -972,13 +972,13 @@
                             '</div>' +
                         '</div>' : '') +
                     (effStatus === 'expired' ?
-                        '<div class="req-approved-info" style="color:#f59e0b">\u26a0 Expired (7-day access period ended)' +
+                        '<div class="req-approved-info" style="color:#f59e0b"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Expired (7-day access period ended)' +
                             '<div class="req-card-actions" style="margin-top:8px">' +
                                 '<button class="req-deny-btn" onclick="archiveRequest(\'' + escapeHtml(r.id) + '\')" style="background:#666;border-color:#666">ARCHIVE</button>' +
                             '</div>' +
                         '</div>' : '') +
                     (effStatus === 'disabled' ?
-                        '<div class="req-approved-info" style="color:#f59e0b">\u26d4 Manually disabled' +
+                        '<div class="req-approved-info" style="color:#f59e0b"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg> Manually disabled' +
                             '<div class="req-card-actions" style="margin-top:8px">' +
                                 '<button class="req-deny-btn" onclick="archiveRequest(\'' + escapeHtml(r.id) + '\')" style="background:#666;border-color:#666">ARCHIVE</button>' +
                             '</div>' +
@@ -1028,7 +1028,7 @@
             industries.forEach(function (ind) {
                 var opt = document.createElement('option');
                 opt.value = ind.name;
-                opt.textContent = ind.icon + ' ' + ind.name;
+                opt.innerHTML = ind.icon + ' ' + ind.name;
                 if (ind.name === req.industry) opt.selected = true;
                 sel.appendChild(opt);
             });
@@ -1114,7 +1114,7 @@
                         '<div style="background-color:#0b1120;color:#29B5E8;font-family:Courier New,monospace;font-size:22px;font-weight:700;letter-spacing:3px;text-align:center;padding:18px;border-radius:4px;margin:24px 0">' + escapeHtml(generatedCode) + '</div>' +
                         '<p><a href="https://ynk-techusa.com/consultants" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Open Consultants Portal</a></p>' +
                         '<div style="background-color:#1a1a2e;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:4px;margin:20px 0;color:#f59e0b;font-size:13px">' +
-                            '<strong>\u26a0 Important:</strong> This access code is valid for <strong>7 days</strong> from the date of approval. After 7 days, the code will automatically expire and access will be revoked.' +
+                            '<strong><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Important:</strong> This access code is valid for <strong>7 days</strong> from the date of approval. After 7 days, the code will automatically expire and access will be revoked.' +
                         '</div>' +
                         '<p>If you did not request this access code, please ignore this email.</p>',
                     footer_note:  'You received this email because you requested access to the YNK-Tech USA Consultants Portal'

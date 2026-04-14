@@ -40,12 +40,12 @@ window.ADMIN_CONFIG = {
 
     /* Industries for consultant access codes */
     industries: [
-        { name: 'Healthcare', file: 'Admin/resumes/healthcare.pdf', icon: '🏥' },
-        { name: 'Finance',    file: 'Admin/resumes/finance.pdf',    icon: '💰' },
-        { name: 'Education',  file: 'Admin/resumes/education.pdf',  icon: '🎓' },
-        { name: 'Technology', file: 'Admin/resumes/technology.pdf',  icon: '💻' },
-        { name: 'Government', file: 'Admin/resumes/government.pdf', icon: '🏛️' },
-        { name: 'Retail',     file: 'Admin/resumes/retail.pdf',     icon: '🛍️' }
+        { name: 'Healthcare', file: 'Admin/resumes/healthcare.pdf', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg>' },
+        { name: 'Finance',    file: 'Admin/resumes/finance.pdf',    icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>' },
+        { name: 'Education',  file: 'Admin/resumes/education.pdf',  icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/></svg>' },
+        { name: 'Technology', file: 'Admin/resumes/technology.pdf',  icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' },
+        { name: 'Government', file: 'Admin/resumes/government.pdf', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/><path d="M3 8h18"/></svg>' },
+        { name: 'Retail',     file: 'Admin/resumes/retail.pdf',     icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>' }
     ],
 
     /* Seed data for website tasks */

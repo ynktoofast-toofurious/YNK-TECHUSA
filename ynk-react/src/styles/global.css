@@ -327,7 +327,8 @@ img {
 }
 
 .nav-dropdown-icon {
-    font-size: 22px;
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
 }
 
