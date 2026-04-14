@@ -833,6 +833,14 @@
         renderAccessRequests();
     };
 
+    window.refreshRequests = function () {
+        state.accessRequests = safeJSON(localStorage.getItem(STORAGE_ACCESS_REQS)) || [];
+        state.dynamicCodes   = safeJSON(localStorage.getItem(STORAGE_DYNAMIC_CODES)) || [];
+        state.siteStats      = safeJSON(localStorage.getItem(STORAGE_SITE_STATS)) || {};
+        renderAll();
+        showToast('Data refreshed.');
+    };
+
     function renderAccessRequests() {
         var el = document.getElementById('access-requests-list');
         if (!el) return;

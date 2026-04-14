@@ -208,11 +208,14 @@
             <section class="admin-panel" id="panel-access-requests">
                 <div class="panel-header">
                     <h2 class="panel-title">Access Requests</h2>
-                    <div class="request-filter-row">
-                        <button class="filter-btn active" data-filter="all" onclick="filterRequests('all', this)">All</button>
-                        <button class="filter-btn" data-filter="pending" onclick="filterRequests('pending', this)">Pending</button>
-                        <button class="filter-btn" data-filter="approved" onclick="filterRequests('approved', this)">Approved</button>
-                        <button class="filter-btn" data-filter="denied" onclick="filterRequests('denied', this)">Denied</button>
+                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                        <div class="request-filter-row">
+                            <button class="filter-btn active" data-filter="all" onclick="filterRequests('all', this)">All</button>
+                            <button class="filter-btn" data-filter="pending" onclick="filterRequests('pending', this)">Pending</button>
+                            <button class="filter-btn" data-filter="approved" onclick="filterRequests('approved', this)">Approved</button>
+                            <button class="filter-btn" data-filter="denied" onclick="filterRequests('denied', this)">Denied</button>
+                        </div>
+                        <button class="panel-btn" onclick="refreshRequests()">&#8635; REFRESH</button>
                     </div>
                 </div>
                 <div id="access-requests-list"><!-- Populated by JS --></div>
