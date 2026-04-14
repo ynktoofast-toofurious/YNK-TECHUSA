@@ -1,4 +1,14 @@
 import { Link } from 'react-router-dom'
+import QuoteForm from '../components/QuoteForm'
+
+const IT_SERVICES = [
+  'Website & Web App Development',
+  'AI Enablement & Automation',
+  'Big Data Engineering & Analytics',
+  'Cloud & Infrastructure Setup',
+  'Dashboard & BI Development',
+  'Machine Learning & Predictive Models',
+]
 
 export default function ITServices() {
   return (
@@ -44,9 +54,18 @@ export default function ITServices() {
             </div>
           </div>
           <div className="detail-action">
-            <Link to="/request-quote" className="btn btn-primary btn-lg">Request Free Quote</Link>
             <Link to="/" className="btn btn-secondary">← Back to Home</Link>
           </div>
+        </div>
+      </section>
+
+      <section className="cta-section" id="quote">
+        <div className="container">
+          <div className="cta-content">
+            <h2 className="cta-title">Request a Free IT Services Quote</h2>
+            <p className="cta-text">Tell us about your project and we'll get back to you within 24 hours.</p>
+          </div>
+          <QuoteForm serviceOptions={IT_SERVICES} />
         </div>
       </section>
     </>

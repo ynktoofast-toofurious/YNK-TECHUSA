@@ -1,4 +1,14 @@
 import { Link } from 'react-router-dom'
+import QuoteForm from '../components/QuoteForm'
+
+const BRANDING_SERVICES = [
+  'Event Technicians',
+  'Stage Lighting & Rental',
+  'Custom T-Shirt Printing',
+  'Brand Strategy & Identity Design',
+  'Event & Visual Branding',
+  'Content Positioning & Visual Storytelling',
+]
 
 export default function Branding() {
   return (
@@ -37,9 +47,18 @@ export default function Branding() {
             </div>
           </div>
           <div className="detail-action">
-            <Link to="/request-quote" className="btn btn-primary btn-lg">Request Free Quote</Link>
             <Link to="/" className="btn btn-secondary">← Back to Home</Link>
           </div>
+        </div>
+      </section>
+
+      <section className="cta-section" id="quote">
+        <div className="container">
+          <div className="cta-content">
+            <h2 className="cta-title">Request a Free Branding Quote</h2>
+            <p className="cta-text">Tell us about your branding needs and we'll get back to you within 24 hours.</p>
+          </div>
+          <QuoteForm serviceOptions={BRANDING_SERVICES} />
         </div>
       </section>
     </>
