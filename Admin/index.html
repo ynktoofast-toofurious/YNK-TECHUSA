@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | YNK-Tech USA</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'self' https://ynk-techusa.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ════════════════════════════════════════════
+         ACCESS GATE
+         ════════════════════════════════════════════ -->
+    <div id="access-gate" class="gate-overlay">
+
+        <!-- STEP 1 — Admin Code -->
+        <div id="gate-step1" class="gate-card">
+            <div class="gate-logo">
+                <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="gate-logo-img">
+            </div>
+            <p class="gate-label">ADMIN ACCESS</p>
+            <h1 class="gate-title">YNK Dashboard</h1>
+            <p class="gate-subtitle">Administrative access only. This area is not public.</p>
+
+            <div class="step-indicator">
+                <div class="step-dot active"><span>1</span></div>
+                <div class="step-line"></div>
+                <div class="step-dot"><span>2</span></div>
+            </div>
+
+            <form class="gate-form" onsubmit="return false;">
+                <div class="input-wrapper">
+                    <input type="password" id="access-input" class="gate-input" placeholder="Admin Code" autocomplete="off" maxlength="64">
+                    <button type="button" class="eye-toggle" onclick="togglePw('access-input',this)" title="Show/hide code" aria-label="Toggle visibility">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="submit" class="gate-btn" onclick="adminStep1()">NEXT &rsaquo;</button>
+                </div>
+                <p id="gate-error-1" class="gate-error" aria-live="polite"></p>
+            </form>
+            <div class="gate-2fa-footer">
+                <button class="text-btn" onclick="showResetStep()">Forgot Password?</button>
+            </div>
+        </div>
+
+        <!-- STEP 2 — TOTP -->
+        <div id="gate-step2" class="gate-card hidden">
+            <div class="gate-logo">
+                <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="gate-logo-img">
+            </div>
+            <p class="gate-label">TWO-FACTOR AUTH</p>
+            <h1 class="gate-title">Verify Identity</h1>
+            <p class="gate-subtitle">Enter the 6-digit code from your authenticator app.</p>
+
+            <div class="step-indicator">
+                <div class="step-dot done"><span>1</span></div>
+                <div class="step-line done"></div>
+                <div class="step-dot active"><span>2</span></div>
+            </div>
+
+            <form class="gate-form" onsubmit="return false;">
+                <input type="text" id="totp-input" class="totp-input"
+                    placeholder="000000" inputmode="numeric"
+                    pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
+                <label class="gate-remember" style="margin:10px 0 14px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--color-accent);cursor:pointer;letter-spacing:0.5px">
+                    <input type="checkbox" id="admin-remember-check"> Remember me on this device for 30 days
+                </label>
+                <button id="totp-verify-btn" type="submit" class="gate-btn totp-btn" onclick="adminStep2()">VERIFY</button>
+                <p id="gate-error-2" class="gate-error" aria-live="polite"></p>
+            </form>
+
+            <div class="gate-2fa-footer">
+                <button class="text-btn" onclick="showSetup()">First time? Set up authenticator</button>
+                <button class="text-btn back-btn" onclick="backToStep1()">&larr; Back</button>
+            </div>
+        </div>
+
+        <!-- PASSWORD RESET — Verify via TOTP -->
+        <div id="gate-step-reset" class="gate-card hidden">
+            <div class="gate-logo">
+                <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="gate-logo-img">
+            </div>
+            <p class="gate-label">PASSWORD RESET</p>
+            <h1 class="gate-title">Reset Admin Code</h1>
+            <p class="gate-subtitle">Verify your identity with your authenticator app to reset the admin code.</p>
+
+            <!-- TOTP verification -->
+            <div id="reset-totp">
+                <form class="gate-form" onsubmit="return false;">
+                    <input type="text" id="reset-totp-input" class="totp-input" placeholder="000000" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
+                    <button type="submit" class="gate-btn totp-btn" onclick="resetVerifyTOTP()">VERIFY</button>
+                    <p id="reset-totp-error" class="gate-error" aria-live="polite"></p>
+                </form>
+            </div>
+
+            <!-- New password entry -->
+            <div id="reset-newpass" class="hidden">
+                <p class="gate-subtitle">Enter your new admin code.</p>
+                <form class="gate-form" onsubmit="return false;">
+                    <div class="input-wrapper" style="margin-bottom:8px">
+                        <input type="password" id="reset-new-password" class="gate-input" placeholder="New Admin Code" autocomplete="new-password" maxlength="64">
+                        <button type="button" class="eye-toggle" onclick="togglePw('reset-new-password',this)" title="Show/hide" aria-label="Toggle visibility">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="password" id="reset-confirm-password" class="gate-input" placeholder="Confirm Admin Code" autocomplete="new-password" maxlength="64">
+                        <button type="button" class="eye-toggle" onclick="togglePw('reset-confirm-password',this)" title="Show/hide" aria-label="Toggle visibility">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                    <button type="submit" class="gate-btn" onclick="resetSavePassword()" style="margin-top:12px;width:100%">SAVE NEW CODE</button>
+                    <p id="reset-save-error" class="gate-error" aria-live="polite"></p>
+                    <p id="reset-save-success" class="gate-error" style="color:var(--color-accent)" aria-live="polite"></p>
+                </form>
+            </div>
+
+            <div class="gate-2fa-footer" style="margin-top:16px">
+                <button class="text-btn back-btn" onclick="cancelReset()">&larr; Back to login</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         2FA SETUP MODAL
+         ════════════════════════════════════════════ -->
+    <div id="modal-2fa-setup" class="modal-overlay hidden">
+        <div class="modal-card setup-modal">
+            <h3 class="modal-title">Set Up Authenticator App</h3>
+            <p class="setup-intro">Add this key to <strong>Google Authenticator</strong>, <strong>Authy</strong>, or any TOTP app.</p>
+
+            <ol class="setup-steps">
+                <li>Open your authenticator app</li>
+                <li>Tap <strong>"+"</strong> or <strong>"Add account"</strong></li>
+                <li>Choose <strong>"Enter setup key"</strong></li>
+                <li>Enter the account name and key below</li>
+                <li>Save — the app will start generating 6-digit codes</li>
+            </ol>
+
+            <div class="setup-field">
+                <span class="setup-field-label">ACCOUNT NAME</span>
+                <code class="setup-code">YNK-Tech USA Admin</code>
+            </div>
+
+            <div class="setup-field">
+                <span class="setup-field-label">SECRET KEY</span>
+                <div class="setup-secret-row">
+                    <code id="setup-secret-display" class="setup-code secret-code"></code>
+                    <button id="copy-secret-btn" class="copy-btn" onclick="copySecret()">COPY</button>
+                </div>
+            </div>
+
+            <p class="setup-note">&#9888; Keep this key private. It is the second factor for your admin login.</p>
+
+            <div class="modal-actions">
+                <button class="modal-save" onclick="closeModal('modal-2fa-setup')">DONE — I&rsquo;VE SET IT UP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         ADMIN CONTENT (shown after login)
+         ════════════════════════════════════════════ -->
+    <main id="admin-content" class="hidden">
+
+        <header class="admin-header">
+            <a href="../index.html" class="portal-home-link">
+                <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="portal-logo">
+            </a>
+            <span class="admin-badge">ADMIN DASHBOARD</span>
+            <button class="portal-logout" onclick="adminLogout()">SIGN OUT</button>
+        </header>
+
+        <!-- Stats Row -->
+        <section class="admin-stats-row" id="stats-row">
+            <!-- Populated by JS -->
+        </section>
+
+        <!-- Main Grid -->
+        <div class="admin-grid container">
+
+            <!-- ── Prospect CRM ── -->
+            <section class="admin-panel" id="panel-prospects">
+                <div class="panel-header">
+                    <h2 class="panel-title">Lead Tracker</h2>
+                    <button class="panel-btn" onclick="openAddProspect()">+ ADD LEAD</button>
+                </div>
+
+                <div class="crm-filters">
+                    <button class="filter-btn active" data-filter="all" onclick="filterProspects('all', this)">All</button>
+                    <button class="filter-btn" data-filter="New Lead" onclick="filterProspects('New Lead', this)">New Lead</button>
+                    <button class="filter-btn" data-filter="In Conversation" onclick="filterProspects('In Conversation', this)">In Conversation</button>
+                    <button class="filter-btn" data-filter="Proposal Sent" onclick="filterProspects('Proposal Sent', this)">Proposal Sent</button>
+                    <button class="filter-btn" data-filter="Signed" onclick="filterProspects('Signed', this)">Signed</button>
+                    <button class="filter-btn" data-filter="Lost" onclick="filterProspects('Lost', this)">Lost</button>
+                </div>
+
+                <div id="crm-table"><!-- Populated by JS --></div>
+            </section>
+
+            <!-- ── Website Tasks ── -->
+            <section class="admin-panel" id="panel-tasks">
+                <div class="panel-header">
+                    <h2 class="panel-title">Website Tasks</h2>
+                    <button class="panel-btn" onclick="openAddTask()">+ ADD TASK</button>
+                </div>
+                <div id="tasks-board"><!-- Populated by JS --></div>
+            </section>
+
+        </div>
+
+        <!-- ── Admin Tools ── -->
+        <section class="admin-tools container">
+            <div class="tools-header">
+                <h2 class="panel-title">Admin Tools</h2>
+                <div class="tools-tabs">
+                    <button class="tool-tab active" onclick="switchTool('content', this)">CONTENT EDITOR</button>
+                    <button class="tool-tab" onclick="switchTool('pages', this)">PAGE MANAGER</button>
+                </div>
+            </div>
+
+            <!-- Content Editor -->
+            <div id="tool-content" class="tool-panel">
+                <p class="tool-desc">Draft text changes per page. Preview the live site inline, then submit changes.</p>
+                <div class="content-tab-row">
+                    <div class="content-page-tabs">
+                        <button class="ctab active" onclick="switchContentTab('home', this)">HOME</button>
+                        <button class="ctab" onclick="switchContentTab('itServices', this)">IT SERVICES</button>
+                        <button class="ctab" onclick="switchContentTab('branding', this)">BRANDING</button>
+                        <button class="ctab" onclick="switchContentTab('portfolio', this)">PORTFOLIO</button>
+                    </div>
+                    <button id="preview-toggle-btn" class="preview-toggle-btn" onclick="toggleContentPreview()">&#9633; PREVIEW LIVE</button>
+                </div>
+                <div id="content-preview-pane" class="content-preview-pane hidden">
+                    <iframe id="content-preview-iframe" class="content-preview-iframe" title="Live site preview"></iframe>
+                </div>
+                <div id="content-editor-fields"><!-- Populated by JS --></div>
+                <div class="content-editor-actions">
+                    <button class="panel-btn" onclick="submitContentPage()">SUBMIT THIS PAGE</button>
+                    <button class="panel-btn content-undo-btn" onclick="undoContentDraft()">&#8630; UNDO</button>
+                    <button class="panel-btn content-view-btn" onclick="viewContentChanges()">VIEW ALL CHANGES</button>
+                </div>
+            </div>
+
+            <!-- Page Manager -->
+            <div id="tool-pages" class="tool-panel hidden">
+                <p class="tool-desc">Quick links and status overview for all managed pages on the YNK-Tech USA website.</p>
+                <div class="page-manager-grid" id="page-manager-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <footer class="admin-footer">
+            <p>&copy; 2026 YNK-Tech USA</p>
+        </footer>
+
+    </main>
+
+    <!-- ════════════════════════════════════════════
+         ADD PROSPECT MODAL
+         ════════════════════════════════════════════ -->
+    <div id="modal-prospect" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3 class="modal-title" id="prospect-modal-title">Add Lead</h3>
+            <form id="form-prospect" onsubmit="return false;">
+                <div class="form-row">
+                    <label class="form-label">NAME</label>
+                    <input type="text" id="f-name" class="form-input" placeholder="Full Name">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">EMAIL</label>
+                    <input type="email" id="f-email" class="form-input" placeholder="email@example.com">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">PHONE</label>
+                    <input type="text" id="f-phone" class="form-input" placeholder="555-000-0000">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">SERVICE INTEREST</label>
+                    <select id="f-service" class="form-input">
+                        <option value="">Select Service…</option>
+                        <option>IT Services</option>
+                        <option>Website Development</option>
+                        <option>AI Enablement</option>
+                        <option>Data Engineering</option>
+                        <option>Branding</option>
+                        <option>Cloud Solutions</option>
+                        <option>Consulting</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">BUDGET RANGE</label>
+                    <select id="f-budget" class="form-input">
+                        <option value="">Select Range…</option>
+                        <option>Under $1,000</option>
+                        <option>$1,000 - $5,000</option>
+                        <option>$5,000 - $10,000</option>
+                        <option>$10,000 - $25,000</option>
+                        <option>$25,000+</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">STATUS</label>
+                    <select id="f-status" class="form-input">
+                        <option>New Lead</option>
+                        <option>In Conversation</option>
+                        <option>Proposal Sent</option>
+                        <option>Signed</option>
+                        <option>Lost</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">NOTES</label>
+                    <textarea id="f-notes" class="form-input form-textarea" placeholder="Any relevant notes…"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-cancel" onclick="closeModal('modal-prospect')">CANCEL</button>
+                    <button type="submit" class="modal-save" onclick="saveProspect()">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         ADD TASK MODAL
+         ════════════════════════════════════════════ -->
+    <div id="modal-task" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3 class="modal-title">Add Website Task</h3>
+            <form onsubmit="return false;">
+                <div class="form-row">
+                    <label class="form-label">SECTION / PAGE</label>
+                    <input type="text" id="t-section" class="form-input" placeholder="Home, IT Services, Branding…">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">TASK</label>
+                    <textarea id="t-task" class="form-input form-textarea" placeholder="Describe the change needed…"></textarea>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">PRIORITY</label>
+                    <select id="t-priority" class="form-input">
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">FILE REFERENCE (optional)</label>
+                    <input type="text" id="t-file" class="form-input" placeholder="index.html, it-services.html…">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-cancel" onclick="closeModal('modal-task')">CANCEL</button>
+                    <button type="submit" class="modal-save" onclick="saveTask()">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         VIEW CONTENT CHANGES MODAL
+         ════════════════════════════════════════════ -->
+    <div id="modal-content-changes" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3 class="modal-title">Pending Content Changes</h3>
+            <p style="font-size:11px;color:var(--color-accent);letter-spacing:0.5px;margin-bottom:20px;">Review all queued content changes below.</p>
+            <div id="content-changes-list"><!-- Populated by JS --></div>
+            <div class="modal-actions">
+                <button class="modal-cancel" onclick="copyAllChanges()">COPY ALL</button>
+                <button class="modal-save" onclick="closeModal('modal-content-changes')">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="admin-toast" class="admin-toast" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="admin-data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
