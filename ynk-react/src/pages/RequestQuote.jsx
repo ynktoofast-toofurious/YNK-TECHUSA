@@ -2,6 +2,8 @@ import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 
+emailjs.init('zG_jERVPbUUfiZ6IL')
+
 const SERVICE_OPTIONS = [
   'Website Development',
   'AI Enablement & Automation',
@@ -52,12 +54,12 @@ export default function RequestQuote() {
       await emailjs.sendForm(
         'service_sw3zais',
         'template_8yj65yj',
-        formRef.current,
-        'zG_jERVPbUUfiZ6IL'
+        formRef.current
       )
       setSent(true)
     } catch (err) {
-      setError('Failed to send your request. Please try again or email us directly at yannicknkongolo7@gmail.com')
+      console.error('EmailJS error:', err)
+      setError(`Failed to send: ${err?.text || err?.message || 'Unknown error'}. Please email us directly at yannicknkongolo7@gmail.com`)
     } finally {
       setSending(false)
     }

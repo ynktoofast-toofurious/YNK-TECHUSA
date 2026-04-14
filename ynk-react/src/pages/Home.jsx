@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 
+emailjs.init('zG_jERVPbUUfiZ6IL')
+
 export default function Home() {
   const formRef = useRef()
   const [sending, setSending] = useState(false)
@@ -16,12 +18,12 @@ export default function Home() {
       await emailjs.sendForm(
         'service_sw3zais',
         'template_8yj65yj',
-        formRef.current,
-        'zG_jERVPbUUfiZ6IL'
+        formRef.current
       )
       setSent(true)
     } catch (err) {
-      setFormError('Failed to send. Please try again or email us directly at yannicknkongolo7@gmail.com')
+      console.error('EmailJS error:', err)
+      setFormError(`Failed to send: ${err?.text || err?.message || 'Unknown error'}. Please email us directly at yannicknkongolo7@gmail.com`)
     } finally {
       setSending(false)
     }
