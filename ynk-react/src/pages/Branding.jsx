@@ -17,7 +17,7 @@ export default function Branding() {
         <div className="container">
           <span className="section-tag">02</span>
           <h1 className="section-title">Branding &amp; Creative Services</h1>
-          <p className="section-subtitle">Precision execution for impactful brand experiences</p>
+          <p className="section-subtitle">Building identities that are both memorable and market-ready</p>
         </div>
       </section>
 
@@ -29,7 +29,7 @@ export default function Branding() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               </div>
               <h3>Event Technicians</h3>
-              <p>Skilled professionals ensuring flawless event operations from setup to teardown.</p>
+              <p>Skilled professionals ensuring flawless event operations, leveraging R&amp;B Events expertise from setup to teardown.</p>
             </div>
             <div className="detail-card" data-aos="">
               <div className="detail-card-icon">
@@ -47,6 +47,7 @@ export default function Branding() {
             </div>
           </div>
           <div className="detail-action">
+            <p style={{ color: 'var(--color-text-secondary)', marginBottom: '20px', textAlign: 'center', maxWidth: '600px', margin: '0 auto 20px' }}>Agility and creative precision. Premium requests can be executed in as little as 2 hours, enabling rapid iteration and real-time brand evolution.</p>
             <Link to="/" className="btn btn-secondary">← Back to Home</Link>
           </div>
         </div>

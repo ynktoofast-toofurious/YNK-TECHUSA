@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import QuoteForm from '../components/QuoteForm'
 
 const IT_SERVICES = [
-  'Website & Web App Development',
+  'Website & Web Application Development',
   'AI Enablement & Automation',
-  'Big Data Engineering & Analytics',
+  'Data Engineering & Analytics',
   'Cloud & Infrastructure Setup',
   'Dashboard & BI Development',
   'Machine Learning & Predictive Models',
@@ -17,7 +17,7 @@ export default function ITServices() {
         <div className="container">
           <span className="section-tag">01</span>
           <h1 className="section-title">IT Services &amp; Digital Solutions</h1>
-          <p className="section-subtitle">Smart technology to scale your business</p>
+          <p className="section-subtitle">Modern, scalable, and intelligent technology solutions tailored to real business needs</p>
         </div>
       </section>
 
@@ -29,21 +29,21 @@ export default function ITServices() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
               </div>
               <h3>Website Development</h3>
-              <p>Modern, responsive, performance-optimized websites built to convert visitors into customers.</p>
+              <p>Modern, responsive, performance-optimized websites and web applications built to convert visitors into customers and scale with your business.</p>
             </div>
             <div className="detail-card" data-aos="">
               <div className="detail-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               </div>
-              <h3>AI Enablement</h3>
-              <p>Automate processes and unlock smarter decision-making with cutting-edge artificial intelligence.</p>
+              <h3>AI Enablement &amp; Automation</h3>
+              <p>Automate processes and unlock smarter decision-making with LLMs, data pipelines, and cutting-edge artificial intelligence.</p>
             </div>
             <div className="detail-card" data-aos="">
               <div className="detail-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
               </div>
-              <h3>Big Data Engineering</h3>
-              <p>Scalable data pipelines and powerful dashboards that transform raw data into actionable insights.</p>
+              <h3>Data Engineering &amp; Analytics</h3>
+              <p>Scalable data pipelines and powerful dashboards with Power BI, Snowflake, and SQL that transform raw data into actionable decisions.</p>
             </div>
             <div className="detail-card" data-aos="">
               <div className="detail-card-icon">
@@ -54,6 +54,7 @@ export default function ITServices() {
             </div>
           </div>
           <div className="detail-action">
+            <p style={{ color: 'var(--color-text-secondary)', marginBottom: '20px', textAlign: 'center', maxWidth: '600px', margin: '0 auto 20px' }}>Speed meets precision. For premium engagements, high-impact solutions can be designed and deployed within 24 hours, without compromising quality.</p>
             <Link to="/" className="btn btn-secondary">← Back to Home</Link>
           </div>
         </div>

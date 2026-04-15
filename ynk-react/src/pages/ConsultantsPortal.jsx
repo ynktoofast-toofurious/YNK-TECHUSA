@@ -139,7 +139,7 @@ export default function ConsultantsPortal() {
         <div className="container">
           <span className="section-tag">03</span>
           <h1 className="section-title">Consultants Portal</h1>
-          <p className="section-subtitle">Secure access for consultants and partners</p>
+          <p className="section-subtitle">Access-controlled portal for consultants, partners, and clients</p>
         </div>
       </section>
 
@@ -156,7 +156,7 @@ export default function ConsultantsPortal() {
                     </svg>
                   </div>
                   <h3>Consultant Access</h3>
-                  <p>Enter your industry-specific access code to view curated resources and documentation.</p>
+                  <p>Enter your industry-specific access code to view curated resources, insights, and expertise across industries.</p>
                   <div className="gate-form">
                     <input
                       type="password"

@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-layout">
           <div className="footer-brand">
             <img src="/Logo/YNK/1.png" alt="YNK-Tech USA" className="footer-logo" />
-            <p className="footer-tagline">Technology meets vision.</p>
+            <p className="footer-tagline">Technology, Creativity & Data.</p>
           </div>
           <div className="footer-nav">
             <Link to="/it-services">IT Services</Link>
