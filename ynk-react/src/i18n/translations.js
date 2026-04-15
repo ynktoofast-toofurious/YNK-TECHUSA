@@ -1,5 +1,11 @@
 const translations = {
   en: {
+    // Disclaimer banner
+    disclaimer: {
+      text: 'This website is currently under development. Some features and service samples may not be available yet.',
+      dismiss: 'Got it',
+    },
+
     // Language popup
     langPopup: {
       title: 'Choose Your Language',
@@ -259,6 +265,10 @@ const translations = {
   },
 
   fr: {
+    disclaimer: {
+      text: 'Ce site est actuellement en cours de développement. Certaines fonctionnalités et exemples de services ne sont pas encore disponibles.',
+      dismiss: 'Compris',
+    },
     langPopup: {
       title: 'Choisissez votre langue',
       subtitle: 'Sélectionnez votre langue préférée pour ce site.',
@@ -473,6 +483,10 @@ const translations = {
   },
 
   es: {
+    disclaimer: {
+      text: 'Este sitio web está actualmente en desarrollo. Algunas funciones y muestras de servicios pueden no estar disponibles todavía.',
+      dismiss: 'Entendido',
+    },
     langPopup: {
       title: 'Elige tu idioma',
       subtitle: 'Selecciona tu idioma preferido para este sitio web.',
