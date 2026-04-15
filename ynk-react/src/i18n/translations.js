@@ -41,7 +41,7 @@ const translations = {
       tag: 'Who We Are',
       title: 'At the Intersection of Technology, Creativity & Data',
       lead: 'We provide end-to-end solutions that empower individuals and organizations to build, scale, and stand out in a fast-moving digital world.',
-      text: 'This platform is designed as a multi-service ecosystem—bringing together <strong>IT Services</strong>, <strong>Branding Solutions</strong>, and a secure <strong>Consultants Portal</strong>—to deliver both execution and visibility across industries.',
+      text: 'This platform is designed as a multi-service ecosystem bringing together <strong>IT Services</strong>, <strong>Branding Solutions</strong>, and a secure <strong>Consultants Portal</strong> to deliver both execution and visibility across industries.',
       mission: 'The mission is simple: <strong>turn ideas into scalable systems, brands into experiences, and data into decisions.</strong>',
     },
 
@@ -56,9 +56,9 @@ const translations = {
         'Cloud & Infrastructure Setup',
         'Dashboard Development & Business Intelligence',
       ],
-      vision: '<strong>Vision:</strong> Enable businesses to unlock capabilities they didn\'t have before—whether it\'s automation, analytics, or scalable infrastructure.',
+      vision: '<strong>Vision:</strong> Enable businesses to unlock capabilities they didn\'t have before, whether it\'s automation, analytics, or scalable infrastructure.',
       apart: '<strong>What sets this apart:</strong> Speed meets precision. For premium engagements, high-impact solutions can be designed and deployed within 24 hours, without compromising quality.',
-      goal: '<strong>Goal:</strong> Drive measurable outcomes—better decisions, faster operations, and scalable growth.',
+      goal: '<strong>Goal:</strong> Drive measurable outcomes: better decisions, faster operations, and scalable growth.',
     },
 
     // Branding card on home
@@ -73,7 +73,7 @@ const translations = {
       ],
       vision: '<strong>Vision:</strong> Transform ideas into experiences that resonate, differentiate, and convert.',
       apart: '<strong>What sets this apart:</strong> Agility and creative precision. Premium requests can be executed in as little as 2 hours, enabling rapid iteration and real-time brand evolution.',
-      goal: '<strong>Goal:</strong> Create brands that not only look good—but communicate, connect, and perform.',
+      goal: '<strong>Goal:</strong> Create brands that not only look good but communicate, connect, and perform.',
     },
 
     // Consultants card on home
@@ -82,7 +82,7 @@ const translations = {
       desc: 'A secure, access-controlled portal designed for consultants, partners, and clients to access curated resources, insights, and expertise.',
       vision: '<strong>Vision:</strong> Extend business capacity instantly by connecting organizations with the right expertise at the right time.',
       apart: '<strong>What sets this apart:</strong> On-demand intelligence. Premium-level access and responses can be delivered within 1 hour, ensuring decisions are never delayed.',
-      goal: '<strong>Goal:</strong> Create a centralized ecosystem where knowledge, execution, and collaboration meet—securely and efficiently.',
+      goal: '<strong>Goal:</strong> Create a centralized ecosystem where knowledge, execution, and collaboration meet securely and efficiently.',
     },
 
     // Why section
@@ -94,7 +94,7 @@ const translations = {
         { strong: 'Access to expertise', desc: 'On-demand consultants and industry specialists' },
         { strong: 'Alignment between data, technology & branding', desc: 'A single, cohesive system that connects all three' },
       ],
-      conclusion: 'We solve all three—by combining them into a single, cohesive system.',
+      conclusion: 'We solve all three by combining them into a single, cohesive system.',
     },
 
     // Mission
@@ -107,7 +107,7 @@ const translations = {
     thumbs: {
       it: {
         title: 'IT Service',
-        desc: 'Modern, scalable technology—web apps, AI automation, data engineering, cloud infrastructure, and business intelligence.',
+        desc: 'Modern, scalable technology: web apps, AI automation, data engineering, cloud infrastructure, and business intelligence.',
         cta: 'Explore',
       },
       branding: {
@@ -125,7 +125,7 @@ const translations = {
     // CTA
     cta: {
       title: "Let's Build Something Exceptional",
-      text: "Whether you need a digital solution, branding support, or access to expertise—we're ready to help you build, scale, and stand out.",
+      text: "Whether you need a digital solution, branding support, or access to expertise, we're ready to help you build, scale, and stand out.",
       itBtn: 'IT Services Quote',
       brandingBtn: 'Branding Services Quote',
     },
@@ -297,7 +297,7 @@ const translations = {
       tag: 'Qui sommes-nous',
       title: 'À l\'intersection de la technologie, de la créativité et des données',
       lead: 'Nous fournissons des solutions de bout en bout qui permettent aux individus et aux organisations de construire, d\'évoluer et de se démarquer dans un monde numérique en constante évolution.',
-      text: 'Cette plateforme est conçue comme un écosystème multi-services — réunissant les <strong>Services IT</strong>, les <strong>Solutions de Branding</strong>, et un <strong>Portail Consultants</strong> sécurisé — pour offrir à la fois l\'exécution et la visibilité dans tous les secteurs.',
+      text: 'Cette plateforme est conçue comme un écosystème multi-services réunissant les <strong>Services IT</strong>, les <strong>Solutions de Branding</strong>, et un <strong>Portail Consultants</strong> sécurisé pour offrir à la fois l\'exécution et la visibilité dans tous les secteurs.',
       mission: 'La mission est simple : <strong>transformer les idées en systèmes évolutifs, les marques en expériences, et les données en décisions.</strong>',
     },
     itCard: {
@@ -310,9 +310,9 @@ const translations = {
         'Cloud & Configuration d\'infrastructure',
         'Développement de tableaux de bord & Intelligence d\'affaires',
       ],
-      vision: '<strong>Vision :</strong> Permettre aux entreprises de débloquer des capacités qu\'elles n\'avaient pas — que ce soit l\'automatisation, l\'analytique ou l\'infrastructure évolutive.',
+      vision: '<strong>Vision :</strong> Permettre aux entreprises de débloquer des capacités qu\'elles n\'avaient pas, que ce soit l\'automatisation, l\'analytique ou l\'infrastructure évolutive.',
       apart: '<strong>Ce qui nous distingue :</strong> La rapidité alliée à la précision. Pour les engagements premium, des solutions à fort impact peuvent être conçues et déployées en 24 heures, sans compromettre la qualité.',
-      goal: '<strong>Objectif :</strong> Générer des résultats mesurables — de meilleures décisions, des opérations plus rapides et une croissance évolutive.',
+      goal: '<strong>Objectif :</strong> Générer des résultats mesurables : de meilleures décisions, des opérations plus rapides et une croissance évolutive.',
     },
     brandingCard: {
       title: 'Services de Branding & Créatifs',
@@ -325,14 +325,14 @@ const translations = {
       ],
       vision: '<strong>Vision :</strong> Transformer les idées en expériences qui résonnent, différencient et convertissent.',
       apart: '<strong>Ce qui nous distingue :</strong> Agilité et précision créative. Les demandes premium peuvent être exécutées en aussi peu que 2 heures, permettant une itération rapide et une évolution de marque en temps réel.',
-      goal: '<strong>Objectif :</strong> Créer des marques qui ne sont pas seulement belles — mais qui communiquent, connectent et performent.',
+      goal: '<strong>Objectif :</strong> Créer des marques qui ne sont pas seulement belles mais qui communiquent, connectent et performent.',
     },
     consultantsCard: {
       title: 'Portail Consultants',
       desc: 'Un portail sécurisé et contrôlé conçu pour les consultants, partenaires et clients afin d\'accéder à des ressources, des perspectives et une expertise sélectionnées.',
       vision: '<strong>Vision :</strong> Étendre instantanément la capacité commerciale en connectant les organisations avec la bonne expertise au bon moment.',
       apart: '<strong>Ce qui nous distingue :</strong> Intelligence à la demande. L\'accès et les réponses de niveau premium peuvent être livrés en moins d\'une heure, garantissant que les décisions ne sont jamais retardées.',
-      goal: '<strong>Objectif :</strong> Créer un écosystème centralisé où le savoir, l\'exécution et la collaboration se rencontrent — de manière sécurisée et efficace.',
+      goal: '<strong>Objectif :</strong> Créer un écosystème centralisé où le savoir, l\'exécution et la collaboration se rencontrent de manière sécurisée et efficace.',
     },
     why: {
       title: 'Pourquoi cette plateforme existe',
@@ -342,20 +342,20 @@ const translations = {
         { strong: 'Accès à l\'expertise', desc: 'Consultants et spécialistes sectoriels à la demande' },
         { strong: 'Alignement entre données, technologie & branding', desc: 'Un système unique et cohérent qui connecte les trois' },
       ],
-      conclusion: 'Nous résolvons ces trois défis — en les combinant dans un système unique et cohérent.',
+      conclusion: 'Nous résolvons ces trois défis en les combinant dans un système unique et cohérent.',
     },
     missionSection: {
       title: 'Notre Mission',
       text: 'Transformer les idées en systèmes évolutifs, les marques en expériences, et les données en décisions.',
     },
     thumbs: {
-      it: { title: 'Services IT', desc: 'Technologie moderne et évolutive — applications web, automatisation IA, ingénierie des données, infrastructure cloud et intelligence d\'affaires.', cta: 'Explorer' },
+      it: { title: 'Services IT', desc: 'Technologie moderne et évolutive : applications web, automatisation IA, ingénierie des données, infrastructure cloud et intelligence d\'affaires.', cta: 'Explorer' },
       branding: { title: 'Service de Branding', desc: 'Stratégie de marque, design d\'identité, branding événementiel, UI/UX et narration visuelle qui résonne et convertit.', cta: 'Explorer' },
       consultants: { title: 'Portail Consultants', desc: 'Portail sécurisé connectant les organisations avec des ressources, des perspectives et une expertise sélectionnées.', cta: 'Accéder au Portail' },
     },
     cta: {
       title: 'Construisons quelque chose d\'exceptionnel',
-      text: 'Que vous ayez besoin d\'une solution numérique, d\'un support de branding ou d\'accéder à une expertise — nous sommes prêts à vous aider à construire, évoluer et vous démarquer.',
+      text: 'Que vous ayez besoin d\'une solution numérique, d\'un support de branding ou d\'accéder à une expertise, nous sommes prêts à vous aider à construire, évoluer et vous démarquer.',
       itBtn: 'Devis Services IT',
       brandingBtn: 'Devis Services Branding',
     },

@@ -150,7 +150,7 @@ export default function RequestQuote() {
 
                 {/* Service */}
                 <div className="form-group form-group--full">
-                  <label htmlFor="service">{categoryLabel} — {t('requestQuotePage.serviceNeeded')} <span className="required">*</span></label>
+                  <label htmlFor="service">{categoryLabel} - {t('requestQuotePage.serviceNeeded')} <span className="required">*</span></label>
                   <select id="service" name="service" required defaultValue="">
                     <option value="" disabled>{t('quoteForm.selectService')}</option>
                     {serviceOptions.map((s) => (
