@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import emailjs from '@emailjs/browser'
+import { useLanguage } from '../i18n/LanguageContext'
 
 emailjs.init('zG_jERVPbUUfiZ6IL')
 
@@ -8,6 +9,7 @@ export default function QuoteForm({ serviceOptions }) {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
   const [formError, setFormError] = useState('')
+  const { t } = useLanguage()
 
   const handleQuoteSubmit = async (e) => {
     e.preventDefault()
@@ -37,11 +39,11 @@ export default function QuoteForm({ serviceOptions }) {
             <polyline points="22 4 12 14.01 9 11.01" />
           </svg>
         </div>
-        <h2>Free Quote Request Sent!</h2>
-        <p>Thank you for reaching out. We'll review your request and get back to you within 24 hours.</p>
+        <h2>{t('quoteForm.successTitle')}</h2>
+        <p>{t('quoteForm.successText')}</p>
         <div className="cta-buttons" style={{ marginTop: '24px' }}>
-          <button className="btn btn-primary" onClick={() => setSent(false)}>Send Another</button>
-          <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Book a Consultation</a>
+          <button className="btn btn-primary" onClick={() => setSent(false)}>{t('quoteForm.sendAnother')}</button>
+          <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('quoteForm.bookConsult')}</a>
         </div>
       </div>
     )
@@ -52,57 +54,52 @@ export default function QuoteForm({ serviceOptions }) {
       <form ref={formRef} className="quote-form" onSubmit={handleQuoteSubmit}>
         <div className="quote-form-grid">
           <div className="form-group">
-            <label htmlFor="from_name">Full Name <span className="required">*</span></label>
+            <label htmlFor="from_name">{t('quoteForm.fullName')} <span className="required">*</span></label>
             <input type="text" id="from_name" name="from_name" required placeholder="John Doe" />
           </div>
           <div className="form-group">
-            <label htmlFor="from_email">Email Address <span className="required">*</span></label>
+            <label htmlFor="from_email">{t('quoteForm.emailAddr')} <span className="required">*</span></label>
             <input type="email" id="from_email" name="from_email" required placeholder="john@example.com" />
           </div>
           <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
+            <label htmlFor="phone">{t('quoteForm.phone')}</label>
             <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
           </div>
           <div className="form-group">
-            <label htmlFor="company">Company / Organization</label>
+            <label htmlFor="company">{t('quoteForm.company')}</label>
             <input type="text" id="company" name="company" placeholder="Acme Inc." />
           </div>
           <div className="form-group form-group--full">
-            <label htmlFor="service">Service Needed <span className="required">*</span></label>
+            <label htmlFor="service">{t('quoteForm.serviceNeeded')} <span className="required">*</span></label>
             <select id="service" name="service" required defaultValue="">
-              <option value="" disabled>Select a service</option>
+              <option value="" disabled>{t('quoteForm.selectService')}</option>
               {serviceOptions.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
-              <option value="Other">Other</option>
+              <option value="Other">{t('quoteForm.other')}</option>
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="budget">Budget Range</label>
+            <label htmlFor="budget">{t('quoteForm.budget')}</label>
             <select id="budget" name="budget" defaultValue="">
-              <option value="" disabled>Select budget</option>
-              <option value="Under $1,000">Under $1,000</option>
-              <option value="$1,000 – $5,000">$1,000 – $5,000</option>
-              <option value="$5,000 – $10,000">$5,000 – $10,000</option>
-              <option value="$10,000 – $25,000">$10,000 – $25,000</option>
-              <option value="$25,000+">$25,000+</option>
-              <option value="Not sure yet">Not sure yet</option>
+              <option value="" disabled>{t('quoteForm.selectBudget')}</option>
+              {(t('budgetOptions') || []).map((b, i) => (
+                <option key={i} value={b}>{b}</option>
+              ))}
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="timeline">Timeline</label>
+            <label htmlFor="timeline">{t('quoteForm.timeline')}</label>
             <select id="timeline" name="timeline" defaultValue="">
-              <option value="" disabled>Select timeline</option>
-              <option value="ASAP">ASAP</option>
-              <option value="1 – 2 weeks">1 – 2 weeks</option>
-              <option value="1 month">1 month</option>
-              <option value="2 – 3 months">2 – 3 months</option>
-              <option value="Flexible">Flexible</option>
+              <option value="" disabled>{t('quoteForm.selectTimeline')}</option>
+              {(t('timelineOptions') || []).map((tl, i) => (
+                <option key={i} value={tl}>{tl}</option>
+              ))}
             </select>
           </div>
           <div className="form-group form-group--full">
-            <label htmlFor="message">Project Details <span className="required">*</span></label>
-            <textarea id="message" name="message" required rows="5" placeholder="Describe your project, goals, and any specific requirements..."></textarea>
+            <label htmlFor="message">{t('quoteForm.projectDetails')} <span className="required">*</span></label>
+            <textarea id="message" name="message" required rows="5" placeholder={t('quoteForm.projectPlaceholder')}></textarea>
           </div>
         </div>
 
@@ -112,37 +109,37 @@ export default function QuoteForm({ serviceOptions }) {
           {sending ? (
             <>
               <span className="btn-spinner"></span>
-              Sending...
+              {t('quoteForm.sending')}
             </>
           ) : (
-            'Submit Free Quote Request'
+            t('quoteForm.submitBtn')
           )}
         </button>
       </form>
 
       <div className="quote-sidebar">
         <div className="quote-info-card">
-          <h3>What Happens Next?</h3>
+          <h3>{t('quoteForm.whatNext')}</h3>
           <div className="quote-steps">
             <div className="quote-step">
               <div className="quote-step-num">1</div>
               <div>
-                <strong>We Review</strong>
-                <p>Our team reviews your project requirements within 24 hours.</p>
+                <strong>{t('quoteForm.step1Title')}</strong>
+                <p>{t('quoteForm.step1Desc')}</p>
               </div>
             </div>
             <div className="quote-step">
               <div className="quote-step-num">2</div>
               <div>
-                <strong>We Connect</strong>
-                <p>We schedule a discovery call to discuss details and scope.</p>
+                <strong>{t('quoteForm.step2Title')}</strong>
+                <p>{t('quoteForm.step2Desc')}</p>
               </div>
             </div>
             <div className="quote-step">
               <div className="quote-step-num">3</div>
               <div>
-                <strong>We Deliver</strong>
-                <p>You receive a detailed proposal with timeline and pricing.</p>
+                <strong>{t('quoteForm.step3Title')}</strong>
+                <p>{t('quoteForm.step3Desc')}</p>
               </div>
             </div>
           </div>

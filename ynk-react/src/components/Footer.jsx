@@ -1,21 +1,24 @@
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-layout">
           <div className="footer-brand">
             <img src="/Logo/YNK/1.png" alt="YNK-Tech USA" className="footer-logo" />
-            <p className="footer-tagline">Technology, Creativity & Data.</p>
+            <p className="footer-tagline">{t('footer.tagline')}</p>
           </div>
           <div className="footer-nav">
-            <Link to="/it-services">IT Services</Link>
-            <Link to="/branding">Branding</Link>
-            <Link to="/consultants">Consultants Portal</Link>
-            <Link to="/request-quote">Request Free Quote</Link>
-            <Link to="/#contact">Contact</Link>
-            <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer">Book a Consultation</a>
+            <Link to="/it-services">{t('nav.itServices')}</Link>
+            <Link to="/branding">{t('nav.branding')}</Link>
+            <Link to="/consultants">{t('nav.consultants')}</Link>
+            <Link to="/request-quote">{t('nav.requestQuote')}</Link>
+            <Link to="/#contact">{t('nav.contact')}</Link>
+            <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer">{t('nav.bookCall')}</a>
           </div>
           <div className="footer-social">
             <a href="#" aria-label="LinkedIn">
@@ -30,7 +33,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} YNK-Tech USA. All rights reserved.</p>
+          <p>{t('footer.copyright').replace('{year}', new Date().getFullYear())}</p>
         </div>
       </div>
     </footer>

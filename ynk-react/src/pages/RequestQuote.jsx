@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
+import { useLanguage } from '../i18n/LanguageContext'
 
 emailjs.init('zG_jERVPbUUfiZ6IL')
 
@@ -43,11 +44,12 @@ export default function RequestQuote() {
   const [error, setError] = useState('')
   const [searchParams] = useSearchParams()
   const category = searchParams.get('category')
+  const { t } = useLanguage()
 
   const isIT = category === 'it'
   const isBranding = category === 'branding'
   const serviceOptions = isIT ? IT_SERVICES : isBranding ? BRANDING_SERVICES : [...IT_SERVICES, ...BRANDING_SERVICES]
-  const categoryLabel = isIT ? 'IT Services' : isBranding ? 'Branding Services' : 'All Services'
+  const categoryLabel = isIT ? t('requestQuotePage.categoryIT') : isBranding ? t('requestQuotePage.categoryBranding') : t('requestQuotePage.categoryAll')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -79,9 +81,9 @@ export default function RequestQuote() {
       <>
         <section className="page-hero">
           <div className="container">
-            <span className="section-tag">Free Quote</span>
-            <h1 className="section-title">Request a Free Quote</h1>
-            <p className="section-subtitle">Tell us about your project</p>
+            <span className="section-tag">{t('requestQuotePage.tag')}</span>
+            <h1 className="section-title">{t('requestQuotePage.title')}</h1>
+            <p className="section-subtitle">{t('requestQuotePage.subtitle')}</p>
           </div>
         </section>
         <section className="detail-section">
@@ -93,11 +95,11 @@ export default function RequestQuote() {
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
               </div>
-              <h2>Free Quote Request Sent!</h2>
-              <p>Thank you for reaching out. We'll review your request and get back to you within 24 hours.</p>
+              <h2>{t('quoteForm.successTitle')}</h2>
+              <p>{t('quoteForm.successText')}</p>
               <div className="cta-buttons" style={{ marginTop: '32px' }}>
-                <Link to="/" className="btn btn-primary">Back to Home</Link>
-                <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Book a Consultation</a>
+                <Link to="/" className="btn btn-primary">{t('requestQuotePage.backHome')}</Link>
+                <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('requestQuotePage.bookConsult')}</a>
               </div>
             </div>
           </div>
@@ -110,9 +112,9 @@ export default function RequestQuote() {
     <>
       <section className="page-hero">
         <div className="container">
-          <span className="section-tag">Free Quote</span>
-          <h1 className="section-title">Request a Free Quote</h1>
-          <p className="section-subtitle">Tell us about your {categoryLabel.toLowerCase()} project and we'll get back to you within 24 hours</p>
+          <span className="section-tag">{t('requestQuotePage.tag')}</span>
+          <h1 className="section-title">{t('requestQuotePage.title')}</h1>
+          <p className="section-subtitle">{t('requestQuotePage.subtitle')}</p>
         </div>
       </section>
 
@@ -124,45 +126,45 @@ export default function RequestQuote() {
               <div className="quote-form-grid">
                 {/* Name */}
                 <div className="form-group">
-                  <label htmlFor="from_name">Full Name <span className="required">*</span></label>
+                  <label htmlFor="from_name">{t('quoteForm.fullName')} <span className="required">*</span></label>
                   <input type="text" id="from_name" name="from_name" required placeholder="John Doe" />
                 </div>
 
                 {/* Email */}
                 <div className="form-group">
-                  <label htmlFor="from_email">Email Address <span className="required">*</span></label>
+                  <label htmlFor="from_email">{t('quoteForm.emailAddr')} <span className="required">*</span></label>
                   <input type="email" id="from_email" name="from_email" required placeholder="john@example.com" />
                 </div>
 
                 {/* Phone */}
                 <div className="form-group">
-                  <label htmlFor="phone">Phone Number</label>
+                  <label htmlFor="phone">{t('quoteForm.phone')}</label>
                   <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
                 </div>
 
                 {/* Company */}
                 <div className="form-group">
-                  <label htmlFor="company">Company / Organization</label>
+                  <label htmlFor="company">{t('quoteForm.company')}</label>
                   <input type="text" id="company" name="company" placeholder="Acme Inc." />
                 </div>
 
                 {/* Service */}
                 <div className="form-group form-group--full">
-                  <label htmlFor="service">{categoryLabel} — Service Needed <span className="required">*</span></label>
+                  <label htmlFor="service">{categoryLabel} — {t('requestQuotePage.serviceNeeded')} <span className="required">*</span></label>
                   <select id="service" name="service" required defaultValue="">
-                    <option value="" disabled>Select a service</option>
+                    <option value="" disabled>{t('quoteForm.selectService')}</option>
                     {serviceOptions.map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
-                    <option value="Other">Other</option>
+                    <option value="Other">{t('quoteForm.other')}</option>
                   </select>
                 </div>
 
                 {/* Budget */}
                 <div className="form-group">
-                  <label htmlFor="budget">Budget Range</label>
+                  <label htmlFor="budget">{t('quoteForm.budget')}</label>
                   <select id="budget" name="budget" defaultValue="">
-                    <option value="" disabled>Select budget</option>
+                    <option value="" disabled>{t('quoteForm.selectBudget')}</option>
                     {BUDGET_OPTIONS.map((b) => (
                       <option key={b} value={b}>{b}</option>
                     ))}
@@ -171,19 +173,19 @@ export default function RequestQuote() {
 
                 {/* Timeline */}
                 <div className="form-group">
-                  <label htmlFor="timeline">Timeline</label>
+                  <label htmlFor="timeline">{t('quoteForm.timeline')}</label>
                   <select id="timeline" name="timeline" defaultValue="">
-                    <option value="" disabled>Select timeline</option>
-                    {TIMELINE_OPTIONS.map((t) => (
-                      <option key={t} value={t}>{t}</option>
+                    <option value="" disabled>{t('quoteForm.selectTimeline')}</option>
+                    {TIMELINE_OPTIONS.map((tl) => (
+                      <option key={tl} value={tl}>{tl}</option>
                     ))}
                   </select>
                 </div>
 
                 {/* Message */}
                 <div className="form-group form-group--full">
-                  <label htmlFor="message">Project Details <span className="required">*</span></label>
-                  <textarea id="message" name="message" required rows="6" placeholder="Describe your project, goals, and any specific requirements..."></textarea>
+                  <label htmlFor="message">{t('quoteForm.projectDetails')} <span className="required">*</span></label>
+                  <textarea id="message" name="message" required rows="6" placeholder={t('quoteForm.projectPlaceholder')}></textarea>
                 </div>
               </div>
 
@@ -193,10 +195,10 @@ export default function RequestQuote() {
                 {sending ? (
                   <>
                     <span className="btn-spinner"></span>
-                    Sending...
+                    {t('quoteForm.sending')}
                   </>
                 ) : (
-                  'Submit Free Quote Request'
+                  t('quoteForm.submitBtn')
                 )}
               </button>
             </form>
@@ -204,42 +206,42 @@ export default function RequestQuote() {
             {/* Right: Info sidebar */}
             <div className="quote-sidebar">
               <div className="quote-info-card">
-                <h3>What Happens Next?</h3>
+                <h3>{t('quoteForm.whatNext')}</h3>
                 <div className="quote-steps">
                   <div className="quote-step">
                     <div className="quote-step-num">1</div>
                     <div>
-                      <strong>We Review</strong>
-                      <p>Our team reviews your project requirements within 24 hours.</p>
+                      <strong>{t('quoteForm.step1Title')}</strong>
+                      <p>{t('quoteForm.step1Desc')}</p>
                     </div>
                   </div>
                   <div className="quote-step">
                     <div className="quote-step-num">2</div>
                     <div>
-                      <strong>We Connect</strong>
-                      <p>We schedule a discovery call to discuss details and scope.</p>
+                      <strong>{t('quoteForm.step2Title')}</strong>
+                      <p>{t('quoteForm.step2Desc')}</p>
                     </div>
                   </div>
                   <div className="quote-step">
                     <div className="quote-step-num">3</div>
                     <div>
-                      <strong>We Deliver</strong>
-                      <p>You receive a detailed proposal with timeline and pricing.</p>
+                      <strong>{t('quoteForm.step3Title')}</strong>
+                      <p>{t('quoteForm.step3Desc')}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="quote-info-card">
-                <h3>Prefer to Talk?</h3>
-                <p>Book a free 30-minute consultation call to discuss your project directly.</p>
+                <h3>{t('requestQuotePage.preferTalk')}</h3>
+                <p>{t('requestQuotePage.preferTalkDesc')}</p>
                 <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', marginTop: '16px' }}>
-                  Book a Consultation
+                  {t('requestQuotePage.bookConsult')}
                 </a>
               </div>
 
               <div className="quote-info-card">
-                <h3>Direct Contact</h3>
+                <h3>{t('requestQuotePage.directContact')}</h3>
                 <p className="quote-contact-email">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="18" height="18"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                   <a href="mailto:yannicknkongolo7@gmail.com">yannicknkongolo7@gmail.com</a>

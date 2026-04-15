@@ -4,6 +4,7 @@ import { trackPageView } from './utils/tracking'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import LanguagePopup from './components/LanguagePopup'
 import Home from './pages/Home'
 import ITServices from './pages/ITServices'
 import Branding from './pages/Branding'
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <>
+      <LanguagePopup />
       <ScrollToTop />
       <Navbar />
       <Routes>

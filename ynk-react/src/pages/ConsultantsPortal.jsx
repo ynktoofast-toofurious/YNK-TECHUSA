@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 import { saveAccessRequest, getDynamicCodes } from '../utils/tracking'
+import { useLanguage } from '../i18n/LanguageContext'
 
 emailjs.init('zG_jERVPbUUfiZ6IL')
 
@@ -42,11 +43,12 @@ export default function ConsultantsPortal() {
   const [requestError, setRequestError] = useState('')
   const codeRef = useRef()
   const requestFormRef = useRef()
+  const { t } = useLanguage()
 
   const handleAccess = async () => {
     const code = codeRef.current.value.trim()
     if (!code) {
-      setError('Please enter an access code.')
+      setError(t('consultantsPage.enterCode'))
       return
     }
     const hash = await sha256(code)
@@ -66,7 +68,7 @@ export default function ConsultantsPortal() {
       setLoading(true)
       setError('')
     } else {
-      setError('Invalid or expired code. Request access below.')
+      setError(t('consultantsPage.invalidCode'))
       codeRef.current.value = ''
       codeRef.current.focus()
     }
@@ -138,8 +140,8 @@ export default function ConsultantsPortal() {
       <section className="page-hero">
         <div className="container">
           <span className="section-tag">03</span>
-          <h1 className="section-title">Consultants Portal</h1>
-          <p className="section-subtitle">Access-controlled portal for consultants, partners, and clients</p>
+          <h1 className="section-title">{t('consultantsCard.title')}</h1>
+          <p className="section-subtitle">{t('consultantsPage.subtitle')}</p>
         </div>
       </section>
 
@@ -155,30 +157,30 @@ export default function ConsultantsPortal() {
                       <path d="M7 11V7a5 5 0 0110 0v4" />
                     </svg>
                   </div>
-                  <h3>Consultant Access</h3>
-                  <p>Enter your industry-specific access code to view curated resources, insights, and expertise across industries.</p>
+                  <h3>{t('consultantsPage.gateTitle')}</h3>
+                  <p>{t('consultantsPage.gateDesc')}</p>
                   <div className="gate-form">
                     <input
                       type="password"
                       ref={codeRef}
-                      placeholder="Enter access code"
+                      placeholder={t('consultantsPage.placeholder')}
                       maxLength="30"
                       autoComplete="off"
                       onKeyDown={(e) => e.key === 'Enter' && handleAccess()}
                     />
                     <button className="btn btn-primary" onClick={handleAccess}>
-                      Access Portal
+                      {t('consultantsPage.accessBtn')}
                     </button>
                   </div>
                   <div className="gate-error">{error}</div>
                   <div className="gate-divider">
-                    <span>or</span>
+                    <span>{t('consultantsPage.or')}</span>
                   </div>
                   <button
                     className="btn btn-secondary"
                     onClick={() => setShowRequest(!showRequest)}
                   >
-                    {showRequest ? 'I Have a Code' : 'Request Access Code'}
+                    {showRequest ? t('consultantsPage.haveCode') : t('consultantsPage.requestBtn')}
                   </button>
                 </div>
               </div>
@@ -188,7 +190,7 @@ export default function ConsultantsPortal() {
                   <div className="quote-layout" style={{ marginTop: '40px' }}>
                     <form ref={requestFormRef} className="quote-form" onSubmit={handleRequestSubmit}>
                       <h3 style={{ marginBottom: '8px', color: 'var(--color-text)' }}>
-                        Request Access Code
+                        {t('consultantsPage.requestTitle')}
                       </h3>
                       <p
                         style={{
@@ -197,8 +199,7 @@ export default function ConsultantsPortal() {
                           fontSize: '0.9rem',
                         }}
                       >
-                        Fill out the form below and we'll review your request. Once approved,
-                        you'll receive your access code via email.
+                        {t('consultantsPage.requestDesc')}
                       </p>
                       <div
                         style={{
@@ -211,12 +212,12 @@ export default function ConsultantsPortal() {
                           fontSize: '0.85rem',
                         }}
                       >
-                        <strong><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" style={{verticalAlign: 'middle', marginRight: '4px'}}><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Please note:</strong> Access codes are valid for <strong>7 days</strong> from the date of approval. After 7 days, the code will automatically expire and access will be revoked.
+                        <strong><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" style={{verticalAlign: 'middle', marginRight: '4px'}}><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> {t('consultantsPage.pleaseNote')}</strong> <span dangerouslySetInnerHTML={{ __html: t('consultantsPage.expiryNote') }} />
                       </div>
                       <div className="quote-form-grid">
                         <div className="form-group">
                           <label htmlFor="req_name">
-                            Full Name <span className="required">*</span>
+                            {t('consultantsPage.fullName')} <span className="required">*</span>
                           </label>
                           <input
                             type="text"
@@ -228,7 +229,7 @@ export default function ConsultantsPortal() {
                         </div>
                         <div className="form-group">
                           <label htmlFor="req_email">
-                            Email Address <span className="required">*</span>
+                            {t('consultantsPage.email')} <span className="required">*</span>
                           </label>
                           <input
                             type="email"
@@ -239,7 +240,7 @@ export default function ConsultantsPortal() {
                           />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="req_company">Company / Organization</label>
+                          <label htmlFor="req_company">{t('consultantsPage.company')}</label>
                           <input
                             type="text"
                             id="req_company"
@@ -249,11 +250,11 @@ export default function ConsultantsPortal() {
                         </div>
                         <div className="form-group">
                           <label htmlFor="req_industry">
-                            Industry <span className="required">*</span>
+                            {t('consultantsPage.industry')} <span className="required">*</span>
                           </label>
                           <select id="req_industry" name="req_industry" required defaultValue="">
                             <option value="" disabled>
-                              Select industry
+                              {t('consultantsPage.selectIndustry')}
                             </option>
                             <option value="Healthcare">Healthcare</option>
                             <option value="Finance">Finance</option>
@@ -265,14 +266,14 @@ export default function ConsultantsPortal() {
                         </div>
                         <div className="form-group form-group--full">
                           <label htmlFor="req_reason">
-                            Reason for Access <span className="required">*</span>
+                            {t('consultantsPage.reason')} <span className="required">*</span>
                           </label>
                           <textarea
                             id="req_reason"
                             name="req_reason"
                             required
                             rows="4"
-                            placeholder="Briefly describe why you need access to the consultants portal..."
+                            placeholder={t('consultantsPage.reasonPlaceholder')}
                           ></textarea>
                         </div>
                       </div>
@@ -287,45 +288,45 @@ export default function ConsultantsPortal() {
                       >
                         {requestSending ? (
                           <>
-                            <span className="btn-spinner"></span> Sending...
+                            <span className="btn-spinner"></span> {t('consultantsPage.sending')}
                           </>
                         ) : (
-                          'Submit Access Request'
+                          t('consultantsPage.submitRequest')
                         )}
                       </button>
                     </form>
 
                     <div className="quote-sidebar">
                       <div className="quote-info-card">
-                        <h3>How It Works</h3>
+                        <h3>{t('consultantsPage.howItWorks')}</h3>
                         <div className="quote-steps">
                           <div className="quote-step">
                             <div className="quote-step-num">1</div>
                             <div>
-                              <strong>Submit Request</strong>
-                              <p>Fill out the form with your details and industry.</p>
+                              <strong>{t('consultantsPage.step1Title')}</strong>
+                              <p>{t('consultantsPage.step1Desc')}</p>
                             </div>
                           </div>
                           <div className="quote-step">
                             <div className="quote-step-num">2</div>
                             <div>
-                              <strong>Admin Review</strong>
-                              <p>Our team reviews your request within 24 hours.</p>
+                              <strong>{t('consultantsPage.step2Title')}</strong>
+                              <p>{t('consultantsPage.step2Desc')}</p>
                             </div>
                           </div>
                           <div className="quote-step">
                             <div className="quote-step-num">3</div>
                             <div>
-                              <strong>Receive Code</strong>
+                              <strong>{t('consultantsPage.step3Title')}</strong>
                               <p>
-                                Once approved, you'll receive your access code via email.
+                                {t('consultantsPage.step3Desc')}
                               </p>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="quote-info-card">
-                        <h3>Direct Contact</h3>
+                        <h3>{t('consultantsPage.directContact')}</h3>
                         <p className="quote-contact-email">
                           <svg
                             viewBox="0 0 24 24"
@@ -362,10 +363,9 @@ export default function ConsultantsPortal() {
                       <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
                   </div>
-                  <h2>Access Request Submitted!</h2>
+                  <h2>{t('consultantsPage.successTitle')}</h2>
                   <p>
-                    We've received your request and will review it within 24 hours. You'll
-                    receive your access code via email once approved.
+                    {t('consultantsPage.successDesc')}
                   </p>
                   <p
                     style={{
@@ -374,7 +374,7 @@ export default function ConsultantsPortal() {
                       fontSize: '0.85rem',
                     }}
                   >
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" style={{verticalAlign: 'middle', marginRight: '4px'}}><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Please note: Access codes are valid for 7 days from approval. After expiry, you may request a new code.
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" style={{verticalAlign: 'middle', marginRight: '4px'}}><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> {t('consultantsPage.successNote')}
                   </p>
                   <div className="cta-buttons" style={{ marginTop: '24px' }}>
                     <button
@@ -384,7 +384,7 @@ export default function ConsultantsPortal() {
                         setShowRequest(false)
                       }}
                     >
-                      Back to Portal
+                      {t('consultantsPage.backToPortal')}
                     </button>
                   </div>
                 </div>
@@ -393,7 +393,7 @@ export default function ConsultantsPortal() {
               {!showRequest && !requestSent && (
                 <div className="detail-action">
                   <Link to="/" className="btn btn-secondary">
-                    &larr; Back to Home
+                    {t('consultantsPage.backHome')}
                   </Link>
                 </div>
               )}
@@ -402,7 +402,7 @@ export default function ConsultantsPortal() {
             <div className="portfolio-content">
               <div className="resume-viewer-bar">
                 <span className="industry-badge-inline">
-                  {INDUSTRY_ICONS[match.industry] || null} {match.industry} Resume
+                  {INDUSTRY_ICONS[match.industry] || null} {match.industry} {t('consultantsPage.resume')}
                 </span>
                 <div className="resume-viewer-actions">
                   <button className="btn btn-primary btn-sm" onClick={handleDownload}>
@@ -421,10 +421,10 @@ export default function ConsultantsPortal() {
                       <polyline points="7 10 12 15 17 10" />
                       <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    Download PDF
+                    {t('consultantsPage.download')} PDF
                   </button>
                   <button className="btn btn-secondary btn-sm" onClick={handleExit}>
-                    Exit
+                    {t('consultantsPage.exitPortal')}
                   </button>
                 </div>
               </div>
@@ -432,7 +432,7 @@ export default function ConsultantsPortal() {
                 {loading && (
                   <div className="pdf-loading-indicator">
                     <div className="pdf-spinner"></div>
-                    <p>Loading document...</p>
+                    <p>{t('consultantsPage.loadingPdf')}</p>
                   </div>
                 )}
                 <iframe

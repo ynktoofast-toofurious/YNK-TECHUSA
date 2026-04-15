@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -7,6 +8,7 @@ export default function Navbar() {
   const [quoteDropdown, setQuoteDropdown] = useState(false)
   const quoteRef = useRef(null)
   const location = useLocation()
+  const { t, language, setLanguage } = useLanguage()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -59,19 +61,19 @@ export default function Navbar() {
         <ul className={`nav-menu${menuOpen ? ' active' : ''}`} id="navMenu">
           <li>
             {location.pathname === '/' ? (
-              <a href="#thumbnails" className="nav-link" onClick={(e) => handleAnchor(e, 'thumbnails')}>Services</a>
+              <a href="#thumbnails" className="nav-link" onClick={(e) => handleAnchor(e, 'thumbnails')}>{t('nav.services')}</a>
             ) : (
-              <Link to="/#thumbnails" className="nav-link">Services</Link>
+              <Link to="/#thumbnails" className="nav-link">{t('nav.services')}</Link>
             )}
           </li>
-          <li><Link to="/consultants" className="nav-link">Consultants Portal</Link></li>
+          <li><Link to="/consultants" className="nav-link">{t('nav.consultants')}</Link></li>
           <li className="nav-dropdown" ref={quoteRef}>
             <button
               className="nav-link nav-dropdown-toggle"
               onClick={() => setQuoteDropdown(!quoteDropdown)}
               type="button"
             >
-              Request Free Quote
+              {t('nav.requestQuote')}
               <svg className={`nav-dropdown-arrow${quoteDropdown ? ' open' : ''}`} width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M2 4l3 3 3-3" />
               </svg>
@@ -81,15 +83,15 @@ export default function Navbar() {
                 <Link to="/request-quote?category=it" className="nav-dropdown-item" onClick={() => setQuoteDropdown(false)}>
                   <span className="nav-dropdown-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
                   <div>
-                    <strong>IT Services</strong>
-                    <small>Web, AI, Cloud, Data & BI</small>
+                    <strong>{t('nav.itDropdown')}</strong>
+                    <small>{t('nav.itDropdownSub')}</small>
                   </div>
                 </Link>
                 <Link to="/request-quote?category=branding" className="nav-dropdown-item" onClick={() => setQuoteDropdown(false)}>
                   <span className="nav-dropdown-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
                   <div>
-                    <strong>Branding Services</strong>
-                    <small>Design, Events, Lighting, Printing</small>
+                    <strong>{t('nav.brandingDropdown')}</strong>
+                    <small>{t('nav.brandingDropdownSub')}</small>
                   </div>
                 </Link>
               </div>
@@ -97,9 +99,9 @@ export default function Navbar() {
           </li>
           <li>
             {location.pathname === '/' ? (
-              <a href="#contact" className="nav-link" onClick={(e) => handleAnchor(e, 'contact')}>Contact</a>
+              <a href="#contact" className="nav-link" onClick={(e) => handleAnchor(e, 'contact')}>{t('nav.contact')}</a>
             ) : (
-              <Link to="/#contact" className="nav-link">Contact</Link>
+              <Link to="/#contact" className="nav-link">{t('nav.contact')}</Link>
             )}
           </li>
           <li>
@@ -109,7 +111,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="nav-link nav-cta"
             >
-              Book a Consultation
+              {t('nav.bookCall')}
             </a>
           </li>
         </ul>
@@ -121,6 +123,19 @@ export default function Navbar() {
           <span></span>
           <span></span>
           <span></span>
+        </button>
+        <button
+          className="nav-lang-btn"
+          onClick={() => {
+            const langs = ['en', 'fr', 'es']
+            const next = langs[(langs.indexOf(language) + 1) % langs.length]
+            setLanguage(next)
+          }}
+          aria-label="Change language"
+          title={language.toUpperCase()}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <span>{language.toUpperCase()}</span>
         </button>
       </div>
     </nav>
