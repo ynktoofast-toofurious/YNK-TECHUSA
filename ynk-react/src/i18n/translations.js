@@ -68,7 +68,7 @@ const translations = {
       items: [
         'Brand Strategy & Identity Design',
         'Website UI/UX & Digital Experience',
-        'Event & Visual Branding (leveraging R&B Events expertise)',
+        'Event & Visual Branding',
         'Content Positioning & Visual Storytelling',
       ],
       vision: '<strong>Vision:</strong> Transform ideas into experiences that resonate, differentiate, and convert.',
@@ -157,7 +157,7 @@ const translations = {
     brandingPage: {
       subtitle: 'Building identities that are both memorable and market-ready',
       eventTitle: 'Event Technicians',
-      eventDesc: 'Skilled professionals ensuring flawless event operations, leveraging R&B Events expertise from setup to teardown.',
+      eventDesc: 'Skilled professionals ensuring flawless event operations from setup to teardown.',
       lightingTitle: 'Stage Lighting & Rental',
       lightingDesc: 'Professional lighting setups that elevate your event atmosphere and captivate audiences.',
       printTitle: 'Custom T-Shirt Printing',
@@ -320,7 +320,7 @@ const translations = {
       items: [
         'Stratégie de marque & Design d\'identité',
         'UI/UX de site web & Expérience numérique',
-        'Branding événementiel & visuel (expertise R&B Events)',
+        'Branding événementiel & visuel',
         'Positionnement de contenu & Narration visuelle',
       ],
       vision: '<strong>Vision :</strong> Transformer les idées en expériences qui résonnent, différencient et convertissent.',
@@ -381,7 +381,7 @@ const translations = {
     brandingPage: {
       subtitle: 'Construire des identités mémorables et prêtes pour le marché',
       eventTitle: 'Techniciens événementiels',
-      eventDesc: 'Des professionnels qualifiés garantissant des opérations événementielles impeccables, avec l\'expertise R&B Events du montage au démontage.',
+      eventDesc: 'Des professionnels qualifiés garantissant des opérations événementielles impeccables, du montage au démontage.',
       lightingTitle: 'Éclairage de scène & Location',
       lightingDesc: 'Des installations d\'éclairage professionnelles qui subliment l\'atmosphère de votre événement et captivent le public.',
       printTitle: 'Impression de T-shirts personnalisés',
@@ -538,7 +538,7 @@ const translations = {
       items: [
         'Estrategia de marca & Diseño de identidad',
         'UI/UX de sitios web & Experiencia digital',
-        'Branding de eventos & visual (experiencia R&B Events)',
+        'Branding de eventos & visual',
         'Posicionamiento de contenido & Narrativa visual',
       ],
       vision: '<strong>Visión:</strong> Transformar ideas en experiencias que resuenen, diferencien y conviertan.',
@@ -599,7 +599,7 @@ const translations = {
     brandingPage: {
       subtitle: 'Construyendo identidades memorables y listas para el mercado',
       eventTitle: 'Técnicos de eventos',
-      eventDesc: 'Profesionales capacitados que garantizan operaciones impecables en eventos, con la experiencia de R&B Events desde el montaje hasta el desmontaje.',
+      eventDesc: 'Profesionales capacitados que garantizan operaciones impecables en eventos, desde el montaje hasta el desmontaje.',
       lightingTitle: 'Iluminación de escenario & Alquiler',
       lightingDesc: 'Instalaciones de iluminación profesional que elevan la atmósfera de su evento y cautivan al público.',
       printTitle: 'Impresión de camisetas personalizadas',
