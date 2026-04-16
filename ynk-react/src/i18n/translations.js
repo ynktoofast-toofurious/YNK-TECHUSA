@@ -103,6 +103,11 @@ const translations = {
       text: 'Turn ideas into scalable systems, brands into experiences, and data into decisions.',
     },
 
+    // Clients
+    clients: {
+      title: 'Trusted by Industry Leaders',
+    },
+
     // Thumbnails
     thumbs: {
       it: {
@@ -347,6 +352,9 @@ const translations = {
     missionSection: {
       title: 'Notre Mission',
       text: 'Transformer les idées en systèmes évolutifs, les marques en expériences, et les données en décisions.',
+    },
+    clients: {
+      title: 'Approuvé par les leaders de l\'industrie',
     },
     thumbs: {
       it: { title: 'Services IT', desc: 'Technologie moderne et évolutive : applications web, automatisation IA, ingénierie des données, infrastructure cloud et intelligence d\'affaires.', cta: 'Explorer' },

@@ -126,6 +126,28 @@ export default function Home() {
             <h3>{t('missionSection.title')}</h3>
             <p>{t('missionSection.text')}</p>
           </div>
+
+          {/* Clients Section */}
+          <div className="clients-section" data-aos="">
+            <h3 className="clients-title">{t('clients.title')}</h3>
+            <div className="clients-grid">
+              <div className="client-logo">
+                <img src="/Logo/clients/uhg.svg" alt="UnitedHealth Group" />
+              </div>
+              <div className="client-logo">
+                <img src="/Logo/clients/optumrx.svg" alt="OptumRx" />
+              </div>
+              <div className="client-logo">
+                <img src="/Logo/clients/lockton.svg" alt="Lockton" />
+              </div>
+              <div className="client-logo">
+                <img src="/Logo/clients/rnb-events.svg" alt="RNB Events" />
+              </div>
+              <div className="client-logo">
+                <img src="/Logo/clients/groupo.svg" alt="GroupO" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
