@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
-  <circle cx="40" cy="40" r="20" fill="#29B5E8"/>
-  <text x="70" y="50" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#0b1120" text-anchor="start">GroupO</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 100" fill="none">
+  <rect width="240" height="100" fill="white" rx="8"/>
+  <circle cx="60" cy="50" r="20" fill="#29B5E8"/>
+  <text x="95" y="60" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#0b1120" text-anchor="start">GroupO</text>
 </svg>

@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
-  <text x="100" y="40" font-family="Georgia, serif" font-size="40" font-weight="bold" fill="#000000" text-anchor="middle">RNB</text>
-  <text x="100" y="65" font-family="Arial, sans-serif" font-size="14" font-weight="300" fill="#000000" text-anchor="middle" letter-spacing="4">EVENTS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 100" fill="none">
+  <rect width="240" height="100" fill="white" rx="8"/>
+  <g transform="translate(30, 15)">
+    <path d="M20 10 L30 0 L40 10 M35 5 L45 15 M15 15 L25 5" stroke="#666" stroke-width="1.5" fill="none"/>
+    <path d="M160 10 L170 0 L180 10 M175 5 L185 15 M155 15 L165 5" stroke="#666" stroke-width="1.5" fill="none"/>
+  </g>
+  <text x="120" y="45" font-family="Georgia, serif" font-size="36" font-weight="700" fill="#000" text-anchor="middle">RNB</text>
+  <text x="120" y="70" font-family="Arial, sans-serif" font-size="12" font-weight="300" fill="#666" text-anchor="middle" letter-spacing="3">EVENTS</text>
 </svg>
