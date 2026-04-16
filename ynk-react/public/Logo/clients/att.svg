@@ -1,13 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
   <!-- AT&T Globe -->
-  <g transform="translate(80, 15)">
-    <circle cx="35" cy="35" r="30" fill="none" stroke="#00A8E0" stroke-width="3"/>
-    <path d="M35,5 L35,65 M5,35 L65,35" stroke="#00A8E0" stroke-width="2"/>
-    <ellipse cx="35" cy="35" rx="12" ry="30" fill="none" stroke="#00A8E0" stroke-width="2"/>
-    <path d="M10,20 Q35,25 60,20 M10,50 Q35,45 60,50" fill="none" stroke="#00A8E0" stroke-width="2"/>
+  <g transform="translate(75, 20)">
+    <circle cx="75" cy="75" r="60" fill="#00A8E0"/>
+    <circle cx="75" cy="75" r="55" fill="#FFFFFF"/>
+    <!-- Horizontal stripes -->
+    <ellipse cx="75" cy="45" rx="50" ry="3" fill="#00A8E0"/>
+    <ellipse cx="75" cy="75" rx="55" ry="4" fill="#00A8E0"/>
+    <ellipse cx="75" cy="105" rx="50" ry="3" fill="#00A8E0"/>
+    <!-- Vertical lines -->
+    <line x1="75" y1="15" x2="75" y2="135" stroke="#00A8E0" stroke-width="3"/>
+    <path d="M75,15 Q50,75 75,135" fill="none" stroke="#00A8E0" stroke-width="2"/>
+    <path d="M75,15 Q100,75 75,135" fill="none" stroke="#00A8E0" stroke-width="2"/>
   </g>
   
   <!-- AT&T text -->
-  <text x="150" y="95" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#000" letter-spacing="2">AT&T</text>
-  <text x="245" y="88" font-family="Arial, sans-serif" font-size="10" fill="#00A8E0">SM</text>
+  <text x="150" y="180" font-family="'Helvetica Neue', Arial, sans-serif" font-size="48" font-weight="700" fill="#000000" text-anchor="middle" letter-spacing="3">AT&T</text>
+  <text x="235" y="165" font-family="Arial, sans-serif" font-size="14" fill="#00A8E0">SM</text>
 </svg>

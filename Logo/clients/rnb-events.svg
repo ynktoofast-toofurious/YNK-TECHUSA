@@ -1,24 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
   <!-- Floral decorations top -->
-  <g transform="translate(50, 30)" fill="none" stroke="#000" stroke-width="1.5">
-    <path d="M30,20 Q35,10 40,20 M35,15 L35,25 M32,18 L38,22 M38,18 L32,22"/>
-    <path d="M50,15 Q55,8 60,15 M55,10 L55,20"/>
-    <path d="M70,25 Q73,18 76,25 M73,20 L73,28 M71,23 L75,26"/>
-    <ellipse cx="90" cy="20" rx="8" ry="12" stroke="#000" fill="none"/>
-    <path d="M85,20 Q87,15 89,20 M89,20 Q91,15 93,20"/>
+  <g transform="translate(50, 30)">
+    <circle cx="30" cy="20" r="6" fill="#D4A574"/>
+    <circle cx="23" cy="15" r="4" fill="#D4A574"/>
+    <circle cx="37" cy="15" r="4" fill="#D4A574"/>
+    <circle cx="25" cy="27" r="4" fill="#D4A574"/>
+    <circle cx="35" cy="27" r="4" fill="#D4A574"/>
+    
+    <circle cx="55" cy="15" r="5" fill="#D4A574"/>
+    <circle cx="49" cy="11" r="3" fill="#D4A574"/>
+    <circle cx="61" cy="11" r="3" fill="#D4A574"/>
+    
+    <circle cx="75" cy="22" r="7" fill="#D4A574"/>
+    <circle cx="68" cy="17" r="4.5" fill="#D4A574"/>
+    <circle cx="82" cy="17" r="4.5" fill="#D4A574"/>
+    <circle cx="70" cy="29" r="4.5" fill="#D4A574"/>
+    <circle cx="80" cy="29" r="4.5" fill="#D4A574"/>
+    
+    <ellipse cx="98" cy="20" rx="6" ry="9" fill="none" stroke="#8B7355" stroke-width="2"/>
+    <circle cx="92" cy="20" r="3" fill="#D4A574"/>
+    <circle cx="104" cy="20" r="3" fill="#D4A574"/>
   </g>
   
   <!-- RNB text -->
-  <text x="150" y="140" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#000" text-anchor="middle">RNB</text>
+  <text x="150" y="140" font-family="'Times New Roman', Georgia, serif" font-size="80" font-weight="700" fill="#4A4A4A" text-anchor="middle" letter-spacing="4">RNB</text>
   
   <!-- EVENTS text -->
-  <text x="150" y="170" font-family="Arial, sans-serif" font-size="18" font-weight="300" fill="#666" text-anchor="middle" letter-spacing="8">EVENTS</text>
+  <text x="150" y="175" font-family="'Garamond', Georgia, serif" font-size="26" font-weight="300" font-style="italic" fill="#8B7355" text-anchor="middle" letter-spacing="6">EVENTS</text>
   
   <!-- Floral decorations bottom -->
-  <g transform="translate(50, 190)" fill="none" stroke="#000" stroke-width="1.5">
-    <path d="M30,20 Q35,10 40,20 M35,15 L35,25 M32,18 L38,22 M38,18 L32,22"/>
-    <path d="M50,15 Q55,8 60,15 M55,10 L55,20"/>
-    <ellipse cx="75" cy="18" rx="10" ry="14" stroke="#000" fill="none"/>
-    <path d="M90,25 Q93,18 96,25 M93,20 L93,28"/>
+  <g transform="translate(50, 190)">
+    <circle cx="30" cy="20" r="6" fill="#D4A574"/>
+    <circle cx="23" cy="15" r="4" fill="#D4A574"/>
+    <circle cx="37" cy="15" r="4" fill="#D4A574"/>
+    <circle cx="25" cy="27" r="4" fill="#D4A574"/>
+    <circle cx="35" cy="27" r="4" fill="#D4A574"/>
+    
+    <circle cx="55" cy="15" r="5" fill="#D4A574"/>
+    <circle cx="49" cy="11" r="3" fill="#D4A574"/>
+    <circle cx="61" cy="11" r="3" fill="#D4A574"/>
+    
+    <ellipse cx="80" cy="18" rx="7" ry="10" fill="none" stroke="#8B7355" stroke-width="2"/>
+    <circle cx="73" cy="18" r="3.5" fill="#D4A574"/>
+    <circle cx="87" cy="18" r="3.5" fill="#D4A574"/>
+    
+    <circle cx="100" cy="23" r="6" fill="#D4A574"/>
+    <circle cx="94" cy="19" r="3.5" fill="#D4A574"/>
+    <circle cx="106" cy="19" r="3.5" fill="#D4A574"/>
   </g>
 </svg>

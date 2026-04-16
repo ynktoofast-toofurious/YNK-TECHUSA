@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60">
-  <text x="10" y="40" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#FF6200">Optum</text>
-  <text x="145" y="40" font-family="Arial, sans-serif" font-size="36" font-weight="400" fill="#666">Rx</text>
-  <text x="200" y="20" font-family="Arial, sans-serif" font-size="14" fill="#666">®</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80">
+  <text x="10" y="55" font-family="'Helvetica Neue', Arial, sans-serif" font-size="48" font-weight="400" fill="#FF6200">Optum</text>
+  <text x="190" y="55" font-family="'Helvetica Neue', Arial, sans-serif" font-size="48" font-weight="300" fill="#666666">Rx</text>
+  <text x="285" y="35" font-family="Arial, sans-serif" font-size="16" fill="#666666">®</text>
 </svg>

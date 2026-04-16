@@ -1,16 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
-  <!-- Geometric pattern icon -->
-  <g transform="translate(30, 25)">
-    <rect x="10" y="5" width="8" height="8" fill="#C9A961" transform="rotate(45 14 9)"/>
-    <rect x="22" y="5" width="8" height="8" fill="#C9A961" transform="rotate(45 26 9)"/>
-    <rect x="34" y="5" width="8" height="8" fill="#C9A961" transform="rotate(45 38 9)"/>
-    <rect x="16" y="15" width="8" height="8" fill="#C9A961" transform="rotate(45 20 19)"/>
-    <rect x="28" y="15" width="8" height="8" fill="#C9A961" transform="rotate(45 32 19)"/>
-    <circle cx="26" cy="26" r="12" fill="none" stroke="#C9A961" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <!-- Geometric Inca-style pattern -->
+  <g transform="translate(40, 30)">
+    <!-- Top diamonds -->
+    <rect x="15" y="0" width="10" height="10" fill="#C9A961" transform="rotate(45 20 5)"/>
+    <rect x="30" y="0" width="10" height="10" fill="#C9A961" transform="rotate(45 35 5)"/>
+    <rect x="45" y="0" width="10" height="10" fill="#C9A961" transform="rotate(45 50 5)"/>
+    <rect x="60" y="0" width="10" height="10" fill="#C9A961" transform="rotate(45 65 5)"/>
+    
+    <!-- Middle row -->
+    <rect x="7" y="12" width="10" height="10" fill="#C9A961" transform="rotate(45 12 17)"/>
+    <rect x="22" y="12" width="10" height="10" fill="#C9A961" transform="rotate(45 27 17)"/>
+    <rect x="37" y="12" width="10" height="10" fill="#C9A961" transform="rotate(45 42 17)"/>
+    <rect x="52" y="12" width="10" height="10" fill="#C9A961" transform="rotate(45 57 17)"/>
+    <rect x="67" y="12" width="10" height="10" fill="#C9A961" transform="rotate(45 72 17)"/>
+    
+    <!-- Center circle -->
+    <circle cx="42" cy="30" r="15" fill="none" stroke="#C9A961" stroke-width="2"/>
+    
+    <!-- Bottom diamonds -->
+    <rect x="15" y="40" width="10" height="10" fill="#C9A961" transform="rotate(45 20 45)"/>
+    <rect x="30" y="40" width="10" height="10" fill="#C9A961" transform="rotate(45 35 45)"/>
+    <rect x="45" y="40" width="10" height="10" fill="#C9A961" transform="rotate(45 50 45)"/>
+    <rect x="60" y="40" width="10" height="10" fill="#C9A961" transform="rotate(45 65 45)"/>
   </g>
   
   <!-- GROUP O text -->
-  <text x="90" y="52" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#4A4A4A">GROUP</text>
-  <text x="205" y="52" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#4A4A4A">Ō</text>
-  <text x="233" y="45" font-family="Arial, sans-serif" font-size="10" fill="#999">®</text>
+  <text x="145" y="75" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#4A4A4A">GROUP</text>
+  <text x="295" y="75" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#4A4A4A">Ō</text>
+  <text x="345" y="60" font-family="Arial, sans-serif" font-size="14" fill="#999999">®</text>
 </svg>
