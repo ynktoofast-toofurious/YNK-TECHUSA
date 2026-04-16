@@ -1249,13 +1249,13 @@ img {
     width: auto;
     height: auto;
     object-fit: contain;
-    filter: brightness(1.2);
-    transition: filter var(--transition-base), transform var(--transition-base);
+    opacity: 0.6;
+    transition: opacity var(--transition-base), transform var(--transition-base);
 }
 
 .client-logo:hover img {
-    filter: brightness(1.4);
-    transform: scale(1.05);
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 /* ==========================================================================

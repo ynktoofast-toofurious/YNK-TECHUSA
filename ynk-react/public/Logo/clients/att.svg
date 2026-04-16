@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120">
+  <!-- AT&T Globe -->
+  <g transform="translate(80, 15)">
+    <circle cx="35" cy="35" r="30" fill="none" stroke="#00A8E0" stroke-width="3"/>
+    <path d="M35,5 L35,65 M5,35 L65,35" stroke="#00A8E0" stroke-width="2"/>
+    <ellipse cx="35" cy="35" rx="12" ry="30" fill="none" stroke="#00A8E0" stroke-width="2"/>
+    <path d="M10,20 Q35,25 60,20 M10,50 Q35,45 60,50" fill="none" stroke="#00A8E0" stroke-width="2"/>
+  </g>
+  
+  <!-- AT&T text -->
+  <text x="150" y="95" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#000" letter-spacing="2">AT&T</text>
+  <text x="245" y="88" font-family="Arial, sans-serif" font-size="10" fill="#00A8E0">SM</text>
+</svg>

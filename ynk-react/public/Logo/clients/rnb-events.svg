@@ -1,9 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 100" fill="none">
-  <rect width="240" height="100" fill="white" rx="8"/>
-  <g transform="translate(30, 15)">
-    <path d="M20 10 L30 0 L40 10 M35 5 L45 15 M15 15 L25 5" stroke="#666" stroke-width="1.5" fill="none"/>
-    <path d="M160 10 L170 0 L180 10 M175 5 L185 15 M155 15 L165 5" stroke="#666" stroke-width="1.5" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <!-- Floral decorations top -->
+  <g transform="translate(50, 30)" fill="none" stroke="#000" stroke-width="1.5">
+    <path d="M30,20 Q35,10 40,20 M35,15 L35,25 M32,18 L38,22 M38,18 L32,22"/>
+    <path d="M50,15 Q55,8 60,15 M55,10 L55,20"/>
+    <path d="M70,25 Q73,18 76,25 M73,20 L73,28 M71,23 L75,26"/>
+    <ellipse cx="90" cy="20" rx="8" ry="12" stroke="#000" fill="none"/>
+    <path d="M85,20 Q87,15 89,20 M89,20 Q91,15 93,20"/>
   </g>
-  <text x="120" y="45" font-family="Georgia, serif" font-size="36" font-weight="700" fill="#000" text-anchor="middle">RNB</text>
-  <text x="120" y="70" font-family="Arial, sans-serif" font-size="12" font-weight="300" fill="#666" text-anchor="middle" letter-spacing="3">EVENTS</text>
+  
+  <!-- RNB text -->
+  <text x="150" y="140" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#000" text-anchor="middle">RNB</text>
+  
+  <!-- EVENTS text -->
+  <text x="150" y="170" font-family="Arial, sans-serif" font-size="18" font-weight="300" fill="#666" text-anchor="middle" letter-spacing="8">EVENTS</text>
+  
+  <!-- Floral decorations bottom -->
+  <g transform="translate(50, 190)" fill="none" stroke="#000" stroke-width="1.5">
+    <path d="M30,20 Q35,10 40,20 M35,15 L35,25 M32,18 L38,22 M38,18 L32,22"/>
+    <path d="M50,15 Q55,8 60,15 M55,10 L55,20"/>
+    <ellipse cx="75" cy="18" rx="10" ry="14" stroke="#000" fill="none"/>
+    <path d="M90,25 Q93,18 96,25 M93,20 L93,28"/>
+  </g>
 </svg>

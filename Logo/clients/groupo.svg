@@ -1,5 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 100" fill="none">
-  <rect width="240" height="100" fill="white" rx="8"/>
-  <circle cx="60" cy="50" r="20" fill="#29B5E8"/>
-  <text x="95" y="60" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#0b1120" text-anchor="start">GroupO</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+  <!-- Geometric pattern icon -->
+  <g transform="translate(30, 25)">
+    <rect x="10" y="5" width="8" height="8" fill="#C9A961" transform="rotate(45 14 9)"/>
+    <rect x="22" y="5" width="8" height="8" fill="#C9A961" transform="rotate(45 26 9)"/>
+    <rect x="34" y="5" width="8" height="8" fill="#C9A961" transform="rotate(45 38 9)"/>
+    <rect x="16" y="15" width="8" height="8" fill="#C9A961" transform="rotate(45 20 19)"/>
+    <rect x="28" y="15" width="8" height="8" fill="#C9A961" transform="rotate(45 32 19)"/>
+    <circle cx="26" cy="26" r="12" fill="none" stroke="#C9A961" stroke-width="2"/>
+  </g>
+  
+  <!-- GROUP O text -->
+  <text x="90" y="52" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#4A4A4A">GROUP</text>
+  <text x="205" y="52" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#4A4A4A">Ō</text>
+  <text x="233" y="45" font-family="Arial, sans-serif" font-size="10" fill="#999">®</text>
 </svg>

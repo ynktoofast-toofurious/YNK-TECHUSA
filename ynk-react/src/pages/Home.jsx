@@ -146,6 +146,9 @@ export default function Home() {
               <div className="client-logo">
                 <img src="/Logo/clients/groupo.svg" alt="GroupO" />
               </div>
+              <div className="client-logo">
+                <img src="/Logo/clients/att.svg" alt="AT&T" />
+              </div>
             </div>
           </div>
         </div>

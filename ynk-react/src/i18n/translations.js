@@ -105,7 +105,7 @@ const translations = {
 
     // Clients
     clients: {
-      title: 'Trusted by Industry Leaders',
+      title: 'Years of Services at Top Industries',
     },
 
     // Thumbnails
@@ -354,7 +354,7 @@ const translations = {
       text: 'Transformer les idées en systèmes évolutifs, les marques en expériences, et les données en décisions.',
     },
     clients: {
-      title: 'Approuvé par les leaders de l\'industrie',
+      title: 'Années de services dans les meilleures industries',
     },
     thumbs: {
       it: { title: 'Services IT', desc: 'Technologie moderne et évolutive : applications web, automatisation IA, ingénierie des données, infrastructure cloud et intelligence d\'affaires.', cta: 'Explorer' },
