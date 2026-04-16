@@ -132,22 +132,22 @@ export default function Home() {
             <h3 className="clients-title">{t('clients.title')}</h3>
             <div className="clients-grid">
               <div className="client-logo">
-                <img src="/Logo/clients/uhg.svg" alt="UnitedHealth Group" />
+                <div className="logo-placeholder">UnitedHealth Group</div>
               </div>
               <div className="client-logo">
-                <img src="/Logo/clients/optumrx.svg" alt="OptumRx" />
+                <div className="logo-placeholder">OptumRx</div>
               </div>
               <div className="client-logo">
-                <img src="/Logo/clients/lockton.svg" alt="Lockton" />
+                <div className="logo-placeholder">Lockton</div>
               </div>
               <div className="client-logo">
-                <img src="/Logo/clients/rnb-events.svg" alt="RNB Events" />
+                <img src="/Logo/clients/rnb-events.png" alt="RNB Events" />
               </div>
               <div className="client-logo">
-                <img src="/Logo/clients/groupo.svg" alt="GroupO" />
+                <div className="logo-placeholder">GroupO</div>
               </div>
               <div className="client-logo">
-                <img src="/Logo/clients/att.svg" alt="AT&T" />
+                <div className="logo-placeholder">AT&T</div>
               </div>
             </div>
           </div>
