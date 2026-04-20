@@ -56,8 +56,11 @@ export default function ConsultantsPortal() {
       setError(t('consultantsPage.enterCode'))
       return
     }
-    // Normalize: uppercase and strip any invisible/extra whitespace
-    const code = raw.toUpperCase().replace(/\s+/g, '')
+    // Normalize: uppercase, strip whitespace, replace any fancy dashes/quotes with ASCII equivalents
+    const code = raw
+      .toUpperCase()
+      .replace(/\s+/g, '')
+      .replace(/[\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g, '-')
     try {
       const hash = await sha256(code)
 
