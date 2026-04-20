@@ -81,3 +81,77 @@ export async function getDynamicCodes() {
     return now - new Date(c.created).getTime() < SEVEN_DAYS
   })
 }
+
+// ── Access code usage + location tracking ──────────────────────
+async function getGeoLocation() {
+  try {
+    const res = await fetch('https://ipapi.co/json/', {
+      signal: AbortSignal.timeout ? AbortSignal.timeout(4000) : undefined,
+    })
+    if (!res.ok) return null
+    const loc = await res.json()
+    return {
+      city:    loc.city    || '',
+      region:  loc.region  || '',
+      country: loc.country_name || loc.country || '',
+      ip:      loc.ip      || '',
+    }
+  } catch (e) {
+    return null
+  }
+}
+
+function storeEvent(event) {
+  try {
+    const events = JSON.parse(localStorage.getItem('ynk_access_events') || '[]')
+    events.push(event)
+    if (events.length > 500) events.splice(0, events.length - 500)
+    localStorage.setItem('ynk_access_events', JSON.stringify(events))
+  } catch (e) { /* silent */ }
+}
+
+export async function trackAccessCodeUsage(industry, action = 'view') {
+  const event = {
+    type:      'access_code',
+    industry:  industry || 'Unknown',
+    action,
+    timestamp: new Date().toISOString(),
+    userAgent: navigator.userAgent,
+  }
+  const loc = await getGeoLocation()
+  if (loc) event.location = loc
+
+  if (API_URL) {
+    try {
+      await fetch(`${API_URL}/api/track-event`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(event),
+      })
+    } catch (e) { /* silent */ }
+    return
+  }
+  storeEvent(event)
+}
+
+export async function trackCookieConsent(choice) {
+  const event = {
+    type:      'cookie_consent',
+    choice,    // 'all' | 'essential' | 'reject'
+    timestamp: new Date().toISOString(),
+  }
+  const loc = await getGeoLocation()
+  if (loc) event.location = loc
+
+  if (API_URL) {
+    try {
+      await fetch(`${API_URL}/api/track-event`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(event),
+      })
+    } catch (e) { /* silent */ }
+    return
+  }
+  storeEvent(event)
+}

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
-import { saveAccessRequest, getDynamicCodes } from '../utils/tracking'
+import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage } from '../utils/tracking'
 import { useLanguage } from '../i18n/LanguageContext'
 
 emailjs.init('zG_jERVPbUUfiZ6IL')
@@ -24,6 +24,8 @@ const RESUME_MAP = [
   { hash: '23040e83f99dd6e07994719e499ed59f460562441bdb6a50ac9b5ccdf921dc30', industry: 'Government', file: 'Admin/resumes/government.pdf' },
   { hash: '78c1cb1cc907f88da58c31075e2829a32b5965583e680fe2bffeba95296e35b8', industry: 'Retail', file: 'Admin/resumes/retail.pdf' },
   { hash: 'c2b47a63731365f265c92278923d928edcf08000696775cde4ba4ba2b8ccd70e', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html' },
+  // Viewer-only access (view resume, no download)
+  { hash: 'a067776e3f1ec04c7ca9b2e797289e7437fa5502202f59a1556c99ad4c4a6014', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html', viewOnly: true, viewer: 'moise' },
 ]
 
 async function sha256(text) {
@@ -43,6 +45,7 @@ export default function ConsultantsPortal() {
   const [requestSent, setRequestSent] = useState(false)
   const [requestSending, setRequestSending] = useState(false)
   const [requestError, setRequestError] = useState('')
+  const [activeTab, setActiveTab] = useState('expertise')
   const codeRef = useRef()
   const requestFormRef = useRef()
   const { t } = useLanguage()
@@ -69,6 +72,7 @@ export default function ConsultantsPortal() {
       setUnlocked(true)
       setLoading(true)
       setError('')
+      trackAccessCodeUsage(found.industry, found.viewOnly ? 'view-only' : 'view')
     } else {
       setError(t('consultantsPage.invalidCode'))
       codeRef.current.value = ''
@@ -147,6 +151,66 @@ export default function ConsultantsPortal() {
         </div>
       </section>
 
+      <div className="page-tabs-bar">
+        <div className="container">
+          <div className="page-tabs">
+            <button
+              className={`page-tab${activeTab === 'expertise' ? ' active' : ''}`}
+              onClick={() => setActiveTab('expertise')}
+              type="button"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              Expertise
+            </button>
+            <button
+              className={`page-tab${activeTab === 'projects' ? ' active' : ''}`}
+              onClick={() => setActiveTab('projects')}
+              type="button"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Projects
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── PROJECTS TAB (no gate required) ── */}
+      {activeTab === 'projects' && (
+        <section className="detail-section">
+          <div className="container">
+            <div className="projects-header">
+              <h2 className="projects-title">Consulting Engagements</h2>
+              <p className="projects-sub">Select consulting and data engineering engagements across healthcare, manufacturing, and enterprise analytics.</p>
+            </div>
+            <div className="projects-grid">
+              {[
+                { tag: 'Data Engineering', title: '4B-Row Pharmacy Reporting Layer', desc: 'Engineered a Snowflake + dbt reporting layer processing over 4 billion rows of pharmacy claims, enabling real-time decision-making across 4,000+ health plan clients via Power BI Embedded.', stack: ['Snowflake', 'dbt', 'Power BI', 'Python'] },
+                { tag: 'Analytics Modernization', title: 'Power BI Service Enablement', desc: 'Led full Power BI Service deployment for a pharmacy analytics division — workspace governance, deployment pipelines, and dataflow architecture across 40+ executive-level dashboards.', stack: ['Power BI', 'DAX', 'DirectQuery', 'Azure'] },
+                { tag: 'Healthcare Analytics', title: 'Utilization Management Dashboard', desc: 'Delivered a PMPM, formulary savings, and drug utilization dashboard suite with multi-layer RLS protecting PHI/PII for compliance with healthcare reporting standards.', stack: ['Power BI', 'SQL', 'RLS', 'Alteryx'] },
+                { tag: 'Industrial Engineering', title: 'Manufacturing BI & Lean Analysis', desc: 'Built self-service analytics portals and Alteryx workflows for operational insights, combined with AutoCAD layout analyses to optimize lean production flow and capacity planning.', stack: ['Power BI', 'Alteryx', 'AutoCAD', 'SQL'] },
+                { tag: 'Data Integration', title: 'Multi-Source Data Pipeline', desc: 'Designed and implemented integrations from NetSuite, Salesforce, PBM platforms, and pharmacy claims systems — centralizing data governance and improving reporting accuracy.', stack: ['Alteryx', 'SQL', 'Salesforce', 'NetSuite'] },
+                { tag: 'Brand & Web', title: 'YNK-Tech USA Platform Build', desc: 'Architected and deployed the full YNK-Tech USA web platform — from Three.js 3D AI visualization and multilingual SPA to AWS S3 hosting, Lambda API, and admin dashboard.', stack: ['React', 'Three.js', 'AWS', 'Node.js'] },
+              ].map((p, i) => (
+                <div className="project-card" key={i}>
+                  <span className="project-tag">{p.tag}</span>
+                  <h3 className="project-card-title">{p.title}</h3>
+                  <p className="project-card-desc">{p.desc}</p>
+                  <div className="project-stack">
+                    {p.stack.map((s, j) => <span key={j} className="project-stack-tag">{s}</span>)}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="detail-action" style={{ marginTop: '48px' }}>
+              <Link to="/request-quote" className="btn btn-primary">Work With Us</Link>
+              <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}>{t('consultantsPage.backHome')}</Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── EXPERTISE TAB (gated portal) ── */}
+      {activeTab === 'expertise' && (
       <section className="portfolio-section">
         <div className="container">
           {!unlocked ? (
@@ -408,6 +472,7 @@ export default function ConsultantsPortal() {
                   {INDUSTRY_ICONS[match.industry] || null} {match.industry} {t('consultantsPage.resume')}
                 </span>
                 <div className="resume-viewer-actions">
+                  {!match.viewOnly && (
                   <button className="btn btn-primary btn-sm" onClick={handleDownload}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -426,6 +491,7 @@ export default function ConsultantsPortal() {
                     </svg>
                     {t('consultantsPage.download')} PDF
                   </button>
+                  )}
                   <button className="btn btn-secondary btn-sm" onClick={handleExit}>
                     {t('consultantsPage.exitPortal')}
                   </button>
@@ -450,6 +516,7 @@ export default function ConsultantsPortal() {
           )}
         </div>
       </section>
+      )}
     </>
   )
 }

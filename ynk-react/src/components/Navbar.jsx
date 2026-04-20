@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useAccess } from '../context/AccessContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -9,6 +10,7 @@ export default function Navbar() {
   const quoteRef = useRef(null)
   const location = useLocation()
   const { t, language, setLanguage } = useLanguage()
+  const { isUnlocked, lock } = useAccess()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -137,6 +139,21 @@ export default function Navbar() {
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           <span>{language.toUpperCase()}</span>
         </button>
+        {isUnlocked && (
+          <button
+            className="nav-signout-btn"
+            onClick={() => { lock(); window.location.href = '/' }}
+            title="Sign out of protected portal"
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            <span>Sign Out</span>
+          </button>
+        )}
       </div>
     </nav>
   )

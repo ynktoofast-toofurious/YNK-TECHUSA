@@ -20,6 +20,7 @@
     var STORAGE_ACCESS_REQS    = 'ynk_access_requests';
     var STORAGE_DYNAMIC_CODES  = 'ynk_dynamic_codes';
     var STORAGE_SITE_STATS     = 'ynk_site_stats';
+    var STORAGE_ACCESS_EVENTS  = 'ynk_access_events';
 
     /* ── Cloud API (S3 backend) ───────────────────────── */
     var API_URL = (window.ADMIN_CONFIG || {}).apiUrl || '';
@@ -508,6 +509,7 @@
         state.accessRequests = safeJSON(localStorage.getItem(STORAGE_ACCESS_REQS)) || [];
         state.dynamicCodes   = safeJSON(localStorage.getItem(STORAGE_DYNAMIC_CODES)) || [];
         state.siteStats      = safeJSON(localStorage.getItem(STORAGE_SITE_STATS)) || {};
+        state.accessEvents   = safeJSON(localStorage.getItem(STORAGE_ACCESS_EVENTS)) || [];
 
         // Fetch fresh data from cloud API (overwrites localStorage cache)
         fetchFromApi();
@@ -1291,6 +1293,85 @@
             });
             dailyEl.innerHTML = html2;
         }
+
+        // Access code events
+        renderAccessCodeStats();
+        // Cookie consent events
+        renderCookieStats();
+    }
+
+    function renderAccessCodeStats() {
+        var el = document.getElementById('stats-access-codes');
+        if (!el) return;
+        var events = (state.accessEvents || []).filter(function (e) { return e.type === 'access_code'; });
+        var html = '<h4 style="font-family:var(--font-heading);font-size:12px;letter-spacing:2px;color:var(--color-text-muted);margin:28px 0 14px;">ACCESS CODE USAGE (' + events.length + ')</h4>';
+        if (!events.length) {
+            el.innerHTML = html + '<p style="color:var(--color-text-muted);font-size:13px;">No access code events recorded yet.</p>';
+            return;
+        }
+        html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">' +
+            '<thead><tr>' +
+            '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Industry</th>' +
+            '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Action</th>' +
+            '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Date</th>' +
+            '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Location</th>' +
+            '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">IP</th>' +
+            '</tr></thead><tbody>';
+        events.slice().reverse().forEach(function (e) {
+            var loc = e.location ? (e.location.city || '') + (e.location.country ? ', ' + e.location.country : '') : 'N/A';
+            var ip  = e.location && e.location.ip ? e.location.ip : 'N/A';
+            var dt  = e.timestamp ? new Date(e.timestamp).toLocaleString() : 'N/A';
+            html += '<tr style="border-bottom:1px solid rgba(41,181,232,0.06);">' +
+                '<td style="padding:8px 12px;color:var(--color-accent);">' + escapeHtml(e.industry || 'N/A') + '</td>' +
+                '<td style="padding:8px 12px;color:var(--color-text-secondary);">' + escapeHtml(e.action || 'N/A') + '</td>' +
+                '<td style="padding:8px 12px;color:var(--color-text-secondary);font-size:12px;">' + escapeHtml(dt) + '</td>' +
+                '<td style="padding:8px 12px;color:var(--color-text-secondary);">' + escapeHtml(loc) + '</td>' +
+                '<td style="padding:8px 12px;color:var(--color-text-muted);font-size:11px;font-family:monospace;">' + escapeHtml(ip) + '</td>' +
+                '</tr>';
+        });
+        html += '</tbody></table>';
+        el.innerHTML = html;
+    }
+
+    function renderCookieStats() {
+        var el = document.getElementById('stats-cookie-consent');
+        if (!el) return;
+        var events = (state.accessEvents || []).filter(function (e) { return e.type === 'cookie_consent'; });
+        var counts = { all: 0, essential: 0, reject: 0 };
+        events.forEach(function (e) {
+            if (e.choice === 'all') counts.all++;
+            else if (e.choice === 'essential') counts.essential++;
+            else if (e.choice === 'reject') counts.reject++;
+        });
+        var html = '<h4 style="font-family:var(--font-heading);font-size:12px;letter-spacing:2px;color:var(--color-text-muted);margin:28px 0 14px;">COOKIE CONSENT (' + events.length + ' RESPONSES)</h4>';
+        html += '<div class="stats-overview-grid" style="margin-bottom:20px;">' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:#22c55e;">' + counts.all + '</div><div class="stats-metric-label">Accept All</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:#f59e0b;">' + counts.essential + '</div><div class="stats-metric-label">Essential Only</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:#f87171;">' + counts.reject + '</div><div class="stats-metric-label">Reject All</div></div>' +
+            '</div>';
+        if (events.length) {
+            html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">' +
+                '<thead><tr>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Choice</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Date</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Location</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">IP</th>' +
+                '</tr></thead><tbody>';
+            events.slice().reverse().forEach(function (e) {
+                var loc = e.location ? (e.location.city || '') + (e.location.country ? ', ' + e.location.country : '') : 'N/A';
+                var ip  = e.location && e.location.ip ? e.location.ip : 'N/A';
+                var dt  = e.timestamp ? new Date(e.timestamp).toLocaleString() : 'N/A';
+                var choiceColor = e.choice === 'all' ? '#22c55e' : e.choice === 'essential' ? '#f59e0b' : '#f87171';
+                html += '<tr style="border-bottom:1px solid rgba(41,181,232,0.06);">' +
+                    '<td style="padding:8px 12px;color:' + choiceColor + ';font-weight:600;text-transform:capitalize;">' + escapeHtml(e.choice || 'N/A') + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-secondary);font-size:12px;">' + escapeHtml(dt) + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-secondary);">' + escapeHtml(loc) + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-muted);font-size:11px;font-family:monospace;">' + escapeHtml(ip) + '</td>' +
+                    '</tr>';
+            });
+            html += '</tbody></table>';
+        }
+        el.innerHTML = html;
     }
 
     /* ══════════════════════════════════════════════════
