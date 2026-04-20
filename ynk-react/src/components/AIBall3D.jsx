@@ -73,6 +73,8 @@ export default function AIBall3D() {
   const targetRotRef = useRef({ x: 0, y: 0 })
   const currentRotRef = useRef({ x: 0, y: 0 })
   const mouseDistRef = useRef(0)
+  const mouseHasMovedRef = useRef(false)
+  const animTimeRef = useRef(0)
 
   useEffect(() => {
     const mount = mountRef.current
@@ -155,7 +157,16 @@ export default function AIBall3D() {
 
     const animate = () => {
       animFrameRef.current = requestAnimationFrame(animate)
-      const t = clock.getElapsedTime()
+      const delta = clock.getDelta()
+
+      // Static until first mouse interaction
+      if (!mouseHasMovedRef.current) {
+        renderer.render(scene, camera)
+        return
+      }
+
+      animTimeRef.current += delta
+      const t = animTimeRef.current
 
       prevScrollRef.current += (scrollYRef.current - prevScrollRef.current) * 0.06
       const scroll = prevScrollRef.current
@@ -191,6 +202,7 @@ export default function AIBall3D() {
     animate()
 
     const onMouseMove = (e) => {
+      mouseHasMovedRef.current = true
       const rect = mount.getBoundingClientRect()
       mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
       mouseRef.current.y = ((e.clientY - rect.top) / rect.height) * 2 - 1
