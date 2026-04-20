@@ -51,32 +51,39 @@ export default function ConsultantsPortal() {
   const { t } = useLanguage()
 
   const handleAccess = async () => {
-    const code = codeRef.current.value.trim()
-    if (!code) {
+    const raw = codeRef.current.value.trim()
+    if (!raw) {
       setError(t('consultantsPage.enterCode'))
       return
     }
-    const hash = await sha256(code)
+    // Normalize: uppercase and strip any invisible/extra whitespace
+    const code = raw.toUpperCase().replace(/\s+/g, '')
+    try {
+      const hash = await sha256(code)
 
-    // Check static codes
-    let found = RESUME_MAP.find((r) => r.hash === hash)
+      // Check static codes
+      let found = RESUME_MAP.find((r) => r.hash === hash)
 
-    // Check dynamic codes from API/localStorage (admin-approved)
-    if (!found) {
-      const dynamicCodes = await getDynamicCodes()
-      found = dynamicCodes.find((r) => r.hash === hash)
-    }
+      // Check dynamic codes from API/localStorage (admin-approved)
+      if (!found) {
+        const dynamicCodes = await getDynamicCodes()
+        found = dynamicCodes.find((r) => r.hash === hash)
+      }
 
-    if (found) {
-      setMatch(found)
-      setUnlocked(true)
-      setLoading(true)
-      setError('')
-      trackAccessCodeUsage(found.industry, found.viewOnly ? 'view-only' : 'view')
-    } else {
+      if (found) {
+        setMatch(found)
+        setUnlocked(true)
+        setLoading(true)
+        setError('')
+        trackAccessCodeUsage(found.industry, found.viewOnly ? 'view-only' : 'view')
+      } else {
+        setError(t('consultantsPage.invalidCode'))
+        codeRef.current.value = ''
+        codeRef.current.focus()
+      }
+    } catch (err) {
+      console.error('Access code error:', err)
       setError(t('consultantsPage.invalidCode'))
-      codeRef.current.value = ''
-      codeRef.current.focus()
     }
   }
 
