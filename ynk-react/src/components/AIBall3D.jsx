@@ -1,10 +1,11 @@
-﻿import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-const VERT = /* glsl */`
+const VERT = `
   uniform float uTime;
   uniform float uScroll;
+  uniform float uMouseDist;
   varying vec2 vUv;
   varying vec3 vNormal;
   varying vec3 vWorldPos;
@@ -15,15 +16,18 @@ const VERT = /* glsl */`
     float wave = sin(pos.y * 4.0 + uTime * 2.0 + uScroll * 0.005) * 0.04 * (uScroll * 0.002 + 0.3);
     pos.x += wave;
     pos.z += wave * 0.5;
+    float expand = uMouseDist * 0.18;
+    pos += normalize(pos) * expand;
     vec4 worldPos = modelMatrix * vec4(pos, 1.0);
     vWorldPos = worldPos.xyz;
     gl_Position = projectionMatrix * viewMatrix * worldPos;
   }
 `
 
-const FRAG = /* glsl */`
+const FRAG = `
   uniform float uTime;
   uniform float uScroll;
+  uniform float uMouseDist;
   uniform vec3 camPos;
   varying vec2 vUv;
   varying vec3 vNormal;
@@ -43,6 +47,7 @@ const FRAG = /* glsl */`
     float pulse = sin(uTime * 3.0) * 0.5 + 0.5;
     float scrollGlow = min(uScroll * 0.001, 1.0);
     base += rimColor * pulse * scrollGlow * 0.25;
+    base += rimColor * uMouseDist * 0.4;
     base += rimColor * pow(fresnel, 1.5) * 0.5;
     gl_FragColor = vec4(base, 0.97);
   }
@@ -55,6 +60,10 @@ export default function AIBall3D() {
   const animFrameRef = useRef(null)
   const scrollYRef = useRef(0)
   const prevScrollRef = useRef(0)
+  const mouseRef = useRef({ x: 0, y: 0 })
+  const targetRotRef = useRef({ x: 0, y: 0 })
+  const currentRotRef = useRef({ x: 0, y: 0 })
+  const mouseDistRef = useRef(0)
 
   useEffect(() => {
     const mount = mountRef.current
@@ -74,12 +83,12 @@ export default function AIBall3D() {
     mount.appendChild(renderer.domElement)
 
     const uniforms = {
-      uTime:   { value: 0 },
-      uScroll: { value: 0 },
-      camPos:  { value: camera.position },
+      uTime:      { value: 0 },
+      uScroll:    { value: 0 },
+      uMouseDist: { value: 0 },
+      camPos:     { value: camera.position },
     }
 
-    // Glow halo
     const size = 256
     const glowCanvas = document.createElement('canvas')
     glowCanvas.width = size; glowCanvas.height = size
@@ -99,11 +108,10 @@ export default function AIBall3D() {
     halo.position.z = -0.5
     scene.add(halo)
 
-    // Load GLB
     const loader = new GLTFLoader()
     loader.load('/ai-ball.glb', (gltf) => {
       const model = gltf.scene
-      model.scale.set(1.5, 1.5, 1.5)
+      model.scale.set(1.125, 1.125, 1.125)
       model.traverse((child) => {
         if (child.isMesh) {
           child.material = new THREE.ShaderMaterial({
@@ -118,20 +126,19 @@ export default function AIBall3D() {
       modelRef.current = model
     }, undefined, (err) => console.error('GLB error:', err))
 
-    // Particle ring
     const count = 180
     const positions = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2
-      const r = 1.55 + (Math.random() - 0.5) * 0.25
+      const r = 1.2 + (Math.random() - 0.5) * 0.2
       positions[i*3]   = Math.cos(angle) * r
-      positions[i*3+1] = (Math.random() - 0.5) * 0.4
+      positions[i*3+1] = (Math.random() - 0.5) * 0.3
       positions[i*3+2] = Math.sin(angle) * r
     }
     const ringGeo = new THREE.BufferGeometry()
     ringGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
     const ring = new THREE.Points(ringGeo, new THREE.PointsMaterial({
-      color: 0x29b5e8, size: 0.025, transparent: true, opacity: 0.7, sizeAttenuation: true,
+      color: 0x29b5e8, size: 0.022, transparent: true, opacity: 0.7, sizeAttenuation: true,
     }))
     scene.add(ring)
 
@@ -140,22 +147,51 @@ export default function AIBall3D() {
     const animate = () => {
       animFrameRef.current = requestAnimationFrame(animate)
       const t = clock.getElapsedTime()
+
       prevScrollRef.current += (scrollYRef.current - prevScrollRef.current) * 0.06
       const scroll = prevScrollRef.current
+
+      targetRotRef.current.y = mouseRef.current.x * 0.9
+      targetRotRef.current.x = -mouseRef.current.y * 0.6
+      currentRotRef.current.x += (targetRotRef.current.x - currentRotRef.current.x) * 0.05
+      currentRotRef.current.y += (targetRotRef.current.y - currentRotRef.current.y) * 0.05
+
+      const mdist = Math.max(0, 1 - Math.sqrt(mouseRef.current.x ** 2 + mouseRef.current.y ** 2) * 1.4)
+      mouseDistRef.current += (mdist - mouseDistRef.current) * 0.08
+
       uniforms.uTime.value = t
       uniforms.uScroll.value = scroll
+      uniforms.uMouseDist.value = mouseDistRef.current
+
       if (modelRef.current) {
-        modelRef.current.rotation.y = t * 0.28 + scroll * 0.003
-        modelRef.current.rotation.x = Math.sin(t * 0.3) * 0.12 + scroll * 0.0008
-        modelRef.current.rotation.z = Math.sin(t * 0.2) * 0.05
+        modelRef.current.rotation.y = t * 0.2 + scroll * 0.003 + currentRotRef.current.y
+        modelRef.current.rotation.x = Math.sin(t * 0.3) * 0.08 + scroll * 0.0008 + currentRotRef.current.x
+        modelRef.current.rotation.z = Math.sin(t * 0.2) * 0.04
+        const hoverScale = 1.125 + mouseDistRef.current * 0.12
+        modelRef.current.scale.setScalar(hoverScale)
       }
-      ring.rotation.y = -t * 0.15
+
+      ring.rotation.y = -t * 0.15 + currentRotRef.current.y * 0.3
       ring.rotation.x = Math.sin(t * 0.25) * 0.1
-      const pulse = 0.92 + Math.sin(t * 1.8) * 0.08
+
+      const pulse = 0.92 + Math.sin(t * 1.8) * 0.08 + mouseDistRef.current * 0.12
       halo.scale.set(pulse, pulse, pulse)
+
       renderer.render(scene, camera)
     }
     animate()
+
+    const onMouseMove = (e) => {
+      const rect = mount.getBoundingClientRect()
+      mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
+      mouseRef.current.y = ((e.clientY - rect.top) / rect.height) * 2 - 1
+    }
+    const onMouseLeave = () => {
+      mouseRef.current.x = 0
+      mouseRef.current.y = 0
+    }
+    mount.addEventListener('mousemove', onMouseMove)
+    mount.addEventListener('mouseleave', onMouseLeave)
 
     const onScroll = () => { scrollYRef.current = window.scrollY }
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -172,6 +208,8 @@ export default function AIBall3D() {
 
     return () => {
       cancelAnimationFrame(animFrameRef.current)
+      mount.removeEventListener('mousemove', onMouseMove)
+      mount.removeEventListener('mouseleave', onMouseLeave)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       renderer.dispose()
@@ -179,5 +217,10 @@ export default function AIBall3D() {
     }
   }, [])
 
-  return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
+  return (
+    <div
+      ref={mountRef}
+      style={{ width: '100%', height: '100%', cursor: 'crosshair' }}
+    />
+  )
 }

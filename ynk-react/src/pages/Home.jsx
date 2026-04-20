@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import AIBall3D from '../components/AIBall3D'
 import ConciergeChat from '../components/ConciergeChat'
+import HeroPanel from '../components/HeroPanel'
 
 export default function Home() {
   const { t } = useLanguage()
@@ -40,19 +41,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT — Text */}
+          {/* RIGHT — Access Code + Quick Chat */}
           <div className="hero-text-col">
-            <h1 className="hero-headline">
-              <span className="hero-line">{t('hero.line1')}</span>
-              <span className="hero-line">{t('hero.line2')}</span>
-              <span className="hero-line"><span className="text-gradient">{t('hero.line3')}</span></span>
-            </h1>
-            <p className="hero-subtext">{t('hero.subtext')}</p>
-            <div className="hero-scroll-cue">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-              </svg>
-            </div>
+            <HeroPanel />
           </div>
         </div>
       </section>
