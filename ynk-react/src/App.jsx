@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LanguagePopup from './components/LanguagePopup'
 import Disclaimer from './components/Disclaimer'
+import AccessGate from './components/AccessGate'
+import { AccessProvider, useAccess } from './context/AccessContext'
 import Home from './pages/Home'
 import ITServices from './pages/ITServices'
 import Branding from './pages/Branding'
@@ -21,6 +23,15 @@ const PAGE_MAP = {
   '/request-quote': 'request-quote',
 }
 
+function ProtectedRoute({ children }) {
+  const { isUnlocked } = useAccess()
+  const location = useLocation()
+  if (!isUnlocked) {
+    return <AccessGate redirectTo={location.pathname} />
+  }
+  return children
+}
+
 function App() {
   const location = useLocation()
 
@@ -30,21 +41,21 @@ function App() {
   }, [location.pathname])
 
   return (
-    <>
+    <AccessProvider>
       <LanguagePopup />
       <Disclaimer />
       <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/it-services" element={<ITServices />} />
-        <Route path="/branding" element={<Branding />} />
-        <Route path="/consultants" element={<ConsultantsPortal />} />
         <Route path="/request-quote" element={<RequestQuote />} />
+        <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />
+        <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />
+        <Route path="/consultants" element={<ProtectedRoute><ConsultantsPortal /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </>
+    </AccessProvider>
   )
 }
 

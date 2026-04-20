@@ -209,6 +209,34 @@ export default function AIBall3D() {
     }
     window.addEventListener('mousemove', onMouseMove)
 
+    // ── Gyroscope (mobile) ───────────────────────────────────────────
+    const onGyro = (e) => {
+      mouseHasMovedRef.current = true
+      // gamma: left/right tilt (-90..90), beta: front/back (-180..180)
+      // Offset beta by 60° for natural portrait hold angle
+      const gx = Math.max(-1, Math.min(1, (e.gamma || 0) / 45))
+      const gy = Math.max(-1, Math.min(1, ((e.beta || 0) - 60) / 45))
+      mouseRef.current.x = gx
+      mouseRef.current.y = gy
+    }
+    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    if (isMobile && window.DeviceOrientationEvent) {
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        // iOS 13+ — must request on user gesture
+        const requestGyro = () => {
+          DeviceOrientationEvent.requestPermission()
+            .then((state) => {
+              if (state === 'granted') window.addEventListener('deviceorientation', onGyro)
+            })
+            .catch(() => {})
+        }
+        document.addEventListener('touchstart', requestGyro, { once: true })
+      } else {
+        window.addEventListener('deviceorientation', onGyro)
+      }
+    }
+    // ────────────────────────────────────────────────────────────────
+
     const onScroll = () => { scrollYRef.current = window.scrollY }
     window.addEventListener('scroll', onScroll, { passive: true })
 
@@ -225,6 +253,7 @@ export default function AIBall3D() {
     return () => {
       cancelAnimationFrame(animFrameRef.current)
       window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('deviceorientation', onGyro)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       renderer.dispose()

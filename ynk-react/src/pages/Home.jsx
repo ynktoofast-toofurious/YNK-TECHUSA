@@ -49,8 +49,13 @@ export default function Home() {
               </ul>
 
               <div className="hero-ctas">
-                <Link to="/request-quote" className="btn btn-primary btn-lg">Get a Free Quote</Link>
-                <Link to="/it-services" className="btn btn-secondary btn-lg">Explore Services</Link>
+                <Link to="/it-services" className="btn btn-primary btn-lg">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  Enter Access Code
+                </Link>
+                <Link to="/request-quote" className="btn btn-secondary btn-lg">
+                  Request Access
+                </Link>
               </div>
             </div>
           </div>
