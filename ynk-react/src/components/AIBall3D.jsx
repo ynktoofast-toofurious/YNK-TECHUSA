@@ -122,7 +122,7 @@ export default function AIBall3D() {
     const loader = new GLTFLoader()
     loader.load('/ai-ball.glb', (gltf) => {
       const model = gltf.scene
-      model.scale.set(0.75, 0.75, 0.75)
+      model.scale.set(0.375, 0.375, 0.375)
       model.traverse((child) => {
         if (child.isMesh) {
           child.material = new THREE.ShaderMaterial({
@@ -141,7 +141,7 @@ export default function AIBall3D() {
     const positions = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2
-      const r = 1.2 + (Math.random() - 0.5) * 0.2
+      const r = 0.6 + (Math.random() - 0.5) * 0.1
       positions[i*3]   = Math.cos(angle) * r
       positions[i*3+1] = (Math.random() - 0.5) * 0.3
       positions[i*3+2] = Math.sin(angle) * r
@@ -187,7 +187,7 @@ export default function AIBall3D() {
         modelRef.current.rotation.y = t * 0.2 + scroll * 0.003 + currentRotRef.current.y
         modelRef.current.rotation.x = Math.sin(t * 0.3) * 0.08 + scroll * 0.0008 + currentRotRef.current.x
         modelRef.current.rotation.z = Math.sin(t * 0.2) * 0.04
-        const hoverScale = 0.75 + mouseDistRef.current * 0.15
+        const hoverScale = 0.375 + mouseDistRef.current * 0.075
         modelRef.current.scale.setScalar(hoverScale)
       }
 
@@ -207,12 +207,7 @@ export default function AIBall3D() {
       mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
       mouseRef.current.y = ((e.clientY - rect.top) / rect.height) * 2 - 1
     }
-    const onMouseLeave = () => {
-      mouseRef.current.x = 0
-      mouseRef.current.y = 0
-    }
-    mount.addEventListener('mousemove', onMouseMove)
-    mount.addEventListener('mouseleave', onMouseLeave)
+    window.addEventListener('mousemove', onMouseMove)
 
     const onScroll = () => { scrollYRef.current = window.scrollY }
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -229,8 +224,7 @@ export default function AIBall3D() {
 
     return () => {
       cancelAnimationFrame(animFrameRef.current)
-      mount.removeEventListener('mousemove', onMouseMove)
-      mount.removeEventListener('mouseleave', onMouseLeave)
+      window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       renderer.dispose()
