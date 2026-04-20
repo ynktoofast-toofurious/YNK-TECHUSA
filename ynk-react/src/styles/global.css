@@ -709,6 +709,54 @@ img {
     margin-bottom: 16px;
 }
 
+.gate-input-wrap {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.gate-input-wrap input {
+    width: 100%;
+    padding: 14px 48px 14px 18px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-text-primary);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.gate-input-wrap input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(41, 181, 232, 0.1);
+}
+
+.gate-input-wrap input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.gate-eye-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.gate-eye-btn:hover {
+    color: var(--color-accent);
+}
+
 .gate-form input {
     flex: 1;
     padding: 14px 18px;
@@ -2750,12 +2798,27 @@ img {
     padding: 9px 14px;
     cursor: pointer;
     text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .hero-chat-opt:hover {
     background: rgba(41, 181, 232, 0.14);
     border-color: rgba(41, 181, 232, 0.45);
     color: var(--color-text);
+}
+.hero-chat-opt-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--color-accent);
+    opacity: 0.8;
+}
+.cc-nav-btn-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
 }
 
 /* ═══════════════════════════════════════════════

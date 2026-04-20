@@ -24,8 +24,8 @@ const RESUME_MAP = [
   { hash: '23040e83f99dd6e07994719e499ed59f460562441bdb6a50ac9b5ccdf921dc30', industry: 'Government', file: 'Admin/resumes/government.pdf' },
   { hash: '78c1cb1cc907f88da58c31075e2829a32b5965583e680fe2bffeba95296e35b8', industry: 'Retail', file: 'Admin/resumes/retail.pdf' },
   { hash: 'c2b47a63731365f265c92278923d928edcf08000696775cde4ba4ba2b8ccd70e', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html' },
-  // Viewer-only access (view resume, no download)
-  { hash: 'a067776e3f1ec04c7ca9b2e797289e7437fa5502202f59a1556c99ad4c4a6014', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html', viewOnly: true, viewer: 'moise' },
+  // Viewer-only access (view resume, no download) — code: MOISEVIEW2026
+  { hash: 'f4681ba3df0fc625a9ef41924fd878a3b23ef5229abbd65463ec67045e71d2b2', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html', viewOnly: true, viewer: 'moise' },
 ]
 
 async function sha256(text) {
@@ -46,6 +46,7 @@ export default function ConsultantsPortal() {
   const [requestSending, setRequestSending] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [activeTab, setActiveTab] = useState('expertise')
+  const [showCode, setShowCode] = useState(false)
   const codeRef = useRef()
   const requestFormRef = useRef()
   const { t } = useLanguage()
@@ -236,14 +237,35 @@ export default function ConsultantsPortal() {
                   <h3>{t('consultantsPage.gateTitle')}</h3>
                   <p>{t('consultantsPage.gateDesc')}</p>
                   <div className="gate-form">
-                    <input
-                      type="password"
-                      ref={codeRef}
-                      placeholder={t('consultantsPage.placeholder')}
-                      maxLength="30"
-                      autoComplete="off"
-                      onKeyDown={(e) => e.key === 'Enter' && handleAccess()}
-                    />
+                    <div className="gate-input-wrap">
+                      <input
+                        type={showCode ? 'text' : 'password'}
+                        ref={codeRef}
+                        placeholder={t('consultantsPage.placeholder')}
+                        maxLength="30"
+                        autoComplete="off"
+                        onKeyDown={(e) => e.key === 'Enter' && handleAccess()}
+                      />
+                      <button
+                        type="button"
+                        className="gate-eye-btn"
+                        onClick={() => setShowCode(v => !v)}
+                        aria-label={showCode ? 'Hide code' : 'Show code'}
+                      >
+                        {showCode ? (
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                            <line x1="1" y1="1" x2="23" y2="23" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
                     <button className="btn btn-primary" onClick={handleAccess}>
                       {t('consultantsPage.accessBtn')}
                     </button>

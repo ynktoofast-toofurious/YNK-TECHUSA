@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const NAV_ICONS = {
+  it: <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>,
+  branding: <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="13.5" cy="6.5" r=".5" /><circle cx="17.5" cy="10.5" r=".5" /><circle cx="8.5" cy="7.5" r=".5" /><circle cx="6.5" cy="12.5" r=".5" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" /></svg>,
+  portal: <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>,
+  quote: <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>,
+}
+
 const NAV_OPTIONS = [
-  { label: '⚡ IT Services & Digital Solutions', path: '/it-services', desc: 'Web, AI, Cloud & Data' },
-  { label: '🎨 Branding & Creative Services', path: '/branding', desc: 'Design, Events & Identity' },
-  { label: '🔐 Consultants Portal', path: '/consultants', desc: 'Secure access & resources' },
-  { label: '💬 Request a Free Quote', path: '/request-quote', desc: 'Get started today' },
+  { label: 'IT Services & Digital Solutions', icon: 'it',       path: '/it-services',    desc: 'Web, AI, Cloud & Data' },
+  { label: 'Branding & Creative Services',   icon: 'branding',  path: '/branding',       desc: 'Design, Events & Identity' },
+  { label: 'Consultants Portal',             icon: 'portal',    path: '/consultants',    desc: 'Secure access & resources' },
+  { label: 'Request a Free Quote',           icon: 'quote',     path: '/request-quote',  desc: 'Get started today' },
 ]
 
 const GREETING = "Hi! I'm YNK's AI Concierge. How can I help you today?"
@@ -95,8 +102,8 @@ export default function ConciergeChat() {
   }
 
   const handleNavClick = (option) => {
-    const userMsg = { type: 'user', text: option.label.replace(/^[\S]+\s/, ''), id: Date.now() }
-    const botMsg = { type: 'bot', text: `Great! Taking you to ${option.label.replace(/^[\S]+\s/, '')}...`, id: Date.now() + 1 }
+    const userMsg = { type: 'user', text: option.label, id: Date.now() }
+    const botMsg = { type: 'bot', text: `Great! Taking you to ${option.label}...`, id: Date.now() + 1 }
     setMessages(prev => [...prev, userMsg, botMsg])
     setShowNav(false)
     setTimeout(() => navigate(option.path), 900)
@@ -118,7 +125,7 @@ export default function ConciergeChat() {
 
     const userMsg = { type: 'user', text: q, id: Date.now() }
     if (match) {
-      const botReply = { type: 'bot', text: `Sure! It sounds like you're interested in our ${match.label.replace(/^[\S]+\s/, '')}. Taking you there now!`, id: Date.now() + 1 }
+      const botReply = { type: 'bot', text: `Sure! It sounds like you're interested in our ${match.label}. Taking you there now!`, id: Date.now() + 1 }
       setMessages(prev => [...prev, userMsg, botReply])
       setShowNav(false)
       setTimeout(() => navigate(match.path), 1200)
@@ -171,7 +178,7 @@ export default function ConciergeChat() {
               <div className="cc-nav-options">
                 {NAV_OPTIONS.map((opt) => (
                   <button key={opt.path} className="cc-nav-btn" onClick={() => handleNavClick(opt)}>
-                    <span className="cc-nav-btn-label">{opt.label}</span>
+                    <span className="cc-nav-btn-label">{NAV_ICONS[opt.icon]}{opt.label}</span>
                     <span className="cc-nav-btn-desc">{opt.desc}</span>
                   </button>
                 ))}

@@ -20,10 +20,16 @@ const RESUME_MAP = [
 ]
 
 // ─── Mini Quick-Chat Bot ──────────────────────────────────────────────────────
+const QUICK_ICONS = {
+  code:     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>,
+  it:       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>,
+  branding: <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="13.5" cy="6.5" r=".5" /><circle cx="17.5" cy="10.5" r=".5" /><circle cx="8.5" cy="7.5" r=".5" /><circle cx="6.5" cy="12.5" r=".5" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" /></svg>,
+}
+
 const QUICK_OPTIONS = [
-  { id: 'code',     label: '🔐 Request Access Code',        path: '/consultants' },
-  { id: 'it',       label: '⚡ Quote — IT Services',         path: '/it-services#quote' },
-  { id: 'branding', label: '🎨 Quote — Branding Services',   path: '/branding#quote' },
+  { id: 'code',     label: 'Request Access Code',   path: '/consultants' },
+  { id: 'it',       label: 'Quote — IT Services',    path: '/it-services#quote' },
+  { id: 'branding', label: 'Quote — Branding',       path: '/branding#quote' },
 ]
 
 function QuickChat() {
@@ -34,7 +40,7 @@ function QuickChat() {
   const start = () => setStep('ready')
 
   const pick = (opt) => {
-    setReply(`Taking you to ${opt.label.replace(/^[^ ]+ /, '')}…`)
+    setReply(`Taking you to ${opt.label}…`)
     setStep('done')
     setTimeout(() => navigate(opt.path), 800)
   }
@@ -62,6 +68,7 @@ function QuickChat() {
           <div className="hero-chat-options">
             {QUICK_OPTIONS.map((opt) => (
               <button key={opt.id} className="hero-chat-opt" onClick={() => pick(opt)}>
+                <span className="hero-chat-opt-icon">{QUICK_ICONS[opt.id]}</span>
                 {opt.label}
               </button>
             ))}
