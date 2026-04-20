@@ -2,17 +2,9 @@ import { Link } from 'react-router-dom'
 import QuoteForm from '../components/QuoteForm'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const BRANDING_SERVICES = [
-  'Event Technicians',
-  'Stage Lighting & Rental',
-  'Custom T-Shirt Printing',
-  'Brand Strategy & Identity Design',
-  'Event & Visual Branding',
-  'Content Positioning & Visual Storytelling',
-]
-
 export default function Branding() {
   const { t } = useLanguage()
+  const BRANDING_SERVICES = t('brandingServiceOptions') || []
 
   return (
     <>

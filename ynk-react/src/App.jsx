@@ -5,7 +5,6 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LanguagePopup from './components/LanguagePopup'
-import Disclaimer from './components/Disclaimer'
 import AccessGate from './components/AccessGate'
 import { AccessProvider, useAccess } from './context/AccessContext'
 import Home from './pages/Home'
@@ -43,7 +42,6 @@ function App() {
   return (
     <AccessProvider>
       <LanguagePopup />
-      <Disclaimer />
       <ScrollToTop />
       <Navbar />
       <Routes>

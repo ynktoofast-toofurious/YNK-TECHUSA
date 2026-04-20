@@ -5,7 +5,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 
 emailjs.init('zG_jERVPbUUfiZ6IL')
 
-const IT_SERVICES = [
+const IT_SERVICES_EN = [
   'Website Development',
   'AI Enablement & Automation',
   'Big Data Engineering & Analytics',
@@ -13,28 +13,11 @@ const IT_SERVICES = [
   'Dashboard & BI Development',
 ]
 
-const BRANDING_SERVICES = [
+const BRANDING_SERVICES_EN = [
   'Brand Strategy & Identity Design',
   'Event Technicians',
   'Stage Lighting & Rental',
   'Custom T-Shirt Printing',
-]
-
-const BUDGET_OPTIONS = [
-  'Under $1,000',
-  '$1,000 – $5,000',
-  '$5,000 – $10,000',
-  '$10,000 – $25,000',
-  '$25,000+',
-  'Not sure yet',
-]
-
-const TIMELINE_OPTIONS = [
-  'ASAP',
-  '1 – 2 weeks',
-  '1 month',
-  '2 – 3 months',
-  'Flexible',
 ]
 
 export default function RequestQuote() {
@@ -48,7 +31,9 @@ export default function RequestQuote() {
 
   const isIT = category === 'it'
   const isBranding = category === 'branding'
-  const serviceOptions = isIT ? IT_SERVICES : isBranding ? BRANDING_SERVICES : [...IT_SERVICES, ...BRANDING_SERVICES]
+  const itOpts       = t('itServiceOptions')      || IT_SERVICES_EN
+  const brandingOpts = t('brandingServiceOptions') || BRANDING_SERVICES_EN
+  const serviceOptions = isIT ? itOpts : isBranding ? brandingOpts : [...itOpts, ...brandingOpts]
   const categoryLabel = isIT ? t('requestQuotePage.categoryIT') : isBranding ? t('requestQuotePage.categoryBranding') : t('requestQuotePage.categoryAll')
 
   const handleSubmit = async (e) => {
@@ -165,7 +150,7 @@ export default function RequestQuote() {
                   <label htmlFor="budget">{t('quoteForm.budget')}</label>
                   <select id="budget" name="budget" defaultValue="">
                     <option value="" disabled>{t('quoteForm.selectBudget')}</option>
-                    {BUDGET_OPTIONS.map((b) => (
+                    {(t('budgetOptions') || []).map((b) => (
                       <option key={b} value={b}>{b}</option>
                     ))}
                   </select>
@@ -176,7 +161,7 @@ export default function RequestQuote() {
                   <label htmlFor="timeline">{t('quoteForm.timeline')}</label>
                   <select id="timeline" name="timeline" defaultValue="">
                     <option value="" disabled>{t('quoteForm.selectTimeline')}</option>
-                    {TIMELINE_OPTIONS.map((tl) => (
+                    {(t('timelineOptions') || []).map((tl) => (
                       <option key={tl} value={tl}>{tl}</option>
                     ))}
                   </select>

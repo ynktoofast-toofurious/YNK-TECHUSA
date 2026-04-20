@@ -2,17 +2,9 @@ import { Link } from 'react-router-dom'
 import QuoteForm from '../components/QuoteForm'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const IT_SERVICES = [
-  'Website & Web Application Development',
-  'AI Enablement & Automation',
-  'Data Engineering & Analytics',
-  'Cloud & Infrastructure Setup',
-  'Dashboard & BI Development',
-  'Machine Learning & Predictive Models',
-]
-
 export default function ITServices() {
   const { t } = useLanguage()
+  const IT_SERVICES = t('itServiceOptions') || []
 
   return (
     <>
