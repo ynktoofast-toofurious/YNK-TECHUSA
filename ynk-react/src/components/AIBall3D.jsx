@@ -73,7 +73,7 @@ export default function AIBall3D() {
   const targetRotRef = useRef({ x: 0, y: 0 })
   const currentRotRef = useRef({ x: 0, y: 0 })
   const mouseDistRef = useRef(0)
-  const mouseHasMovedRef = useRef(false)
+  const mouseHasMovedRef = useRef(true)   // autostart — no wait for mouse
   const animTimeRef = useRef(0)
 
   useEffect(() => {
