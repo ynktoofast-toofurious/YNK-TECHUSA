@@ -46,7 +46,7 @@ export default function Home() {
                 </li>
                 <li>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="2" fill="#29B5E8" opacity=".18"/><path d="M3 7l3 3 5-6" stroke="#29B5E8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  High-impact delivery — solutions live within 24 hours
+                  High-impact delivery: solutions live within 24 hours
                 </li>
               </ul>
 

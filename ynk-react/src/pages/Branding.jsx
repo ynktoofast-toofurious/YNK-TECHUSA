@@ -6,14 +6,14 @@ import { useLanguage } from '../i18n/LanguageContext'
 const BRANDING_PROJECTS = [
   {
     tag: 'Event Branding',
-    title: 'Corporate Gala — Full Visual Identity',
-    desc: 'Designed and executed the complete visual experience for a 500-person corporate gala — from stage lighting design and branded step-and-repeat banners to digital slide decks and on-site signage.',
+    title: 'Corporate Gala: Full Visual Identity',
+    desc: 'Designed and executed the complete visual experience for a 500-person corporate gala, from stage lighting design and branded step-and-repeat banners to digital slide decks and on-site signage.',
     stack: ['Stage Lighting', 'Print Design', 'Décor'],
   },
   {
     tag: 'Brand Identity',
     title: 'Tech Startup Brand Launch',
-    desc: 'Developed a full brand identity for an emerging tech startup — including logo system, color palette, typography guidelines, business cards, and a pitch deck aligned with investor expectations.',
+    desc: 'Developed a full brand identity for an emerging tech startup, including logo system, color palette, typography guidelines, business cards, and a pitch deck aligned with investor expectations.',
     stack: ['Logo Design', 'Brand Strategy', 'Print'],
   },
   {
@@ -25,7 +25,7 @@ const BRANDING_PROJECTS = [
   {
     tag: 'Visual Storytelling',
     title: 'Product Launch Content Package',
-    desc: 'Created a multi-format visual content package for a product launch — including social media assets, promotional banners, and brand story visuals designed for maximum digital engagement.',
+    desc: 'Created a multi-format visual content package for a product launch, including social media assets, promotional banners, and brand story visuals designed for maximum digital engagement.',
     stack: ['Social Assets', 'Visual Content', 'Photography'],
   },
   {
@@ -37,7 +37,7 @@ const BRANDING_PROJECTS = [
   {
     tag: 'Brand Strategy',
     title: 'Nonprofit Rebrand & Campaign',
-    desc: 'Led a full rebrand for a nonprofit organization — refreshing their identity, producing donor campaign collateral, and building a cohesive visual language across print and digital channels.',
+    desc: 'Led a full rebrand for a nonprofit organization, refreshing their identity, producing donor campaign collateral, and building a cohesive visual language across print and digital channels.',
     stack: ['Rebrand', 'Print Collateral', 'Campaign Design'],
   },
 ]
@@ -133,7 +133,7 @@ export default function Branding() {
           <div className="container">
             <div className="projects-header">
               <h2 className="projects-title">Creative Portfolio</h2>
-              <p className="projects-sub">From stage lighting to brand strategy — a showcase of impactful creative work across events, print, and identity.</p>
+              <p className="projects-sub">From stage lighting to brand strategy: a showcase of impactful creative work across events, print, and identity.</p>
             </div>
             <div className="projects-grid">
               {BRANDING_PROJECTS.map((p, i) => (

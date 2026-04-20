@@ -7,7 +7,7 @@ const IT_PROJECTS = [
   {
     tag: 'Web Application',
     title: 'AI-Powered Client Portal',
-    desc: 'Built a secure, multi-tenant SaaS portal with React and Node.js — featuring role-based access, real-time notifications, and an integrated AI assistant powered by OpenAI.',
+    desc: 'Built a secure, multi-tenant SaaS portal with React and Node.js, featuring role-based access, real-time notifications, and an integrated AI assistant powered by OpenAI.',
     stack: ['React', 'Node.js', 'OpenAI', 'AWS'],
   },
   {
@@ -19,7 +19,7 @@ const IT_PROJECTS = [
   {
     tag: 'Cloud Infrastructure',
     title: 'AWS Multi-Region Deployment',
-    desc: 'Designed and deployed a high-availability infrastructure using S3, CloudFront, Lambda, and API Gateway — achieving 99.9% uptime with automated failover and CI/CD pipelines.',
+    desc: 'Designed and deployed a high-availability infrastructure using S3, CloudFront, Lambda, and API Gateway, achieving 99.9% uptime with automated failover and CI/CD pipelines.',
     stack: ['AWS S3', 'CloudFront', 'Lambda', 'GitHub Actions'],
   },
   {
@@ -31,7 +31,7 @@ const IT_PROJECTS = [
   {
     tag: 'Dashboard',
     title: 'Executive BI Dashboard Suite',
-    desc: 'Delivered a Power BI dashboard suite with dynamic RLS for 4,000+ clients — integrating Salesforce, NetSuite, and pharmacy claims data into a single executive reporting layer.',
+    desc: 'Delivered a Power BI dashboard suite with dynamic RLS for 4,000+ clients, integrating Salesforce, NetSuite, and pharmacy claims data into a single executive reporting layer.',
     stack: ['Power BI', 'DAX', 'SQL', 'Salesforce'],
   },
   {

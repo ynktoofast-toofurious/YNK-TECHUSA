@@ -28,8 +28,8 @@ const QUICK_ICONS = {
 
 const QUICK_OPTIONS = [
   { id: 'code',     label: 'Request Access Code',   path: '/consultants' },
-  { id: 'it',       label: 'Quote — IT Services',    path: '/it-services#quote' },
-  { id: 'branding', label: 'Quote — Branding',       path: '/branding#quote' },
+  { id: 'it',       label: 'Quote: IT Services',    path: '/it-services#quote' },
+  { id: 'branding', label: 'Quote: Branding',       path: '/branding#quote' },
 ]
 
 function QuickChat() {

@@ -130,7 +130,7 @@ export default function ConciergeChat() {
       setShowNav(false)
       setTimeout(() => navigate(match.path), 1200)
     } else {
-      const botReply = { type: 'bot', text: "I'm not sure about that one — but here's what I can help you navigate:", id: Date.now() + 1 }
+      const botReply = { type: 'bot', text: "I'm not sure about that one, but here's what I can help you navigate:", id: Date.now() + 1 }
       setMessages(prev => [...prev, userMsg, botReply])
       setShowNav(true)
     }
