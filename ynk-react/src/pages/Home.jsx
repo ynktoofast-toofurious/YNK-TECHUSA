@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import AIBall3D from '../components/AIBall3D'
 import ConciergeChat from '../components/ConciergeChat'
-import HeroPanel from '../components/HeroPanel'
 
 export default function Home() {
   const { t } = useLanguage()
@@ -41,9 +40,21 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT — Access Code + Quick Chat */}
+          {/* RIGHT — Who We Are summary */}
           <div className="hero-text-col">
-            <HeroPanel />
+            <div className="hero-who">
+              <span className="section-tag" style={{ marginBottom: '16px', display: 'inline-block' }}>{t('intro.tag')}</span>
+              <h1 className="hero-who-headline">
+                {t('hero.line1')},&nbsp;
+                <span className="text-gradient">{t('hero.line2')} {t('hero.line3')}</span>
+              </h1>
+              <p className="hero-who-lead">{t('intro.lead')}</p>
+              <div className="hero-who-pills">
+                <span className="hero-pill">IT Services</span>
+                <span className="hero-pill">Branding</span>
+                <span className="hero-pill">Consultants</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

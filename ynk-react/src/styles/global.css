@@ -2211,6 +2211,66 @@ img {
 }
 
 /* ═══════════════════════════════════════════════
+   HERO WHO — right col (clean who we are)
+   ═══════════════════════════════════════════════ */
+.hero-who {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+    max-width: 480px;
+}
+
+.hero-who-headline {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(2.2rem, 3.8vw, 4.2rem);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    margin: 0;
+    color: var(--color-text);
+}
+
+.hero-who-lead {
+    font-size: clamp(0.92rem, 1.3vw, 1.08rem);
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: 420px;
+}
+
+.hero-who-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.hero-pill {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border: 1px solid rgba(41, 181, 232, 0.3);
+    border-radius: 999px;
+    padding: 6px 18px;
+    background: rgba(41, 181, 232, 0.06);
+    backdrop-filter: blur(6px);
+    transition: background 0.2s, border-color 0.2s;
+}
+.hero-pill:hover {
+    background: rgba(41, 181, 232, 0.13);
+    border-color: rgba(41, 181, 232, 0.6);
+}
+
+@media (max-width: 768px) {
+    .hero-who { max-width: 100%; }
+    .hero-who-headline { font-size: clamp(1.8rem, 5.5vw, 2.6rem); }
+}
+
+/* ═══════════════════════════════════════════════
    HERO PANEL  —  right col (access code + chat)
    ═══════════════════════════════════════════════ */
 .hero-panel {

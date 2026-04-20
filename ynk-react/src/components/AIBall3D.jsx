@@ -13,10 +13,19 @@ const VERT = `
     vUv = uv;
     vNormal = normalize(normalMatrix * normal);
     vec3 pos = position;
-    float wave = sin(pos.y * 4.0 + uTime * 2.0 + uScroll * 0.005) * 0.04 * (uScroll * 0.002 + 0.3);
-    pos.x += wave;
-    pos.z += wave * 0.5;
-    float expand = uMouseDist * 0.18;
+    // Massive multi-frequency organic distortion
+    float d1 = sin(pos.y * 2.5  + uTime * 1.4) * 0.55;
+    float d2 = sin(pos.x * 3.8  + uTime * 2.1) * 0.42;
+    float d3 = cos(pos.z * 3.0  + uTime * 1.7) * 0.38;
+    float d4 = sin((pos.x + pos.z) * 5.0 + uTime * 2.8) * 0.28;
+    float d5 = cos((pos.y - pos.x) * 4.2 + uTime * 3.2) * 0.22;
+    float distort = d1 + d2 + d3 + d4 + d5;
+    pos += normalize(pos) * distort;
+    // Scroll-driven extra spike
+    float scrollSpike = uScroll * 0.0015;
+    pos += normalize(pos) * sin(length(pos) * 6.0 + uTime * 2.5) * scrollSpike;
+    // Mouse expand
+    float expand = uMouseDist * 0.35;
     pos += normalize(pos) * expand;
     vec4 worldPos = modelMatrix * vec4(pos, 1.0);
     vWorldPos = worldPos.xyz;
@@ -111,7 +120,7 @@ export default function AIBall3D() {
     const loader = new GLTFLoader()
     loader.load('/ai-ball.glb', (gltf) => {
       const model = gltf.scene
-      model.scale.set(1.125, 1.125, 1.125)
+      model.scale.set(0.75, 0.75, 0.75)
       model.traverse((child) => {
         if (child.isMesh) {
           child.material = new THREE.ShaderMaterial({
@@ -167,7 +176,7 @@ export default function AIBall3D() {
         modelRef.current.rotation.y = t * 0.2 + scroll * 0.003 + currentRotRef.current.y
         modelRef.current.rotation.x = Math.sin(t * 0.3) * 0.08 + scroll * 0.0008 + currentRotRef.current.x
         modelRef.current.rotation.z = Math.sin(t * 0.2) * 0.04
-        const hoverScale = 1.125 + mouseDistRef.current * 0.12
+        const hoverScale = 0.75 + mouseDistRef.current * 0.15
         modelRef.current.scale.setScalar(hoverScale)
       }
 
