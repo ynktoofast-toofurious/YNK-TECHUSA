@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage } from '../utils/tracking'
 import { useLanguage } from '../i18n/LanguageContext'
+import ResumeCard from '../components/ResumeCard'
 
 emailjs.init('zG_jERVPbUUfiZ6IL')
 
@@ -195,15 +196,18 @@ export default function ConsultantsPortal() {
             </div>
             <div className="projects-grid">
               {[
-                { tag: 'Data Engineering', title: '4B-Row Pharmacy Reporting Layer', desc: 'Engineered a Snowflake + dbt reporting layer processing over 4 billion rows of pharmacy claims, enabling real-time decision-making across 4,000+ health plan clients via Power BI Embedded.', stack: ['Snowflake', 'dbt', 'Power BI', 'Python'] },
-                { tag: 'Analytics Modernization', title: 'Power BI Service Enablement', desc: 'Led full Power BI Service deployment for a pharmacy analytics division — workspace governance, deployment pipelines, and dataflow architecture across 40+ executive-level dashboards.', stack: ['Power BI', 'DAX', 'DirectQuery', 'Azure'] },
-                { tag: 'Healthcare Analytics', title: 'Utilization Management Dashboard', desc: 'Delivered a PMPM, formulary savings, and drug utilization dashboard suite with multi-layer RLS protecting PHI/PII for compliance with healthcare reporting standards.', stack: ['Power BI', 'SQL', 'RLS', 'Alteryx'] },
-                { tag: 'Industrial Engineering', title: 'Manufacturing BI & Lean Analysis', desc: 'Built self-service analytics portals and Alteryx workflows for operational insights, combined with AutoCAD layout analyses to optimize lean production flow and capacity planning.', stack: ['Power BI', 'Alteryx', 'AutoCAD', 'SQL'] },
-                { tag: 'Data Integration', title: 'Multi-Source Data Pipeline', desc: 'Designed and implemented integrations from NetSuite, Salesforce, PBM platforms, and pharmacy claims systems — centralizing data governance and improving reporting accuracy.', stack: ['Alteryx', 'SQL', 'Salesforce', 'NetSuite'] },
-                { tag: 'Brand & Web', title: 'YNK-Tech USA Platform Build', desc: 'Architected and deployed the full YNK-Tech USA web platform — from Three.js 3D AI visualization and multilingual SPA to AWS S3 hosting, Lambda API, and admin dashboard.', stack: ['React', 'Three.js', 'AWS', 'Node.js'] },
+                { tag: 'Data Engineering', title: '4B-Row Pharmacy Reporting Layer', desc: 'Engineered a Snowflake + dbt reporting layer processing over 4 billion rows of pharmacy claims, enabling real-time decision-making across 4,000+ health plan clients via Power BI Embedded.', stack: ['Snowflake', 'dbt', 'Power BI', 'Python'], status: 'Soon Available' },
+                { tag: 'Analytics Modernization', title: 'Power BI Service Enablement', desc: 'Led full Power BI Service deployment for a pharmacy analytics division — workspace governance, deployment pipelines, and dataflow architecture across 40+ executive-level dashboards.', stack: ['Power BI', 'DAX', 'DirectQuery', 'Azure'], status: 'Soon Available' },
+                { tag: 'Healthcare Analytics', title: 'Utilization Management Dashboard', desc: 'Delivered a PMPM, formulary savings, and drug utilization dashboard suite with multi-layer RLS protecting PHI/PII for compliance with healthcare reporting standards.', stack: ['Power BI', 'SQL', 'RLS', 'Alteryx'], status: 'Soon Available' },
+                { tag: 'Industrial Engineering', title: 'Manufacturing BI & Lean Analysis', desc: 'Built self-service analytics portals and Alteryx workflows for operational insights, combined with AutoCAD layout analyses to optimize lean production flow and capacity planning.', stack: ['Power BI', 'Alteryx', 'AutoCAD', 'SQL'], status: 'Soon Available' },
+                { tag: 'Data Integration', title: 'Multi-Source Data Pipeline', desc: 'Designed and implemented integrations from NetSuite, Salesforce, PBM platforms, and pharmacy claims systems — centralizing data governance and improving reporting accuracy.', stack: ['Alteryx', 'SQL', 'Salesforce', 'NetSuite'], status: 'Soon Available' },
+                { tag: 'Brand & Web', title: 'YNK-Tech USA Platform Build', desc: 'Architected and deployed the full YNK-Tech USA web platform — from Three.js 3D AI visualization and multilingual SPA to AWS S3 hosting, Lambda API, and admin dashboard.', stack: ['React', 'Three.js', 'AWS', 'Node.js'], status: 'Soon Available' },
               ].map((p, i) => (
                 <div className="project-card" key={i}>
-                  <span className="project-tag">{p.tag}</span>
+                  <div className="project-card-top">
+                    <span className="project-tag">{p.tag}</span>
+                    {p.status && <span className="project-status-badge">{p.status}</span>}
+                  </div>
                   <h3 className="project-card-title">{p.title}</h3>
                   <p className="project-card-desc">{p.desc}</p>
                   <div className="project-stack">
@@ -529,20 +533,8 @@ export default function ConsultantsPortal() {
                   </button>
                 </div>
               </div>
-              <div className="resume-pdf-wrapper">
-                {loading && (
-                  <div className="pdf-loading-indicator">
-                    <div className="pdf-spinner"></div>
-                    <p>{t('consultantsPage.loadingPdf')}</p>
-                  </div>
-                )}
-                <iframe
-                  src={match.file}
-                  className="resume-pdf-frame"
-                  title="Consultant Document"
-                  onLoad={() => setLoading(false)}
-                  style={{ opacity: loading ? 0 : 1 }}
-                ></iframe>
+              <div className="resume-viewer-content">
+                <ResumeCard industry={match.industry} />
               </div>
             </div>
           )}
