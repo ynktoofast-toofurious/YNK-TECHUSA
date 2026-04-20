@@ -361,16 +361,38 @@ img {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: var(--nav-height) 24px 0;
+    padding: var(--nav-height) 0 0;
     overflow: hidden;
     background:
-        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(41, 181, 232, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 25% 50%, rgba(41, 181, 232, 0.07) 0%, transparent 65%),
         var(--color-bg-primary);
 }
 
-.hero-content {
+/* Two-column hero split */
+.hero-split {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 40px;
+    gap: 0;
+    min-height: calc(100vh - var(--nav-height));
+}
+
+.hero-ball-col {
+    flex: 0 0 48%;
+    position: relative;
+    height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-text-col {
+    flex: 1;
+    padding-left: 40px;
+    text-align: left;
     position: relative;
     z-index: 2;
 }
@@ -384,17 +406,17 @@ img {
 
 .hero-line {
     display: block;
-    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-size: clamp(2.8rem, 5.5vw, 7rem);
     letter-spacing: -0.02em;
 }
 
 .hero-subtext {
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(0.85rem, 1.4vw, 1.1rem);
     color: var(--color-text-muted);
     letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: 500;
-    margin-bottom: 60px;
+    margin-bottom: 48px;
 }
 
 .hero-scroll-cue {
@@ -1690,6 +1712,29 @@ img {
         min-height: 80vh;
     }
 
+    .hero-split {
+        flex-direction: column;
+        padding: 0 20px;
+        gap: 0;
+        min-height: 80vh;
+    }
+
+    .hero-ball-col {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 300px;
+        order: 1;
+    }
+
+    .hero-text-col {
+        flex: 0 0 auto;
+        width: 100%;
+        padding-left: 0;
+        text-align: center;
+        order: 2;
+        padding-bottom: 40px;
+    }
+
     .hero-line {
         font-size: clamp(2.5rem, 12vw, 4rem);
     }
@@ -1856,8 +1901,14 @@ img {
 
     .hero {
         min-height: 70vh;
-        padding-left: 16px;
-        padding-right: 16px;
+    }
+
+    .hero-split {
+        padding: 0 16px;
+    }
+
+    .hero-ball-col {
+        height: 240px;
     }
 
     .hero-line {
@@ -2174,10 +2225,10 @@ img {
    3D AI BALL
    ========================================================================== */
 .hero-ball-wrap {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
+    position: relative;
 }
 
 /* ==========================================================================
