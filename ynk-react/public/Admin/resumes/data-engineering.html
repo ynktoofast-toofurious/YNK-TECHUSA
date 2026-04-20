@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yannick Nkongolo — Data Engineer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a2e;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ───────────────────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, #0b1120 0%, #0f1f40 60%, #0d2a4a 100%);
+      color: #ffffff;
+      padding: 36px 48px 28px;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #29B5E8, #06b6d4, #29B5E8);
+    }
+
+    .header-name {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #29B5E8;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
+    }
+    .header-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.75);
+    }
+    .header-contact span { display: flex; align-items: center; gap: 6px; }
+
+    /* ── Layout ───────────────────────────────────────────── */
+    .body-wrap {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 0;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .main-col { padding: 28px 32px 32px; }
+    .side-col {
+      background: #f5f8ff;
+      border-left: 1px solid #e0e8f5;
+      padding: 28px 24px 32px;
+    }
+
+    /* ── Section headers ──────────────────────────────────── */
+    .section { margin-bottom: 26px; }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #29B5E8;
+      border-bottom: 2px solid #29B5E8;
+      padding-bottom: 4px;
+      margin-bottom: 14px;
+    }
+
+    /* ── Summary ──────────────────────────────────────────── */
+    .summary-text {
+      font-size: 13.5px;
+      color: #2d3748;
+      line-height: 1.7;
+    }
+
+    /* ── Work history ─────────────────────────────────────── */
+    .job { margin-bottom: 22px; }
+    .job + .job { border-top: 1px solid #e2e8f0; padding-top: 22px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .job-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0b1120;
+    }
+    .job-dates {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #29B5E8;
+      white-space: nowrap;
+      background: rgba(41,181,232,0.08);
+      border: 1px solid rgba(41,181,232,0.2);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .job-company {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+    .job ul {
+      padding-left: 16px;
+      list-style: none;
+    }
+    .job ul li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 5px;
+      color: #2d3748;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .job ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #29B5E8;
+      font-size: 10px;
+      top: 3px;
+    }
+
+    /* transition badge */
+    .phase-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .phase-de   { background: rgba(16,185,129,0.12); color: #059669; border: 1px solid rgba(16,185,129,0.3); }
+    .phase-pbi  { background: rgba(139,92,246,0.12); color: #7c3aed; border: 1px solid rgba(139,92,246,0.3); }
+    .phase-da   { background: rgba(245,158,11,0.12); color: #d97706; border: 1px solid rgba(245,158,11,0.3); }
+
+    /* ── Side column items ────────────────────────────────── */
+    .side-section { margin-bottom: 22px; }
+    .side-section .section-title { font-size: 10px; margin-bottom: 12px; }
+
+    .skill-group { margin-bottom: 10px; }
+    .skill-group-name {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0b1120;
+      margin-bottom: 5px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .skill-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(41,181,232,0.1);
+      border: 1px solid rgba(41,181,232,0.25);
+      color: #1a4a6e;
+      font-weight: 500;
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: #2d3748;
+    }
+    .cert-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #29B5E8;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .edu-item { margin-bottom: 10px; }
+    .edu-degree {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0b1120;
+      line-height: 1.4;
+    }
+    .edu-field { font-size: 11.5px; color: #4a5568; }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 7px;
+      font-size: 12px;
+      color: #2d3748;
+      line-height: 1.55;
+    }
+    .highlight-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #29B5E8;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    /* ── Print ────────────────────────────────────────────── */
+    @media print {
+      body { font-size: 12px; }
+      .header { padding: 24px 36px 20px; }
+      .main-col { padding: 20px 24px; }
+      .side-col { padding: 20px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ HEADER ════════════ -->
+  <div class="header">
+    <div class="header-name">Yannick Nkongolo</div>
+    <div class="header-title">Data Engineer &nbsp;·&nbsp; Power BI SME &nbsp;·&nbsp; Analytics Architecture</div>
+    <div class="header-contact">
+      <span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Fort Worth, TX 76101
+      </span>
+      <span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Yannicknkongolo7@gmail.com
+      </span>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+
+    <!-- ════════════ MAIN COLUMN ════════════ -->
+    <div class="main-col">
+
+      <!-- Professional Summary -->
+      <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <p class="summary-text">
+          Power BI &amp; Data Engineering Subject Matter Expert with <strong>10+ years</strong> architecting scalable data models, engineering enterprise-grade analytics solutions, and delivering measurable outcomes across healthcare, manufacturing, and technology sectors. Deep expertise in DAX, advanced M (Power Query), and cloud-scale data engineering — with a proven track record of transforming raw, high-volume data into trusted insights that drive executive decisions. Currently engineering a <strong>4-billion-row reporting layer</strong> built on Snowflake, dbt, and Power BI Embedded with Row-Level Security, enabling seamless, performant user experiences at enterprise scale.
+        </p>
+      </div>
+
+      <!-- Work History -->
+      <div class="section">
+        <div class="section-title">Work History</div>
+
+        <!-- OPTUM — 3 Phases -->
+        <div class="job">
+          <!-- Phase 3: Data Engineer -->
+          <div class="phase-badge phase-de">Phase 3 — Current Role</div>
+          <div class="job-header">
+            <div class="job-title">Data Engineer</div>
+            <div class="job-dates">10/2025 – Present</div>
+          </div>
+          <div class="job-company">Optum (UnitedHealth Group) &nbsp;·&nbsp; Fort Worth, TX</div>
+          <ul>
+            <li>Architecting and maintaining a scalable reporting layer spanning <strong>4+ billion rows</strong> of pharmacy claims data using Snowflake and dbt — enabling sub-second query performance through advanced materialization strategies, incremental models, and query optimization.</li>
+            <li>Implemented dynamic <strong>Power BI Row-Level Security (RLS)</strong> and Power BI Embedded to deliver personalized, context-aware dashboards directly within client-facing portals — significantly improving end-user UX and eliminating manual access management overhead.</li>
+            <li>Engineered dbt models with layered transformation logic (staging → intermediate → marts) to enforce data governance, lineage tracking, and reusable business logic across multiple analytics domains.</li>
+            <li>Partnered with platform and DevOps teams to operationalize CI/CD pipelines for dbt and Power BI deployment, reducing deployment cycles and increasing reporting reliability.</li>
+            <li>Led performance tuning initiatives on Snowflake (clustering keys, result caching, virtual warehouse sizing), driving significant reduction in compute costs and dashboard load times.</li>
+          </ul>
+
+          <!-- Phase 2: Power BI Engineer -->
+          <div class="phase-badge phase-pbi" style="margin-top: 18px;">Phase 2</div>
+          <div class="job-header">
+            <div class="job-title">Power BI Engineer</div>
+            <div class="job-dates">06/2023 – 10/2025</div>
+          </div>
+          <div class="job-company">Optum (UnitedHealth Group) &nbsp;·&nbsp; Fort Worth, TX</div>
+          <ul>
+            <li>Drove full-scale <strong>Power BI Service enablement</strong> across the pharmacy analytics division — including workspace governance, deployment pipelines, dataflow architecture, and report lifecycle management.</li>
+            <li>Spearheaded dashboard modernization efforts: redesigned legacy reports into optimized, DirectQuery-enabled solutions with composite models, achieving measurable improvements in load time and visual clarity.</li>
+            <li>Defined and enforced Power BI best practices for DAX optimization, report layering, and dataset reuse — establishing team-wide standards that improved consistency and maintainability.</li>
+            <li>Engineered PMPM, formulary savings, and utilization trend models for 4,000+ clients, integrating Snowflake DirectQuery with incremental refresh policies to ensure data freshness at scale.</li>
+            <li>Collaborated with clinical and pharmacy operations teams to align dashboard logic with evolving regulatory and reporting standards, including PHI/PII protection controls.</li>
+          </ul>
+
+          <!-- Phase 1: Data Analyst -->
+          <div class="phase-badge phase-da" style="margin-top: 18px;">Phase 1</div>
+          <div class="job-header">
+            <div class="job-title">Data Analyst &amp; Power BI Developer</div>
+            <div class="job-dates">01/2022 – 06/2023</div>
+          </div>
+          <div class="job-company">Optum (UnitedHealth Group) &nbsp;·&nbsp; Fort Worth, TX</div>
+          <ul>
+            <li>Delivered Utilization Management dashboards tracking formularies, savings, and PMPM metrics for pharmacy clients using Snowflake DirectQuery and advanced DAX measures.</li>
+            <li>Developed complex Row-Level Security at the client, drug, and rebate levels to ensure strict protection of PHI and PII in compliance with healthcare reporting standards.</li>
+            <li>Leveraged <strong>Alteryx</strong> to automate data blending, validation, and reconciliation workflows — reducing manual data prep effort and accelerating delivery cycles.</li>
+            <li>Engineered scalable data integrations from NetSuite, Salesforce, pharmacy claims, and PBM platforms, improving data consistency and governance across reporting domains.</li>
+            <li>Conducted rigorous data quality audits and source-of-truth reconciliation, ensuring reporting integrity across executive and operational dashboards.</li>
+          </ul>
+        </div>
+
+        <!-- Group O -->
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">Industrial Engineer / BI Developer</div>
+            <div class="job-dates">05/2019 – 01/2022</div>
+          </div>
+          <div class="job-company">Group O &nbsp;·&nbsp; Milan, IL</div>
+          <ul>
+            <li>Designed and maintained Power BI dashboards and automated Alteryx workflows that streamlined data access and empowered self-service analytics for operational decision-makers.</li>
+            <li>Built end-user information portals with custom reporting formats, reducing ad-hoc data requests by enabling business users to explore their own KPIs.</li>
+            <li>Conducted root-cause analyses to identify operational bottlenecks, translating findings into actionable process improvement recommendations.</li>
+            <li>Integrated and validated data from multiple disparate systems using Alteryx, ensuring alignment with business objectives and reporting accuracy.</li>
+            <li>Performed AutoCAD layout analyses to optimize lean production flow, improve ergonomics, and adjust capacity planning in manufacturing environments.</li>
+            <li>Conducted time studies across single-unit, workflow, and full production-line processes to support industrial engineering initiatives.</li>
+          </ul>
+        </div>
+
+        <!-- S&B -->
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">Power BI Developer</div>
+            <div class="job-dates">06/2016 – 05/2019</div>
+          </div>
+          <div class="job-company">S&amp;B Industry</div>
+          <ul>
+            <li>Produced data-driven operational reports using Alteryx, enabling impact assessments and trend analysis that supported strategic planning.</li>
+            <li>Automated routine reporting pipelines, eliminating manual processes and enhancing both delivery speed and accuracy.</li>
+            <li>Collaborated with stakeholders to define custom datasets, maintain report specifications, and implement data quality improvements.</li>
+          </ul>
+        </div>
+
+        <!-- SMS -->
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">BI Developer</div>
+            <div class="job-dates">08/2015 – 06/2016</div>
+          </div>
+          <div class="job-company">SMS</div>
+          <ul>
+            <li>Developed and maintained data pipelines to support business reporting needs, ensuring reliable data flow from source to dashboard.</li>
+            <li>Performed quality checks across all deliverables and provided clear, actionable insights through interpreted data and concise recommendations.</li>
+          </ul>
+        </div>
+
+      </div><!-- /section Work History -->
+
+    </div><!-- /main-col -->
+
+    <!-- ════════════ SIDE COLUMN ════════════ -->
+    <div class="side-col">
+
+      <!-- Education -->
+      <div class="side-section">
+        <div class="section-title">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">Master of Science</div>
+          <div class="edu-field">Data Analytics — Data Engineering</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Science</div>
+          <div class="edu-field">Data Analytics</div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="side-section">
+        <div class="section-title">Certifications</div>
+        <div class="cert-item"><div class="cert-dot"></div><span>Microsoft Power Platform (PL-900)</span></div>
+        <div class="cert-item"><div class="cert-dot"></div><span>Alteryx Core Certificate</span></div>
+        <div class="cert-item"><div class="cert-dot"></div><span>ServiceNow Certified</span></div>
+      </div>
+
+      <!-- Core Skills -->
+      <div class="side-section">
+        <div class="section-title">Core Skills</div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Data Engineering</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Snowflake</span>
+            <span class="skill-tag">dbt</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Data Pipelines</span>
+            <span class="skill-tag">Data Modeling</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Power BI &amp; Analytics</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Power BI</span>
+            <span class="skill-tag">DAX</span>
+            <span class="skill-tag">Power Query (M)</span>
+            <span class="skill-tag">RLS</span>
+            <span class="skill-tag">Embedded</span>
+            <span class="skill-tag">DirectQuery</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Data &amp; Automation</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Alteryx</span>
+            <span class="skill-tag">Tableau</span>
+            <span class="skill-tag">Power Query</span>
+            <span class="skill-tag">CI/CD</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Platforms &amp; Cloud</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Snowflake</span>
+            <span class="skill-tag">Azure</span>
+            <span class="skill-tag">AWS</span>
+            <span class="skill-tag">NetSuite</span>
+            <span class="skill-tag">Salesforce</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Highlights -->
+      <div class="side-section">
+        <div class="section-title">Key Highlights</div>
+        <div class="highlight-item"><div class="highlight-dot"></div><span>Engineering a 4B+ row pharmacy reporting layer with sub-second query performance</span></div>
+        <div class="highlight-item"><div class="highlight-dot"></div><span>Delivering secure, embedded BI experiences with dynamic RLS for 4,000+ clients</span></div>
+        <div class="highlight-item"><div class="highlight-dot"></div><span>10+ years turning complex, multi-source data into executive-grade insights</span></div>
+        <div class="highlight-item"><div class="highlight-dot"></div><span>Proven track record in healthcare analytics with strict PHI/PII compliance</span></div>
+        <div class="highlight-item"><div class="highlight-dot"></div><span>Expert at bridging business requirements and technical implementation</span></div>
+      </div>
+
+    </div><!-- /side-col -->
+
+  </div><!-- /body-wrap -->
+
+</body>
+</html>

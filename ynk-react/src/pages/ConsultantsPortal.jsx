@@ -13,6 +13,7 @@ const INDUSTRY_ICONS = {
   Technology: <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
   Government: <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/><path d="M3 8h18"/></svg>,
   Retail: <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>,
+  'Data Engineering': <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>,
 }
 
 const RESUME_MAP = [
@@ -22,6 +23,7 @@ const RESUME_MAP = [
   { hash: '336fb457589f78fc54e4f24215c4133dbf85a74a30904eb774a0272bb7c6428d', industry: 'Technology', file: 'Admin/resumes/technology.pdf' },
   { hash: '23040e83f99dd6e07994719e499ed59f460562441bdb6a50ac9b5ccdf921dc30', industry: 'Government', file: 'Admin/resumes/government.pdf' },
   { hash: '78c1cb1cc907f88da58c31075e2829a32b5965583e680fe2bffeba95296e35b8', industry: 'Retail', file: 'Admin/resumes/retail.pdf' },
+  { hash: 'c2b47a63731365f265c92278923d928edcf08000696775cde4ba4ba2b8ccd70e', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html' },
 ]
 
 async function sha256(text) {
@@ -262,6 +264,7 @@ export default function ConsultantsPortal() {
                             <option value="Technology">Technology</option>
                             <option value="Government">Government</option>
                             <option value="Retail">Retail</option>
+                            <option value="Data Engineering">Data Engineering</option>
                           </select>
                         </div>
                         <div className="form-group form-group--full">
