@@ -383,10 +383,13 @@ img {
 .hero-ball-col {
     flex: 0 0 48%;
     position: relative;
-    height: 520px;
+    height: auto;
+    min-height: 520px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 16px;
 }
 
 .hero-text-col {
@@ -2792,10 +2795,166 @@ img {
    ========================================================================== */
 .hero-ball-wrap {
     width: 100%;
-    height: 100%;
+    height: 260px;
     pointer-events: none;
     position: relative;
+    flex-shrink: 0;
 }
+
+/* ==========================================================================
+   DEMO CHAT  —  lives below the 3D ball in the left column
+   ========================================================================== */
+.dc-wrap {
+    width: 100%;
+    max-width: 380px;
+    background: rgba(13, 20, 38, 0.85);
+    border: 1px solid rgba(41, 181, 232, 0.18);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(41,181,232,0.07);
+    backdrop-filter: blur(12px);
+}
+
+.dc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: rgba(41, 181, 232, 0.06);
+    border-bottom: 1px solid rgba(41, 181, 232, 0.12);
+}
+.dc-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(41, 181, 232, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.dc-header-name {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-text);
+}
+.dc-online-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-left: auto;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+}
+
+.dc-messages {
+    flex: 1;
+    min-height: 160px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 12px 12px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(41,181,232,0.2) transparent;
+}
+.dc-messages::-webkit-scrollbar { width: 4px; }
+.dc-messages::-webkit-scrollbar-thumb { background: rgba(41,181,232,0.2); border-radius: 4px; }
+
+.dc-msg {
+    display: flex;
+    max-width: 85%;
+}
+.dc-msg--bot  { align-self: flex-start; }
+.dc-msg--user { align-self: flex-end; }
+
+.dc-bubble {
+    font-size: 0.8rem;
+    line-height: 1.55;
+    padding: 7px 11px;
+    border-radius: 12px;
+    word-break: break-word;
+}
+.dc-msg--bot  .dc-bubble {
+    background: rgba(41, 181, 232, 0.10);
+    border: 1px solid rgba(41, 181, 232, 0.18);
+    color: var(--color-text);
+    border-bottom-left-radius: 4px;
+}
+.dc-msg--user .dc-bubble {
+    background: rgba(41, 181, 232, 0.22);
+    border: 1px solid rgba(41, 181, 232, 0.35);
+    color: var(--color-text);
+    border-bottom-right-radius: 4px;
+}
+.dc-bubble--typing {
+    padding: 10px 14px;
+}
+
+/* Typing dots animation */
+.dc-typing-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.dc-typing-dots span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: dc-bounce 1s infinite ease-in-out;
+}
+.dc-typing-dots span:nth-child(2) { animation-delay: 0.18s; }
+.dc-typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+@keyframes dc-bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+    40%            { transform: translateY(-5px); opacity: 1; }
+}
+
+.dc-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-top: 1px solid rgba(41, 181, 232, 0.12);
+}
+.dc-input {
+    flex: 1;
+    background: rgba(41, 181, 232, 0.05);
+    border: 1px solid rgba(41, 181, 232, 0.2);
+    border-radius: 8px;
+    padding: 7px 11px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.2s;
+}
+.dc-input::placeholder { color: var(--color-text-secondary); }
+.dc-input:focus { border-color: rgba(41, 181, 232, 0.5); }
+
+.dc-send {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--color-accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b1120;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+}
+.dc-send:hover { opacity: 0.85; }
 
 /* ==========================================================================
    CONCIERGE CHAT SECTION

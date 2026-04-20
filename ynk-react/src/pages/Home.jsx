@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import AIBall3D from '../components/AIBall3D'
+import DemoChat from '../components/DemoChat'
 
 export default function Home() {
   const { t } = useLanguage()
@@ -10,11 +11,12 @@ export default function Home() {
       {/* HERO - single viewport */}
       <section className="hero hero-full" id="hero">
         <div className="hero-split">
-          {/* LEFT - 3D Ball */}
+          {/* LEFT - 3D Ball + Demo Chat */}
           <div className="hero-ball-col">
             <div className="hero-ball-wrap">
               <AIBall3D />
             </div>
+            <DemoChat />
           </div>
 
           {/* RIGHT - Who We Are */}

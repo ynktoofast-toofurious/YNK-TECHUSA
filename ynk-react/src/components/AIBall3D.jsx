@@ -122,7 +122,7 @@ export default function AIBall3D() {
     const loader = new GLTFLoader()
     loader.load('/ai-ball.glb', (gltf) => {
       const model = gltf.scene
-      model.scale.set(0.375, 0.375, 0.375)
+      model.scale.set(0.1875, 0.1875, 0.1875)
       model.traverse((child) => {
         if (child.isMesh) {
           child.material = new THREE.ShaderMaterial({
@@ -141,7 +141,7 @@ export default function AIBall3D() {
     const positions = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2
-      const r = 0.6 + (Math.random() - 0.5) * 0.1
+      const r = 0.3 + (Math.random() - 0.5) * 0.05
       positions[i*3]   = Math.cos(angle) * r
       positions[i*3+1] = (Math.random() - 0.5) * 0.3
       positions[i*3+2] = Math.sin(angle) * r
@@ -187,7 +187,7 @@ export default function AIBall3D() {
         modelRef.current.rotation.y = t * 0.2 + scroll * 0.003 + currentRotRef.current.y
         modelRef.current.rotation.x = Math.sin(t * 0.3) * 0.08 + scroll * 0.0008 + currentRotRef.current.x
         modelRef.current.rotation.z = Math.sin(t * 0.2) * 0.04
-        const hoverScale = 0.375 + mouseDistRef.current * 0.075
+        const hoverScale = 0.1875 + mouseDistRef.current * 0.04
         modelRef.current.scale.setScalar(hoverScale)
       }
 
