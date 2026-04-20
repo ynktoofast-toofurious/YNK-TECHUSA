@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
+import AIBall3D from '../components/AIBall3D'
+import ConciergeChat from '../components/ConciergeChat'
 
 export default function Home() {
   const { t } = useLanguage()
@@ -29,8 +31,11 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="hero" id="hero">
-        <div className="hero-content">
+      <section className="hero" id="hero" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="hero-ball-wrap">
+          <AIBall3D />
+        </div>
+        <div className="hero-content" style={{ position: 'relative', zIndex: 2 }}>
           <h1 className="hero-headline">
             <span className="hero-line">{t('hero.line1')}</span>
             <span className="hero-line">{t('hero.line2')}</span>
@@ -56,40 +61,7 @@ export default function Home() {
             <p className="intro-text" style={{ marginTop: '12px' }} dangerouslySetInnerHTML={{ __html: t('intro.mission') }} />
           </div>
 
-          <div className="intro-grid">
-            <div className="intro-card" data-aos="">
-              <div className="intro-card-number">01</div>
-              <h3>{t('itCard.title')}</h3>
-              <p>{t('itCard.desc')}</p>
-              <ul className="intro-list">
-                {(t('itCard.items') || []).map((item, i) => <li key={i}>{item}</li>)}
-              </ul>
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('itCard.vision') }} />
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('itCard.apart') }} />
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('itCard.goal') }} />
-            </div>
-
-            <div className="intro-card" data-aos="">
-              <div className="intro-card-number">02</div>
-              <h3>{t('brandingCard.title')}</h3>
-              <p>{t('brandingCard.desc')}</p>
-              <ul className="intro-list">
-                {(t('brandingCard.items') || []).map((item, i) => <li key={i}>{item}</li>)}
-              </ul>
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('brandingCard.vision') }} />
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('brandingCard.apart') }} />
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('brandingCard.goal') }} />
-            </div>
-
-            <div className="intro-card" data-aos="">
-              <div className="intro-card-number">03</div>
-              <h3>{t('consultantsCard.title')}</h3>
-              <p>{t('consultantsCard.desc')}</p>
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('consultantsCard.vision') }} />
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('consultantsCard.apart') }} />
-              <p className="intro-card-note" dangerouslySetInnerHTML={{ __html: t('consultantsCard.goal') }} />
-            </div>
-          </div>
+          {/* Section cards moved to their respective pages */}
 
           {/* Why This Platform */}
           <div className="intro-why" data-aos="">
@@ -151,6 +123,13 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* CONCIERGE AI CHAT */}
+      <section className="concierge-section" id="concierge">
+        <div className="container">
+          <ConciergeChat />
         </div>
       </section>
 

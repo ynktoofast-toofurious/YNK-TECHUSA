@@ -24,6 +24,25 @@ export default function ITServices() {
         </div>
       </section>
 
+      {/* Section Definition */}
+      <section className="section-definition" style={{ padding: '0 0 0' }}>
+        <div className="container">
+          <div className="section-def-card" data-aos="">
+            <p className="section-def-lead">{t('itCard.desc')}</p>
+            <ul className="section-def-list">
+              {(t('itCard.items') || []).map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+            <div className="section-def-meta">
+              <p dangerouslySetInnerHTML={{ __html: t('itCard.vision') }} />
+              <p dangerouslySetInnerHTML={{ __html: t('itCard.apart') }} />
+              <p dangerouslySetInnerHTML={{ __html: t('itCard.goal') }} />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="detail-section">
         <div className="container">
           <div className="detail-grid">
