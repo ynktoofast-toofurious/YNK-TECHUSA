@@ -1,199 +1,46 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 
-/* ── Career Timeline ── */
-const TIMELINE = [
-  {
-    period: '2024 - Present',
-    role: 'Founder & Principal Consultant',
-    company: 'YNK-Tech USA',
-    type: 'Entrepreneurship',
-    color: '#29B5E8',
-    current: false,
-    summary: 'Founded and scaled a multi-service technology platform combining IT consulting, brand strategy, and a gated consultants portal.',
-    details: [
-      'Architected and deployed the full YNK-Tech USA platform: React SPA, Three.js 3D AI visualization, multilingual i18n (EN/FR/ES)',
-      'Built a gated consultant portal with SHA-256 access codes, EmailJS notifications, and geolocation analytics',
-      'Integrated AWS S3 hosting, Lambda API endpoints, API Gateway, and a custom admin dashboard',
-      'Designed and shipped a full visual brand system including logo, color system, and multi-service identity',
-    ],
-  },
-  {
-    period: '2022 - Present',
-    role: 'Sr. Data Engineer / Power BI Engineer',
-    company: 'OptumRx \u2013 UnitedHealth Group',
-    type: 'Data Engineering',
-    color: '#10b981',
-    current: true,
-    summary: 'Leading pharmacy analytics and data engineering initiatives for one of the nation\'s largest pharmacy benefit managers, serving 4,000+ health plan clients.',
-    details: [
-      'Leading pharmacy analytics in Power BI: Utilization Management dashboards tracking formularies, savings, and PMPM metrics for 4,000+ clients using Snowflake DirectQuery',
-      'Developed advanced Power BI solutions with complex DAX and dynamic Row-Level Security at client, drug, and rebate levels, ensuring strict PHI/PII protection',
-      'Engineered scalable data models and integrations from NetSuite, Salesforce, pharmacy claims, and PBM platforms, improving data governance and reporting reliability',
-      'Delivered financial analysis dashboards tracking cost management, formulary savings, PMPM trends, and operational performance for health plan executives',
-      'Partnered with pharmacy operations, clinical teams, and offshore stakeholders to define KPIs, document business logic, and align analytics with regulatory priorities',
-      'Ensured reporting integrity through rigorous data quality audits and reconciliation with source-of-truth systems aligned with healthcare reporting standards',
-    ],
-  },
-  {
-    period: '2019 - 2022',
-    role: 'Industrial Engineer / BI Developer',
-    company: 'Group O',
-    type: 'BI & Analytics',
-    color: '#f59e0b',
-    current: false,
-    summary: 'Delivered self-service analytics, operational intelligence, and lean production insights for manufacturing and multi-source enterprise environments.',
-    details: [
-      'Created and maintained dashboards and automated Alteryx workflows to simplify data access for decision-makers',
-      'Designed reporting formats and end-user information portals, enabling self-service analytics across operational teams',
-      'Conducted cause-and-effect analyses to uncover operational bottlenecks and recommend data-driven improvements',
-      'Performed AutoCAD layout analyses to optimize lean production flow, enhance ergonomics, and adjust capacity',
-      'Integrated and validated data from multiple systems, ensuring alignment with business objectives',
-      'Conducted time studies for single-unit processes, individual workflows, and production line processes',
-    ],
-  },
-  {
-    period: '2016 - 2019',
-    role: 'Power BI Developer',
-    company: 'S&B Industry',
-    type: 'BI Development',
-    color: '#8b5cf6',
-    current: false,
-    summary: 'Built data-driven reporting solutions and automated analytics workflows supporting operational impact assessments and trend analysis.',
-    details: [
-      'Produced data-driven reports using Alteryx, facilitating operational impact assessments and trend analysis',
-      'Automated routine reporting processes to enhance efficiency and accuracy across business units',
-      'Supported stakeholders by creating custom datasets and maintaining report specifications',
-      'Collaborated with cross-functional teams to define and implement data quality improvements',
-    ],
-  },
-  {
-    period: '2015 - 2016',
-    role: 'BI Developer',
-    company: 'SMS',
-    type: 'BI Development',
-    color: '#e879f9',
-    current: false,
-    summary: 'Developed and maintained data pipelines supporting business reporting and provided actionable insights through data interpretation.',
-    details: [
-      'Developed and maintained data pipelines to support business reporting needs',
-      'Conducted quality checks and ensured accuracy of all reporting deliverables',
-      'Provided actionable insights by interpreting data and delivering clear recommendations to stakeholders',
-    ],
-  },
+/* ── Career Timeline (structural only — text comes from translations) ── */
+const TIMELINE_META = [
+  { period: '2024 - Present', company: 'YNK-Tech USA',                     color: '#29B5E8', current: false },
+  { period: '2022 - Present', company: 'OptumRx \u2013 UnitedHealth Group', color: '#10b981', current: true  },
+  { period: '2019 - 2022',   company: 'Group O',                           color: '#f59e0b', current: false },
+  { period: '2016 - 2019',   company: 'S&B Industry',                      color: '#8b5cf6', current: false },
+  { period: '2015 - 2016',   company: 'SMS',                               color: '#e879f9', current: false },
 ]
 
-/* ── Resume Data ── */
-const RESUME = {
+/* ── Engagement icons (structural only) ── */
+const ENGAGEMENT_ICONS = [
+  <svg key="sf" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>,
+  <svg key="pbi" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>,
+  <svg key="git" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6M15.5 5.5L8.5 12.5"/></svg>,
+  <svg key="dbt" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
+  <svg key="llm" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>,
+]
+
+const ENGAGEMENT_COLORS = ['#29B5E8', '#f2c811', '#f05033', '#ff6849', '#10b981']
+const ENGAGEMENT_TOOLS  = ['Snowflake', 'Power BI', 'Git & VS Code', 'dbt', 'Prompt & LLMs']
+
+/* ── Resume structural data (non-translatable fields only) ── */
+const RESUME_META = {
   'Data Engineering': {
-    name: 'Yannick Nkongolo',
-    title: 'Sr. Data Engineer & Analytics Consultant | Power BI SME',
+    name:  'Yannick Nkongolo',
     location: 'Fort Worth, TX',
     email: 'yannicknkongolo7@gmail.com',
     website: 'ynk-techusa.com',
-    summary:
-      'Power BI and Data Analytics Subject Matter Expert with 10+ years designing scalable data structures and engineering analytics solutions. Deep expertise in DAX, advanced M (Power Query), Snowflake, and large-scale data modeling. Proven record transforming complex pharmacy, financial, and operational data into executive-level insights. Currently leading pharmacy analytics at OptumRx (UHG) while running YNK-Tech USA as Founder.',
     education: [
       { degree: 'Master of Applied Science', field: 'Data Analytics \u2013 Data Engineering', school: 'Western Governors University', year: 'Jul 2026', expected: true },
-      { degree: 'Bachelor of Science', field: 'Data Analytics', school: 'Western Governors University', year: 'May 2025' },
+      { degree: 'Bachelor of Science',       field: 'Data Analytics',                        school: 'Western Governors University', year: 'May 2025' },
     ],
     certifications: ['Power Platform Certified (PL-900)', 'Alteryx Core Certificate', 'ServiceNow Certified'],
-    skills: [
-      { category: 'Analytics & BI', items: ['Power BI', 'DAX', 'M / Power Query', 'DirectQuery', 'Composite Models', 'Row-Level Security', 'Dataflows', 'Tableau'] },
-      { category: 'Data Engineering', items: ['Snowflake', 'dbt', 'Python', 'SQL', 'ETL / ELT Pipelines', 'Alteryx', 'Data Modeling'] },
-      { category: 'Financial Analytics', items: ['PMPM Metrics', 'Formulary Savings', 'Cost Management', 'Budget vs. Actuals', 'Operational KPIs', 'Drug Utilization'] },
-      { category: 'Cloud & Infrastructure', items: ['AWS S3', 'AWS Lambda', 'API Gateway', 'Azure', 'GitHub Actions', 'CI/CD'] },
-      { category: 'Data Integration', items: ['Salesforce', 'NetSuite', 'PBM Platforms', 'Pharmacy Claims Systems', 'REST APIs'] },
-      { category: 'Development', items: ['React', 'Node.js', 'Three.js', 'JavaScript', 'HTML / CSS'] },
-    ],
-    engagements: [
-      {
-        tool: 'Snowflake',
-        title: 'Data Engineering using Snowflake',
-        context: 'Healthcare & Pharmacy Analytics',
-        color: '#29B5E8',
-        icon: (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-          </svg>
-        ),
-        highlights: [
-          'Engineered a Snowflake reporting layer processing over 4 billion rows of pharmacy claims from multiple PBM data sources',
-          'Designed star and snowflake schemas optimized for DirectQuery and incremental load performance',
-          'Implemented clustering keys, result caches, and virtual warehouse auto-scaling to control compute costs',
-          'Enabled real-time decision-making for 4,000+ health plan clients via Power BI Embedded against Snowflake',
-        ],
-      },
-      {
-        tool: 'Power BI',
-        title: 'Data Engineering using Power BI',
-        context: 'Pharmacy Analytics Division',
-        color: '#f2c811',
-        icon: (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <path d="M3 9h18M9 21V9"/>
-          </svg>
-        ),
-        highlights: [
-          'Led full Power BI Service deployment including workspace governance and deployment pipeline architecture',
-          'Delivered 40+ executive-level dashboards with DirectQuery, Import, and Composite model strategies',
-          'Implemented multi-layer Row-Level Security (RLS) protecting PHI/PII across 4,000+ client health plans',
-          'Built automated dataflows, refresh scheduling, and incremental refresh policies at enterprise scale',
-        ],
-      },
-      {
-        tool: 'Git & VS Code',
-        title: 'Data Engineering using Git and VS Code',
-        context: 'YNK-Tech USA & Enterprise Projects',
-        color: '#f05033',
-        icon: (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/>
-            <path d="M6 9v6M15.5 5.5L8.5 12.5"/>
-          </svg>
-        ),
-        highlights: [
-          'Managed full CI/CD pipelines via GitHub Actions for both the YNK-Tech USA platform and dbt project deployments',
-          'Version-controlled all dbt models, SQL transformations, and pipeline configurations across team environments',
-          'Used VS Code extensions (dbt Power User, SQLTools, Snowflake connector) as the core engineering workbench',
-          'Maintained branching strategy, PR reviews, and environment promotion (dev/staging/prod) across all projects',
-        ],
-      },
-      {
-        tool: 'dbt',
-        title: 'Data Engineering engaging dbt',
-        context: 'Snowflake Data Warehouse Layer',
-        color: '#ff6849',
-        icon: (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-        ),
-        highlights: [
-          'Architected modular dbt project structure with staging, intermediate, and mart layers following best practices',
-          'Built full lineage documentation with dbt docs, enabling cross-team data discovery and trust',
-          'Implemented incremental models, snapshot tables, and source freshness checks for pipeline reliability',
-          'Wrote reusable macros, generic tests, and Jinja-based logic reducing model duplication by over 70%',
-        ],
-      },
-      {
-        tool: 'Prompt & LLMs',
-        title: 'Data Engineering using Prompt and LLMs',
-        context: 'AI-Assisted Engineering Workflows',
-        color: '#10b981',
-        icon: (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-          </svg>
-        ),
-        highlights: [
-          'Leveraged LLMs (GPT-4, Claude) as engineering co-pilots for SQL generation, dbt model scaffolding, and code review',
-          'Built prompt workflows to automate documentation of data dictionaries, lineage descriptions, and test generation',
-          'Designed the YNK AI Concierge chatbot with context-aware responses using structured prompt engineering',
-          'Researched and applied LLM-based anomaly detection patterns for pipeline health monitoring use cases',
-        ],
-      },
+    skillItems: [
+      ['Power BI', 'DAX', 'M / Power Query', 'DirectQuery', 'Composite Models', 'Row-Level Security', 'Dataflows', 'Tableau'],
+      ['Snowflake', 'dbt', 'Python', 'SQL', 'ETL / ELT Pipelines', 'Alteryx', 'Data Modeling'],
+      ['PMPM Metrics', 'Formulary Savings', 'Cost Management', 'Budget vs. Actuals', 'Operational KPIs', 'Drug Utilization'],
+      ['AWS S3', 'AWS Lambda', 'API Gateway', 'Azure', 'GitHub Actions', 'CI/CD'],
+      ['Salesforce', 'NetSuite', 'PBM Platforms', 'Pharmacy Claims Systems', 'REST APIs'],
+      ['React', 'Node.js', 'Three.js', 'JavaScript', 'HTML / CSS'],
     ],
   },
 }
@@ -273,9 +120,32 @@ function EngagementItem({ eng }) {
 
 /* ── Main Component ── */
 export default function ResumeCard({ industry }) {
-  const data = RESUME[industry] || RESUME['Data Engineering']
+  const meta = RESUME_META[industry] || RESUME_META['Data Engineering']
   const { t } = useLanguage()
   const [imgError, setImgError] = useState(false)
+
+  const rd = t('resumeData')
+  const data = {
+    ...meta,
+    title:   rd.jobTitle,
+    summary: rd.summary,
+    skills:  meta.skillItems.map((items, i) => ({ category: rd.skillCategories[i], items })),
+  }
+  const TIMELINE = TIMELINE_META.map((m, i) => ({
+    ...m,
+    role:    rd.timeline[i].role,
+    type:    rd.timeline[i].type,
+    summary: rd.timeline[i].summary,
+    details: rd.timeline[i].details,
+  }))
+  const engagements = ENGAGEMENT_COLORS.map((color, i) => ({
+    color,
+    tool:       ENGAGEMENT_TOOLS[i],
+    icon:       ENGAGEMENT_ICONS[i],
+    title:      rd.engagements[i].title,
+    context:    rd.engagements[i].context,
+    highlights: rd.engagements[i].highlights,
+  }))
 
   return (
     <div className="resume-card">
@@ -430,7 +300,7 @@ export default function ResumeCard({ industry }) {
         </h2>
         <p className="resume-tl-hint no-print">{t('resumeCard.engagementsHint')}</p>
         <div className="resume-eng-list">
-          {data.engagements.map((eng, i) => (
+          {engagements.map((eng, i) => (
             <EngagementItem key={i} eng={eng} />
           ))}
         </div>

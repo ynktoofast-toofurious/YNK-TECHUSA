@@ -322,6 +322,123 @@ const translations = {
       current:                  'Current',
       expected:                 'Expected',
     },
+    resumeData: {
+      jobTitle: 'Sr. Data Engineer & Analytics Consultant | Power BI SME',
+      summary: 'Power BI and Data Analytics Subject Matter Expert with 10+ years designing scalable data structures and engineering analytics solutions. Deep expertise in DAX, advanced M (Power Query), Snowflake, and large-scale data modeling. Proven record transforming complex pharmacy, financial, and operational data into executive-level insights. Currently leading pharmacy analytics at OptumRx (UHG) while running YNK-Tech USA as Founder.',
+      skillCategories: ['Analytics & BI', 'Data Engineering', 'Financial Analytics', 'Cloud & Infrastructure', 'Data Integration', 'Development'],
+      timeline: [
+        {
+          role: 'Founder & Principal Consultant',
+          type: 'Entrepreneurship',
+          summary: 'Founded and scaled a multi-service technology platform combining IT consulting, brand strategy, and a gated consultants portal.',
+          details: [
+            'Architected and deployed the full YNK-Tech USA platform: React SPA, Three.js 3D AI visualization, multilingual i18n (EN/FR/ES)',
+            'Built a gated consultant portal with SHA-256 access codes, EmailJS notifications, and geolocation analytics',
+            'Integrated AWS S3 hosting, Lambda API endpoints, API Gateway, and a custom admin dashboard',
+            'Designed and shipped a full visual brand system including logo, color system, and multi-service identity',
+          ],
+        },
+        {
+          role: 'Sr. Data Engineer / Power BI Engineer',
+          type: 'Data Engineering',
+          summary: "Leading pharmacy analytics and data engineering initiatives for one of the nation's largest pharmacy benefit managers, serving 4,000+ health plan clients.",
+          details: [
+            'Leading pharmacy analytics in Power BI: Utilization Management dashboards tracking formularies, savings, and PMPM metrics for 4,000+ clients using Snowflake DirectQuery',
+            'Developed advanced Power BI solutions with complex DAX and dynamic Row-Level Security at client, drug, and rebate levels, ensuring strict PHI/PII protection',
+            'Engineered scalable data models and integrations from NetSuite, Salesforce, pharmacy claims, and PBM platforms, improving data governance and reporting reliability',
+            'Delivered financial analysis dashboards tracking cost management, formulary savings, PMPM trends, and operational performance for health plan executives',
+            'Partnered with pharmacy operations, clinical teams, and offshore stakeholders to define KPIs, document business logic, and align analytics with regulatory priorities',
+            'Ensured reporting integrity through rigorous data quality audits and reconciliation with source-of-truth systems aligned with healthcare reporting standards',
+          ],
+        },
+        {
+          role: 'Industrial Engineer / BI Developer',
+          type: 'BI & Analytics',
+          summary: 'Delivered self-service analytics, operational intelligence, and lean production insights for manufacturing and multi-source enterprise environments.',
+          details: [
+            'Created and maintained dashboards and automated Alteryx workflows to simplify data access for decision-makers',
+            'Designed reporting formats and end-user information portals, enabling self-service analytics across operational teams',
+            'Conducted cause-and-effect analyses to uncover operational bottlenecks and recommend data-driven improvements',
+            'Performed AutoCAD layout analyses to optimize lean production flow, enhance ergonomics, and adjust capacity',
+            'Integrated and validated data from multiple systems, ensuring alignment with business objectives',
+            'Conducted time studies for single-unit processes, individual workflows, and production line processes',
+          ],
+        },
+        {
+          role: 'Power BI Developer',
+          type: 'BI Development',
+          summary: 'Built data-driven reporting solutions and automated analytics workflows supporting operational impact assessments and trend analysis.',
+          details: [
+            'Produced data-driven reports using Alteryx, facilitating operational impact assessments and trend analysis',
+            'Automated routine reporting processes to enhance efficiency and accuracy across business units',
+            'Supported stakeholders by creating custom datasets and maintaining report specifications',
+            'Collaborated with cross-functional teams to define and implement data quality improvements',
+          ],
+        },
+        {
+          role: 'BI Developer',
+          type: 'BI Development',
+          summary: 'Developed and maintained data pipelines supporting business reporting and provided actionable insights through data interpretation.',
+          details: [
+            'Developed and maintained data pipelines to support business reporting needs',
+            'Conducted quality checks and ensured accuracy of all reporting deliverables',
+            'Provided actionable insights by interpreting data and delivering clear recommendations to stakeholders',
+          ],
+        },
+      ],
+      engagements: [
+        {
+          title: 'Data Engineering using Snowflake',
+          context: 'Healthcare & Pharmacy Analytics',
+          highlights: [
+            'Engineered a Snowflake reporting layer processing over 4 billion rows of pharmacy claims from multiple PBM data sources',
+            'Designed star and snowflake schemas optimized for DirectQuery and incremental load performance',
+            'Implemented clustering keys, result caches, and virtual warehouse auto-scaling to control compute costs',
+            'Enabled real-time decision-making for 4,000+ health plan clients via Power BI Embedded against Snowflake',
+          ],
+        },
+        {
+          title: 'Data Engineering using Power BI',
+          context: 'Pharmacy Analytics Division',
+          highlights: [
+            'Led full Power BI Service deployment including workspace governance and deployment pipeline architecture',
+            'Delivered 40+ executive-level dashboards with DirectQuery, Import, and Composite model strategies',
+            'Implemented multi-layer Row-Level Security (RLS) protecting PHI/PII across 4,000+ client health plans',
+            'Built automated dataflows, refresh scheduling, and incremental refresh policies at enterprise scale',
+          ],
+        },
+        {
+          title: 'Data Engineering using Git and VS Code',
+          context: 'YNK-Tech USA & Enterprise Projects',
+          highlights: [
+            'Managed full CI/CD pipelines via GitHub Actions for both the YNK-Tech USA platform and dbt project deployments',
+            'Version-controlled all dbt models, SQL transformations, and pipeline configurations across team environments',
+            'Used VS Code extensions (dbt Power User, SQLTools, Snowflake connector) as the core engineering workbench',
+            'Maintained branching strategy, PR reviews, and environment promotion (dev/staging/prod) across all projects',
+          ],
+        },
+        {
+          title: 'Data Engineering engaging dbt',
+          context: 'Snowflake Data Warehouse Layer',
+          highlights: [
+            'Architected modular dbt project structure with staging, intermediate, and mart layers following best practices',
+            'Built full lineage documentation with dbt docs, enabling cross-team data discovery and trust',
+            'Implemented incremental models, snapshot tables, and source freshness checks for pipeline reliability',
+            'Wrote reusable macros, generic tests, and Jinja-based logic reducing model duplication by over 70%',
+          ],
+        },
+        {
+          title: 'Data Engineering using Prompt and LLMs',
+          context: 'AI-Assisted Engineering Workflows',
+          highlights: [
+            'Leveraged LLMs (GPT-4, Claude) as engineering co-pilots for SQL generation, dbt model scaffolding, and code review',
+            'Built prompt workflows to automate documentation of data dictionaries, lineage descriptions, and test generation',
+            'Designed the YNK AI Concierge chatbot with context-aware responses using structured prompt engineering',
+            'Researched and applied LLM-based anomaly detection patterns for pipeline health monitoring use cases',
+          ],
+        },
+      ],
+    },
   },
 
   fr: {
@@ -598,6 +715,123 @@ const translations = {
       current:                  'En poste',
       expected:                 'Pr\u00e9vu',
     },
+    resumeData: {
+      jobTitle: 'Ing\u00e9nieur Donn\u00e9es Sr. & Consultant Analytique | Expert Power BI',
+      summary: 'Expert en Power BI et en analyse de donn\u00e9es avec plus de 10 ans d\u2019exp\u00e9rience dans la conception de structures de donn\u00e9es \u00e9volutives et l\u2019ing\u00e9nierie de solutions analytiques. Expertise approfondie en DAX, M avanc\u00e9 (Power Query), Snowflake et mod\u00e9lisation de donn\u00e9es \u00e0 grande \u00e9chelle. Bilan prouv\u00e9 de transformation de donn\u00e9es complexes (pharmacie, finance, op\u00e9rations) en insights de niveau ex\u00e9cutif. Dirige actuellement l\u2019analytique pharmaceutique chez OptumRx (UHG) tout en g\u00e9rant YNK-Tech USA en tant que Fondateur.',
+      skillCategories: ['Analytique & BI', 'Ing\u00e9nierie des Donn\u00e9es', 'Analytique Financi\u00e8re', 'Cloud & Infrastructure', 'Int\u00e9gration des Donn\u00e9es', 'D\u00e9veloppement'],
+      timeline: [
+        {
+          role: 'Fondateur & Consultant Principal',
+          type: 'Entrepreneuriat',
+          summary: 'Fond\u00e9 et d\u00e9velopp\u00e9 une plateforme technologique multi-services combinant conseil IT, strat\u00e9gie de marque et portail consultatif s\u00e9curis\u00e9.',
+          details: [
+            'Con\u00e7u et d\u00e9ploy\u00e9 la plateforme compl\u00e8te YNK-Tech USA : SPA React, visualisation 3D AI avec Three.js, i18n multilingue (EN/FR/ES)',
+            'D\u00e9velopp\u00e9 un portail consultant s\u00e9curis\u00e9 avec codes d\u2019acc\u00e8s SHA-256, notifications EmailJS et analytique de g\u00e9olocalisation',
+            'Int\u00e9gr\u00e9 l\u2019h\u00e9bergement AWS S3, les points de terminaison Lambda, API Gateway et un tableau de bord d\u2019administration personnalis\u00e9',
+            'Con\u00e7u et livr\u00e9 un syst\u00e8me de marque visuelle complet incluant logo, palette de couleurs et identit\u00e9 multi-services',
+          ],
+        },
+        {
+          role: 'Ing\u00e9nieur Donn\u00e9es Sr. / Ing\u00e9nieur Power BI',
+          type: 'Ing\u00e9nierie des Donn\u00e9es',
+          summary: 'Dirige les initiatives d\u2019analytique pharmaceutique et d\u2019ing\u00e9nierie des donn\u00e9es pour l\u2019un des plus grands gestionnaires de prestations pharmaceutiques du pays, au service de plus de 4\u202f000 r\u00e9gimes de sant\u00e9.',
+          details: [
+            'Pilote l\u2019analytique pharmaceutique dans Power BI\u202f: tableaux de bord de gestion des formulaires suivant les \u00e9conomies et les m\u00e9triques PMPM pour plus de 4\u202f000 clients via Snowflake DirectQuery',
+            'D\u00e9velopp\u00e9 des solutions Power BI avanc\u00e9es avec DAX complexe et s\u00e9curit\u00e9 dynamique au niveau des lignes pour clients, m\u00e9dicaments et remises, assurant la protection stricte des PHI/PII',
+            'Con\u00e7u des mod\u00e8les de donn\u00e9es \u00e9volutifs et des int\u00e9grations depuis NetSuite, Salesforce, r\u00e9clamations pharmaceutiques et plateformes PBM, am\u00e9liorant la gouvernance et la fiabilit\u00e9 des rapports',
+            'Livr\u00e9 des tableaux de bord d\u2019analyse financi\u00e8re suivant la gestion des co\u00fbts, les \u00e9conomies sur les formulaires, les tendances PMPM et les performances op\u00e9rationnelles pour les dirigeants',
+            'Collabor\u00e9 avec les \u00e9quipes pharmaceutiques, cliniques et les parties prenantes offshore pour d\u00e9finir les KPI, documenter la logique m\u00e9tier et aligner les analyses avec les priorit\u00e9s r\u00e9glementaires',
+            'Assur\u00e9 l\u2019int\u00e9grit\u00e9 des rapports gr\u00e2ce \u00e0 des audits rigoureux de qualit\u00e9 des donn\u00e9es et la r\u00e9conciliation avec les syst\u00e8mes sources align\u00e9s sur les normes de reporting sant\u00e9',
+          ],
+        },
+        {
+          role: 'Ing\u00e9nieur Industriel / D\u00e9veloppeur BI',
+          type: 'BI & Analytique',
+          summary: 'Livr\u00e9 des analyses en libre-service, de l\u2019intelligence op\u00e9rationnelle et des insights de production lean pour des environnements de fabrication et d\u2019entreprise multi-sources.',
+          details: [
+            'Cr\u00e9\u00e9 et maintenu des tableaux de bord et des flux de travail Alteryx automatis\u00e9s pour simplifier l\u2019acc\u00e8s aux donn\u00e9es pour les d\u00e9cideurs',
+            'Con\u00e7u des formats de rapports et des portails d\u2019information utilisateur, permettant l\u2019analyse en libre-service dans les \u00e9quipes op\u00e9rationnelles',
+            'Conduit des analyses cause-effet pour identifier les goulots d\u2019\u00e9tranglement op\u00e9rationnels et recommander des am\u00e9liorations bas\u00e9es sur les donn\u00e9es',
+            'Effectu\u00e9 des analyses de mise en page AutoCAD pour optimiser le flux de production lean, am\u00e9liorer l\u2019ergonomie et ajuster la capacit\u00e9',
+            'Int\u00e9gr\u00e9 et valid\u00e9 des donn\u00e9es provenant de plusieurs syst\u00e8mes, assurant l\u2019alignement avec les objectifs commerciaux',
+            'Conduit des \u00e9tudes de temps pour les processus unitaires, les flux de travail individuels et les processus de ligne de production',
+          ],
+        },
+        {
+          role: 'D\u00e9veloppeur Power BI',
+          type: 'D\u00e9veloppement BI',
+          summary: 'Con\u00e7u des solutions de reporting bas\u00e9es sur les donn\u00e9es et des flux de travail analytiques automatis\u00e9s soutenant les \u00e9valuations d\u2019impact op\u00e9rationnel et l\u2019analyse des tendances.',
+          details: [
+            'Produit des rapports bas\u00e9s sur les donn\u00e9es avec Alteryx, facilitant les \u00e9valuations d\u2019impact op\u00e9rationnel et l\u2019analyse des tendances',
+            'Automatis\u00e9 les processus de reporting routiniers pour am\u00e9liorer l\u2019efficacit\u00e9 et la pr\u00e9cision dans les unit\u00e9s commerciales',
+            'Accompagn\u00e9 les parties prenantes en cr\u00e9ant des jeux de donn\u00e9es personnalis\u00e9s et en maintenant les sp\u00e9cifications des rapports',
+            'Collabor\u00e9 avec des \u00e9quipes interfonctionnelles pour d\u00e9finir et mettre en \u0153uvre des am\u00e9liorations de la qualit\u00e9 des donn\u00e9es',
+          ],
+        },
+        {
+          role: 'D\u00e9veloppeur BI',
+          type: 'D\u00e9veloppement BI',
+          summary: 'D\u00e9velopp\u00e9 et maintenu des pipelines de donn\u00e9es soutenant le reporting m\u00e9tier et fourni des insights exploitables gr\u00e2ce \u00e0 l\u2019interpr\u00e9tation des donn\u00e9es.',
+          details: [
+            'D\u00e9velopp\u00e9 et maintenu des pipelines de donn\u00e9es pour r\u00e9pondre aux besoins de reporting m\u00e9tier',
+            'Conduit des contr\u00f4les de qualit\u00e9 et assur\u00e9 la pr\u00e9cision de tous les livrables de reporting',
+            'Fourni des insights exploitables en interpr\u00e9tant les donn\u00e9es et en livrant des recommandations claires aux parties prenantes',
+          ],
+        },
+      ],
+      engagements: [
+        {
+          title: 'Ing\u00e9nierie des Donn\u00e9es avec Snowflake',
+          context: 'Analytique Sant\u00e9 & Pharmacie',
+          highlights: [
+            'Con\u00e7u une couche de reporting Snowflake traitant plus de 4 milliards de lignes de r\u00e9clamations pharmaceutiques depuis de multiples sources PBM',
+            'Mod\u00e9lis\u00e9 des sch\u00e9mas en \u00e9toile et en flocon optimis\u00e9s pour les performances DirectQuery et le chargement incr\u00e9mentiel',
+            'Impl\u00e9ment\u00e9 des cl\u00e9s de clustering, des caches de r\u00e9sultats et l\u2019auto-scaling des entrep\u00f4ts virtuels pour contr\u00f4ler les co\u00fbts de calcul',
+            'Permis la prise de d\u00e9cision en temps r\u00e9el pour plus de 4\u202f000 r\u00e9gimes de sant\u00e9 via Power BI Embedded sur Snowflake',
+          ],
+        },
+        {
+          title: 'Ing\u00e9nierie des Donn\u00e9es avec Power BI',
+          context: 'Division Analytique Pharmaceutique',
+          highlights: [
+            'Dirig\u00e9 le d\u00e9ploiement complet du service Power BI incluant la gouvernance des espaces de travail et l\u2019architecture des pipelines de d\u00e9ploiement',
+            'Livr\u00e9 plus de 40 tableaux de bord de niveau ex\u00e9cutif avec des strat\u00e9gies de mod\u00e8les DirectQuery, Import et Composite',
+            'Impl\u00e9ment\u00e9 une s\u00e9curit\u00e9 au niveau des lignes multi-couches (RLS) prot\u00e9geant les PHI/PII sur plus de 4\u202f000 r\u00e9gimes de sant\u00e9 clients',
+            'Construit des dataflows automatis\u00e9s, une planification des actualisations et des politiques d\u2019actualisation incr\u00e9mentielle \u00e0 l\u2019\u00e9chelle de l\u2019entreprise',
+          ],
+        },
+        {
+          title: 'Ing\u00e9nierie des Donn\u00e9es avec Git et VS Code',
+          context: 'YNK-Tech USA & Projets Entreprise',
+          highlights: [
+            'G\u00e9r\u00e9 des pipelines CI/CD complets via GitHub Actions pour la plateforme YNK-Tech USA et les d\u00e9ploiements de projets dbt',
+            'Contr\u00f4l\u00e9 les versions de tous les mod\u00e8les dbt, transformations SQL et configurations de pipelines dans les environnements d\u2019\u00e9quipe',
+            'Utilis\u00e9 les extensions VS Code (dbt Power User, SQLTools, connecteur Snowflake) comme poste de travail d\u2019ing\u00e9nierie principal',
+            'Maintenu une strat\u00e9gie de branches, des revues de PR et la promotion d\u2019environnements (dev/staging/prod) dans tous les projets',
+          ],
+        },
+        {
+          title: 'Ing\u00e9nierie des Donn\u00e9es avec dbt',
+          context: 'Couche Data Warehouse Snowflake',
+          highlights: [
+            'Architectur\u00e9 une structure de projet dbt modulaire avec des couches de staging, interm\u00e9diaire et mart suivant les meilleures pratiques',
+            'Construit une documentation compl\u00e8te de la lign\u00e9e avec dbt docs, permettant la d\u00e9couverte et la confiance dans les donn\u00e9es inter-\u00e9quipes',
+            'Impl\u00e9ment\u00e9 des mod\u00e8les incr\u00e9mentiels, des tables snapshot et des v\u00e9rifications de fra\u00eecheur des sources pour la fiabilit\u00e9 du pipeline',
+            'R\u00e9dig\u00e9 des macros r\u00e9utilisables, des tests g\u00e9n\u00e9riques et une logique Jinja r\u00e9duisant la duplication des mod\u00e8les de plus de 70\u202f%',
+          ],
+        },
+        {
+          title: 'Ing\u00e9nierie des Donn\u00e9es avec les LLMs',
+          context: 'Flux de Travail d\u2019Ing\u00e9nierie Assist\u00e9s par IA',
+          highlights: [
+            'Exploit\u00e9 des LLMs (GPT-4, Claude) comme co-pilotes d\u2019ing\u00e9nierie pour la g\u00e9n\u00e9ration SQL, le scaffolding de mod\u00e8les dbt et la revue de code',
+            'Construit des flux de prompts pour automatiser la documentation des dictionnaires de donn\u00e9es, descriptions de lign\u00e9e et g\u00e9n\u00e9ration de tests',
+            'Con\u00e7u le chatbot YNK AI Concierge avec des r\u00e9ponses contextuelles gr\u00e2ce \u00e0 l\u2019ing\u00e9nierie de prompts structur\u00e9s',
+            'Recherch\u00e9 et appliqu\u00e9 des patterns de d\u00e9tection d\u2019anomalies bas\u00e9s sur LLM pour les cas d\u2019usage de surveillance de la sant\u00e9 des pipelines',
+          ],
+        },
+      ],
+    },
   },
 
   es: {
@@ -869,6 +1103,123 @@ const translations = {
       requestPdf:               'Solicitar PDF',
       current:                  'Actual',
       expected:                 'Previsto',
+    },
+    resumeData: {
+      jobTitle: 'Ingeniero de Datos Sr. & Consultor en Ana\u00edtica | Experto en Power BI',
+      summary: 'Experto en Power BI y An\u00e1lisis de Datos con m\u00e1s de 10 a\u00f1os dise\u00f1ando estructuras de datos escalables e ingenier\u00eda de soluciones anal\u00edticas. Profunda experiencia en DAX, M avanzado (Power Query), Snowflake y modelado de datos a gran escala. Historial comprobado transformando datos complejos de farmacia, finanzas y operaciones en insights a nivel ejecutivo. Actualmente lidera la anal\u00edtica farmac\u00e9utica en OptumRx (UHG) mientras dirige YNK-Tech USA como Fundador.',
+      skillCategories: ['Anal\u00edtica & BI', 'Ingenier\u00eda de Datos', 'Anal\u00edtica Financiera', 'Nube & Infraestructura', 'Integraci\u00f3n de Datos', 'Desarrollo'],
+      timeline: [
+        {
+          role: 'Fundador & Consultor Principal',
+          type: 'Emprendimiento',
+          summary: 'Fund\u00f3 y escal\u00f3 una plataforma tecnol\u00f3gica de m\u00faltiples servicios que combina consultor\u00eda IT, estrategia de marca y portal de consultores con acceso controlado.',
+          details: [
+            'Dise\u00f1\u00f3 y despleg\u00f3 la plataforma completa YNK-Tech USA: SPA en React, visualizaci\u00f3n 3D AI con Three.js, i18n multiling\u00fce (EN/FR/ES)',
+            'Desarroll\u00f3 un portal de consultores con c\u00f3digos de acceso SHA-256, notificaciones EmailJS y anal\u00edtica de geolocalizaci\u00f3n',
+            'Integr\u00f3 alojamiento en AWS S3, endpoints Lambda, API Gateway y un panel de administraci\u00f3n personalizado',
+            'Dise\u00f1\u00f3 y entreg\u00f3 un sistema de marca visual completo incluyendo logo, sistema de colores e identidad multi-servicio',
+          ],
+        },
+        {
+          role: 'Ingeniero de Datos Sr. / Ingeniero Power BI',
+          type: 'Ingenier\u00eda de Datos',
+          summary: 'Lidera iniciativas de anal\u00edtica farmac\u00e9utica e ingenier\u00eda de datos para uno de los gestores de beneficios farmac\u00e9uticos m\u00e1s grandes del pa\u00eds, atendiendo a m\u00e1s de 4,000 planes de salud.',
+          details: [
+            'Lidera la anal\u00edtica farmac\u00e9utica en Power BI: paneles de gesti\u00f3n de formularios que rastrean ahorros y m\u00e9tricas PMPM para m\u00e1s de 4,000 clientes usando Snowflake DirectQuery',
+            'Desarroll\u00f3 soluciones avanzadas en Power BI con DAX complejo y seguridad din\u00e1mica a nivel de fila en clientes, medicamentos y descuentos, garantizando protecci\u00f3n estricta de PHI/PII',
+            'Dise\u00f1\u00f3 modelos de datos escalables e integraciones desde NetSuite, Salesforce, reclamaciones farmac\u00e9uticas y plataformas PBM, mejorando la gobernanza y la confiabilidad de reportes',
+            'Entreg\u00f3 paneles de an\u00e1lisis financiero que rastrean gesti\u00f3n de costos, ahorros en formularios, tendencias PMPM y desempe\u00f1o operacional para ejecutivos de planes de salud',
+            'Colabor\u00f3 con equipos de operaciones farmac\u00e9uticas, cl\u00ednicos y partes interesadas offshore para definir KPIs, documentar l\u00f3gica de negocio y alinear anal\u00edticas con prioridades regulatorias',
+            'Garantiz\u00f3 la integridad de los reportes mediante rigurosas auditor\u00edas de calidad de datos y reconciliaci\u00f3n con sistemas fuente de verdad alineados con est\u00e1ndares de reporte de salud',
+          ],
+        },
+        {
+          role: 'Ingeniero Industrial / Desarrollador BI',
+          type: 'BI & Anal\u00edtica',
+          summary: 'Entreg\u00f3 anal\u00edtica de autoservicio, inteligencia operacional e insights de producci\u00f3n lean para entornos de manufactura y empresas multi-fuente.',
+          details: [
+            'Cre\u00f3 y mantuvo paneles y flujos de trabajo Alteryx automatizados para simplificar el acceso a datos para tomadores de decisiones',
+            'Dise\u00f1\u00f3 formatos de reportes y portales de informaci\u00f3n para usuarios finales, habilitando anal\u00edtica de autoservicio en equipos operacionales',
+            'Realiz\u00f3 an\u00e1lisis de causa-efecto para descubrir cuellos de botella operacionales y recomendar mejoras basadas en datos',
+            'Realiz\u00f3 an\u00e1lisis de distribuci\u00f3n AutoCAD para optimizar el flujo de producci\u00f3n lean, mejorar la ergonom\u00eda y ajustar la capacidad',
+            'Integr\u00f3 y valid\u00f3 datos de m\u00faltiples sistemas, asegurando alineaci\u00f3n con los objetivos del negocio',
+            'Realiz\u00f3 estudios de tiempo para procesos unitarios, flujos de trabajo individuales y procesos de l\u00ednea de producci\u00f3n',
+          ],
+        },
+        {
+          role: 'Desarrollador Power BI',
+          type: 'Desarrollo BI',
+          summary: 'Dise\u00f1\u00f3 soluciones de reporte basadas en datos y flujos de trabajo anal\u00edticos automatizados que soportan evaluaciones de impacto operacional y an\u00e1lisis de tendencias.',
+          details: [
+            'Produjo reportes basados en datos usando Alteryx, facilitando evaluaciones de impacto operacional y an\u00e1lisis de tendencias',
+            'Automatiz\u00f3 procesos de reporte rutinarios para mejorar la eficiencia y precisi\u00f3n en las unidades de negocio',
+            'Apoy\u00f3 a las partes interesadas creando conjuntos de datos personalizados y manteniendo especificaciones de reportes',
+            'Colabor\u00f3 con equipos interfuncionales para definir e implementar mejoras en la calidad de los datos',
+          ],
+        },
+        {
+          role: 'Desarrollador BI',
+          type: 'Desarrollo BI',
+          summary: 'Desarroll\u00f3 y mantuvo pipelines de datos que soportan el reporte empresarial y proporcion\u00f3 insights accionables mediante la interpretaci\u00f3n de datos.',
+          details: [
+            'Desarroll\u00f3 y mantuvo pipelines de datos para soportar las necesidades de reporte empresarial',
+            'Realiz\u00f3 controles de calidad y asegur\u00f3 la precisi\u00f3n de todos los entregables de reporte',
+            'Proporcion\u00f3 insights accionables interpretando datos y entregando recomendaciones claras a las partes interesadas',
+          ],
+        },
+      ],
+      engagements: [
+        {
+          title: 'Ingenier\u00eda de Datos con Snowflake',
+          context: 'Anal\u00edtica de Salud & Farmacia',
+          highlights: [
+            'Dise\u00f1\u00f3 una capa de reporte Snowflake que procesa m\u00e1s de 4 mil millones de filas de reclamaciones farmac\u00e9uticas de m\u00faltiples fuentes PBM',
+            'Model\u00f3 esquemas estrella y copo de nieve optimizados para rendimiento DirectQuery y carga incremental',
+            'Implement\u00f3 claves de clustering, cach\u00e9s de resultados y auto-escalado de almacenes virtuales para controlar costos de c\u00f3mputo',
+            'Habilit\u00f3 toma de decisiones en tiempo real para m\u00e1s de 4,000 planes de salud v\u00eda Power BI Embedded sobre Snowflake',
+          ],
+        },
+        {
+          title: 'Ingenier\u00eda de Datos con Power BI',
+          context: 'Divisi\u00f3n de Anal\u00edtica Farmac\u00e9utica',
+          highlights: [
+            'Lider\u00f3 el despliegue completo del servicio Power BI incluyendo gobernanza de espacios de trabajo y arquitectura de pipelines de despliegue',
+            'Entreg\u00f3 m\u00e1s de 40 paneles a nivel ejecutivo con estrategias de modelos DirectQuery, Import y Composite',
+            'Implement\u00f3 seguridad multinivel a nivel de fila (RLS) protegiendo PHI/PII en m\u00e1s de 4,000 planes de salud de clientes',
+            'Construy\u00f3 dataflows automatizados, programaci\u00f3n de actualizaciones y pol\u00edticas de actualizaci\u00f3n incremental a escala empresarial',
+          ],
+        },
+        {
+          title: 'Ingenier\u00eda de Datos con Git y VS Code',
+          context: 'YNK-Tech USA & Proyectos Empresariales',
+          highlights: [
+            'Gestion\u00f3 pipelines CI/CD completos v\u00eda GitHub Actions para la plataforma YNK-Tech USA y los despliegues de proyectos dbt',
+            'Control\u00f3 versiones de todos los modelos dbt, transformaciones SQL y configuraciones de pipelines en entornos de equipo',
+            'Utiliz\u00f3 extensiones VS Code (dbt Power User, SQLTools, conector Snowflake) como entorno principal de ingenier\u00eda',
+            'Mantuvo estrategia de ramas, revisiones de PR y promoci\u00f3n de entornos (dev/staging/prod) en todos los proyectos',
+          ],
+        },
+        {
+          title: 'Ingenier\u00eda de Datos con dbt',
+          context: 'Capa de Data Warehouse en Snowflake',
+          highlights: [
+            'Arquitectur\u00f3 estructura modular de proyecto dbt con capas de staging, intermedia y mart siguiendo mejores pr\u00e1cticas',
+            'Construy\u00f3 documentaci\u00f3n completa de linaje con dbt docs, habilitando descubrimiento y confianza en datos entre equipos',
+            'Implement\u00f3 modelos incrementales, tablas snapshot y verificaciones de frescura de fuentes para la confiabilidad del pipeline',
+            'Escribi\u00f3 macros reutilizables, pruebas gen\u00e9ricas y l\u00f3gica Jinja reduciendo la duplicaci\u00f3n de modelos en m\u00e1s del 70\u202f%',
+          ],
+        },
+        {
+          title: 'Ingenier\u00eda de Datos con LLMs',
+          context: 'Flujos de Trabajo de Ingenier\u00eda Asistidos por IA',
+          highlights: [
+            'Aprovech\u00f3 LLMs (GPT-4, Claude) como co-pilotos de ingenier\u00eda para generaci\u00f3n SQL, scaffolding de modelos dbt y revisi\u00f3n de c\u00f3digo',
+            'Construy\u00f3 flujos de prompts para automatizar documentaci\u00f3n de diccionarios de datos, descripciones de linaje y generaci\u00f3n de pruebas',
+            'Dise\u00f1\u00f3 el chatbot YNK AI Concierge con respuestas conscientes del contexto usando ingenier\u00eda de prompts estructurada',
+            'Investig\u00f3 y aplic\u00f3 patrones de detecci\u00f3n de anomal\u00edas basados en LLM para casos de uso de monitoreo de salud de pipelines',
+          ],
+        },
+      ],
     },
   },
 }
