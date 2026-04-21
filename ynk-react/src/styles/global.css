@@ -1162,6 +1162,83 @@ img {
     to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── EDUCATION & CERTIFICATIONS ── */
+.resume-edu-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.resume-edu-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: rgba(41, 181, 232, 0.05);
+    border: 1px solid rgba(41, 181, 232, 0.15);
+    border-radius: 10px;
+    padding: 12px 18px;
+    min-width: 220px;
+}
+
+.resume-edu-degree {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.resume-edu-field {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.resume-edu-school {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.resume-cert-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.resume-cert-badge {
+    font-size: 11px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #10b981;
+    border-radius: 999px;
+    padding: 4px 12px;
+}
+
+/* ── CURRENT EMPLOYER BADGE ── */
+.resume-tl-current-badge {
+    font-size: 9px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #10b981;
+    border-radius: 999px;
+    padding: 2px 9px;
+    animation: pulse-badge 2.5s infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
 /* ── SKILLS ── */
 .resume-skills-grid {
     display: flex;

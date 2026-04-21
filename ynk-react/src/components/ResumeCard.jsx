@@ -8,6 +8,7 @@ const TIMELINE = [
     company: 'YNK-Tech USA',
     type: 'Entrepreneurship',
     color: '#29B5E8',
+    current: false,
     summary: 'Founded and scaled a multi-service technology platform combining IT consulting, brand strategy, and a gated consultants portal.',
     details: [
       'Architected and deployed the full YNK-Tech USA platform: React SPA, Three.js 3D AI visualization, multilingual i18n (EN/FR/ES)',
@@ -17,45 +18,66 @@ const TIMELINE = [
     ],
   },
   {
-    period: '2022 - 2024',
-    role: 'Senior Data Engineer',
-    company: 'Healthcare & Pharmacy Analytics',
+    period: '2022 - Present',
+    role: 'Sr. Data Engineer / Power BI Engineer',
+    company: 'OptumRx \u2013 UnitedHealth Group',
     type: 'Data Engineering',
     color: '#10b981',
-    summary: 'Led data engineering and analytics initiatives for large-scale pharmacy benefit management (PBM) platforms serving health plans nationwide.',
+    current: true,
+    summary: 'Leading pharmacy analytics and data engineering initiatives for one of the nation\'s largest pharmacy benefit managers, serving 4,000+ health plan clients.',
     details: [
-      'Engineered a Snowflake + dbt reporting layer processing over 4 billion rows of pharmacy claims',
-      'Led Power BI Service deployment: workspace governance, deployment pipelines, and dataflow architecture across 40+ executive dashboards',
-      'Delivered PMPM, formulary savings, and drug utilization dashboard suite with multi-layer Row-Level Security (RLS)',
-      'Integrated Alteryx workflows for upstream data transformation, validation, and reconciliation',
+      'Leading pharmacy analytics in Power BI: Utilization Management dashboards tracking formularies, savings, and PMPM metrics for 4,000+ clients using Snowflake DirectQuery',
+      'Developed advanced Power BI solutions with complex DAX and dynamic Row-Level Security at client, drug, and rebate levels, ensuring strict PHI/PII protection',
+      'Engineered scalable data models and integrations from NetSuite, Salesforce, pharmacy claims, and PBM platforms, improving data governance and reporting reliability',
+      'Delivered financial analysis dashboards tracking cost management, formulary savings, PMPM trends, and operational performance for health plan executives',
+      'Partnered with pharmacy operations, clinical teams, and offshore stakeholders to define KPIs, document business logic, and align analytics with regulatory priorities',
+      'Ensured reporting integrity through rigorous data quality audits and reconciliation with source-of-truth systems aligned with healthcare reporting standards',
     ],
   },
   {
-    period: '2020 - 2022',
-    role: 'Analytics Engineer',
-    company: 'Manufacturing & Enterprise Clients',
+    period: '2019 - 2022',
+    role: 'Industrial Engineer / BI Developer',
+    company: 'Group O',
     type: 'BI & Analytics',
     color: '#f59e0b',
-    summary: 'Delivered self-service analytics and operational intelligence solutions for manufacturing and multi-source enterprise environments.',
+    current: false,
+    summary: 'Delivered self-service analytics, operational intelligence, and lean production insights for manufacturing and multi-source enterprise environments.',
     details: [
-      'Built self-service Power BI portals and Alteryx workflows for lean production analytics and capacity planning',
-      'Combined AutoCAD layout analyses to optimize production floor operations and throughput',
-      'Designed and implemented multi-source data pipelines integrating NetSuite, Salesforce, and PBM systems',
-      'Automated cross-system reconciliation workflows, reducing manual effort by over 60%',
+      'Created and maintained dashboards and automated Alteryx workflows to simplify data access for decision-makers',
+      'Designed reporting formats and end-user information portals, enabling self-service analytics across operational teams',
+      'Conducted cause-and-effect analyses to uncover operational bottlenecks and recommend data-driven improvements',
+      'Performed AutoCAD layout analyses to optimize lean production flow, enhance ergonomics, and adjust capacity',
+      'Integrated and validated data from multiple systems, ensuring alignment with business objectives',
+      'Conducted time studies for single-unit processes, individual workflows, and production line processes',
     ],
   },
   {
-    period: '2018 - 2020',
-    role: 'Business Intelligence Developer',
-    company: 'Enterprise Analytics',
+    period: '2016 - 2019',
+    role: 'Power BI Developer',
+    company: 'S&B Industry',
     type: 'BI Development',
     color: '#8b5cf6',
-    summary: 'Developed business intelligence solutions across finance, retail, and operations, laying the foundation for advanced data engineering work.',
+    current: false,
+    summary: 'Built data-driven reporting solutions and automated analytics workflows supporting operational impact assessments and trend analysis.',
     details: [
-      'Built SQL-based reporting layers and executive-facing dashboards for operational and financial KPIs',
-      'Developed ETL pipelines and data transformation workflows using SQL, Python, and proprietary tooling',
-      'Collaborated with cross-functional teams to translate business requirements into data models',
-      'Implemented data quality monitoring and automated alerting for pipeline health',
+      'Produced data-driven reports using Alteryx, facilitating operational impact assessments and trend analysis',
+      'Automated routine reporting processes to enhance efficiency and accuracy across business units',
+      'Supported stakeholders by creating custom datasets and maintaining report specifications',
+      'Collaborated with cross-functional teams to define and implement data quality improvements',
+    ],
+  },
+  {
+    period: '2015 - 2016',
+    role: 'BI Developer',
+    company: 'SMS',
+    type: 'BI Development',
+    color: '#e879f9',
+    current: false,
+    summary: 'Developed and maintained data pipelines supporting business reporting and provided actionable insights through data interpretation.',
+    details: [
+      'Developed and maintained data pipelines to support business reporting needs',
+      'Conducted quality checks and ensured accuracy of all reporting deliverables',
+      'Provided actionable insights by interpreting data and delivering clear recommendations to stakeholders',
     ],
   },
 ]
@@ -64,17 +86,23 @@ const TIMELINE = [
 const RESUME = {
   'Data Engineering': {
     name: 'Yannick Nkongolo',
-    title: 'Data Engineer & Analytics Consultant',
-    location: 'United States',
+    title: 'Sr. Data Engineer & Analytics Consultant | Power BI SME',
+    location: 'Fort Worth, TX',
     email: 'yannicknkongolo7@gmail.com',
     website: 'ynk-techusa.com',
     summary:
-      'Results-driven Data Engineer and Analytics Consultant with deep expertise in Snowflake, dbt, Power BI, and cloud-native data architectures. Proven track record delivering high-impact solutions across healthcare, pharmacy, finance, and manufacturing, processing billions of rows and powering executive-level analytics at scale.',
+      'Power BI and Data Analytics Subject Matter Expert with 10+ years designing scalable data structures and engineering analytics solutions. Deep expertise in DAX, advanced M (Power Query), Snowflake, and large-scale data modeling. Proven record transforming complex pharmacy, financial, and operational data into executive-level insights. Currently leading pharmacy analytics at OptumRx (UHG) while running YNK-Tech USA as Founder.',
+    education: [
+      { degree: 'Master of Science', field: 'Data Analytics \u2013 Data Engineering', school: '' },
+      { degree: 'Bachelor of Science', field: 'Data Analytics', school: '' },
+    ],
+    certifications: ['Power Platform Certified (PL-900)', 'Alteryx Core Certificate', 'ServiceNow Certified'],
     skills: [
-      { category: 'Data Engineering', items: ['Snowflake', 'dbt', 'Python', 'SQL', 'ETL / ELT Pipelines', 'Alteryx'] },
-      { category: 'Analytics & BI', items: ['Power BI', 'DAX', 'DirectQuery', 'Power BI Service', 'Row-Level Security', 'Dataflows'] },
+      { category: 'Analytics & BI', items: ['Power BI', 'DAX', 'M / Power Query', 'DirectQuery', 'Composite Models', 'Row-Level Security', 'Dataflows', 'Tableau'] },
+      { category: 'Data Engineering', items: ['Snowflake', 'dbt', 'Python', 'SQL', 'ETL / ELT Pipelines', 'Alteryx', 'Data Modeling'] },
+      { category: 'Financial Analytics', items: ['PMPM Metrics', 'Formulary Savings', 'Cost Management', 'Budget vs. Actuals', 'Operational KPIs', 'Drug Utilization'] },
       { category: 'Cloud & Infrastructure', items: ['AWS S3', 'AWS Lambda', 'API Gateway', 'Azure', 'GitHub Actions', 'CI/CD'] },
-      { category: 'Data Integration', items: ['Salesforce', 'NetSuite', 'PBM Platforms', 'REST APIs', 'Pharmacy Claims Systems'] },
+      { category: 'Data Integration', items: ['Salesforce', 'NetSuite', 'PBM Platforms', 'Pharmacy Claims Systems', 'REST APIs'] },
       { category: 'Development', items: ['React', 'Node.js', 'Three.js', 'JavaScript', 'HTML / CSS'] },
     ],
     engagements: [
@@ -181,9 +209,14 @@ function TimelineItem({ item }) {
       <div className="resume-tl-body">
         <button className="resume-tl-header" onClick={() => setOpen(v => !v)} type="button">
           <div className="resume-tl-header-left">
-            <span className="resume-tl-type" style={{ color: item.color, borderColor: `${item.color}40`, background: `${item.color}12` }}>
-              {item.type}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
+              <span className="resume-tl-type" style={{ color: item.color, borderColor: `${item.color}40`, background: `${item.color}12` }}>
+                {item.type}
+              </span>
+              {item.current && (
+                <span className="resume-tl-current-badge">Current</span>
+              )}
+            </div>
             <h4 className="resume-tl-role">{item.role}</h4>
             <span className="resume-tl-company">{item.company}</span>
             <p className="resume-tl-summary">{item.summary}</p>
@@ -303,6 +336,34 @@ export default function ResumeCard({ industry }) {
         </h2>
         <p className="resume-summary">{data.summary}</p>
       </div>
+
+      {/* EDUCATION & CERTIFICATIONS */}
+      {data.education && (
+        <div className="resume-section">
+          <h2 className="resume-section-title">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2.21 2.686 4 6 4s6-1.79 6-4v-5"/>
+            </svg>
+            Education &amp; Certifications
+          </h2>
+          <div className="resume-edu-grid">
+            {data.education.map((e, i) => (
+              <div className="resume-edu-item" key={i}>
+                <span className="resume-edu-degree">{e.degree}</span>
+                <span className="resume-edu-field">{e.field}</span>
+                {e.school && <span className="resume-edu-school">{e.school}</span>}
+              </div>
+            ))}
+          </div>
+          {data.certifications && (
+            <div className="resume-cert-list">
+              {data.certifications.map((c, i) => (
+                <span className="resume-cert-badge" key={i}>{c}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* CAREER TIMELINE */}
       <div className="resume-section">
