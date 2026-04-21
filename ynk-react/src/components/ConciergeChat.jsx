@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { trackChatInteraction } from '../utils/tracking'
 
 const NAV_ICONS = {
   it: <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>,
@@ -106,6 +107,7 @@ export default function ConciergeChat() {
     const botMsg = { type: 'bot', text: `Great! Taking you to ${option.label}...`, id: Date.now() + 1 }
     setMessages(prev => [...prev, userMsg, botMsg])
     setShowNav(false)
+    trackChatInteraction(option.label, 'nav_click')
     setTimeout(() => navigate(option.path), 900)
   }
 
@@ -124,6 +126,7 @@ export default function ConciergeChat() {
     else if (/quote|price|cost|hire|start|help/.test(lower)) match = NAV_OPTIONS[3]
 
     const userMsg = { type: 'user', text: q, id: Date.now() }
+    trackChatInteraction(q, match ? 'keyword_match' : 'fallback')
     if (match) {
       const botReply = { type: 'bot', text: `Sure! It sounds like you're interested in our ${match.label}. Taking you there now!`, id: Date.now() + 1 }
       setMessages(prev => [...prev, userMsg, botReply])

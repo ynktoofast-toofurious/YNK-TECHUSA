@@ -383,6 +383,15 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
     color: var(--color-accent); text-transform: uppercase;
 }
 
+.admin-stats-row--activity {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 0;
+    padding-bottom: 20px;
+}
+
+.stat-card-activity .stat-number { font-size: 1.8rem; }
+.stat-card-activity .stat-label  { color: rgba(41, 181, 232, 0.65); }
+
 /* ===========================
    ADMIN GRID
    =========================== */

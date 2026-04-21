@@ -308,6 +308,18 @@ const translations = {
       quoteBtn: 'Get a Free Quote',
       quoteDismiss: 'Keep chatting',
     },
+    resumeCard: {
+      professionalSummary:      'Professional Summary',
+      educationCertifications:  'Education & Certifications',
+      careerTimeline:           'Career Timeline',
+      timelineHint:             'Click any role to expand full details',
+      coreCompetencies:         'Core Competencies',
+      toolEngagements:          'Tool-Driven Engagements',
+      engagementsHint:          'Click any engagement to expand highlights',
+      entrepreneurship:         'Entrepreneurship',
+      footerNote:               'References and full work history available upon request',
+      requestPdf:               'Request PDF',
+    },
   },
 
   fr: {
@@ -570,6 +582,18 @@ const translations = {
       quoteBtn: 'Obtenir un devis gratuit',
       quoteDismiss: 'Continuer le chat',
     },
+    resumeCard: {
+      professionalSummary:      'R\u00e9sum\u00e9 Professionnel',
+      educationCertifications:  'Formation & Certifications',
+      careerTimeline:           'Parcours Professionnel',
+      timelineHint:             'Cliquez sur un poste pour voir les d\u00e9tails',
+      coreCompetencies:         'Comp\u00e9tences Cl\u00e9s',
+      toolEngagements:          'Engagements par Outil',
+      engagementsHint:          'Cliquez sur un engagement pour voir les points forts',
+      entrepreneurship:         'Entrepreneuriat',
+      footerNote:               'R\u00e9f\u00e9rences et historique complet disponibles sur demande',
+      requestPdf:               'Demander le PDF',
+    },
   },
 
   es: {
@@ -827,7 +851,20 @@ const translations = {
       quoteSub: 'Nuestro equipo puede darte una respuesta real \u2014 y un presupuesto gratuito personalizado. Solo 2 minutos.',
       quoteBtn: 'Obtener un presupuesto gratuito',
       quoteDismiss: 'Seguir chateando',
-    },  },
+    },
+    resumeCard: {
+      professionalSummary:      'Resumen Profesional',
+      educationCertifications:  'Educaci\u00f3n y Certificaciones',
+      careerTimeline:           'Trayectoria Profesional',
+      timelineHint:             'Haz clic en un cargo para ver los detalles',
+      coreCompetencies:         'Competencias Principales',
+      toolEngagements:          'Compromisos por Herramienta',
+      engagementsHint:          'Haz clic en un compromiso para ver los aspectos destacados',
+      entrepreneurship:         'Emprendimiento',
+      footerNote:               'Referencias e historial completo disponibles a pedido',
+      requestPdf:               'Solicitar PDF',
+    },
+  },
 }
 
 export default translations

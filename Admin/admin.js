@@ -54,14 +54,17 @@
         Promise.all([
             apiGet('access-requests'),
             apiGet('dynamic-codes'),
-            apiGet('site-stats')
+            apiGet('site-stats'),
+            apiGet('access-events')
         ]).then(function (results) {
             state.accessRequests = results[0] || [];
             state.dynamicCodes   = results[1] || [];
             state.siteStats      = results[2] || {};
+            state.accessEvents   = results[3] || [];
             safeSave(STORAGE_ACCESS_REQS, state.accessRequests);
             safeSave(STORAGE_DYNAMIC_CODES, state.dynamicCodes);
             safeSave(STORAGE_SITE_STATS, state.siteStats);
+            safeSave(STORAGE_ACCESS_EVENTS, state.accessEvents);
             renderAll();
         }).catch(function (err) {
             console.error('API fetch error:', err);
@@ -534,7 +537,8 @@
     ══════════════════════════════════════════════════ */
 
     function renderStats() {
-        var row = document.getElementById('stats-row');
+        var row          = document.getElementById('stats-row');
+        var activityRow  = document.getElementById('stats-row-activity');
         if (!row) return;
 
         var totalLeads = state.prospects.length;
@@ -542,15 +546,30 @@
         var signed     = state.prospects.filter(function (p) { return p.status === 'Signed'; }).length;
         var pendTasks  = state.tasks.filter(function (t) { return t.status !== 'Done'; }).length;
         var pendReqs   = state.accessRequests.filter(function (r) { return r.status === 'pending'; }).length;
-        var totalViews = (state.siteStats.totalViews || 0);
 
         row.innerHTML =
             '<div class="stat-card"><div class="stat-number">' + totalLeads + '</div><div class="stat-label">TOTAL LEADS</div></div>' +
             '<div class="stat-card"><div class="stat-number">' + newLeads + '</div><div class="stat-label">NEW LEADS</div></div>' +
             '<div class="stat-card"><div class="stat-number">' + signed + '</div><div class="stat-label">SIGNED</div></div>' +
             '<div class="stat-card"><div class="stat-number">' + pendTasks + '</div><div class="stat-label">PENDING TASKS</div></div>' +
-            '<div class="stat-card"><div class="stat-number">' + pendReqs + '</div><div class="stat-label">PENDING ACCESS</div></div>' +
-            '<div class="stat-card"><div class="stat-number">' + totalViews + '</div><div class="stat-label">PAGE VIEWS</div></div>';
+            '<div class="stat-card"><div class="stat-number">' + pendReqs + '</div><div class="stat-label">PENDING ACCESS</div></div>';
+
+        if (activityRow) {
+            var pv           = state.siteStats.pageViews || {};
+            var events       = state.accessEvents || [];
+            var loginEvents  = events.filter(function (e) { return e.type === 'login_attempt'; });
+            var chatEvents   = events.filter(function (e) { return e.type === 'chat_interaction'; });
+            var loginOk      = loginEvents.filter(function (e) { return e.success; }).length;
+            var loginFail    = loginEvents.filter(function (e) { return !e.success; }).length;
+            activityRow.innerHTML =
+                '<div class="stat-card stat-card-activity"><div class="stat-number">' + (pv['home'] || 0) + '</div><div class="stat-label">HOME VIEWS</div></div>' +
+                '<div class="stat-card stat-card-activity"><div class="stat-number">' + (pv['it-services'] || 0) + '</div><div class="stat-label">IT SERVICES VIEWS</div></div>' +
+                '<div class="stat-card stat-card-activity"><div class="stat-number">' + (pv['branding'] || 0) + '</div><div class="stat-label">BRANDING VIEWS</div></div>' +
+                '<div class="stat-card stat-card-activity"><div class="stat-number">' + (pv['consultants'] || 0) + '</div><div class="stat-label">PORTAL VIEWS</div></div>' +
+                '<div class="stat-card stat-card-activity" style="border-left:2px solid rgba(34,197,94,0.3);"><div class="stat-number" style="color:#22c55e;">' + loginOk + '</div><div class="stat-label">ACCESS OK</div></div>' +
+                '<div class="stat-card stat-card-activity" style="border-left:2px solid rgba(248,113,113,0.3);"><div class="stat-number" style="color:#f87171;">' + loginFail + '</div><div class="stat-label">ACCESS FAILED</div></div>' +
+                '<div class="stat-card stat-card-activity"><div class="stat-number">' + chatEvents.length + '</div><div class="stat-label">CHAT INTERACTIONS</div></div>';
+        }
     }
 
     /* ══════════════════════════════════════════════════
@@ -1298,6 +1317,91 @@
         renderAccessCodeStats();
         // Cookie consent events
         renderCookieStats();
+        // Login attempt log
+        renderLoginAttemptStats();
+        // Chat interaction log
+        renderChatInteractionStats();
+    }
+
+    function renderLoginAttemptStats() {
+        var el = document.getElementById('stats-login-attempts');
+        if (!el) return;
+        var events   = (state.accessEvents || []).filter(function (e) { return e.type === 'login_attempt'; });
+        var okCount  = events.filter(function (e) { return e.success; }).length;
+        var failCount = events.filter(function (e) { return !e.success; }).length;
+        var html = '<h4 style="font-family:var(--font-heading);font-size:12px;letter-spacing:2px;color:var(--color-text-muted);margin:28px 0 14px;">LOGIN ATTEMPTS (' + events.length + ')</h4>';
+        html += '<div class="stats-overview-grid" style="margin-bottom:20px;">' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:#22c55e;">' + okCount + '</div><div class="stats-metric-label">Successful</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:#f87171;">' + failCount + '</div><div class="stats-metric-label">Failed</div></div>' +
+            '</div>';
+        if (events.length) {
+            html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">' +
+                '<thead><tr>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Result</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Date</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Location</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">IP</th>' +
+                '</tr></thead><tbody>';
+            events.slice().reverse().forEach(function (e) {
+                var loc   = e.location ? (e.location.city || '') + (e.location.country ? ', ' + e.location.country : '') : 'N/A';
+                var ip    = e.location && e.location.ip ? e.location.ip : 'N/A';
+                var dt    = e.timestamp ? new Date(e.timestamp).toLocaleString() : 'N/A';
+                var color = e.success ? '#22c55e' : '#f87171';
+                var label = e.success ? '✓ Success' : '✗ Failed';
+                html += '<tr style="border-bottom:1px solid rgba(41,181,232,0.06);">' +
+                    '<td style="padding:8px 12px;color:' + color + ';font-weight:600;">' + label + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-secondary);font-size:12px;">' + escapeHtml(dt) + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-secondary);">' + escapeHtml(loc) + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-muted);font-size:11px;font-family:monospace;">' + escapeHtml(ip) + '</td>' +
+                    '</tr>';
+            });
+            html += '</tbody></table>';
+        } else {
+            html += '<p style="color:var(--color-text-muted);font-size:13px;">No login attempts recorded yet.</p>';
+        }
+        el.innerHTML = html;
+    }
+
+    function renderChatInteractionStats() {
+        var el = document.getElementById('stats-chat-history');
+        if (!el) return;
+        var events = (state.accessEvents || []).filter(function (e) { return e.type === 'chat_interaction'; });
+        var navClicks = events.filter(function (e) { return e.responseType === 'nav_click'; }).length;
+        var kwMatches = events.filter(function (e) { return e.responseType === 'keyword_match'; }).length;
+        var fallbacks = events.filter(function (e) { return e.responseType === 'fallback'; }).length;
+        var html = '<h4 style="font-family:var(--font-heading);font-size:12px;letter-spacing:2px;color:var(--color-text-muted);margin:28px 0 14px;">CHAT INTERACTIONS (' + events.length + ')</h4>';
+        html += '<div class="stats-overview-grid" style="margin-bottom:20px;">' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:var(--color-accent);">' + navClicks + '</div><div class="stats-metric-label">Nav Clicks</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:#22c55e;">' + kwMatches + '</div><div class="stats-metric-label">Keyword Match</div></div>' +
+            '<div class="stats-metric"><div class="stats-metric-val" style="color:#f59e0b;">' + fallbacks + '</div><div class="stats-metric-label">Fallback</div></div>' +
+            '</div>';
+        if (events.length) {
+            html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">' +
+                '<thead><tr>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Question</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Type</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Date</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Location</th>' +
+                '<th style="text-align:left;padding:8px 12px;border-bottom:1px solid rgba(41,181,232,0.15);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">IP</th>' +
+                '</tr></thead><tbody>';
+            events.slice().reverse().forEach(function (e) {
+                var loc   = e.location ? (e.location.city || '') + (e.location.country ? ', ' + e.location.country : '') : 'N/A';
+                var ip    = e.location && e.location.ip ? e.location.ip : 'N/A';
+                var dt    = e.timestamp ? new Date(e.timestamp).toLocaleString() : 'N/A';
+                var typeColor = e.responseType === 'nav_click' ? 'var(--color-accent)' : e.responseType === 'keyword_match' ? '#22c55e' : '#f59e0b';
+                html += '<tr style="border-bottom:1px solid rgba(41,181,232,0.06);">' +
+                    '<td style="padding:8px 12px;color:var(--color-text-secondary);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + escapeHtml(e.question || 'N/A') + '</td>' +
+                    '<td style="padding:8px 12px;color:' + typeColor + ';font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;">' + escapeHtml(e.responseType || 'N/A') + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-secondary);font-size:12px;">' + escapeHtml(dt) + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-secondary);">' + escapeHtml(loc) + '</td>' +
+                    '<td style="padding:8px 12px;color:var(--color-text-muted);font-size:11px;font-family:monospace;">' + escapeHtml(ip) + '</td>' +
+                    '</tr>';
+            });
+            html += '</tbody></table>';
+        } else {
+            html += '<p style="color:var(--color-text-muted);font-size:13px;">No chat interactions recorded yet.</p>';
+        }
+        el.innerHTML = html;
     }
 
     function renderAccessCodeStats() {

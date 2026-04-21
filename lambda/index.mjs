@@ -7,6 +7,7 @@ const COLLECTIONS = {
   'access-requests': 'data/access-requests.json',
   'dynamic-codes':   'data/dynamic-codes.json',
   'site-stats':      'data/site-stats.json',
+  'access-events':   'data/access-events.json',
 };
 
 const CORS = {
@@ -158,6 +159,44 @@ export async function handler(event) {
 
       await writeS3(COLLECTIONS['site-stats'], stats);
       return respond(200, { ok: true });
+    }
+
+    // ── POST /api/track-event ─────────────────────────────
+    if (method === 'POST' && path === '/api/track-event') {
+      const body = JSON.parse(event.body || '{}');
+      const allowed = ['access_code', 'login_attempt', 'cookie_consent', 'chat_interaction'];
+      if (!body.type || !allowed.includes(body.type)) {
+        return respond(400, { error: 'Invalid or missing event type' });
+      }
+      const events = await readS3(COLLECTIONS['access-events']);
+      const safeEvent = {
+        type:      sanitize(body.type, 30),
+        timestamp: body.timestamp || new Date().toISOString(),
+      };
+      if (body.type === 'access_code') {
+        safeEvent.industry = sanitize(body.industry || '', 50);
+        safeEvent.action   = sanitize(body.action   || '', 30);
+      } else if (body.type === 'login_attempt') {
+        safeEvent.success = Boolean(body.success);
+      } else if (body.type === 'cookie_consent') {
+        safeEvent.choice = sanitize(body.choice || '', 20);
+      } else if (body.type === 'chat_interaction') {
+        safeEvent.question     = sanitize(body.question     || '', 200);
+        safeEvent.responseType = sanitize(body.responseType || '', 30);
+      }
+      if (body.location && typeof body.location === 'object') {
+        safeEvent.location = {
+          city:    sanitize(body.location.city    || '', 100),
+          region:  sanitize(body.location.region  || '', 100),
+          country: sanitize(body.location.country || '', 100),
+          ip:      sanitize(body.location.ip      || '', 45),
+        };
+      }
+      if (body.userAgent) safeEvent.userAgent = sanitize(body.userAgent, 200);
+      events.push(safeEvent);
+      if (events.length > 1000) events.splice(0, events.length - 1000);
+      await writeS3(COLLECTIONS['access-events'], events);
+      return respond(201, { ok: true });
     }
 
     return respond(404, { error: 'Not found' });

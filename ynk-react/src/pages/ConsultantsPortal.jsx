@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
-import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage } from '../utils/tracking'
+import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage, trackLoginAttempt } from '../utils/tracking'
 import { useLanguage } from '../i18n/LanguageContext'
 import ResumeCard from '../components/ResumeCard'
 
@@ -81,10 +81,12 @@ export default function ConsultantsPortal() {
         setLoading(true)
         setError('')
         trackAccessCodeUsage(found.industry, found.viewOnly ? 'view-only' : 'view')
+        trackLoginAttempt(true)
       } else {
         setError(t('consultantsPage.invalidCode'))
         codeRef.current.value = ''
         codeRef.current.focus()
+        trackLoginAttempt(false)
       }
     } catch (err) {
       console.error('Access code error:', err)

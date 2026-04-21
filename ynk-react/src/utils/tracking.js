@@ -155,3 +155,49 @@ export async function trackCookieConsent(choice) {
   }
   storeEvent(event)
 }
+
+export async function trackLoginAttempt(success) {
+  const event = {
+    type:      'login_attempt',
+    success:   Boolean(success),
+    timestamp: new Date().toISOString(),
+    userAgent: navigator.userAgent,
+  }
+  const loc = await getGeoLocation()
+  if (loc) event.location = loc
+
+  if (API_URL) {
+    try {
+      await fetch(`${API_URL}/api/track-event`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(event),
+      })
+    } catch (e) { /* silent */ }
+    return
+  }
+  storeEvent(event)
+}
+
+export async function trackChatInteraction(question, responseType) {
+  const event = {
+    type:         'chat_interaction',
+    question:     String(question).slice(0, 200),
+    responseType: responseType || 'unknown',
+    timestamp:    new Date().toISOString(),
+  }
+  const loc = await getGeoLocation()
+  if (loc) event.location = loc
+
+  if (API_URL) {
+    try {
+      await fetch(`${API_URL}/api/track-event`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(event),
+      })
+    } catch (e) { /* silent */ }
+    return
+  }
+  storeEvent(event)
+}

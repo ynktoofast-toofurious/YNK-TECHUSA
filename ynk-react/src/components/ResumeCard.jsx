@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLanguage } from '../i18n/LanguageContext'
 
 /* ── Career Timeline ── */
 const TIMELINE = [
@@ -272,6 +273,7 @@ function EngagementItem({ eng }) {
 /* ── Main Component ── */
 export default function ResumeCard({ industry }) {
   const data = RESUME[industry] || RESUME['Data Engineering']
+  const { t } = useLanguage()
   const [imgError, setImgError] = useState(false)
 
   return (
@@ -316,13 +318,24 @@ export default function ResumeCard({ industry }) {
             </span>
           </div>
         </div>
-        <button className="resume-print-btn no-print" onClick={() => window.print()} title="Print resume">
+        <button
+          className="resume-print-btn no-print"
+          title={t('resumeCard.requestPdf')}
+          onClick={() => {
+            const subject = encodeURIComponent('PDF Resume Request \u2014 Data Engineering')
+            const body = encodeURIComponent(
+              'Hello,\n\nI would like to request a PDF version of Yannick Nkongolo\'s Data Engineering resume.\n\nBest regards,'
+            )
+            window.open(`mailto:yannicknkongolo7@gmail.com?subject=${subject}&body=${body}`)
+          }}
+        >
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="6 9 6 2 18 2 18 9"/>
-            <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
-            <rect x="6" y="14" width="12" height="8"/>
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
           </svg>
-          Print
+          {t('resumeCard.requestPdf')}
         </button>
       </div>
 
@@ -332,7 +345,7 @@ export default function ResumeCard({ industry }) {
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
           </svg>
-          Professional Summary
+          {t('resumeCard.professionalSummary')}
         </h2>
         <p className="resume-summary">{data.summary}</p>
       </div>
@@ -344,7 +357,7 @@ export default function ResumeCard({ industry }) {
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2.21 2.686 4 6 4s6-1.79 6-4v-5"/>
             </svg>
-            Education &amp; Certifications
+            {t('resumeCard.educationCertifications')}
           </h2>
           <div className="resume-edu-grid">
             {data.education.map((e, i) => (
@@ -371,11 +384,11 @@ export default function ResumeCard({ industry }) {
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
-          Career Timeline
+          {t('resumeCard.careerTimeline')}
         </h2>
-        <p className="resume-tl-hint no-print">Click any role to expand full details</p>
+        <p className="resume-tl-hint no-print">{t('resumeCard.timelineHint')}</p>
         <div className="resume-timeline">
-          {TIMELINE.map((item, i) => <TimelineItem key={i} item={item} />)}
+          {TIMELINE.slice(1).map((item, i) => <TimelineItem key={i} item={item} />)}
         </div>
       </div>
 
@@ -385,7 +398,7 @@ export default function ResumeCard({ industry }) {
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
-          Core Competencies
+          {t('resumeCard.coreCompetencies')}
         </h2>
         <div className="resume-skills-grid">
           {data.skills.map((group) => (
@@ -407,9 +420,9 @@ export default function ResumeCard({ industry }) {
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
           </svg>
-          Tool-Driven Engagements
+          {t('resumeCard.toolEngagements')}
         </h2>
-        <p className="resume-tl-hint no-print">Click any engagement to expand highlights</p>
+        <p className="resume-tl-hint no-print">{t('resumeCard.engagementsHint')}</p>
         <div className="resume-eng-list">
           {data.engagements.map((eng, i) => (
             <EngagementItem key={i} eng={eng} />
@@ -417,9 +430,22 @@ export default function ResumeCard({ industry }) {
         </div>
       </div>
 
+      {/* ENTREPRENEURSHIP */}
+      <div className="resume-section">
+        <h2 className="resume-section-title">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          {t('resumeCard.entrepreneurship')}
+        </h2>
+        <div className="resume-timeline">
+          <TimelineItem item={TIMELINE[0]} />
+        </div>
+      </div>
+
       {/* FOOTER */}
       <p className="resume-footer-note">
-        References and full work history available upon request &middot; {data.website}
+        {t('resumeCard.footerNote')} &middot; {data.website}
       </p>
     </div>
   )
