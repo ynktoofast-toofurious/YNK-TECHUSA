@@ -177,6 +177,20 @@
             <button class="portal-logout" onclick="adminLogout()">SIGN OUT</button>
         </header>
 
+        <!-- Main View Tabs -->
+        <nav class="main-tab-nav">
+            <button class="main-tab active" onclick="switchMainTab('dashboard', this)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                DASHBOARD
+            </button>
+            <button class="main-tab" onclick="switchMainTab('analytics', this)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                ANALYTICS
+            </button>
+        </nav>
+
+        <div id="view-dashboard">
+
         <!-- Stats Row -->
         <section class="admin-stats-row" id="stats-row">
             <!-- Populated by JS -->
@@ -296,6 +310,73 @@
         <footer class="admin-footer">
             <p>&copy; 2026 YNK-Tech USA</p>
         </footer>
+
+        </div><!-- /#view-dashboard -->
+
+        <!-- ════════════════════════════════════════════
+             ANALYTICS VIEW
+             ════════════════════════════════════════════ -->
+        <div id="view-analytics" class="hidden">
+            <div class="analytics-wrap container">
+
+                <div class="analytics-header">
+                    <div>
+                        <h2 class="analytics-title">Analytics Report</h2>
+                        <p id="analytics-updated" class="analytics-subtitle"></p>
+                    </div>
+                    <button class="panel-btn" onclick="exportAnalyticsCSV()">&#8595; EXPORT CSV</button>
+                </div>
+
+                <!-- KPI Grid -->
+                <div id="analytics-kpi" class="analytics-kpi-grid"></div>
+
+                <!-- Traffic: Daily + Pages -->
+                <div class="analytics-two-col">
+                    <div class="analytics-card">
+                        <h3 class="analytics-card-title">Daily Traffic (Last 14 Days)</h3>
+                        <div id="analytics-daily"></div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3 class="analytics-card-title">Page Breakdown</h3>
+                        <div id="analytics-pages"></div>
+                    </div>
+                </div>
+
+                <!-- Lead Pipeline -->
+                <div class="analytics-card">
+                    <h3 class="analytics-card-title">Lead Pipeline</h3>
+                    <div class="analytics-pipeline-row">
+                        <div id="analytics-funnel"></div>
+                        <div id="analytics-services" class="analytics-breakdown"></div>
+                    </div>
+                </div>
+
+                <!-- Security + Engagement -->
+                <div class="analytics-two-col">
+                    <div class="analytics-card">
+                        <h3 class="analytics-card-title">Portal Security</h3>
+                        <div id="analytics-security"></div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3 class="analytics-card-title">Visitor Engagement</h3>
+                        <div id="analytics-engagement"></div>
+                    </div>
+                </div>
+
+                <!-- Geographic Breakdown -->
+                <div class="analytics-card">
+                    <h3 class="analytics-card-title">Geographic Breakdown</h3>
+                    <div id="analytics-geo"></div>
+                </div>
+
+                <!-- Recent Activity Feed -->
+                <div class="analytics-card">
+                    <h3 class="analytics-card-title">Recent Activity (Last 30 Events)</h3>
+                    <div id="analytics-activity"></div>
+                </div>
+
+            </div>
+        </div><!-- /#view-analytics -->
 
     </main>
 

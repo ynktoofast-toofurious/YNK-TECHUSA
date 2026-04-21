@@ -530,6 +530,7 @@
         renderContentEditor();
         renderPageManager();
         renderSiteStats();
+        renderAnalyticsTab();
     }
 
     /* ══════════════════════════════════════════════════
@@ -1477,6 +1478,427 @@
         }
         el.innerHTML = html;
     }
+
+    /* ══════════════════════════════════════════════════
+       MAIN VIEW TAB SWITCHING  (Dashboard ↔ Analytics)
+    ══════════════════════════════════════════════════ */
+
+    window.switchMainTab = function (tab, btn) {
+        document.querySelectorAll('.main-tab').forEach(function (t) { t.classList.remove('active'); });
+        if (btn) btn.classList.add('active');
+        var dashboard = document.getElementById('view-dashboard');
+        var analytics = document.getElementById('view-analytics');
+        if (tab === 'analytics') {
+            if (dashboard) dashboard.classList.add('hidden');
+            if (analytics) analytics.classList.remove('hidden');
+        } else {
+            if (dashboard) dashboard.classList.remove('hidden');
+            if (analytics) analytics.classList.add('hidden');
+        }
+    };
+
+    /* ══════════════════════════════════════════════════
+       ANALYTICS TAB — FULL REPORT
+    ══════════════════════════════════════════════════ */
+
+    function renderAnalyticsTab() {
+        var updEl = document.getElementById('analytics-updated');
+        if (updEl) updEl.textContent = 'Last updated: ' + new Date().toLocaleString();
+        renderAnalyticsKPI();
+        renderAnalyticsTraffic();
+        renderAnalyticsFunnel();
+        renderAnalyticsSecurity();
+        renderAnalyticsEngagement();
+        renderAnalyticsGeo();
+        renderAnalyticsActivity();
+    }
+
+    function renderAnalyticsKPI() {
+        var el = document.getElementById('analytics-kpi');
+        if (!el) return;
+        var stats = state.siteStats;
+        var today = new Date().toISOString().slice(0, 10);
+        var dailyViews = stats.dailyViews || {};
+        var todayViews = dailyViews[today] ? (dailyViews[today]._total || 0) : 0;
+        var totalViews = stats.totalViews || 0;
+        var pageViews = stats.pageViews || {};
+        var pageKeys = Object.keys(pageViews);
+        var topPage = pageKeys.length
+            ? pageKeys.sort(function (a, b) { return pageViews[b] - pageViews[a]; })[0]
+            : 'N/A';
+
+        var prospects = state.prospects || [];
+        var totalLeads = prospects.length;
+        var signedLeads = prospects.filter(function (p) { return p.status === 'Signed'; }).length;
+        var convRate = totalLeads > 0 ? Math.round((signedLeads / totalLeads) * 100) : 0;
+
+        var accessReqs = state.accessRequests || [];
+        var totalReqs = accessReqs.length;
+        var approvedCnt = accessReqs.filter(function (r) {
+            return r.status === 'approved' || r.status === 'expired' || r.status === 'disabled';
+        }).length;
+        var approvalRate = totalReqs > 0 ? Math.round((approvedCnt / totalReqs) * 100) : 0;
+        var pendingCnt = accessReqs.filter(function (r) { return r.status === 'pending'; }).length;
+        var activeCodes = (state.dynamicCodes || []).length;
+
+        var loginEvents = (state.accessEvents || []).filter(function (e) { return e.type === 'login_attempt'; });
+        var loginSucc = loginEvents.filter(function (e) { return e.success; }).length;
+        var loginSuccRate = loginEvents.length > 0 ? Math.round((loginSucc / loginEvents.length) * 100) : 0;
+
+        var cards = [
+            { val: totalViews,                  label: 'Total Views',      color: 'var(--color-accent)' },
+            { val: todayViews,                  label: 'Views Today',      color: '#22c55e' },
+            { val: escapeHtml(topPage),         label: 'Top Page',         color: 'var(--color-accent)', small: true },
+            { val: totalLeads,                  label: 'Total Leads',      color: 'var(--color-accent)' },
+            { val: convRate + '%',              label: 'Close Rate',       color: convRate >= 20 ? '#22c55e' : '#f59e0b' },
+            { val: pendingCnt,                  label: 'Pending Requests', color: '#f59e0b' },
+            { val: approvalRate + '%',          label: 'Approval Rate',    color: approvalRate >= 50 ? '#22c55e' : '#f59e0b' },
+            { val: activeCodes,                 label: 'Active Codes',     color: '#22c55e' },
+            { val: loginSuccRate + '%',         label: 'Login Success',    color: loginSuccRate >= 80 ? '#22c55e' : '#f87171' }
+        ];
+
+        el.innerHTML = cards.map(function (c) {
+            return '<div class="analytics-kpi-card">' +
+                '<div class="analytics-kpi-val' + (c.small ? ' analytics-kpi-val--sm' : '') + '" style="color:' + c.color + ';">' + c.val + '</div>' +
+                '<div class="analytics-kpi-label">' + c.label + '</div>' +
+                '</div>';
+        }).join('');
+    }
+
+    function renderAnalyticsTraffic() {
+        var dailyEl = document.getElementById('analytics-daily');
+        var pagesEl = document.getElementById('analytics-pages');
+        var stats = state.siteStats;
+
+        if (dailyEl) {
+            var dailyViews = stats.dailyViews || {};
+            var days = Object.keys(dailyViews).sort().slice(-14);
+            if (days.length) {
+                var maxDay = Math.max.apply(null, days.map(function (d) { return dailyViews[d]._total || 0; }));
+                var html = '';
+                days.forEach(function (day) {
+                    var total = dailyViews[day]._total || 0;
+                    var pct   = maxDay > 0 ? Math.round((total / maxDay) * 100) : 0;
+                    var label = new Date(day + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    html += '<div class="stats-bar-row">' +
+                        '<span class="stats-bar-label">' + escapeHtml(label) + '</span>' +
+                        '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%"></div></div>' +
+                        '<span class="stats-bar-count">' + total + '</span>' +
+                        '</div>';
+                });
+                dailyEl.innerHTML = html;
+            } else {
+                dailyEl.innerHTML = '<p class="analytics-empty">No traffic data yet.</p>';
+            }
+        }
+
+        if (pagesEl) {
+            var pageViews = stats.pageViews || {};
+            var pageKeys  = Object.keys(pageViews).sort(function (a, b) { return pageViews[b] - pageViews[a]; });
+            var totalPV   = pageKeys.reduce(function (s, k) { return s + pageViews[k]; }, 0);
+            if (pageKeys.length) {
+                var maxPV = pageViews[pageKeys[0]];
+                var html2 = '';
+                pageKeys.forEach(function (page) {
+                    var count = pageViews[page];
+                    var pct   = maxPV > 0 ? Math.round((count / maxPV) * 100) : 0;
+                    var share = totalPV > 0 ? Math.round((count / totalPV) * 100) : 0;
+                    html2 += '<div class="stats-bar-row">' +
+                        '<span class="stats-bar-label">' + escapeHtml(page) + '</span>' +
+                        '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%"></div></div>' +
+                        '<span class="stats-bar-count">' + count + ' <span style="color:var(--color-text-muted);font-size:10px;">(' + share + '%)</span></span>' +
+                        '</div>';
+                });
+                pagesEl.innerHTML = html2;
+            } else {
+                pagesEl.innerHTML = '<p class="analytics-empty">No page data yet.</p>';
+            }
+        }
+    }
+
+    function renderAnalyticsFunnel() {
+        var funnelEl   = document.getElementById('analytics-funnel');
+        var servicesEl = document.getElementById('analytics-services');
+        var prospects  = state.prospects || [];
+        var total      = prospects.length;
+
+        if (funnelEl) {
+            var stages = [
+                { label: 'New Lead',        status: 'New Lead',        color: 'var(--color-accent)' },
+                { label: 'In Conversation', status: 'In Conversation', color: '#22c55e' },
+                { label: 'Proposal Sent',   status: 'Proposal Sent',   color: '#f59e0b' },
+                { label: 'Signed',          status: 'Signed',          color: '#a78bfa' },
+                { label: 'Lost',            status: 'Lost',            color: '#f87171' }
+            ];
+            var html = '';
+            stages.forEach(function (s) {
+                var count = prospects.filter(function (p) { return p.status === s.status; }).length;
+                var pct   = total > 0 ? Math.round((count / total) * 100) : 0;
+                html += '<div class="analytics-funnel-stage">' +
+                    '<div class="analytics-funnel-bar-wrap">' +
+                        '<div class="analytics-funnel-bar" style="width:' + pct + '%;background:' + s.color + ';"></div>' +
+                    '</div>' +
+                    '<div class="analytics-funnel-meta">' +
+                        '<span class="analytics-funnel-label">' + s.label + '</span>' +
+                        '<span class="analytics-funnel-count" style="color:' + s.color + ';">' + count + '</span>' +
+                    '</div>' +
+                    '</div>';
+            });
+            funnelEl.innerHTML = html || '<p class="analytics-empty">No leads tracked yet.</p>';
+        }
+
+        if (servicesEl && total > 0) {
+            var serviceCount = {};
+            prospects.forEach(function (p) {
+                var svc = p.service || 'Other';
+                serviceCount[svc] = (serviceCount[svc] || 0) + 1;
+            });
+            var svcs   = Object.keys(serviceCount).sort(function (a, b) { return serviceCount[b] - serviceCount[a]; });
+            var maxSvc = serviceCount[svcs[0]] || 1;
+            var html3  = '<div style="font-family:var(--font-heading);font-size:10px;letter-spacing:2px;color:var(--color-text-muted);margin-bottom:12px;">BY SERVICE</div>';
+            svcs.forEach(function (svc) {
+                var cnt = serviceCount[svc];
+                var pct = Math.round((cnt / maxSvc) * 100);
+                html3 += '<div class="stats-bar-row">' +
+                    '<span class="stats-bar-label" style="min-width:130px;">' + escapeHtml(svc) + '</span>' +
+                    '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%"></div></div>' +
+                    '<span class="stats-bar-count">' + cnt + '</span>' +
+                    '</div>';
+            });
+            servicesEl.innerHTML = html3;
+        } else if (servicesEl) {
+            servicesEl.innerHTML = '<p class="analytics-empty">No service data yet.</p>';
+        }
+    }
+
+    function renderAnalyticsSecurity() {
+        var el = document.getElementById('analytics-security');
+        if (!el) return;
+        var loginEvents = (state.accessEvents || []).filter(function (e) { return e.type === 'login_attempt'; });
+        var succCount   = loginEvents.filter(function (e) { return e.success; }).length;
+        var failCount   = loginEvents.filter(function (e) { return !e.success; }).length;
+        var total       = loginEvents.length;
+        var succRate    = total > 0 ? Math.round((succCount / total) * 100) : 0;
+
+        var accessReqs  = state.accessRequests || [];
+        var pendingCnt  = accessReqs.filter(function (r) { return r.status === 'pending'; }).length;
+        var approvedCnt = accessReqs.filter(function (r) { return r.status === 'approved'; }).length;
+        var deniedCnt   = accessReqs.filter(function (r) { return r.status === 'denied'; }).length;
+
+        var html = '<div class="analytics-mini-cards">' +
+            '<div class="analytics-mini-card"><span class="analytics-mini-val" style="color:#22c55e;">' + succCount + '</span><span class="analytics-mini-label">Login OK</span></div>' +
+            '<div class="analytics-mini-card"><span class="analytics-mini-val" style="color:#f87171;">' + failCount + '</span><span class="analytics-mini-label">Login Failed</span></div>' +
+            '</div>' +
+            '<div style="margin:14px 0 6px;">' +
+            '<div style="font-size:10px;font-family:var(--font-heading);letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:6px;">SUCCESS RATE</div>' +
+            '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + succRate + '%;background:#22c55e;"></div></div>' +
+            '<div style="font-size:13px;color:#22c55e;margin-top:5px;font-weight:700;">' + succRate + '%</div>' +
+            '</div>' +
+            '<hr class="analytics-divider">' +
+            '<div style="font-size:10px;font-family:var(--font-heading);letter-spacing:1.5px;color:var(--color-text-muted);margin:12px 0 10px;">ACCESS REQUESTS</div>' +
+            '<div class="analytics-mini-cards">' +
+            '<div class="analytics-mini-card"><span class="analytics-mini-val" style="color:#f59e0b;">' + pendingCnt + '</span><span class="analytics-mini-label">Pending</span></div>' +
+            '<div class="analytics-mini-card"><span class="analytics-mini-val" style="color:#22c55e;">' + approvedCnt + '</span><span class="analytics-mini-label">Approved</span></div>' +
+            '<div class="analytics-mini-card"><span class="analytics-mini-val" style="color:#f87171;">' + deniedCnt + '</span><span class="analytics-mini-label">Denied</span></div>' +
+            '</div>';
+
+        var recentFails = loginEvents.filter(function (e) { return !e.success; }).slice(-5).reverse();
+        if (recentFails.length) {
+            html += '<div style="font-size:10px;font-family:var(--font-heading);letter-spacing:1.5px;color:var(--color-text-muted);margin:16px 0 8px;">RECENT FAILED LOGINS</div>';
+            recentFails.forEach(function (e) {
+                var loc = e.location ? [(e.location.city || ''), (e.location.country || '')].filter(Boolean).join(', ') : 'Unknown';
+                var dt  = e.timestamp ? new Date(e.timestamp).toLocaleString() : 'N/A';
+                html += '<div class="analytics-activity-item">' +
+                    '<span class="activity-badge" style="background:#f8717122;color:#f87171;border-color:#f8717144;">FAIL</span>' +
+                    '<span class="activity-desc">' + escapeHtml(loc) + '</span>' +
+                    '<span class="activity-loc"></span>' +
+                    '<span class="activity-time">' + escapeHtml(dt) + '</span>' +
+                    '</div>';
+            });
+        }
+
+        el.innerHTML = html;
+    }
+
+    function renderAnalyticsEngagement() {
+        var el = document.getElementById('analytics-engagement');
+        if (!el) return;
+        var events      = state.accessEvents || [];
+        var chatEvents  = events.filter(function (e) { return e.type === 'chat_interaction'; });
+        var cookieEvents = events.filter(function (e) { return e.type === 'cookie_consent'; });
+        var navClicks   = chatEvents.filter(function (e) { return e.responseType === 'nav_click'; }).length;
+        var kwMatches   = chatEvents.filter(function (e) { return e.responseType === 'keyword_match'; }).length;
+        var fallbacks   = chatEvents.filter(function (e) { return e.responseType === 'fallback'; }).length;
+        var chatTotal   = chatEvents.length;
+        var maxChat     = Math.max(navClicks, kwMatches, fallbacks, 1);
+
+        var html = '<div style="font-size:10px;font-family:var(--font-heading);letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px;">CHAT INTERACTIONS (' + chatTotal + ')</div>';
+        [
+            { label: 'Nav Click',     count: navClicks, color: 'var(--color-accent)' },
+            { label: 'Keyword Match', count: kwMatches, color: '#22c55e' },
+            { label: 'Fallback',      count: fallbacks, color: '#f59e0b' }
+        ].forEach(function (item) {
+            var pct = Math.round((item.count / maxChat) * 100);
+            html += '<div class="stats-bar-row">' +
+                '<span class="stats-bar-label" style="min-width:110px;">' + item.label + '</span>' +
+                '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%;background:' + item.color + ';"></div></div>' +
+                '<span class="stats-bar-count">' + item.count + '</span>' +
+                '</div>';
+        });
+
+        var acceptAll    = cookieEvents.filter(function (e) { return e.choice === 'all'; }).length;
+        var essentialCnt = cookieEvents.filter(function (e) { return e.choice === 'essential'; }).length;
+        var rejectCnt    = cookieEvents.filter(function (e) { return e.choice === 'reject'; }).length;
+        var cookieTotal  = cookieEvents.length;
+        var maxCookie    = Math.max(acceptAll, essentialCnt, rejectCnt, 1);
+
+        html += '<hr class="analytics-divider">';
+        html += '<div style="font-size:10px;font-family:var(--font-heading);letter-spacing:1.5px;color:var(--color-text-muted);margin:12px 0 10px;">COOKIE CONSENT (' + cookieTotal + ')</div>';
+        [
+            { label: 'Accept All', count: acceptAll,    color: '#22c55e' },
+            { label: 'Essential',  count: essentialCnt, color: '#f59e0b' },
+            { label: 'Reject All', count: rejectCnt,    color: '#f87171' }
+        ].forEach(function (item) {
+            var pct = Math.round((item.count / maxCookie) * 100);
+            html += '<div class="stats-bar-row">' +
+                '<span class="stats-bar-label" style="min-width:110px;">' + item.label + '</span>' +
+                '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%;background:' + item.color + ';"></div></div>' +
+                '<span class="stats-bar-count">' + item.count + '</span>' +
+                '</div>';
+        });
+
+        el.innerHTML = html;
+    }
+
+    function renderAnalyticsGeo() {
+        var el = document.getElementById('analytics-geo');
+        if (!el) return;
+        var events       = state.accessEvents || [];
+        var countryCount = {};
+        var cityCount    = {};
+        events.forEach(function (e) {
+            if (!e.location) return;
+            var country = e.location.country || 'Unknown';
+            countryCount[country] = (countryCount[country] || 0) + 1;
+            var city = e.location.city;
+            if (city) {
+                var key = city + (country !== 'Unknown' ? ', ' + country : '');
+                cityCount[key] = (cityCount[key] || 0) + 1;
+            }
+        });
+        var countries = Object.keys(countryCount);
+        if (!countries.length) {
+            el.innerHTML = '<p class="analytics-empty">No geographic data yet.</p>';
+            return;
+        }
+        countries.sort(function (a, b) { return countryCount[b] - countryCount[a]; });
+        countries = countries.slice(0, 10);
+        var maxCountry = countryCount[countries[0]];
+
+        var html = '<div class="analytics-geo-row">';
+        html += '<div class="analytics-geo-col">';
+        html += '<div style="font-size:10px;font-family:var(--font-heading);letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px;">TOP COUNTRIES</div>';
+        countries.forEach(function (country) {
+            var cnt = countryCount[country];
+            var pct = Math.round((cnt / maxCountry) * 100);
+            html += '<div class="stats-bar-row">' +
+                '<span class="stats-bar-label" style="min-width:120px;">' + escapeHtml(country) + '</span>' +
+                '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%"></div></div>' +
+                '<span class="stats-bar-count">' + cnt + '</span>' +
+                '</div>';
+        });
+        html += '</div>';
+
+        var cities = Object.keys(cityCount).sort(function (a, b) { return cityCount[b] - cityCount[a]; }).slice(0, 10);
+        if (cities.length) {
+            var maxCity = cityCount[cities[0]];
+            html += '<div class="analytics-geo-col">';
+            html += '<div style="font-size:10px;font-family:var(--font-heading);letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px;">TOP CITIES</div>';
+            cities.forEach(function (city) {
+                var cnt = cityCount[city];
+                var pct = Math.round((cnt / maxCity) * 100);
+                html += '<div class="stats-bar-row">' +
+                    '<span class="stats-bar-label" style="min-width:140px;">' + escapeHtml(city) + '</span>' +
+                    '<div class="stats-bar-track"><div class="stats-bar-fill" style="width:' + pct + '%"></div></div>' +
+                    '<span class="stats-bar-count">' + cnt + '</span>' +
+                    '</div>';
+            });
+            html += '</div>';
+        }
+        html += '</div>';
+        el.innerHTML = html;
+    }
+
+    function renderAnalyticsActivity() {
+        var el = document.getElementById('analytics-activity');
+        if (!el) return;
+        var events = (state.accessEvents || []).slice().sort(function (a, b) {
+            return new Date(b.timestamp || 0) - new Date(a.timestamp || 0);
+        }).slice(0, 30);
+
+        if (!events.length) {
+            el.innerHTML = '<p class="analytics-empty">No activity recorded yet.</p>';
+            return;
+        }
+
+        var typeConfig = {
+            login_attempt:    { label: 'LOGIN',  baseColor: '#22c55e', failColor: '#f87171' },
+            chat_interaction: { label: 'CHAT',   baseColor: 'var(--color-accent)' },
+            access_code:      { label: 'CODE',   baseColor: '#a78bfa' },
+            cookie_consent:   { label: 'COOKIE', baseColor: '#f59e0b' }
+        };
+
+        var html = '<div class="analytics-activity-list">';
+        events.forEach(function (e) {
+            var cfg   = typeConfig[e.type] || { label: (e.type || 'EVENT').toUpperCase(), baseColor: 'var(--color-text-muted)' };
+            var color = (e.type === 'login_attempt' && !e.success) ? (cfg.failColor || '#f87171') : cfg.baseColor;
+            var loc   = e.location ? [(e.location.city || ''), (e.location.country || '')].filter(Boolean).join(', ') : '';
+            var ip    = (e.location && e.location.ip) ? e.location.ip : '';
+            var dt    = e.timestamp ? new Date(e.timestamp).toLocaleString() : '';
+            var desc  = '';
+            if (e.type === 'login_attempt')    desc = e.success ? 'Successful login' : 'Failed login attempt';
+            else if (e.type === 'chat_interaction') desc = e.question ? '&ldquo;' + escapeHtml(e.question.slice(0, 55)) + (e.question.length > 55 ? '&hellip;' : '') + '&rdquo;' : 'Chat interaction';
+            else if (e.type === 'access_code') desc = escapeHtml(e.industry || 'Unknown') + ' &mdash; ' + escapeHtml(e.action || '');
+            else if (e.type === 'cookie_consent') desc = 'Consent: ' + escapeHtml(e.choice || 'unknown');
+
+            html += '<div class="analytics-activity-item">' +
+                '<span class="activity-badge" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;">' + cfg.label + '</span>' +
+                '<span class="activity-desc">' + desc + '</span>' +
+                '<span class="activity-loc">' + escapeHtml(loc) + (ip ? ' &middot; ' + escapeHtml(ip) : '') + '</span>' +
+                '<span class="activity-time">' + escapeHtml(dt) + '</span>' +
+                '</div>';
+        });
+        html += '</div>';
+        el.innerHTML = html;
+    }
+
+    window.exportAnalyticsCSV = function () {
+        var lines = ['"Type","Date","Description","Location","IP"'];
+        (state.accessEvents || []).slice().sort(function (a, b) {
+            return new Date(b.timestamp || 0) - new Date(a.timestamp || 0);
+        }).forEach(function (e) {
+            var dt   = e.timestamp ? new Date(e.timestamp).toLocaleString() : '';
+            var loc  = e.location ? [(e.location.city || ''), (e.location.country || '')].filter(Boolean).join(', ') : '';
+            var ip   = (e.location && e.location.ip) ? e.location.ip : '';
+            var desc = '';
+            if (e.type === 'login_attempt')      desc = e.success ? 'Login OK' : 'Login Failed';
+            else if (e.type === 'chat_interaction') desc = e.question || '';
+            else if (e.type === 'access_code')   desc = [(e.industry || ''), (e.action || '')].filter(Boolean).join(' ');
+            else if (e.type === 'cookie_consent') desc = 'consent:' + (e.choice || '');
+            lines.push([e.type || '', dt, desc, loc, ip].map(function (v) {
+                return '"' + String(v).replace(/"/g, '""') + '"';
+            }).join(','));
+        });
+        var blob = new Blob([lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+        var url  = URL.createObjectURL(blob);
+        var a    = document.createElement('a');
+        a.href   = url;
+        a.download = 'ynk-analytics-' + new Date().toISOString().slice(0, 10) + '.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
 
     /* ══════════════════════════════════════════════════
        ADMIN TOOLS — TAB SWITCHING
