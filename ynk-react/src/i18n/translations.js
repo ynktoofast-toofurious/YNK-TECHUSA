@@ -319,6 +319,8 @@ const translations = {
       entrepreneurship:         'Entrepreneurship',
       footerNote:               'References and full work history available upon request',
       requestPdf:               'Request PDF',
+      current:                  'Current',
+      expected:                 'Expected',
     },
   },
 
@@ -593,6 +595,8 @@ const translations = {
       entrepreneurship:         'Entrepreneuriat',
       footerNote:               'R\u00e9f\u00e9rences et historique complet disponibles sur demande',
       requestPdf:               'Demander le PDF',
+      current:                  'En poste',
+      expected:                 'Pr\u00e9vu',
     },
   },
 
@@ -863,6 +867,8 @@ const translations = {
       entrepreneurship:         'Emprendimiento',
       footerNote:               'Referencias e historial completo disponibles a pedido',
       requestPdf:               'Solicitar PDF',
+      current:                  'Actual',
+      expected:                 'Previsto',
     },
   },
 }

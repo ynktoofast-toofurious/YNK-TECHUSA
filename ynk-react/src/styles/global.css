@@ -1201,6 +1201,16 @@ img {
     color: var(--color-text-muted);
 }
 
+.resume-edu-year {
+    font-size: 11px;
+    color: rgba(41, 181, 232, 0.7);
+    font-style: normal;
+}
+.resume-edu-year em {
+    font-style: italic;
+    opacity: 0.75;
+}
+
 .resume-cert-list {
     display: flex;
     flex-wrap: wrap;

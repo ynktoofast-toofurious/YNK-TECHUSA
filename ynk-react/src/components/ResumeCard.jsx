@@ -94,8 +94,8 @@ const RESUME = {
     summary:
       'Power BI and Data Analytics Subject Matter Expert with 10+ years designing scalable data structures and engineering analytics solutions. Deep expertise in DAX, advanced M (Power Query), Snowflake, and large-scale data modeling. Proven record transforming complex pharmacy, financial, and operational data into executive-level insights. Currently leading pharmacy analytics at OptumRx (UHG) while running YNK-Tech USA as Founder.',
     education: [
-      { degree: 'Master of Science', field: 'Data Analytics \u2013 Data Engineering', school: '' },
-      { degree: 'Bachelor of Science', field: 'Data Analytics', school: '' },
+      { degree: 'Master of Applied Science', field: 'Data Analytics \u2013 Data Engineering', school: 'Western Governors University', year: 'Jul 2026', expected: true },
+      { degree: 'Bachelor of Science', field: 'Data Analytics', school: 'Western Governors University', year: 'May 2025' },
     ],
     certifications: ['Power Platform Certified (PL-900)', 'Alteryx Core Certificate', 'ServiceNow Certified'],
     skills: [
@@ -201,6 +201,7 @@ const RESUME = {
 /* ── Sub-components ── */
 function TimelineItem({ item }) {
   const [open, setOpen] = useState(false)
+  const { t } = useLanguage()
   return (
     <div className={`resume-tl-item${open ? ' open' : ''}`}>
       <div className="resume-tl-line-wrap">
@@ -215,7 +216,7 @@ function TimelineItem({ item }) {
                 {item.type}
               </span>
               {item.current && (
-                <span className="resume-tl-current-badge">Current</span>
+                <span className="resume-tl-current-badge">{t('resumeCard.current')}</span>
               )}
             </div>
             <h4 className="resume-tl-role">{item.role}</h4>
@@ -365,6 +366,11 @@ export default function ResumeCard({ industry }) {
                 <span className="resume-edu-degree">{e.degree}</span>
                 <span className="resume-edu-field">{e.field}</span>
                 {e.school && <span className="resume-edu-school">{e.school}</span>}
+                {e.year && (
+                  <span className="resume-edu-year">
+                    {e.year}{e.expected && <em> ({t('resumeCard.expected')})</em>}
+                  </span>
+                )}
               </div>
             ))}
           </div>
