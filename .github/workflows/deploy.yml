@@ -37,7 +37,7 @@ jobs:
           VITE_API_URL: https://enf1mo6r68.execute-api.us-east-1.amazonaws.com
 
       - name: Copy Admin portal into dist
-        run: cp -r Admin ynk-react/dist/Admin
+        run: cp -r Admin/. ynk-react/dist/Admin/
 
       - name: Add SPA 404 fallback
         run: cp ynk-react/dist/index.html ynk-react/dist/404.html
