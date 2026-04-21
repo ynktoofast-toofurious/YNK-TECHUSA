@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | YNK-Tech USA</title>
+    <title>Member Portal | YNK-Tech USA</title>
     <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'self' https://ynk-techusa.com; connect-src 'self' https://api.emailjs.com https://*.execute-api.us-east-1.amazonaws.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     <link rel="stylesheet" href="admin.css">
@@ -23,9 +23,9 @@
             <div class="gate-logo">
                 <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="gate-logo-img">
             </div>
-            <p class="gate-label">ADMIN ACCESS</p>
-            <h1 class="gate-title">YNK Dashboard</h1>
-            <p class="gate-subtitle">Administrative access only. This area is not public.</p>
+            <p class="gate-label">MEMBER PORTAL</p>
+            <h1 class="gate-title">Welcome Back</h1>
+            <p class="gate-subtitle">Sign in to access your account.</p>
 
             <div class="step-indicator">
                 <div class="step-dot active"><span>1</span></div>
@@ -35,7 +35,7 @@
 
             <form class="gate-form" onsubmit="return false;">
                 <div class="input-wrapper">
-                    <input type="password" id="access-input" class="gate-input" placeholder="Admin Code" autocomplete="off" maxlength="64">
+                    <input type="password" id="access-input" class="gate-input" placeholder="Password" autocomplete="off" maxlength="64">
                     <button type="button" class="eye-toggle" onclick="togglePw('access-input',this)" title="Show/hide code" aria-label="Toggle visibility">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     </button>
@@ -53,8 +53,8 @@
             <div class="gate-logo">
                 <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="gate-logo-img">
             </div>
-            <p class="gate-label">TWO-FACTOR AUTH</p>
-            <h1 class="gate-title">Verify Identity</h1>
+            <p class="gate-label">VERIFICATION</p>
+            <h1 class="gate-title">One More Step</h1>
             <p class="gate-subtitle">Enter the 6-digit code from your authenticator app.</p>
 
             <div class="step-indicator">
@@ -86,8 +86,8 @@
                 <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="gate-logo-img">
             </div>
             <p class="gate-label">PASSWORD RESET</p>
-            <h1 class="gate-title">Reset Admin Code</h1>
-            <p class="gate-subtitle">Verify your identity with your authenticator app to reset the admin code.</p>
+            <h1 class="gate-title">Reset Password</h1>
+            <p class="gate-subtitle">Verify your identity with your authenticator app to reset your password.</p>
 
             <!-- TOTP verification -->
             <div id="reset-totp">
@@ -145,7 +145,7 @@
 
             <div class="setup-field">
                 <span class="setup-field-label">ACCOUNT NAME</span>
-                <code class="setup-code">YNK-Tech USA Admin</code>
+                <code class="setup-code">YNK-Tech USA Portal</code>
             </div>
 
             <div class="setup-field">
@@ -156,7 +156,7 @@
                 </div>
             </div>
 
-            <p class="setup-note">&#9888; Keep this key private. It is the second factor for your admin login.</p>
+            <p class="setup-note">&#9888; Keep this key private. It is the second factor for your login.</p>
 
             <div class="modal-actions">
                 <button class="modal-save" onclick="closeModal('modal-2fa-setup')">DONE — I&rsquo;VE SET IT UP</button>
@@ -173,7 +173,7 @@
             <a href="../index.html" class="portal-home-link">
                 <img src="../Logo/YNK/1.png" alt="YNK-Tech USA" class="portal-logo">
             </a>
-            <span class="admin-badge">ADMIN DASHBOARD</span>
+            <span class="admin-badge">MEMBER PORTAL</span>
             <button class="portal-logout" onclick="adminLogout()">SIGN OUT</button>
         </header>
 
