@@ -132,7 +132,8 @@ $routes = @(
     "POST /api/access-requests",
     "PATCH /api/access-requests/{id}",
     "POST /api/dynamic-codes",
-    "POST /api/track"
+    "POST /api/track",
+    "POST /api/track-event"
 )
 
 $existingRoutes = aws apigatewayv2 get-routes --api-id $API_ID --region $REGION --query "Items[].RouteKey" --output text 2>$null
