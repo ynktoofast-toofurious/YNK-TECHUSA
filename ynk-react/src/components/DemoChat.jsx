@@ -141,6 +141,8 @@ export default function DemoChat() {
             ref={inputRef}
             className="dc-input"
             type="text"
+            id="demo-chat-input"
+            name="demo-chat-message"
             placeholder={t('demoChat.placeholder')}
             value={input}
             onChange={e => setInput(e.target.value)}

@@ -82,6 +82,8 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
             ref={inputRef}
             className="ag-input"
             type="password"
+            id="access-code"
+            name="access-code"
             placeholder="Enter access code"
             value={code}
             onChange={(e) => setCode(e.target.value)}

@@ -196,6 +196,8 @@ export default function ConciergeChat() {
             <input
               className="cc-input"
               type="text"
+              id="concierge-chat-input"
+              name="concierge-chat-message"
               value={inputVal}
               onChange={e => setInputVal(e.target.value)}
               placeholder="Ask me anything or type a service…"
