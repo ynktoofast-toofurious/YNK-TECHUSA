@@ -154,7 +154,6 @@ export default function AIBall3D() {
     scene.add(ring)
 
     const timer = new THREE.Timer()
-    timer.start()
 
     const animate = () => {
       animFrameRef.current = requestAnimationFrame(animate)
