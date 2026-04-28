@@ -153,11 +153,13 @@ export default function AIBall3D() {
     }))
     scene.add(ring)
 
-    const timer = new THREE.Timer()
+    let lastTime = performance.now()
 
     const animate = () => {
       animFrameRef.current = requestAnimationFrame(animate)
-      const delta = timer.getDelta()
+      const now = performance.now()
+      const delta = (now - lastTime) / 1000
+      lastTime = now
 
       // Static until first mouse interaction
       if (!mouseHasMovedRef.current) {
