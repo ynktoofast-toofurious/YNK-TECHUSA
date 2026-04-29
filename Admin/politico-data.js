@@ -20,7 +20,7 @@
         // Load all data from CSV files
         async loadData() {
             try {
-                const baseUrl = '../Politico/drc_government_powerbi_star_schema_package/';
+                const baseUrl = 'https://ynk-techusa-politico-data.s3.us-east-1.amazonaws.com/politico/drc_government_powerbi_star_schema_package/';
                 
                 const [
                     personsResp,
