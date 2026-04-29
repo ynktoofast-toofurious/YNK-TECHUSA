@@ -1,0 +1,73 @@
+﻿Position_ID,Person_ID,Institution_ID,RoleCategory_ID,Role_Title,Branch_ID,Geo_ID,Parent_Position_ID,Level,Rank_Order,Is_Named_Office_Holder,Source_URL,Notes
+POS001,PER001,INS001,RC001,President of the Republic,B001,GEO001,,1,1,True,https://www.presidence.cd/,Head of State
+POS002,PER002,INS002,RC002,Prime Minister,B001,GEO001,POS001,2,2,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Head of Government
+POS003,,INS003,RC014,Council of Ministers,B001,GEO001,POS002,3,3,False,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Institution-level row
+POS004,PER003,INS021,RC003,"Vice-Premier Ministre, Ministre de l'Intérieur, Sécurité, Décentralisation et Affaires coutumières",B001,GEO001,POS002,3,3,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS005,PER004,INS022,RC003,"Vice-premier Ministre, Ministre des Transports et Voies de communication",B001,GEO001,POS002,3,3,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS006,PER005,INS023,RC003,"Vice-premier Ministre, Ministre de la Défense nationale et Anciens combattants",B001,GEO001,POS002,3,3,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS007,PER006,INS024,RC003,"Vice-premier ministre, Ministre de l'économie nationale",B001,GEO001,POS002,3,3,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS008,PER007,INS025,RC003,"Vice-premier ministre, Ministre du Budget",B001,GEO001,POS002,3,3,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS009,PER008,INS026,RC003,"Vice-premier Ministre, Ministre de la Fonction Publique, Modernisation de l'Administration et Innovation du Service Public",B001,GEO001,POS002,3,3,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS010,PER009,INS027,RC004,"Ministre d'État, Ministre du Plan et Coordination de l’aide au développement",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS011,PER010,INS028,RC004,"Ministre d'État, Ministre des Affaires Étrangères, Coopération internationale et Francophonie",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS012,PER011,INS029,RC004,"Ministre d'État, Ministre de l’Agriculture et Sécurité alimentaire",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS013,PER012,INS030,RC004,"Ministre d'État, Ministre de l’Industrie",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS014,PER013,INS031,RC004,"Ministre d'État, Ministre des Affaires sociales, Actions humanitaires et Solidarité nationale",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS015,PER014,INS032,RC004,Ministre d'État en charge de la Justice et Garde des sceaux,B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS016,PER015,INS033,RC004,"Ministre d’État, Ministre des Hydrocarbures",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS017,PER016,INS034,RC004,"Ministre d'État, Ministre de l'Éducation nationale et Nouvelle citoyenneté",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS018,PER017,INS035,RC004,"Ministre d'État, Ministre de la Formation professionnelle",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS019,PER018,INS036,RC004,"Ministre d'État, Ministre de l'Urbanisme et Habitat",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS020,PER019,INS037,RC004,"Ministre d'État, Ministre du Développement rural",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS021,PER020,INS038,RC004,"Ministre d'État, Ministre des Relations avec le Parlement / Aménagement du territoire",B001,GEO001,POS002,3,4,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS022,PER021,INS039,RC005,Ministre des Finances,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS023,PER022,INS040,RC005,Ministre de l'Industrie et Développement des Petites et Moyennes Entreprises,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS024,PER023,INS041,RC005,Ministre du Commerce Extérieur,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS025,PER024,INS042,RC005,Ministre de l'Environnement et Développement durable,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS026,PER025,INS043,RC005,Ministre des Infrastructures et Travaux publics,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS027,PER026,INS044,RC005,Ministre de l'Enseignement Supérieur et Universitaire,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS028,PER027,INS045,RC005,Ministre de l'Emploi et du Travail,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS029,PER028,INS046,RC005,Ministre des Postes et Télécommunications,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS030,PER029,INS047,RC005,Ministre de l'Économie numérique,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS031,PER030,INS048,RC005,Ministre des Mines,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS032,PER031,INS049,RC005,Ministre des Ressources hydrauliques et Électricité,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS033,PER032,INS050,RC005,"Ministre de la Communication et Médias, Porte-parole du Gouvernement",B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS034,PER033,INS051,RC005,Ministre de l'Entrepreneuriat / Développement des PME,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS035,PER034,INS052,RC005,Ministre de l'Aménagement du territoire,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS036,PER035,INS053,RC005,Ministre du Tourisme,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS037,PER036,INS054,RC005,Ministre de Pêche et Elevage,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS038,PER037,INS055,RC005,Ministre de la Culture et Arts,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS039,PER038,INS056,RC005,Ministre des Droits humains,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS040,PER039,INS057,RC005,Ministre de l'Intégration régionale,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS041,PER040,INS058,RC005,Ministre des Affaires foncières,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS042,PER041,INS059,RC005,Ministre des Sports et Loisirs,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS043,PER042,INS060,RC005,Ministre du Portefeuille,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS044,PER043,INS061,RC005,Ministre du Genre et Famille,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS045,PER044,INS062,RC005,Ministre de la Jeunesse et Éveil Patriotique,B001,GEO001,POS002,3,5,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS046,PER045,INS063,RC006,Ministre déléguée près le Ministre des Affaires étrangères (Francophonie et Diaspora),B001,GEO001,POS002,3,6,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS047,PER046,INS064,RC006,Ministre délégué près le Ministre de l’Environnement,B001,GEO001,POS002,3,6,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS048,PER047,INS065,RC006,Ministre délégué près le Ministre de l’Urbanisme et Habitat,B001,GEO001,POS002,3,6,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS049,PER048,INS066,RC006,Ministre délégué près le Ministre des Affaires sociales en charge des personnes vivant avec handicap,B001,GEO001,POS002,3,6,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS050,PER049,INS067,RC006,Ministre déléguée près le Ministre de la Défense nationale (Anciens combattants),B001,GEO001,POS002,3,6,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS051,PER050,INS068,RC007,Vice-ministre du Budget,B001,GEO001,POS002,3,7,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS052,PER051,INS069,RC007,Vice-ministre de l'Intérieur,B001,GEO001,POS002,3,7,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS053,PER052,INS070,RC007,Vice-ministre des Affaires étrangères,B001,GEO001,POS002,3,7,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS054,PER053,INS071,RC007,Vice-ministre des Finances,B001,GEO001,POS002,3,7,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS055,PER054,INS072,RC007,Vice-ministre de l’Éducation nationale (initiation à la nouvelle citoyenneté),B001,GEO001,POS002,3,7,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS056,PER055,INS073,RC007,Vice-ministre des Affaires Coutumières,B001,GEO001,POS002,3,7,True,https://www.primature.gouv.cd/membres-du-gouvernement-suminwa-2/,Named member from official Primature Suminwa II page
+POS100,,INS004,RC008,National Assembly / Speaker and Members,B002,GEO001,POS001,2,3,False,,Lower chamber; add individual deputies in a separate member table if needed
+POS101,,INS005,RC008,Senate / President and Senators,B002,GEO001,POS001,2,3,False,,Upper chamber; add individual senators in a separate member table if needed
+POS102,,INS006,RC010,Constitutional Court,B003,GEO001,POS001,2,4,False,,Judicial institution
+POS103,,INS007,RC010,Court of Cassation,B003,GEO001,POS001,2,4,False,,Judicial institution
+POS104,,INS008,RC010,Council of State,B003,GEO001,POS001,2,4,False,,Administrative judiciary
+POS105,,INS010,RC011,Provincial Government / Governor,B004,GEO003,POS001,4,5,False,,Repeat by province; template row
+POS106,,INS011,RC011,Provincial Assembly,B004,GEO003,POS001,4,5,False,,Repeat by province; template row
+POS107,,INS012,RC012,City Administration / Mayor,B005,GEO029,POS105,5,6,False,,Local level template
+POS108,,INS013,RC012,Commune Administration / Bourgmestre,B005,GEO030,POS105,6,7,False,,Local level template
+POS109,,INS014,RC012,Territory Administration / Administrator,B005,GEO031,POS105,6,7,False,,Local level template
+POS110,,INS015,RC013,Sector or Chiefdom Administration,B005,GEO032,POS105,7,8,False,,Customary/local template
+POS111,,INS016,RC013,Quartier Chief,B005,GEO034,POS105,8,9,False,,Neighborhood template
+POS112,,INS017,RC013,Village / Avenue Chief,B005,GEO035,POS105,9,10,False,,Grassroots template
+POS113,,INS018,RC014,CENI,B006,GEO001,POS001,2,4,False,,Independent election commission
+POS114,,INS019,RC014,Central Bank of Congo,B006,GEO001,POS001,2,4,False,,Monetary authority
+POS115,,INS020,RC014,Court of Accounts,B006,GEO001,POS001,2,4,False,,Audit institution

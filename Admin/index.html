@@ -7,6 +7,7 @@
     <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'self' https://ynk-techusa.com; connect-src 'self' https://api.emailjs.com https://*.execute-api.us-east-1.amazonaws.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="politico.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -41,6 +42,9 @@
                     </button>
                     <button type="submit" class="gate-btn" onclick="adminStep1()">NEXT &rsaquo;</button>
                 </div>
+                <label class="gate-remember" style="margin:10px 0 6px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--color-accent);cursor:pointer;letter-spacing:0.5px">
+                    <input type="checkbox" id="password-remember-check"> Remember password on this device for 60 days
+                </label>
                 <p id="gate-error-1" class="gate-error" aria-live="polite"></p>
             </form>
             <div class="gate-2fa-footer">
@@ -68,7 +72,7 @@
                     placeholder="000000" inputmode="numeric"
                     pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
                 <label class="gate-remember" style="margin:10px 0 14px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--color-accent);cursor:pointer;letter-spacing:0.5px">
-                    <input type="checkbox" id="admin-remember-check"> Remember me on this device for 30 days
+                    <input type="checkbox" id="admin-remember-check"> Remember me on this device for 60 days
                 </label>
                 <button id="totp-verify-btn" type="submit" class="gate-btn totp-btn" onclick="adminStep2()">VERIFY</button>
                 <p id="gate-error-2" class="gate-error" aria-live="polite"></p>
@@ -186,6 +190,10 @@
             <button class="main-tab" onclick="switchMainTab('analytics', this)">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 ANALYTICS
+            </button>
+            <button class="main-tab" onclick="switchMainTab('politico', this)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                POLITICO
             </button>
         </nav>
 
@@ -378,6 +386,66 @@
             </div>
         </div><!-- /#view-analytics -->
 
+        <!-- ════════════════════════════════════════════
+             POLITICO VIEW
+             ════════════════════════════════════════════ -->
+        <div id="view-politico" class="hidden">
+            <div class="politico-header">
+                <h1>DRC Government Information System</h1>
+                <p>Explore the Democratic Republic of the Congo's government structure with our AI-powered concierge and interactive hierarchy visualization</p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="politico-stats" id="politico-stats">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Chat Concierge Section -->
+            <section class="politico-chat-section">
+                <div class="politico-chat-header">
+                    <div>
+                        <div class="politico-chat-title">AI Concierge</div>
+                        <div class="politico-chat-subtitle">Ask questions about the DRC government structure</div>
+                    </div>
+                    <button class="politico-action-btn" onclick="PoliticoController.clearChat()">Clear Chat</button>
+                </div>
+                
+                <div class="politico-chat-messages" id="politico-chat-messages">
+                    <!-- Populated by JS -->
+                </div>
+                
+                <div class="politico-chat-input-wrapper">
+                    <input type="text" 
+                           id="politico-chat-input" 
+                           class="politico-chat-input" 
+                           placeholder="Ask me anything about the DRC government..."
+                           autocomplete="off">
+                    <button id="politico-chat-send" class="politico-chat-send">Send</button>
+                </div>
+                
+                <div class="politico-chat-actions">
+                    <button class="politico-action-btn primary" id="show-hierarchy-btn">Visualize Hierarchy</button>
+                </div>
+            </section>
+
+            <!-- Hierarchy Visualization Section -->
+            <section class="politico-viz-section" id="politico-viz-section">
+                <div class="politico-viz-header">
+                    <div>
+                        <div class="politico-viz-title">Government Hierarchy</div>
+                    </div>
+                    <div class="politico-viz-controls">
+                        <button id="viz-tree-view" class="politico-viz-btn active">Tree View</button>
+                        <button id="viz-list-view" class="politico-viz-btn">List View</button>
+                    </div>
+                </div>
+                
+                <div id="politico-viz-container">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </div><!-- /#view-politico -->
+
     </main>
 
     <!-- ════════════════════════════════════════════
@@ -530,6 +598,10 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="admin-data.js"></script>
+    <script src="politico-data.js"></script>
+    <script src="politico-concierge.js"></script>
+    <script src="politico-visualization.js"></script>
+    <script src="politico-controller.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>

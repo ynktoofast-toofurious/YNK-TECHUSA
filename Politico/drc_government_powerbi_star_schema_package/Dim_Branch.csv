@@ -1,0 +1,7 @@
+﻿Branch_ID,Branch_Name,Branch_Description
+B001,Executive,"Central executive branch: President, Prime Minister, Council of Ministers"
+B002,Legislative,Parliament: National Assembly and Senate
+B003,Judicial,Courts and justice system
+B004,Provincial,Provincial governments and assemblies
+B005,Local,"Cities, communes, territories, sectors, chiefdoms, quartiers, villages"
+B006,Independent/Support,Independent commissions and public administration support bodies

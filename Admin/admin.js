@@ -139,7 +139,9 @@
     }
 
     var ADMIN_REMEMBER_KEY  = 'ynk_admin_remember';
-    var ADMIN_REMEMBER_DAYS = 30;
+    var ADMIN_REMEMBER_DAYS = 60;
+    var PASSWORD_REMEMBER_KEY = 'ynk_password_remember';
+    var PASSWORD_REMEMBER_DAYS = 60;
 
     function saveAdminRemembered() {
         try {
@@ -147,6 +149,30 @@
                 expiry: Date.now() + ADMIN_REMEMBER_DAYS * 864e5
             }));
         } catch (e) {}
+    }
+
+    function savePasswordRemembered() {
+        try {
+            localStorage.setItem(PASSWORD_REMEMBER_KEY, JSON.stringify({
+                expiry: Date.now() + PASSWORD_REMEMBER_DAYS * 864e5,
+                verified: true
+            }));
+        } catch (e) {}
+    }
+
+    function loadPasswordRemembered() {
+        try {
+            var raw = localStorage.getItem(PASSWORD_REMEMBER_KEY);
+            if (!raw) return false;
+            var obj = JSON.parse(raw);
+            if (obj && obj.verified && obj.expiry && Date.now() < obj.expiry) return true;
+            localStorage.removeItem(PASSWORD_REMEMBER_KEY);
+        } catch (e) {}
+        return false;
+    }
+
+    function clearPasswordRemembered() {
+        try { localStorage.removeItem(PASSWORD_REMEMBER_KEY); } catch (e) {}
     }
 
     function loadAdminRemembered() {
@@ -172,6 +198,16 @@
             } else if (loadAdminRemembered()) {
                 sessionStorage.setItem(SESSION_KEY, 'ok');
                 showDashboard();
+            } else if (loadPasswordRemembered()) {
+                // Password is remembered, skip to TOTP step
+                pendingAuth = true;
+                document.getElementById('gate-step1').classList.add('hidden');
+                var step2 = document.getElementById('gate-step2');
+                if (step2) {
+                    step2.classList.remove('hidden');
+                    var totpInput = document.getElementById('totp-input');
+                    if (totpInput) totpInput.focus();
+                }
             }
         } catch (e) {
             console.error('Admin init error:', e);
@@ -209,6 +245,12 @@
             sessionStorage.removeItem('ynk_auth_lockuntil');
             clearErr('gate-error-1');
             pendingAuth = true;
+
+            // Save password if remember checkbox is checked
+            var passwordRememberEl = document.getElementById('password-remember-check');
+            if (passwordRememberEl && passwordRememberEl.checked) {
+                savePasswordRemembered();
+            }
 
             document.getElementById('gate-step1').classList.add('hidden');
             var step2 = document.getElementById('gate-step2');
@@ -271,6 +313,11 @@
 
     /** Go back to step 1 */
     window.backToStep1 = function () {
+        // If password is remembered, don't allow going back to step 1
+        if (loadPasswordRemembered()) {
+            showErr('gate-error-2', 'Password is remembered. To re-enter password, sign out first.');
+            return;
+        }
         pendingAuth = false;
         document.getElementById('gate-step2').classList.add('hidden');
         document.getElementById('gate-step1').classList.remove('hidden');
@@ -283,6 +330,7 @@
     window.adminLogout = function () {
         sessionStorage.removeItem(SESSION_KEY);
         clearAdminRemembered();
+        clearPasswordRemembered();
         content.classList.add('hidden');
         gate.style.display = 'flex';
         document.getElementById('gate-step2').classList.add('hidden');
@@ -349,6 +397,8 @@
         sha256Hex(newPw).then(function (hash) {
             // Update in-memory config hash (persists for session only)
             if (window.ADMIN_CONFIG) window.ADMIN_CONFIG.codeHash = hash;
+            // Clear password remember since password changed
+            clearPasswordRemembered();
             successEl.textContent = 'Admin code updated for this session. Update admin-data.js to persist.';
             setTimeout(function () { window.cancelReset(); }, 2500);
         });
@@ -1488,12 +1538,24 @@
         if (btn) btn.classList.add('active');
         var dashboard = document.getElementById('view-dashboard');
         var analytics = document.getElementById('view-analytics');
+        var politico = document.getElementById('view-politico');
+        
         if (tab === 'analytics') {
             if (dashboard) dashboard.classList.add('hidden');
             if (analytics) analytics.classList.remove('hidden');
+            if (politico) politico.classList.add('hidden');
+        } else if (tab === 'politico') {
+            if (dashboard) dashboard.classList.add('hidden');
+            if (analytics) analytics.classList.add('hidden');
+            if (politico) politico.classList.remove('hidden');
+            // Initialize Politico page if not already done
+            if (window.PoliticoController && !window.PoliticoController.initialized) {
+                window.PoliticoController.init();
+            }
         } else {
             if (dashboard) dashboard.classList.remove('hidden');
             if (analytics) analytics.classList.add('hidden');
+            if (politico) politico.classList.add('hidden');
         }
     };
 

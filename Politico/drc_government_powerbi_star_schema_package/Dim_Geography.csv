@@ -1,0 +1,37 @@
+﻿Geo_ID,Geo_Level,Geo_Name,Geo_Type,Parent_Geo_ID
+GEO001,Country,Democratic Republic of the Congo,National,
+GEO002,Capital,Kinshasa,City Province,GEO001
+GEO003,Province,Bas-Uélé,Province,GEO001
+GEO004,Province,Équateur,Province,GEO001
+GEO005,Province,Haut-Katanga,Province,GEO001
+GEO006,Province,Haut-Lomami,Province,GEO001
+GEO007,Province,Haut-Uélé,Province,GEO001
+GEO008,Province,Ituri,Province,GEO001
+GEO009,Province,Kasaï,Province,GEO001
+GEO010,Province,Kasaï-Central,Province,GEO001
+GEO011,Province,Kasaï-Oriental,Province,GEO001
+GEO012,Province,Kinshasa,Province,GEO001
+GEO013,Province,Kongo Central,Province,GEO001
+GEO014,Province,Kwango,Province,GEO001
+GEO015,Province,Kwilu,Province,GEO001
+GEO016,Province,Lomami,Province,GEO001
+GEO017,Province,Lualaba,Province,GEO001
+GEO018,Province,Mai-Ndombe,Province,GEO001
+GEO019,Province,Maniema,Province,GEO001
+GEO020,Province,Mongala,Province,GEO001
+GEO021,Province,Nord-Kivu,Province,GEO001
+GEO022,Province,Nord-Ubangi,Province,GEO001
+GEO023,Province,Sankuru,Province,GEO001
+GEO024,Province,Sud-Kivu,Province,GEO001
+GEO025,Province,Sud-Ubangi,Province,GEO001
+GEO026,Province,Tanganyika,Province,GEO001
+GEO027,Province,Tshopo,Province,GEO001
+GEO028,Province,Tshuapa,Province,GEO001
+GEO029,City,City / Ville,Generic local level,GEO001
+GEO030,Commune,Commune,Generic local level,GEO001
+GEO031,Territory,Territoire,Generic local level,GEO001
+GEO032,Sector,Secteur,Generic local level,GEO001
+GEO033,Chiefdom,Chefferie,Generic local level,GEO001
+GEO034,Quartier,Quartier,Generic local level,GEO001
+GEO035,Village,Village,Generic local level,GEO001
+GEO036,Avenue/Cell,Avenue / Cellule,Generic local level,GEO001

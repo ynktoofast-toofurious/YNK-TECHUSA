@@ -1,0 +1,6 @@
+﻿Measure_Name,DAX,Purpose
+Total Positions,COUNTROWS(Fact_GovernmentPosition),Counts all rows in the position fact table.
+Named Office Holders,"CALCULATE(COUNTROWS(Fact_GovernmentPosition), Fact_GovernmentPosition[Is_Named_Office_Holder] = TRUE())",Counts rows with named persons.
+Cabinet Members,"CALCULATE(COUNTROWS(Fact_GovernmentPosition), Dim_Branch[Branch_Name] = ""Executive"", Fact_GovernmentPosition[Level] = 3)",Counts executive cabinet-level rows.
+Ministers by Category,COUNTROWS(Fact_GovernmentPosition),Use with Dim_RoleCategory[Role_Category] in a visual.
+Institution Count,DISTINCTCOUNT(Fact_GovernmentPosition[Institution_ID]),Counts distinct institutions represented.

@@ -1,0 +1,7 @@
+﻿From_Table,From_Column,To_Table,To_Column,Cardinality,Cross_Filter,Status
+Fact_GovernmentPosition,Person_ID,Dim_Person,Person_ID,Many-to-one,Single,Active
+Fact_GovernmentPosition,Institution_ID,Dim_Institution,Institution_ID,Many-to-one,Single,Active
+Fact_GovernmentPosition,RoleCategory_ID,Dim_RoleCategory,RoleCategory_ID,Many-to-one,Single,Active
+Fact_GovernmentPosition,Branch_ID,Dim_Branch,Branch_ID,Many-to-one,Single,Active
+Fact_GovernmentPosition,Geo_ID,Dim_Geography,Geo_ID,Many-to-one,Single,Active
+Fact_GovernmentPosition,Parent_Position_ID,Fact_GovernmentPosition,Position_ID,Many-to-one,Single,Inactive/optional hierarchy

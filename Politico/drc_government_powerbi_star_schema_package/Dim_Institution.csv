@@ -1,0 +1,74 @@
+﻿Institution_ID,Institution_Name,Institution_Type,Jurisdiction_Level,Branch_Name,Notes
+INS001,Presidency of the Republic,Presidency,National,Executive,President leads the State
+INS002,Primature / Office of the Prime Minister,Prime Minister Office,National,Executive,Prime Minister leads government operations
+INS003,Council of Ministers,Cabinet,National,Executive,Collective government decision-making body
+INS004,National Assembly,Parliament Lower House,National,Legislative,Lower chamber of Parliament
+INS005,Senate,Parliament Upper House,National,Legislative,Upper chamber representing provinces
+INS006,Constitutional Court,High Court,National,Judicial,Constitutional review and electoral disputes
+INS007,Court of Cassation,High Court,National,Judicial,Highest court for ordinary judicial matters
+INS008,Council of State,High Court,National,Judicial,Highest administrative court
+INS009,Public Prosecutor / Parquet,Judicial Administration,National,Judicial,Prosecution services
+INS010,Provincial Government,Provincial Executive,Province,Provincial,Governor and provincial ministers
+INS011,Provincial Assembly,Provincial Legislature,Province,Provincial,Provincial lawmaking and oversight
+INS012,City Administration,Local Executive,City,Local,Urban governance
+INS013,Commune Administration,Local Executive,Commune,Local,Municipal-level administration
+INS014,Territory Administration,Local Executive,Territory,Local,Rural territory administration
+INS015,Sector / Chiefdom Administration,Customary/Local,Sector/Chiefdom,Local,Customary and rural administration
+INS016,Quartier Administration,Neighborhood,Quartier,Local,Neighborhood governance
+INS017,Village / Avenue Administration,Grassroots,Village/Avenue,Local,Smallest local authority
+INS018,CENI,Independent Commission,National,Independent/Support,Election management body
+INS019,Central Bank of Congo,Public Institution,National,Independent/Support,Monetary authority
+INS020,Court of Accounts,Audit Institution,National,Independent/Support,Public finance audit
+INS021,"Ministry of Interior, Security, Decentralization and Customary Affairs",Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS022,Ministry of Transport and Communication Routes,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS023,Ministry of National Defense and Veterans,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS024,Ministry of National Economy,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS025,Ministry of Budget,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS026,"Ministry of Public Service, Administrative Modernization and Public Service Innovation",Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS027,Ministry of Planning and Development Aid Coordination,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS028,"Ministry of Foreign Affairs, International Cooperation and Francophonie",Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS029,Ministry of Agriculture and Food Security,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS030,Ministry of Industry,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS031,"Ministry of Social Affairs, Humanitarian Action and National Solidarity",Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS032,Ministry of Justice and Keeper of the Seals,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS033,Ministry of Hydrocarbons,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS034,Ministry of National Education and New Citizenship,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS035,Ministry of Vocational Training,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS036,Ministry of Urban Planning and Housing,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS037,Ministry of Rural Development,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS038,Ministry of Relations with Parliament / Spatial Planning,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS039,Ministry of Finance,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS040,Ministry of Industry and SME Development,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS041,Ministry of Foreign Trade,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS042,Ministry of Environment and Sustainable Development,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS043,Ministry of Infrastructure and Public Works,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS044,Ministry of Higher and University Education,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS045,Ministry of Employment and Labor,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS046,Ministry of Posts and Telecommunications,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS047,Ministry of Digital Economy,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS048,Ministry of Mines,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS049,Ministry of Water Resources and Electricity,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS050,Ministry of Communication and Media,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS051,Ministry of Entrepreneurship / SME Development,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS052,Ministry of Spatial Planning,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS053,Ministry of Tourism,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS054,Ministry of Fisheries and Livestock,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS055,Ministry of Culture and Arts,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS056,Ministry of Human Rights,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS057,Ministry of Regional Integration,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS058,Ministry of Land Affairs,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS059,Ministry of Sports and Leisure,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS060,Ministry of Portfolio,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS061,Ministry of Gender and Family,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS062,Ministry of Youth and Patriotic Awakening,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS063,Delegate Ministry for Francophonie and Diaspora,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS064,Delegate Ministry near Environment,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS065,Delegate Ministry near Urban Planning and Housing,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS066,Delegate Ministry for Persons Living with Disabilities,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS067,Delegate Ministry near National Defense (Veterans),Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS068,Vice Ministry of Budget,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS069,Vice Ministry of Interior,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS070,Vice Ministry of Foreign Affairs,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS071,Vice Ministry of Finance,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS072,Vice Ministry of National Education,Ministry,National,Executive,Cabinet-level portfolio or attached ministry
+INS073,Vice Ministry of Customary Affairs,Ministry,National,Executive,Cabinet-level portfolio or attached ministry

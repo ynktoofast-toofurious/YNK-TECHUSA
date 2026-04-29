@@ -1,0 +1,15 @@
+﻿RoleCategory_ID,Role_Category,Rank_Order
+RC001,Head of State,1
+RC002,Head of Government,2
+RC003,Vice Prime Minister,3
+RC004,Minister of State,4
+RC005,Minister,5
+RC006,Delegate Minister,6
+RC007,Vice Minister,7
+RC008,Legislative Leader,3
+RC009,Legislator,4
+RC010,Judicial Leader,4
+RC011,Provincial Leader,5
+RC012,Local Leader,6
+RC013,Grassroots / Customary,7
+RC014,Institution,8

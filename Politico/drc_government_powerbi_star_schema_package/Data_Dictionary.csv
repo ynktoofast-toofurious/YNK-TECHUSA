@@ -1,0 +1,11 @@
+﻿Table_Name,Column_Name,Description
+Fact_GovernmentPosition,Position_ID,Unique position or structural node key
+Fact_GovernmentPosition,Person_ID,Foreign key to Dim_Person; blank for structural/institutional rows
+Fact_GovernmentPosition,Institution_ID,Foreign key to Dim_Institution
+Fact_GovernmentPosition,RoleCategory_ID,Foreign key to Dim_RoleCategory
+Fact_GovernmentPosition,Parent_Position_ID,Self-referencing hierarchy parent
+Dim_Person,Person_ID,Unique person key
+Dim_Institution,Institution_ID,Unique institution key
+Dim_Geography,Geo_ID,Unique geography key
+Dim_Branch,Branch_ID,Unique branch key
+Dim_RoleCategory,RoleCategory_ID,Unique role category key
