@@ -44,18 +44,26 @@
         
         showLoading() {
             const container = document.getElementById('view-politico');
-            if (container) {
-                container.innerHTML = `
-                    <div class="politico-loading">
-                        <div class="politico-loading-spinner"></div>
+            if (container && !document.getElementById('politico-loading-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.id = 'politico-loading-overlay';
+                overlay.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(26,26,46,0.95);display:flex;align-items:center;justify-content:center;z-index:1000;';
+                overlay.innerHTML = `
+                    <div style="text-align:center;color:#fff;">
+                        <div style="border:3px solid #4d9fff;border-top-color:transparent;border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite;margin:0 auto 20px;"></div>
                         <p>Loading DRC Government Data...</p>
                     </div>
                 `;
+                container.style.position = 'relative';
+                container.appendChild(overlay);
             }
         },
         
         hideLoading() {
-            // Loading state will be replaced by actual content
+            const overlay = document.getElementById('politico-loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
         },
         
         showError(message) {

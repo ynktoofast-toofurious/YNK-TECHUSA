@@ -2,6 +2,12 @@
    POLITICO PAGE STYLES
    ════════════════════════════════════════════ */
 
+/* Loading Spinner Animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 #view-politico {
     padding: 20px;
     max-width: 1400px;
