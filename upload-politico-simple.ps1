@@ -21,6 +21,14 @@ Write-Host "Uploading files..." -ForegroundColor Yellow
 # Upload files without ACL (use bucket policy instead)
 aws s3 sync ".\Politico" "s3://$BucketName/politico/" --region $Region --delete --exclude "*.xlsx"
 
+# Configure CORS
+Write-Host "Configuring CORS..." -ForegroundColor Yellow
+$corsConfig = "$PSScriptRoot\s3-cors-config.json"
+if (Test-Path $corsConfig) {
+    aws s3api put-bucket-cors --bucket $BucketName --cors-configuration "file://$corsConfig" --region $Region
+    Write-Host "CORS configured successfully" -ForegroundColor Green
+}
+
 Write-Host "`nUpload Complete!" -ForegroundColor Green
 Write-Host "`nYour data is now at:" -ForegroundColor Cyan
 Write-Host "https://$BucketName.s3.$Region.amazonaws.com/politico/" -ForegroundColor Yellow
