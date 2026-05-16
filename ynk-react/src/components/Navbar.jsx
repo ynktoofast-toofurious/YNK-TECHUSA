@@ -68,6 +68,7 @@ export default function Navbar() {
               <Link to="/#thumbnails" className="nav-link">{t('nav.services')}</Link>
             )}
           </li>
+          <li><Link to="/yb-Printing" className="nav-link">YB Printing</Link></li>
           <li><Link to="/consultants" className="nav-link">{t('nav.consultants')}</Link></li>
           <li className="nav-dropdown" ref={quoteRef}>
             <button
