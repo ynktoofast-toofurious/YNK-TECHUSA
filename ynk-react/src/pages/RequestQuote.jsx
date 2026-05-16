@@ -3,7 +3,11 @@ import { Link, useSearchParams } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
 
-emailjs.init('zG_jERVPbUUfiZ6IL')
+const EMAILJS_SERVICE_ID = 'service_sw3zais'
+const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
+const EMAILJS_PUBLIC_KEY = 'zG_jERVPbUUfiZ6IL'
+
+emailjs.init(EMAILJS_PUBLIC_KEY)
 
 const IT_SERVICES_EN = [
   'Website Development',
@@ -41,17 +45,54 @@ export default function RequestQuote() {
     setSending(true)
     setError('')
 
+    const formData = new FormData(formRef.current)
+    const quoteData = {
+      name: formData.get('from_name'),
+      email: formData.get('from_email'),
+      phone: formData.get('phone') || 'N/A',
+      company: formData.get('company') || 'N/A',
+      service: formData.get('service'),
+      budget: formData.get('budget') || 'N/A',
+      timeline: formData.get('timeline') || 'N/A',
+      message: formData.get('message'),
+      category: categoryLabel,
+    }
+
+    const contentHtml = `<p>A new quote request was submitted from the YNK-Tech USA website.</p>
+<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
+<strong>Category:</strong> ${quoteData.category}<br/>
+<strong>Name:</strong> ${quoteData.name}<br/>
+<strong>Email:</strong> ${quoteData.email}<br/>
+<strong>Phone:</strong> ${quoteData.phone}<br/>
+<strong>Company:</strong> ${quoteData.company}<br/>
+<strong>Service:</strong> ${quoteData.service}<br/>
+<strong>Budget:</strong> ${quoteData.budget}<br/>
+<strong>Timeline:</strong> ${quoteData.timeline}
+</div>
+<p><strong>Project details:</strong><br/>${quoteData.message}</p>`
+
     try {
-      // EmailJS: Replace these IDs with your actual EmailJS service, template, and public key
-      // Sign up at https://www.emailjs.com/ and create:
-      // 1. An email service connected to yannicknkongolo7@gmail.com
-      // 2. A template with variables: {{from_name}}, {{from_email}}, {{phone}}, {{company}}, {{service}}, {{budget}}, {{timeline}}, {{message}}
-      // 3. Get your public key from Account > API Keys
-      await emailjs.sendForm(
-        'service_sw3zais',
-        'template_8yj65yj',
-        formRef.current
-      )
+      await Promise.all([
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: 'yannicknkongolo7@gmail.com',
+          heading: `New Quote Request: ${quoteData.category}`,
+          content_html: contentHtml,
+          footer_note: 'You received this email because a quote request was submitted on the YNK-Tech USA website.',
+        }),
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: quoteData.email,
+          heading: 'We received your quote request',
+          content_html: `<p>Thanks ${quoteData.name || 'there'}.</p>
+<p>We received your <strong>${quoteData.category}</strong> quote request and will review it shortly.</p>
+<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
+<strong>Service:</strong> ${quoteData.service}<br/>
+<strong>Budget:</strong> ${quoteData.budget}<br/>
+<strong>Timeline:</strong> ${quoteData.timeline}
+</div>
+<p>We will follow up at ${quoteData.email} as soon as possible.</p>`,
+          footer_note: 'This is an automated confirmation from YNK-Tech USA.',
+        }),
+      ])
       setSent(true)
     } catch (err) {
       console.error('EmailJS error:', err)

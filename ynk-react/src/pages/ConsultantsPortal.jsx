@@ -5,7 +5,11 @@ import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage, trackLoginAtt
 import { useLanguage } from '../i18n/LanguageContext'
 import ResumeCard from '../components/ResumeCard'
 
-emailjs.init('zG_jERVPbUUfiZ6IL')
+const EMAILJS_SERVICE_ID = 'service_sw3zais'
+const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
+const EMAILJS_PUBLIC_KEY = 'zG_jERVPbUUfiZ6IL'
+
+emailjs.init(EMAILJS_PUBLIC_KEY)
 
 const INDUSTRY_ICONS = {
   Healthcare: <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg>,
@@ -58,11 +62,13 @@ export default function ConsultantsPortal() {
       setError(t('consultantsPage.enterCode'))
       return
     }
+
     // Normalize: uppercase, strip whitespace, replace any fancy dashes/quotes with ASCII equivalents
     const code = raw
       .toUpperCase()
       .replace(/\s+/g, '')
       .replace(/[\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g, '-')
+
     try {
       const hash = await sha256(code)
 
@@ -126,11 +132,7 @@ export default function ConsultantsPortal() {
     }
 
     try {
-      // Send notification email to admin
-      await emailjs.send('service_sw3zais', 'template_99cacr8', {
-        to_email: 'yannicknkongolo7@gmail.com',
-        heading: 'New Access Code Request',
-        content_html: `<p>A visitor has requested access to the <strong>Consultants Portal</strong>.</p>
+      const requestHtml = `<p>A visitor has requested access to the <strong>Consultants Portal</strong>.</p>
 <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
 <strong>Name:</strong> ${requestData.name}<br/>
 <strong>Email:</strong> ${requestData.email}<br/>
@@ -138,9 +140,29 @@ export default function ConsultantsPortal() {
 <strong>Industry:</strong> ${requestData.industry}<br/>
 <strong>Reason:</strong> ${requestData.reason}
 </div>
-<p><a href="https://ynk-techusa.com/Admin/" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Review Request</a></p>`,
-        footer_note: 'You received this email because you are an administrator of YNK-Tech USA',
-      })
+<p><a href="https://ynk-techusa.com/Admin/" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Review Request</a></p>`
+
+      await Promise.all([
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: 'yannicknkongolo7@gmail.com',
+          heading: 'New Access Code Request',
+          content_html: requestHtml,
+          footer_note: 'You received this email because you are an administrator of YNK-Tech USA',
+        }),
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: requestData.email,
+          heading: 'We received your access request',
+          content_html: `<p>Thanks ${requestData.name || 'there'}.</p>
+<p>We received your access request for the <strong>${requestData.industry}</strong> section and will review it shortly.</p>
+<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
+<strong>Company:</strong> ${requestData.company}<br/>
+<strong>Industry:</strong> ${requestData.industry}<br/>
+<strong>Reason:</strong> ${requestData.reason}
+</div>
+<p>We will follow up at ${requestData.email} as soon as possible.</p>`,
+          footer_note: 'This is an automated confirmation from YNK-Tech USA.',
+        }),
+      ])
 
       // Save to cloud/localStorage for admin portal
       await saveAccessRequest(requestData)
