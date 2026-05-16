@@ -13,7 +13,6 @@ import ITServices from './pages/ITServices'
 import Branding from './pages/Branding'
 import ConsultantsPortal from './pages/ConsultantsPortal'
 import RequestQuote from './pages/RequestQuote'
-import YBPrinting from './pages/YBPrinting'
 import NotFound from './pages/NotFound'
 
 const PAGE_MAP = {
@@ -22,7 +21,6 @@ const PAGE_MAP = {
   '/branding': 'branding',
   '/consultants': 'consultants',
   '/request-quote': 'request-quote',
-  '/yb-Printing': 'yb-printing',
 }
 
 function ProtectedRoute({ children }) {
@@ -36,7 +34,6 @@ function ProtectedRoute({ children }) {
 
 function App() {
   const location = useLocation()
-  const isYBPrintingPage = location.pathname === '/yb-Printing'
 
   useEffect(() => {
     const page = PAGE_MAP[location.pathname] || 'other'
@@ -45,20 +42,19 @@ function App() {
 
   return (
     <AccessProvider>
-      {!isYBPrintingPage && <LanguagePopup />}
+      <LanguagePopup />
       <ScrollToTop />
-      {!isYBPrintingPage && <CookieConsent />}
-      {!isYBPrintingPage && <Navbar />}
+      <CookieConsent />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/request-quote" element={<RequestQuote />} />
         <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />
         <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />
         <Route path="/consultants" element={<ProtectedRoute><ConsultantsPortal /></ProtectedRoute>} />
-        <Route path="/yb-Printing" element={<YBPrinting />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {!isYBPrintingPage && <Footer />}
+      <Footer />
     </AccessProvider>
   )
 }

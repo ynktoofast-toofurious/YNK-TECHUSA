@@ -147,20 +147,6 @@ img {
     color: var(--color-accent-light);
 }
 
-.yb-printing-page {
-    min-height: 100vh;
-    width: 100%;
-    background: #000;
-}
-
-.yb-printing-frame {
-    width: 100%;
-    height: 100vh;
-    border: 0;
-    display: block;
-    background: #000;
-}
-
 .btn-lg {
     padding: 18px 40px;
     font-size: 16px;

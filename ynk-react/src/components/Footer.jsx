@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="footer-nav">
             <Link to="/it-services">{t('nav.itServices')}</Link>
             <Link to="/branding">{t('nav.branding')}</Link>
-            <Link to="/yb-Printing">YB Printing</Link>
+            <a href="/yb-Printing/">YB Printing</a>
             <Link to="/consultants">{t('nav.consultants')}</Link>
             <Link to="/request-quote">{t('nav.requestQuote')}</Link>
             <Link to="/#contact">{t('nav.contact')}</Link>
