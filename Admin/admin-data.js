@@ -4,7 +4,7 @@ window.ADMIN_CONFIG = {
        When set, access requests / dynamic codes / site stats are
        read from and written to S3 instead of only localStorage.
        The deploy-aws.ps1 script fills this in automatically. */
-    apiUrl: 'https://enf1mo6r68.execute-api.us-east-1.amazonaws.com',
+    apiUrl: 'https://jk7ml96v63.execute-api.us-east-1.amazonaws.com',
 
     /* SHA-256 hash of the admin access code.
        Default code: "YNK-ADMIN2026"
