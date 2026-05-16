@@ -8,6 +8,7 @@ const COLLECTIONS = {
   'dynamic-codes':   'data/dynamic-codes.json',
   'site-stats':      'data/site-stats.json',
   'access-events':   'data/access-events.json',
+  'orders':          'data/orders.json',
 };
 
 const CORS = {
@@ -197,6 +198,33 @@ export async function handler(event) {
       if (events.length > 1000) events.splice(0, events.length - 1000);
       await writeS3(COLLECTIONS['access-events'], events);
       return respond(201, { ok: true });
+    }
+
+    // ── POST /api/orders ─────────────────────────────
+    if (method === 'POST' && path === '/api/orders') {
+      const body = JSON.parse(event.body || '{}');
+      if (!body.orderId || !body.item?.name || body.item?.price === undefined) {
+        return respond(400, { error: 'Missing required fields: orderId, item.name, item.price' });
+      }
+
+      const orders = await readS3(COLLECTIONS.orders);
+      orders.push({
+        orderId:   sanitize(body.orderId, 80),
+        source:    sanitize(body.source || 'unknown', 60),
+        createdAt: body.createdAt || new Date().toISOString(),
+        item: {
+          sku:   sanitize(body.item.sku || '', 80),
+          name:  sanitize(body.item.name, 160),
+          price: Number(body.item.price) || 0,
+          qty:   Number(body.item.qty) || 1,
+        },
+        customization: body.customization || null,
+      });
+
+      if (orders.length > 5000) orders.splice(0, orders.length - 5000);
+      await writeS3(COLLECTIONS.orders, orders);
+
+      return respond(201, { ok: true, orderId: body.orderId });
     }
 
     return respond(404, { error: 'Not found' });
