@@ -80,36 +80,59 @@ Write-Host "  Created $zipPath"
 Write-Host "[3/6] Deploying Lambda function..." -ForegroundColor Yellow
 
 $lambdaExists = $false
-try {
-    aws lambda get-function --function-name $FUNCTION_NAME --region $REGION --output text 2>$null | Out-Null
+aws lambda get-function --function-name $FUNCTION_NAME --region $REGION --output text 2>$null | Out-Null
+if ($LASTEXITCODE -eq 0) {
     $lambdaExists = $true
-} catch {}
+}
 
 $envVars = "Variables={BUCKET_NAME=$BUCKET}"
 
 if ($lambdaExists) {
-    aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://$zipPath" --region $REGION --output text | Out-Null
-    aws lambda wait function-updated --function-name $FUNCTION_NAME --region $REGION 2>$null
-    aws lambda update-function-configuration --function-name $FUNCTION_NAME --runtime nodejs20.x --handler index.handler --timeout 15 --memory-size 128 --environment $envVars --region $REGION --output text | Out-Null
-    Write-Host "  Updated existing Lambda function"
-} else {
-    aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs20.x --handler index.handler --role $ROLE_ARN --zip-file "fileb://$zipPath" --timeout 15 --memory-size 128 --environment $envVars --region $REGION --output text | Out-Null
-    Write-Host "  Created new Lambda function"
-    aws lambda wait function-active-v2 --function-name $FUNCTION_NAME --region $REGION 2>$null
+    aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://$zipPath" --region $REGION --output text 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0) {
+        aws lambda wait function-updated --function-name $FUNCTION_NAME --region $REGION 2>$null
+        aws lambda update-function-configuration --function-name $FUNCTION_NAME --runtime nodejs20.x --handler index.handler --timeout 15 --memory-size 128 --environment $envVars --region $REGION --output text 2>$null | Out-Null
+        Write-Host "  Updated existing Lambda function"
+    } else {
+        $lambdaExists = $false
+    }
+}
+
+if (-not $lambdaExists) {
+    aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs20.x --handler index.handler --role $ROLE_ARN --zip-file "fileb://$zipPath" --timeout 15 --memory-size 128 --environment $envVars --region $REGION --output text 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "  Created new Lambda function"
+        aws lambda wait function-active-v2 --function-name $FUNCTION_NAME --region $REGION 2>$null
+    } else {
+        Write-Host "  ERROR: Lambda create/update failed" -ForegroundColor Red
+    }
 }
 
 # ── 4. Create API Gateway HTTP API ──────────────────────
 Write-Host "[4/6] Setting up API Gateway..." -ForegroundColor Yellow
 
-$existingApi = (aws apigatewayv2 get-apis --region $REGION --query "Items[?Name=='$API_NAME'].ApiId" --output text 2>$null).Trim()
+$apisRaw = aws apigatewayv2 get-apis --region $REGION --output json 2>$null
+$API_ID = $null
+if ($LASTEXITCODE -eq 0 -and $apisRaw) {
+    $apis = $apisRaw | ConvertFrom-Json
+    $matchingApis = @($apis.Items | Where-Object { $_.Name -eq $API_NAME })
+    if ($matchingApis.Count -gt 0) {
+        # Keep the oldest API as canonical to avoid flipping endpoints unexpectedly.
+        $API_ID = ($matchingApis | Sort-Object CreatedDate | Select-Object -First 1).ApiId
+        Write-Host "  Using existing API: $API_ID"
+    }
+}
 
-if ($existingApi -and $existingApi -ne "None" -and $existingApi -ne "") {
-    $API_ID = $existingApi
-    Write-Host "  Using existing API: $API_ID"
-} else {
+if (-not $API_ID) {
     $corsConfig = "AllowOrigins=*,AllowMethods=GET,POST,PATCH,OPTIONS,AllowHeaders=Content-Type"
-    $API_ID = (aws apigatewayv2 create-api --name $API_NAME --protocol-type HTTP --cors-configuration $corsConfig --region $REGION --query "ApiId" --output text).Trim()
-    Write-Host "  Created API: $API_ID"
+    $API_ID = (aws apigatewayv2 create-api --name $API_NAME --protocol-type HTTP --cors-configuration $corsConfig --region $REGION --query "ApiId" --output text 2>$null).Trim()
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "  Created API: $API_ID"
+    } else {
+        Write-Host "  ERROR: Could not create API" -ForegroundColor Red
+    }
+} else {
+    Write-Host "  API selected: $API_ID"
 }
 
 # ── 5. Create Integration & Routes ──────────────────────
@@ -117,14 +140,23 @@ Write-Host "[5/6] Configuring routes..." -ForegroundColor Yellow
 
 $LAMBDA_ARN = "arn:aws:lambda:${REGION}:${ACCOUNT_ID}:function:$FUNCTION_NAME"
 
-$existingInteg = (aws apigatewayv2 get-integrations --api-id $API_ID --region $REGION --query "Items[?IntegrationUri=='$LAMBDA_ARN'].IntegrationId" --output text 2>$null).Trim()
+$existingInteg = $null
+$integrationsRaw = aws apigatewayv2 get-integrations --api-id $API_ID --region $REGION --output json 2>$null
+if ($LASTEXITCODE -eq 0 -and $integrationsRaw) {
+    $integrations = $integrationsRaw | ConvertFrom-Json
+    $existingInteg = @($integrations.Items | Where-Object { $_.IntegrationUri -eq $LAMBDA_ARN } | Select-Object -ExpandProperty IntegrationId -First 1)
+}
 
-if ($existingInteg -and $existingInteg -ne "None" -and $existingInteg -ne "") {
-    $INTEG_ID = $existingInteg
+if ($existingInteg) {
+    $INTEG_ID = $existingInteg[0]
     Write-Host "  Using existing integration: $INTEG_ID"
 } else {
-    $INTEG_ID = (aws apigatewayv2 create-integration --api-id $API_ID --integration-type AWS_PROXY --integration-uri $LAMBDA_ARN --payload-format-version "2.0" --region $REGION --query "IntegrationId" --output text).Trim()
-    Write-Host "  Created integration: $INTEG_ID"
+    $INTEG_ID = (aws apigatewayv2 create-integration --api-id $API_ID --integration-type AWS_PROXY --integration-uri $LAMBDA_ARN --payload-format-version "2.0" --region $REGION --query "IntegrationId" --output text 2>$null).Trim()
+    if ($LASTEXITCODE -eq 0 -and $INTEG_ID) {
+        Write-Host "  Created integration: $INTEG_ID"
+    } else {
+        Write-Host "  ERROR: Could not create integration" -ForegroundColor Red
+    }
 }
 
 $routes = @(
@@ -133,7 +165,8 @@ $routes = @(
     "PATCH /api/access-requests/{id}",
     "POST /api/dynamic-codes",
     "POST /api/track",
-    "POST /api/track-event"
+    "POST /api/track-event",
+    "POST /api/orders"
 )
 
 $existingRoutes = aws apigatewayv2 get-routes --api-id $API_ID --region $REGION --query "Items[].RouteKey" --output text 2>$null
@@ -142,17 +175,25 @@ foreach ($route in $routes) {
     if ($existingRoutes -and $existingRoutes -match [regex]::Escape($route)) {
         Write-Host "  Route exists: $route"
     } else {
-        aws apigatewayv2 create-route --api-id $API_ID --route-key $route --target "integrations/$INTEG_ID" --region $REGION --output text | Out-Null
-        Write-Host "  Created route: $route"
+        aws apigatewayv2 create-route --api-id $API_ID --route-key $route --target "integrations/$INTEG_ID" --region $REGION --output text 2>$null | Out-Null
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "  Created route: $route"
+        } else {
+            Write-Host "  WARNING: Failed to create route: $route" -ForegroundColor Yellow
+        }
     }
 }
 
 # Create default stage with auto-deploy
-$stageQuery = "Items[?StageName==``" + '$default' + "``].StageName"
-$stageExists = (aws apigatewayv2 get-stages --api-id $API_ID --region $REGION --query $stageQuery --output text 2>$null).Trim()
+$stageExists = $false
+$stagesRaw = aws apigatewayv2 get-stages --api-id $API_ID --region $REGION --output json 2>$null
+if ($LASTEXITCODE -eq 0 -and $stagesRaw) {
+    $stages = $stagesRaw | ConvertFrom-Json
+    $stageExists = @($stages.Items | Where-Object { $_.StageName -eq '$default' }).Count -gt 0
+}
 
-if (-not $stageExists -or $stageExists -eq "" -or $stageExists -eq "None") {
-    aws apigatewayv2 create-stage --api-id $API_ID --stage-name '$default' --auto-deploy --region $REGION --output text | Out-Null
+if (-not $stageExists) {
+    aws apigatewayv2 create-stage --api-id $API_ID --stage-name '$default' --auto-deploy --region $REGION --output text 2>$null | Out-Null
     Write-Host "  Created default stage with auto-deploy"
 } else {
     Write-Host "  Default stage already exists"
@@ -163,7 +204,8 @@ Write-Host "[6/6] Setting Lambda permissions..." -ForegroundColor Yellow
 
 $sourceArn = "arn:aws:execute-api:${REGION}:${ACCOUNT_ID}:${API_ID}/*"
 try {
-    aws lambda add-permission --function-name $FUNCTION_NAME --statement-id "apigateway-invoke" --action "lambda:InvokeFunction" --principal "apigateway.amazonaws.com" --source-arn $sourceArn --region $REGION --output text 2>$null | Out-Null
+    $statementId = "apigateway-invoke-$($API_ID)"
+    aws lambda add-permission --function-name $FUNCTION_NAME --statement-id $statementId --action "lambda:InvokeFunction" --principal "apigateway.amazonaws.com" --source-arn $sourceArn --region $REGION --output text 2>$null | Out-Null
     Write-Host "  Added invoke permission"
 } catch {
     Write-Host "  Permission already exists - skipping"
