@@ -1,4 +1,15 @@
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+
+const OFFERS_ACCESS_KEY = 'ynk_offers_access_until'
+
+function formatRemainingTime(ms) {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000))
+  const days = Math.floor(totalSeconds / 86400)
+  const hours = Math.floor((totalSeconds % 86400) / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  return `${days}d ${hours}h ${minutes}m`
+}
 
 const OFFERS = [
   {
@@ -120,7 +131,7 @@ const OFFERS = [
   },
 ]
 
-function OffersOverview() {
+function OffersOverview({ accessInfo }) {
   return (
     <>
       <section className="page-hero">
@@ -136,6 +147,11 @@ function OffersOverview() {
 
       <section className="detail-section">
         <div className="container">
+          {accessInfo && (
+            <div className="offer-note" style={{ marginBottom: '16px' }}>
+              Offers access expires in <strong>{accessInfo.remaining}</strong> (until {accessInfo.expiresAt}).
+            </div>
+          )}
           <div className="offer-note">
             Advanced features, integrations, extra revisions, custom hosting, databases,
             active AI, WhatsApp, SMS, and third-party provider fees are billed separately
@@ -174,7 +190,7 @@ function OffersOverview() {
   )
 }
 
-function OfferDetail({ offer }) {
+function OfferDetail({ offer, accessInfo }) {
   return (
     <>
       <section className="page-hero">
@@ -188,6 +204,11 @@ function OfferDetail({ offer }) {
 
       <section className="detail-section">
         <div className="container">
+          {accessInfo && (
+            <div className="offer-note" style={{ marginBottom: '16px' }}>
+              Offers access expires in <strong>{accessInfo.remaining}</strong> (until {accessInfo.expiresAt}).
+            </div>
+          )}
           <div className="offer-meta-row offer-meta-banner">
             <span>Ideal For</span>
             <strong>{offer.idealFor}</strong>
@@ -274,9 +295,27 @@ function OfferDetail({ offer }) {
 
 export default function ServiceOffers() {
   const { offerId } = useParams()
+  const [now, setNow] = useState(Date.now())
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 30000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const accessInfo = useMemo(() => {
+    const expiresAtRaw = Number(sessionStorage.getItem(OFFERS_ACCESS_KEY) || '0')
+    if (!expiresAtRaw || expiresAtRaw <= now) {
+      return null
+    }
+
+    return {
+      remaining: formatRemainingTime(expiresAtRaw - now),
+      expiresAt: new Date(expiresAtRaw).toLocaleString(),
+    }
+  }, [now])
 
   if (!offerId) {
-    return <OffersOverview />
+    return <OffersOverview accessInfo={accessInfo} />
   }
 
   const offer = OFFERS.find((item) => item.id === offerId)
@@ -295,5 +334,5 @@ export default function ServiceOffers() {
     )
   }
 
-  return <OfferDetail offer={offer} />
+  return <OfferDetail offer={offer} accessInfo={accessInfo} />
 }

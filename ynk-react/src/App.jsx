@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LanguagePopup from './components/LanguagePopup'
 import AccessGate from './components/AccessGate'
-import GoogleSSOGate from './components/GoogleSSOGate'
+import OffersAccessGate from './components/OffersAccessGate'
 import CookieConsent from './components/CookieConsent'
 import { AccessProvider, useAccess } from './context/AccessContext'
 import Home from './pages/Home'
@@ -36,28 +36,21 @@ function ProtectedRoute({ children }) {
   return children
 }
 
-function OffersGoogleRoute({ children }) {
-  const { isUnlocked } = useAccess()
-  const [hasGoogleSSO, setHasGoogleSSO] = useState(
-    () => sessionStorage.getItem('ynk_google_sso') === '1'
+function OffersCodeRoute({ children }) {
+  const [hasOfferAccess, setHasOfferAccess] = useState(
+    () => {
+      const until = Number(sessionStorage.getItem('ynk_offers_access_until') || '0')
+      return until > Date.now()
+    }
   )
   const location = useLocation()
-  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
-  if (!googleClientId) {
-    if (!isUnlocked) {
-      return <AccessGate redirectTo={location.pathname} />
-    }
-    return children
-  }
-
-  if (!hasGoogleSSO) {
+  if (!hasOfferAccess) {
     return (
-      <GoogleSSOGate
+      <OffersAccessGate
         redirectTo={location.pathname}
         onSuccess={() => {
-          sessionStorage.setItem('ynk_google_sso', '1')
-          setHasGoogleSSO(true)
+          setHasOfferAccess(true)
         }}
       />
     )
@@ -89,8 +82,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/request-quote" element={<RequestQuote />} />
         <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />
-        <Route path="/it-services/offers" element={<OffersGoogleRoute><ServiceOffers /></OffersGoogleRoute>} />
-        <Route path="/it-services/offers/:offerId" element={<OffersGoogleRoute><ServiceOffers /></OffersGoogleRoute>} />
+        <Route path="/it-services/offers" element={<OffersCodeRoute><ServiceOffers /></OffersCodeRoute>} />
+        <Route path="/it-services/offers/:offerId" element={<OffersCodeRoute><ServiceOffers /></OffersCodeRoute>} />
         <Route path="/it-services/offres" element={<Navigate to="/it-services/offers" replace />} />
         <Route path="/it-services/offres/:offerId" element={<LegacyOfferDetailRedirect />} />
         <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />
