@@ -10,6 +10,7 @@ import CookieConsent from './components/CookieConsent'
 import { AccessProvider, useAccess } from './context/AccessContext'
 import Home from './pages/Home'
 import ITServices from './pages/ITServices'
+import ServiceOffers from './pages/ServiceOffers'
 import Branding from './pages/Branding'
 import ConsultantsPortal from './pages/ConsultantsPortal'
 import RequestQuote from './pages/RequestQuote'
@@ -18,6 +19,7 @@ import NotFound from './pages/NotFound'
 const PAGE_MAP = {
   '/': 'home',
   '/it-services': 'it-services',
+  '/it-services/offres': 'it-services-offers',
   '/branding': 'branding',
   '/consultants': 'consultants',
   '/request-quote': 'request-quote',
@@ -50,6 +52,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/request-quote" element={<RequestQuote />} />
         <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />
+        <Route path="/it-services/offres" element={<ProtectedRoute><ServiceOffers /></ProtectedRoute>} />
+        <Route path="/it-services/offres/:offerId" element={<ProtectedRoute><ServiceOffers /></ProtectedRoute>} />
         <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />
         <Route path="/consultants" element={<ProtectedRoute><ConsultantsPortal /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
