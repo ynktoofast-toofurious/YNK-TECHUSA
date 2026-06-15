@@ -69,7 +69,7 @@ export default function Navbar() {
             )}
           </li>
           <li>
-            <Link to="/it-services/offres" className="nav-link">Offres</Link>
+            <Link to="/it-services/offers" className="nav-link">Offers</Link>
           </li>
           <li><a href="/yb-Printing/" className="nav-link">YB Printing</a></li>
           <li><Link to="/consultants" className="nav-link">{t('nav.consultants')}</Link></li>

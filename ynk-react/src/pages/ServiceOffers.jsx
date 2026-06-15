@@ -126,10 +126,10 @@ function OffersOverview() {
       <section className="page-hero">
         <div className="container">
           <span className="section-tag">Services</span>
-          <h1 className="section-title">Offres de demarrage</h1>
+          <h1 className="section-title">Offers</h1>
           <p className="section-subtitle">
-            Ces offres permettent de commencer rapidement avec une base digitale claire.
-            Les prix sont des tarifs de depart.
+            Start quickly with clear and practical service packages.
+            Pricing shown reflects starter rates.
           </p>
         </div>
       </section>
@@ -137,9 +137,9 @@ function OffersOverview() {
       <section className="detail-section">
         <div className="container">
           <div className="offer-note">
-            Les fonctionnalites avancees, integrations, revisions supplementaires,
-            hebergement personnalise, base de donnees, IA active, WhatsApp, SMS et frais
-            fournisseurs sont factures separement lorsqu ils s appliquent.
+            Advanced features, integrations, extra revisions, custom hosting, databases,
+            active AI, WhatsApp, SMS, and third-party provider fees are billed separately
+            when applicable.
           </div>
 
           <div className="offer-summary-grid">
@@ -150,11 +150,11 @@ function OffersOverview() {
                 <p className="offer-price">{offer.price}</p>
                 <p>{offer.idealFor}</p>
                 <div className="offer-meta-row">
-                  <span>Support recommande</span>
+                  <span>Recommended Support</span>
                   <strong>{offer.support}</strong>
                 </div>
-                <Link to={`/it-services/offres/${offer.id}`} className="btn btn-secondary">
-                  Voir details
+                <Link to={`/it-services/offers/${offer.id}`} className="btn btn-secondary">
+                  View Details
                 </Link>
               </article>
             ))}
@@ -162,10 +162,10 @@ function OffersOverview() {
 
           <div className="detail-action" style={{ marginTop: '28px' }}>
             <Link to="/it-services" className="btn btn-secondary">
-              Retour aux services IT
+              Back to IT Services
             </Link>
             <Link to="/request-quote?category=it" className="btn btn-primary" style={{ marginLeft: '12px' }}>
-              Demander un devis
+              Request a Quote
             </Link>
           </div>
         </div>
@@ -189,7 +189,7 @@ function OfferDetail({ offer }) {
       <section className="detail-section">
         <div className="container">
           <div className="offer-meta-row offer-meta-banner">
-            <span>Ideal pour</span>
+            <span>Ideal For</span>
             <strong>{offer.idealFor}</strong>
           </div>
 
@@ -259,11 +259,11 @@ function OfferDetail({ offer }) {
           )}
 
           <div className="detail-action" style={{ marginTop: '28px' }}>
-            <Link to="/it-services/offres" className="btn btn-secondary">
-              Retour aux offres
+            <Link to="/it-services/offers" className="btn btn-secondary">
+              Back to Offers
             </Link>
             <Link to="/request-quote?category=it" className="btn btn-primary" style={{ marginLeft: '12px' }}>
-              Demander un devis
+              Request a Quote
             </Link>
           </div>
         </div>
@@ -285,10 +285,10 @@ export default function ServiceOffers() {
     return (
       <section className="detail-section" style={{ paddingTop: '160px' }}>
         <div className="container">
-          <h1 className="section-title">Offre introuvable</h1>
-          <p className="section-subtitle">Cette page n existe pas ou a ete deplacee.</p>
+          <h1 className="section-title">Offer Not Found</h1>
+          <p className="section-subtitle">This page does not exist or has moved.</p>
           <div className="detail-action" style={{ marginTop: '20px' }}>
-            <Link to="/it-services/offres" className="btn btn-secondary">Voir toutes les offres</Link>
+            <Link to="/it-services/offers" className="btn btn-secondary">View All Offers</Link>
           </div>
         </div>
       </section>
