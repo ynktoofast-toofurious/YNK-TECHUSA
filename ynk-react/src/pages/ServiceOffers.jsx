@@ -11,6 +11,82 @@ function formatRemainingTime(ms) {
   return `${days}d ${hours}h ${minutes}m`
 }
 
+function OfferDetailContent({ offer }) {
+  return (
+    <>
+      <div className="offer-meta-row offer-meta-banner">
+        <span>Ideal For</span>
+        <strong>{offer.idealFor}</strong>
+      </div>
+
+      <div className="offer-detail-grid">
+        <div className="offer-panel">
+          <h2>Inclus</h2>
+          <ul className="offer-list">
+            {offer.included.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        {offer.excluded && (
+          <div className="offer-panel">
+            <h2>Non inclus</h2>
+            <ul className="offer-list offer-list-muted">
+              {offer.excluded.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {offer.important && <div className="offer-warning">Important: {offer.important}</div>}
+
+      {offer.limitations && (
+        <div className="offer-panel" style={{ marginTop: '20px' }}>
+          <h2>Limites importantes</h2>
+          <p className="offer-body">La Shell / Coquille est une demo, pas une plateforme de production.</p>
+          <ul className="offer-list offer-list-muted">
+            {offer.limitations.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {offer.dataStorage && (
+        <div className="offer-panel" style={{ marginTop: '20px' }}>
+          <h2>Donnees et stockage</h2>
+          <p className="offer-body">{offer.dataStorage}</p>
+          <p className="offer-body">{offer.dbAddon}</p>
+        </div>
+      )}
+
+      {offer.postPeriod && (
+        <div className="offer-panel" style={{ marginTop: '20px' }}>
+          <h2>Apres les 14 jours</h2>
+          <p className="offer-body">{offer.postPeriod}</p>
+        </div>
+      )}
+
+      {offer.domainHosting && (
+        <div className="offer-panel" style={{ marginTop: '20px' }}>
+          <h2>Domaine et hebergement personnalise</h2>
+          <p className="offer-body">{offer.domainHosting}</p>
+        </div>
+      )}
+
+      {offer.revisions && (
+        <div className="offer-panel" style={{ marginTop: '20px' }}>
+          <h2>Revisions</h2>
+          <p className="offer-body">{offer.revisions}</p>
+        </div>
+      )}
+    </>
+  )
+}
+
 const OFFERS = [
   {
     id: 'presence-web-professionnelle',
@@ -132,6 +208,29 @@ const OFFERS = [
 ]
 
 function OffersOverview({ accessInfo }) {
+  const [selectedOffer, setSelectedOffer] = useState(null)
+
+  useEffect(() => {
+    if (!selectedOffer) {
+      document.body.style.overflow = ''
+      return
+    }
+
+    document.body.style.overflow = 'hidden'
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setSelectedOffer(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = ''
+    }
+  }, [selectedOffer])
+
   return (
     <>
       <section className="page-hero">
@@ -169,9 +268,13 @@ function OffersOverview({ accessInfo }) {
                   <span>Recommended Support</span>
                   <strong>{offer.support}</strong>
                 </div>
-                <Link to={`/it-services/offers/${offer.id}`} className="btn btn-secondary">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setSelectedOffer(offer)}
+                >
                   View Details
-                </Link>
+                </button>
               </article>
             ))}
           </div>
@@ -186,6 +289,52 @@ function OffersOverview({ accessInfo }) {
           </div>
         </div>
       </section>
+
+      {selectedOffer && (
+        <div className="offer-drawer-layer" role="dialog" aria-modal="true" aria-label="Offer details panel">
+          <button
+            type="button"
+            className="offer-drawer-backdrop"
+            onClick={() => setSelectedOffer(null)}
+            aria-label="Close details panel"
+          />
+          <aside className="offer-drawer">
+            <div className="offer-drawer-header">
+              <div>
+                <span className="project-tag">Niveau {selectedOffer.level}</span>
+                <h2>{selectedOffer.title}</h2>
+                <p className="offer-price">{selectedOffer.price}</p>
+                <p className="offer-body">{selectedOffer.intro}</p>
+              </div>
+              <button
+                type="button"
+                className="offer-drawer-close"
+                onClick={() => setSelectedOffer(null)}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+
+            {accessInfo && (
+              <div className="offer-note" style={{ marginBottom: '16px' }}>
+                Offers access expires in <strong>{accessInfo.remaining}</strong> (until {accessInfo.expiresAt}).
+              </div>
+            )}
+
+            <OfferDetailContent offer={selectedOffer} />
+
+            <div className="detail-action" style={{ marginTop: '24px' }}>
+              <Link to={`/it-services/offers/${selectedOffer.id}`} className="btn btn-secondary">
+                Open Full Page
+              </Link>
+              <button type="button" className="btn btn-primary" onClick={() => setSelectedOffer(null)}>
+                Done
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
     </>
   )
 }
@@ -209,75 +358,7 @@ function OfferDetail({ offer, accessInfo }) {
               Offers access expires in <strong>{accessInfo.remaining}</strong> (until {accessInfo.expiresAt}).
             </div>
           )}
-          <div className="offer-meta-row offer-meta-banner">
-            <span>Ideal For</span>
-            <strong>{offer.idealFor}</strong>
-          </div>
-
-          <div className="offer-detail-grid">
-            <div className="offer-panel">
-              <h2>Inclus</h2>
-              <ul className="offer-list">
-                {offer.included.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            {offer.excluded && (
-              <div className="offer-panel">
-                <h2>Non inclus</h2>
-                <ul className="offer-list offer-list-muted">
-                  {offer.excluded.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {offer.important && <div className="offer-warning">Important: {offer.important}</div>}
-
-          {offer.limitations && (
-            <div className="offer-panel" style={{ marginTop: '20px' }}>
-              <h2>Limites importantes</h2>
-              <p className="offer-body">La Shell / Coquille est une demo, pas une plateforme de production.</p>
-              <ul className="offer-list offer-list-muted">
-                {offer.limitations.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {offer.dataStorage && (
-            <div className="offer-panel" style={{ marginTop: '20px' }}>
-              <h2>Donnees et stockage</h2>
-              <p className="offer-body">{offer.dataStorage}</p>
-              <p className="offer-body">{offer.dbAddon}</p>
-            </div>
-          )}
-
-          {offer.postPeriod && (
-            <div className="offer-panel" style={{ marginTop: '20px' }}>
-              <h2>Apres les 14 jours</h2>
-              <p className="offer-body">{offer.postPeriod}</p>
-            </div>
-          )}
-
-          {offer.domainHosting && (
-            <div className="offer-panel" style={{ marginTop: '20px' }}>
-              <h2>Domaine et hebergement personnalise</h2>
-              <p className="offer-body">{offer.domainHosting}</p>
-            </div>
-          )}
-
-          {offer.revisions && (
-            <div className="offer-panel" style={{ marginTop: '20px' }}>
-              <h2>Revisions</h2>
-              <p className="offer-body">{offer.revisions}</p>
-            </div>
-          )}
+          <OfferDetailContent offer={offer} />
 
           <div className="detail-action" style={{ marginTop: '28px' }}>
             <Link to="/it-services/offers" className="btn btn-secondary">
