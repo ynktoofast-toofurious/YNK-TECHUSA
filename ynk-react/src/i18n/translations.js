@@ -16,6 +16,8 @@ const translations = {
     // Navbar
     nav: {
       services: 'Services',
+      pillars: 'Pillars',
+      vault: 'The Vault',
       itServices: 'IT Services',
       branding: 'Branding',
       consultants: 'Consultants Portal',
@@ -38,9 +40,9 @@ const translations = {
 
     // Intro / Who We Are
     intro: {
-      tag: 'Who We Are',
+      tag: 'Technology & Data Intelligence Collective',
       title: 'At the Intersection of Technology, Creativity & Data',
-      lead: 'We provide end-to-end solutions that empower individuals and organizations to build, scale, and stand out in a fast-moving digital world.',
+      lead: 'Move past the headlines. We use cloud architecture, live data models, and insider research to decode Economy, Politics, Business, and Community — built so you can study, apply, and lead.',
       text: 'This platform is designed as a multi-service ecosystem bringing together <strong>IT Services</strong>, <strong>Branding Solutions</strong>, and a secure <strong>Consultants Portal</strong> to deliver both execution and visibility across industries.',
       mission: 'The mission is simple: <strong>turn ideas into scalable systems, brands into experiences, and data into decisions.</strong>',
     },
@@ -453,6 +455,8 @@ const translations = {
     },
     nav: {
       services: 'Services',
+      pillars: 'Piliers',
+      vault: 'Le Coffre',
       itServices: 'Services IT',
       branding: 'Image de marque',
       consultants: 'Portail Consultants',
@@ -471,9 +475,9 @@ const translations = {
       subtext: 'Solutions IT · Image de marque · Portail Consultants',
     },
     intro: {
-      tag: 'Qui sommes-nous',
+      tag: 'Collectif Technologie & Intelligence des Données',
       title: 'À l\'intersection de la technologie, de la créativité et des données',
-      lead: 'Nous fournissons des solutions de bout en bout qui permettent aux individus et aux organisations de construire, d\'évoluer et de se démarquer dans un monde numérique en constante évolution.',
+      lead: 'Allez au-delà des gros titres. Nous utilisons l\'architecture cloud, des modèles de données en direct et la recherche d\'initiés pour décoder l\'Économie, la Politique, les Affaires et la Communauté — pour que vous puissiez étudier, appliquer et diriger.',
       text: 'Cette plateforme est conçue comme un écosystème multi-services réunissant les <strong>Services IT</strong>, les <strong>Solutions de Branding</strong>, et un <strong>Portail Consultants</strong> sécurisé pour offrir à la fois l\'exécution et la visibilité dans tous les secteurs.',
       mission: 'La mission est simple : <strong>transformer les idées en systèmes évolutifs, les marques en expériences, et les données en décisions.</strong>',
     },
@@ -846,6 +850,8 @@ const translations = {
     },
     nav: {
       services: 'Servicios',
+      pillars: 'Pilares',
+      vault: 'La Bóveda',
       itServices: 'Servicios IT',
       branding: 'Marca',
       consultants: 'Portal de Consultores',
@@ -864,9 +870,9 @@ const translations = {
       subtext: 'Soluciones IT · Marca · Portal de Consultores',
     },
     intro: {
-      tag: 'Quiénes somos',
+      tag: 'Colectivo de Tecnología e Inteligencia de Datos',
       title: 'En la intersección de tecnología, creatividad y datos',
-      lead: 'Proporcionamos soluciones integrales que empoderan a individuos y organizaciones para construir, escalar y destacar en un mundo digital en constante movimiento.',
+      lead: 'Ve más allá de los titulares. Usamos arquitectura en la nube, modelos de datos en vivo e investigación interna para descifrar la Economía, la Política, los Negocios y la Comunidad — para que puedas estudiar, aplicar y liderar.',
       text: 'Esta plataforma está diseñada como un ecosistema multiservicio que reúne <strong>Servicios IT</strong>, <strong>Soluciones de Marca</strong> y un <strong>Portal de Consultores</strong> seguro, para ofrecer tanto ejecución como visibilidad en todas las industrias.',
       mission: 'La misión es simple: <strong>convertir ideas en sistemas escalables, marcas en experiencias y datos en decisiones.</strong>',
     },

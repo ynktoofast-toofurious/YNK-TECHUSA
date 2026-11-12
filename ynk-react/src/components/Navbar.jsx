@@ -63,15 +63,15 @@ export default function Navbar() {
         <ul className={`nav-menu${menuOpen ? ' active' : ''}`} id="navMenu">
           <li>
             {location.pathname === '/' ? (
-              <a href="#thumbnails" className="nav-link" onClick={(e) => handleAnchor(e, 'thumbnails')}>{t('nav.services')}</a>
+              <a href="#pillars" className="nav-link" onClick={(e) => handleAnchor(e, 'pillars')}>{t('nav.pillars')}</a>
             ) : (
-              <Link to="/#thumbnails" className="nav-link">{t('nav.services')}</Link>
+              <Link to="/#pillars" className="nav-link">{t('nav.pillars')}</Link>
             )}
           </li>
           <li>
             <a href="/yb-Printing/" className="nav-link">YB Printing</a>
           </li>
-          <li><Link to="/consultants" className="nav-link">{t('nav.consultants')}</Link></li>
+          <li><Link to="/consultants" className="nav-link">{t('nav.vault')}</Link></li>
           <li className="nav-dropdown" ref={quoteRef}>
             <button
               className="nav-link nav-dropdown-toggle"
