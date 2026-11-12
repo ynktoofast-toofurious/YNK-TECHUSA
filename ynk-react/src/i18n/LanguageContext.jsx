@@ -15,6 +15,10 @@ export function LanguageProvider({ children }) {
     return localStorage.getItem(STORAGE_KEY) !== null
   })
 
+  useEffect(() => {
+    document.documentElement.lang = language
+  }, [language])
+
   const setLanguage = useCallback((lang) => {
     if (translations[lang]) {
       setLanguageState(lang)

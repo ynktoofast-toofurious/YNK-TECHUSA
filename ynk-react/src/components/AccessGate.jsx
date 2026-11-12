@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAccess } from '../context/AccessContext'
+import { useLanguage } from '../i18n/LanguageContext'
 import { getDynamicCodes } from '../utils/tracking'
 import { ArrowLeft } from './Icons'
 
@@ -26,6 +27,7 @@ async function sha256(text) {
 
 export default function AccessGate({ redirectTo = '/it-services' }) {
   const { unlock } = useAccess()
+  const { t } = useLanguage()
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
   const [checking, setChecking] = useState(false)
@@ -35,7 +37,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
   const handleUnlock = async () => {
     const val = code.trim()
     if (!val) {
-      setError('Please enter your access code.')
+      setError(t('hubGate.empty'))
       return
     }
     setChecking(true)
@@ -53,7 +55,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
       unlock()
       navigate(redirectTo, { replace: true })
     } else {
-      setError('Invalid access code. Request access below if you need one.')
+      setError(t('hubGate.invalid'))
       setCode('')
       inputRef.current?.focus()
     }
@@ -68,11 +70,8 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
           <span className="ag-logo-dot" />
         </div>
 
-        <h2 className="ag-title">Private Access Required</h2>
-        <p className="ag-sub">
-          This platform is invite-only. Enter your access code to continue,
-          or request access below.
-        </p>
+        <h2 className="ag-title">{t('hubGate.title')}</h2>
+        <p className="ag-sub">{t('hubGate.sub')}</p>
 
         <div className="ag-input-wrap">
           <svg className="ag-lock-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,7 +84,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
             type="password"
             id="access-code"
             name="access-code"
-            placeholder="Enter access code"
+            placeholder={t('hubGate.placeholder')}
             value={code}
             onChange={(e) => setCode(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleUnlock()}
@@ -106,22 +105,22 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
           ) : (
             <>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Unlock Access
+              {t('hubGate.unlock')}
             </>
           )}
         </button>
 
-        <div className="ag-divider"><span>or</span></div>
+        <div className="ag-divider"><span>{t('hubGate.or')}</span></div>
 
         <button
           className="ag-btn-request"
           onClick={() => navigate('/request-quote')}
         >
-          Request Access Code
+          {t('hubGate.request')}
         </button>
 
         <button className="ag-btn-back" onClick={() => navigate('/')}>
-          <ArrowLeft size={12} /> Back to Home
+          <ArrowLeft size={12} /> {t('hubGate.back')}
         </button>
       </div>
     </div>

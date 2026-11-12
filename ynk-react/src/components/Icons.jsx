@@ -35,6 +35,32 @@ export function CloseIcon({ size = 14, className = 'icon-inline' }) {
   )
 }
 
+export function ArrowUp({ size = 14, className = 'icon-inline' }) {
+  return (
+    <svg {...base} className={className} width={size} height={size} viewBox="0 0 24 24">
+      <line x1="12" y1="19" x2="12" y2="5" />
+      <polyline points="5 12 12 5 19 12" />
+    </svg>
+  )
+}
+
+export function ChevronDown({ size = 12, className = 'icon-inline' }) {
+  return (
+    <svg {...base} className={className} width={size} height={size} viewBox="0 0 24 24">
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  )
+}
+
+export function Globe({ size = 16, className = 'icon-inline' }) {
+  return (
+    <svg {...base} strokeWidth={1.5} className={className} width={size} height={size} viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+    </svg>
+  )
+}
+
 const FLAG_PROPS = { width: 28, height: 20, viewBox: '0 0 30 20', 'aria-hidden': true, focusable: 'false', className: 'lang-flag-svg' }
 
 export function FlagUS() {

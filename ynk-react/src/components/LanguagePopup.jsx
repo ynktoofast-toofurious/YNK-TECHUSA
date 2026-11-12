@@ -1,12 +1,6 @@
 import { useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { FlagUS, FlagFR, FlagES } from './Icons'
-
-const LANGUAGES = [
-  { code: 'en', label: 'English', Flag: FlagUS },
-  { code: 'fr', label: 'Français', Flag: FlagFR },
-  { code: 'es', label: 'Español', Flag: FlagES },
-]
+import { LANGUAGES } from '../i18n/languages'
 
 export default function LanguagePopup() {
   const { hasChosen, setLanguage, t } = useLanguage()
