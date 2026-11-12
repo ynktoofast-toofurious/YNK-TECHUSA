@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
+import { CloseIcon } from './Icons'
 
 // Static metadata: who speaks and when. Text comes from translations.
 const SCRIPT_META = [
@@ -159,7 +160,7 @@ export default function DemoChat() {
       {showQuote && (
         <div className="dc-quote-overlay" onClick={() => setShowQuote(false)}>
           <div className="dc-quote-card" onClick={e => e.stopPropagation()}>
-            <button className="dc-quote-close" onClick={() => setShowQuote(false)} aria-label="Close">&#x2715;</button>
+            <button className="dc-quote-close" onClick={() => setShowQuote(false)} aria-label="Close"><CloseIcon /></button>
             <div className="dc-quote-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#29B5E8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
             </div>

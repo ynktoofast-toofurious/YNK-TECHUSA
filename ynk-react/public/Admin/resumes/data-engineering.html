@@ -136,12 +136,15 @@
       line-height: 1.65;
     }
     .job ul li::before {
-      content: '▸';
+      content: '';
       position: absolute;
       left: 0;
-      color: #29B5E8;
-      font-size: 10px;
-      top: 3px;
+      top: 8px;
+      width: 0;
+      height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 6px solid #29B5E8;
     }
 
     /* transition badge */
@@ -281,7 +284,7 @@
           <ul>
             <li>Architecting and maintaining a scalable reporting layer spanning <strong>4+ billion rows</strong> of pharmacy claims data using Snowflake and dbt — enabling sub-second query performance through advanced materialization strategies, incremental models, and query optimization.</li>
             <li>Implemented dynamic <strong>Power BI Row-Level Security (RLS)</strong> and Power BI Embedded to deliver personalized, context-aware dashboards directly within client-facing portals — significantly improving end-user UX and eliminating manual access management overhead.</li>
-            <li>Engineered dbt models with layered transformation logic (staging → intermediate → marts) to enforce data governance, lineage tracking, and reusable business logic across multiple analytics domains.</li>
+            <li>Engineered dbt models with layered transformation logic (staging, intermediate, and mart layers) to enforce data governance, lineage tracking, and reusable business logic across multiple analytics domains.</li>
             <li>Partnered with platform and DevOps teams to operationalize CI/CD pipelines for dbt and Power BI deployment, reducing deployment cycles and increasing reporting reliability.</li>
             <li>Led performance tuning initiatives on Snowflake (clustering keys, result caching, virtual warehouse sizing), driving significant reduction in compute costs and dashboard load times.</li>
           </ul>

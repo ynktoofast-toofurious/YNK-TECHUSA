@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import QuoteForm from '../components/QuoteForm'
 import { useLanguage } from '../i18n/LanguageContext'
+import { ArrowLeft } from '../components/Icons'
 
 const IT_PROJECTS = [
   {
@@ -137,7 +138,7 @@ export default function ITServices() {
               <div className="detail-action">
                 <p style={{ color: 'var(--color-text-secondary)', marginBottom: '20px', textAlign: 'center', maxWidth: '600px', margin: '0 auto 20px' }}>{t('itPage.tagline')}</p>
                 <Link to="/request-quote?category=it" className="btn btn-primary" style={{ marginRight: '12px' }}>Request IT Quote</Link>
-                <Link to="/" className="btn btn-secondary">{t('itPage.backHome')}</Link>
+                <Link to="/" className="btn btn-secondary"><ArrowLeft />{t('itPage.backHome')}</Link>
               </div>
             </div>
           </section>
@@ -176,7 +177,7 @@ export default function ITServices() {
             </div>
             <div className="detail-action" style={{ marginTop: '48px' }}>
               <Link to="/request-quote?category=it" className="btn btn-primary">Start a Project</Link>
-              <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}>{t('itPage.backHome')}</Link>
+              <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}><ArrowLeft />{t('itPage.backHome')}</Link>
             </div>
           </div>
         </section>

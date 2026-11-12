@@ -2,6 +2,8 @@ import { useState, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
+import { ArrowLeft } from '../components/Icons'
+import { escapeAll } from '../utils/escapeHtml'
 
 const EMAILJS_SERVICE_ID = 'service_sw3zais'
 const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
@@ -57,19 +59,20 @@ export default function RequestQuote() {
       message: formData.get('message'),
       category: categoryLabel,
     }
+    const q = escapeAll(quoteData)
 
     const contentHtml = `<p>A new quote request was submitted from the YNK-Tech USA website.</p>
 <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-<strong>Category:</strong> ${quoteData.category}<br/>
-<strong>Name:</strong> ${quoteData.name}<br/>
-<strong>Email:</strong> ${quoteData.email}<br/>
-<strong>Phone:</strong> ${quoteData.phone}<br/>
-<strong>Company:</strong> ${quoteData.company}<br/>
-<strong>Service:</strong> ${quoteData.service}<br/>
-<strong>Budget:</strong> ${quoteData.budget}<br/>
-<strong>Timeline:</strong> ${quoteData.timeline}
+<strong>Category:</strong> ${q.category}<br/>
+<strong>Name:</strong> ${q.name}<br/>
+<strong>Email:</strong> ${q.email}<br/>
+<strong>Phone:</strong> ${q.phone}<br/>
+<strong>Company:</strong> ${q.company}<br/>
+<strong>Service:</strong> ${q.service}<br/>
+<strong>Budget:</strong> ${q.budget}<br/>
+<strong>Timeline:</strong> ${q.timeline}
 </div>
-<p><strong>Project details:</strong><br/>${quoteData.message}</p>`
+<p><strong>Project details:</strong><br/>${q.message}</p>`
 
     try {
       await Promise.all([
@@ -82,14 +85,14 @@ export default function RequestQuote() {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: quoteData.email,
           heading: 'We received your quote request',
-          content_html: `<p>Thanks ${quoteData.name || 'there'}.</p>
-<p>We received your <strong>${quoteData.category}</strong> quote request and will review it shortly.</p>
+          content_html: `<p>Thanks ${q.name || 'there'}.</p>
+<p>We received your <strong>${q.category}</strong> quote request and will review it shortly.</p>
 <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-<strong>Service:</strong> ${quoteData.service}<br/>
-<strong>Budget:</strong> ${quoteData.budget}<br/>
-<strong>Timeline:</strong> ${quoteData.timeline}
+<strong>Service:</strong> ${q.service}<br/>
+<strong>Budget:</strong> ${q.budget}<br/>
+<strong>Timeline:</strong> ${q.timeline}
 </div>
-<p>We will follow up at ${quoteData.email} as soon as possible.</p>`,
+<p>We will follow up at ${q.email} as soon as possible.</p>`,
           footer_note: 'This is an automated confirmation from YNK-Tech USA.',
         }),
       ])
@@ -124,7 +127,7 @@ export default function RequestQuote() {
               <h2>{t('quoteForm.successTitle')}</h2>
               <p>{t('quoteForm.successText')}</p>
               <div className="cta-buttons" style={{ marginTop: '32px' }}>
-                <Link to="/" className="btn btn-primary">{t('requestQuotePage.backHome')}</Link>
+                <Link to="/" className="btn btn-primary"><ArrowLeft />{t('requestQuotePage.backHome')}</Link>
                 <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('requestQuotePage.bookConsult')}</a>
               </div>
             </div>

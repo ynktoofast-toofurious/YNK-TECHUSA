@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
+import { FlagUS, FlagFR, FlagES } from './Icons'
 
 const LANGUAGES = [
-  { code: 'en', label: 'English', flag: '🇺🇸' },
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'en', label: 'English', Flag: FlagUS },
+  { code: 'fr', label: 'Français', Flag: FlagFR },
+  { code: 'es', label: 'Español', Flag: FlagES },
 ]
 
 export default function LanguagePopup() {
@@ -33,7 +34,7 @@ export default function LanguagePopup() {
               onClick={() => setSelected(lang.code)}
               type="button"
             >
-              <span className="lang-flag">{lang.flag}</span>
+              <span className="lang-flag"><lang.Flag /></span>
               <span className="lang-label">{lang.label}</span>
               {selected === lang.code && (
                 <svg className="lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20">

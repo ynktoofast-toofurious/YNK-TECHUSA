@@ -6,19 +6,10 @@ window.ADMIN_CONFIG = {
        The deploy-aws.ps1 script fills this in automatically. */
     apiUrl: 'https://jk7ml96v63.execute-api.us-east-1.amazonaws.com',
 
-    /* SHA-256 hash of the admin access code.
-       Default code: "YNK-ADMIN2026"
-       To change: run in browser console:
-         crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR_NEW_CODE'))
-           .then(b => Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join(''))
-           .then(console.log);
-       Then paste the hash below. */
+    /* SHA-256 hash of the admin access code. Never commit the plaintext. */
     codeHash: '459bf3177fbb16d2cf7ab89155a05f97282712f3518f87748839b63a3a7ee34e',
 
-    /* TOTP secret key — character codes for a Base32 string.
-       Default: "YNKTECHUSAADMIN2" (encode each char's charCode)
-       Only A-Z and 2-7 are valid Base32 characters.
-       Add this string to Google Authenticator / Authy. */
+    /* TOTP secret key — character codes for a Base32 string. */
     totpKey: [89,78,75,84,69,67,72,85,83,65,65,68,77,73,78,50],
 
     /* Website pages managed by this dashboard */

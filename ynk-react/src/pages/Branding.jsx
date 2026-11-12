@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import QuoteForm from '../components/QuoteForm'
 import { useLanguage } from '../i18n/LanguageContext'
+import { ArrowLeft } from '../components/Icons'
 
 const BRANDING_PROJECTS = [
   {
@@ -110,7 +111,7 @@ export default function Branding() {
               </div>
               <div className="detail-action">
                 <p style={{ color: 'var(--color-text-secondary)', marginBottom: '20px', textAlign: 'center', maxWidth: '600px', margin: '0 auto 20px' }}>{t('brandingPage.tagline')}</p>
-                <Link to="/" className="btn btn-secondary">{t('brandingPage.backHome')}</Link>
+                <Link to="/" className="btn btn-secondary"><ArrowLeft />{t('brandingPage.backHome')}</Link>
               </div>
             </div>
           </section>
@@ -149,7 +150,7 @@ export default function Branding() {
             </div>
             <div className="detail-action" style={{ marginTop: '48px' }}>
               <Link to="/request-quote?category=branding" className="btn btn-primary">Start a Project</Link>
-              <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}>{t('brandingPage.backHome')}</Link>
+              <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}><ArrowLeft />{t('brandingPage.backHome')}</Link>
             </div>
           </div>
         </section>

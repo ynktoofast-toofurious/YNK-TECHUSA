@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ArrowRight } from './Icons'
 
 // ─── Shared SHA-256 util ──────────────────────────────────────────────────────
 async function sha256(text) {
@@ -165,7 +166,7 @@ export default function HeroPanel() {
           className="hero-access-link"
           onClick={() => navigate('/consultants')}
         >
-          Request an access code →
+          Request an access code <ArrowRight size={12} />
         </button>
       </div>
 

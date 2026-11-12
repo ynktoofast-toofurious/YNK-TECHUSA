@@ -875,12 +875,12 @@
         if (contentPreviewActive) {
             pane.classList.remove('hidden');
             btn.classList.add('active');
-            btn.innerHTML = '&#9632; CLOSE PREVIEW';
+            btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="vertical-align:-1px;margin-right:6px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>CLOSE PREVIEW';
             updatePreview();
         } else {
             pane.classList.add('hidden');
             btn.classList.remove('active');
-            btn.innerHTML = '&#9633; PREVIEW LIVE';
+            btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>PREVIEW LIVE';
         }
     };
 
@@ -1398,7 +1398,9 @@
                 var ip    = e.location && e.location.ip ? e.location.ip : 'N/A';
                 var dt    = e.timestamp ? new Date(e.timestamp).toLocaleString() : 'N/A';
                 var color = e.success ? '#22c55e' : '#f87171';
-                var label = e.success ? '✓ Success' : '✗ Failed';
+                var label = e.success
+                    ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:6px"><polyline points="20 6 9 17 4 12"/></svg>Success'
+                    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:6px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Failed';
                 html += '<tr style="border-bottom:1px solid rgba(41,181,232,0.06);">' +
                     '<td style="padding:8px 12px;color:' + color + ';font-weight:600;">' + label + '</td>' +
                     '<td style="padding:8px 12px;color:var(--color-text-secondary);font-size:12px;">' + escapeHtml(dt) + '</td>' +

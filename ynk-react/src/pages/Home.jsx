@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import AIBall3D from '../components/AIBall3D'
 import DemoChat from '../components/DemoChat'
+import { ArrowRight } from '../components/Icons'
 
 const PILLARS = [
   {
@@ -126,7 +127,7 @@ export default function Home() {
         <div className="container">
           <div className="hub-head">
             <span className="section-tag">Five Pillars · One Rhythm</span>
-            <h2 className="hub-title">The Signal <span className="hub-arrow">→</span> The Breakdown <span className="hub-arrow">→</span> <span className="text-gradient">Your Leverage</span></h2>
+            <h2 className="hub-title">The Signal <ArrowRight size={26} className="hub-arrow" /> The Breakdown <ArrowRight size={26} className="hub-arrow" /> <span className="text-gradient">Your Leverage</span></h2>
             <p className="hub-sub">Pick a pillar. See what the data actually says, how the system works, and what you can do with it today.</p>
           </div>
 
@@ -171,7 +172,7 @@ export default function Home() {
               <ul className="hub-list">
                 {pillar.assets.map((a) => <li key={a}>{a}</li>)}
               </ul>
-              <Link to="/consultants" className="hub-link">Unlock in the Vault →</Link>
+              <Link to="/consultants" className="hub-link">Unlock in the Vault <ArrowRight /></Link>
             </aside>
           </div>
         </div>

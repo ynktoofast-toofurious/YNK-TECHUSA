@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAccess } from '../context/AccessContext'
 import { getDynamicCodes } from '../utils/tracking'
+import { ArrowLeft } from './Icons'
 
 // Same hashes as ConsultantsPortal — any valid portal code unlocks the site
 const SITE_CODE_HASHES = [
@@ -11,8 +12,8 @@ const SITE_CODE_HASHES = [
   '336fb457589f78fc54e4f24215c4133dbf85a74a30904eb774a0272bb7c6428d',
   '23040e83f99dd6e07994719e499ed59f460562441bdb6a50ac9b5ccdf921dc30',
   '78c1cb1cc907f88da58c31075e2829a32b5965583e680fe2bffeba95296e35b8',
-  'c2b47a63731365f265c92278923d928edcf08000696775cde4ba4ba2b8ccd70e', // YNK-DATAENG-2025
-  'f4681ba3df0fc625a9ef41924fd878a3b23ef5229abbd65463ec67045e71d2b2', // MOISEVIEW2026
+  'c2b47a63731365f265c92278923d928edcf08000696775cde4ba4ba2b8ccd70e',
+  'f4681ba3df0fc625a9ef41924fd878a3b23ef5229abbd65463ec67045e71d2b2',
 ]
 
 async function sha256(text) {
@@ -120,7 +121,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
         </button>
 
         <button className="ag-btn-back" onClick={() => navigate('/')}>
-          &#8592; Back to Home
+          <ArrowLeft size={12} /> Back to Home
         </button>
       </div>
     </div>

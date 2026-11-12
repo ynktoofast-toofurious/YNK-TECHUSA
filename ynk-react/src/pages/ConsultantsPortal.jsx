@@ -4,6 +4,8 @@ import emailjs from '@emailjs/browser'
 import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage, trackLoginAttempt } from '../utils/tracking'
 import { useLanguage } from '../i18n/LanguageContext'
 import ResumeCard from '../components/ResumeCard'
+import { ArrowLeft } from '../components/Icons'
+import { escapeAll } from '../utils/escapeHtml'
 
 const EMAILJS_SERVICE_ID = 'service_sw3zais'
 const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
@@ -29,7 +31,7 @@ const RESUME_MAP = [
   { hash: '23040e83f99dd6e07994719e499ed59f460562441bdb6a50ac9b5ccdf921dc30', industry: 'Government', file: 'Admin/resumes/government.pdf' },
   { hash: '78c1cb1cc907f88da58c31075e2829a32b5965583e680fe2bffeba95296e35b8', industry: 'Retail', file: 'Admin/resumes/retail.pdf' },
   { hash: 'c2b47a63731365f265c92278923d928edcf08000696775cde4ba4ba2b8ccd70e', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html' },
-  // Viewer-only access (view resume, no download) — code: MOISEVIEW2026
+  // Viewer-only access (view resume, no download)
   { hash: 'f4681ba3df0fc625a9ef41924fd878a3b23ef5229abbd65463ec67045e71d2b2', industry: 'Data Engineering', file: 'Admin/resumes/data-engineering.html', viewOnly: true, viewer: 'moise' },
 ]
 
@@ -130,15 +132,16 @@ export default function ConsultantsPortal() {
       industry: formData.get('req_industry'),
       reason: formData.get('req_reason'),
     }
+    const r = escapeAll(requestData)
 
     try {
       const requestHtml = `<p>A visitor has requested access to the <strong>Consultants Portal</strong>.</p>
 <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-<strong>Name:</strong> ${requestData.name}<br/>
-<strong>Email:</strong> ${requestData.email}<br/>
-<strong>Company:</strong> ${requestData.company}<br/>
-<strong>Industry:</strong> ${requestData.industry}<br/>
-<strong>Reason:</strong> ${requestData.reason}
+<strong>Name:</strong> ${r.name}<br/>
+<strong>Email:</strong> ${r.email}<br/>
+<strong>Company:</strong> ${r.company}<br/>
+<strong>Industry:</strong> ${r.industry}<br/>
+<strong>Reason:</strong> ${r.reason}
 </div>
 <p><a href="https://ynk-techusa.com/Admin/" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Review Request</a></p>`
 
@@ -152,14 +155,14 @@ export default function ConsultantsPortal() {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: requestData.email,
           heading: 'We received your access request',
-          content_html: `<p>Thanks ${requestData.name || 'there'}.</p>
-<p>We received your access request for the <strong>${requestData.industry}</strong> section and will review it shortly.</p>
+          content_html: `<p>Thanks ${r.name || 'there'}.</p>
+<p>We received your access request for the <strong>${r.industry}</strong> section and will review it shortly.</p>
 <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-<strong>Company:</strong> ${requestData.company}<br/>
-<strong>Industry:</strong> ${requestData.industry}<br/>
-<strong>Reason:</strong> ${requestData.reason}
+<strong>Company:</strong> ${r.company}<br/>
+<strong>Industry:</strong> ${r.industry}<br/>
+<strong>Reason:</strong> ${r.reason}
 </div>
-<p>We will follow up at ${requestData.email} as soon as possible.</p>`,
+<p>We will follow up at ${r.email} as soon as possible.</p>`,
           footer_note: 'This is an automated confirmation from YNK-Tech USA.',
         }),
       ])
@@ -241,7 +244,7 @@ export default function ConsultantsPortal() {
             </div>
             <div className="detail-action" style={{ marginTop: '48px' }}>
               <Link to="/request-quote" className="btn btn-primary">Work With Us</Link>
-              <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}>{t('consultantsPage.backHome')}</Link>
+              <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}><ArrowLeft />{t('consultantsPage.backHome')}</Link>
             </div>
           </div>
         </section>
@@ -519,6 +522,7 @@ export default function ConsultantsPortal() {
               {!showRequest && !requestSent && (
                 <div className="detail-action">
                   <Link to="/" className="btn btn-secondary">
+                    <ArrowLeft />
                     {t('consultantsPage.backHome')}
                   </Link>
                 </div>
