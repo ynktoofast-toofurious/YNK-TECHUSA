@@ -5,3 +5,5 @@ dist/
 .DS_Store
 lambda-deploy.zip
 ynk-react/.env
+# IAM/S3 policy files contain the AWS account ID; keep out of the public repo
+lambda/*.json
