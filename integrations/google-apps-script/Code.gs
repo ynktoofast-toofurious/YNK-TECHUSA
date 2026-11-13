@@ -113,27 +113,32 @@ function syncApprovedArticles() {
     const files = {}
     const batch = []
     queue.rows.forEach((row) => {
-      if (str_(row.get('approval')).toUpperCase() !== APPROVED) return
-      if (str_(row.get('syncState')).toUpperCase() === SYNC.prOpen) return
+      const id = str_(row.get('articleId'))
+      const approval = str_(row.get('approval'))
+      if (approval.toUpperCase() !== APPROVED) { Logger.log('%s: skipped (approval_status = %s)', id, approval || 'empty'); return }
+      if (str_(row.get('syncState')).toUpperCase() === SYNC.prOpen) { Logger.log('%s: skipped (pull request already open)', id); return }
       try {
         const pending = REVIEWS.filter(([key]) => !PASSED_RE.test(str_(row.get(key)))).map(([, name]) => name)
         if (pending.length) {
+          Logger.log('%s: BLOCKED, waiting on %s', id, pending.join(', '))
           setIfChanged_(queue, row, 'syncState', SYNC.blocked)
           setIfChanged_(queue, row, 'error', `Waiting on review: ${pending.join(', ')} (mark as PASS, APPROVED or N/A).`)
           return
         }
         const built = buildArticle_(row, assets, linksTable.rows)
-        if (built.hash === str_(row.get('syncHash'))) return
+        if (built.hash === str_(row.get('syncHash'))) { Logger.log('%s: unchanged since last sync', id); return }
         Object.assign(files, built.files)
         batch.push({ row, built })
       } catch (e) {
+        Logger.log('%s: ERROR %s', id, e.message)
         setIfChanged_(queue, row, 'syncState', SYNC.error)
         setIfChanged_(queue, row, 'error', String(e.message || e).slice(0, 480))
       }
     })
-    if (!batch.length) return
+    if (!batch.length) { Logger.log('Nothing to send.'); return }
 
     const pr = openPullRequest_(token, files, batch)
+    Logger.log('Pull request opened: %s', pr.html_url)
     batch.forEach(({ row, built }) => {
       queue.set(row, 'syncState', SYNC.prOpen)
       queue.set(row, 'prUrl', pr.html_url)
