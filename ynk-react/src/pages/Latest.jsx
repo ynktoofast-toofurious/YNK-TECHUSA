@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import LatestCard from '../components/LatestCard'
 import { LATEST, LATEST_TYPES, markLatestSeen, tagLabel } from '../content/latest'
@@ -6,7 +7,8 @@ import useReveal from '../hooks/useReveal'
 
 export default function Latest() {
   const { t, language } = useLanguage()
-  const [filter, setFilter] = useState('all')
+  const [searchParams] = useSearchParams()
+  const [filter, setFilter] = useState(() => (LATEST_TYPES.includes(searchParams.get('type')) ? searchParams.get('type') : 'all'))
   const [query, setQuery] = useState('')
 
   useEffect(() => { markLatestSeen() }, [])

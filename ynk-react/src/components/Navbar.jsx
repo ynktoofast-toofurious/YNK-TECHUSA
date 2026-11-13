@@ -7,6 +7,7 @@ import { hasUnseenLatest } from '../content/latest'
 import { ArrowRight, ChevronDown, Globe } from './Icons'
 
 const HUB_LINKS = ['intelligence', 'latest', 'method', 'vault', 'solutions']
+const ROUTE_LINKS = { latest: '/latest', vault: '/vault' }
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -64,10 +65,10 @@ export default function Navbar() {
         <ul className={`nav-menu${menuOpen ? ' active' : ''}`} id="navMenu">
           {HUB_LINKS.map((id) => (
             <li key={id}>
-              {id === 'latest' ? (
-                <Link to="/latest" className={`nav-link${location.pathname === '/latest' ? ' nav-link--current' : ''}`}>
-                  {t('hubNav.latest')}
-                  {showLatestDot && <span className="nav-new-dot" aria-label={t('latestUi.newBadge')} />}
+              {ROUTE_LINKS[id] ? (
+                <Link to={ROUTE_LINKS[id]} className={`nav-link${location.pathname.startsWith(ROUTE_LINKS[id]) ? ' nav-link--current' : ''}`}>
+                  {t(`hubNav.${id}`)}
+                  {id === 'latest' && showLatestDot && <span className="nav-new-dot" aria-label={t('latestUi.newBadge')} />}
                 </Link>
               ) : location.pathname === '/' ? (
                 <a href={`#${id}`} className="nav-link" onClick={(e) => handleAnchor(e, id)}>{t(`hubNav.${id}`)}</a>

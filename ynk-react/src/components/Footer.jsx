@@ -31,7 +31,7 @@ export default function Footer() {
             <Link to="/#intelligence">{f.links.desk}</Link>
             <Link to="/latest">{f.links.latest}</Link>
             <Link to="/#method">{f.links.method}</Link>
-            <Link to="/#vault">{f.links.vault}</Link>
+            <Link to="/vault">{f.links.vault}</Link>
             <Link to="/#community">{f.links.community}</Link>
           </nav>
 

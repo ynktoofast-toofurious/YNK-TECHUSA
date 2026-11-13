@@ -58,7 +58,7 @@ export const LATEST = [
     id: 'drc-government-model',
     type: 'analysis',
     date: '2026-04-28',
-    href: '/#vault',
+    href: '/vault/drc-government',
     vault: true,
     tags: ['Power BI', 'Star Schema', { en: 'Politics', fr: 'Politique', es: 'Política' }],
     title: {

@@ -14,6 +14,8 @@ import Branding from './pages/Branding'
 import ConsultantsPortal from './pages/ConsultantsPortal'
 import StartProject from './pages/StartProject'
 import Latest from './pages/Latest'
+import Vault from './pages/Vault'
+import DrcStudy from './pages/DrcStudy'
 import NotFound from './pages/NotFound'
 
 const PAGE_MAP = {
@@ -23,6 +25,8 @@ const PAGE_MAP = {
   '/consultants': 'consultants',
   '/start-project': 'start-project',
   '/latest': 'latest',
+  '/vault': 'vault',
+  '/vault/drc-government': 'vault-drc-study',
 }
 
 function LegacyQuoteRedirect() {
@@ -57,6 +61,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/start-project" element={<StartProject />} />
         <Route path="/latest" element={<Latest />} />
+        <Route path="/vault" element={<Vault />} />
+        <Route path="/vault/drc-government" element={<DrcStudy />} />
         <Route path="/request-quote" element={<LegacyQuoteRedirect />} />
         <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />
         <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />

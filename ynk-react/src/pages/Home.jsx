@@ -24,6 +24,12 @@ const STEP_ICONS = [
   <svg key="empower" {...svgProps} viewBox="0 0 24 24" width="22" height="22"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>,
 ]
 
+const STUDIO_ICONS = [
+  <svg key="dash" {...svgProps} viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="8" y1="16" x2="8" y2="12" /><line x1="12" y1="16" x2="12" y2="8" /><line x1="16" y1="16" x2="16" y2="11" /></svg>,
+  <svg key="data" {...svgProps} viewBox="0 0 24 24" width="20" height="20"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5" /><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" /></svg>,
+  <svg key="ai" {...svgProps} viewBox="0 0 24 24" width="20" height="20"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z" /><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" /></svg>,
+]
+
 function DeskVisual({ index }) {
   if (index === 0) {
     return (
@@ -275,8 +281,8 @@ export default function Home() {
                 <p className="vault-text">{h.vault.text}</p>
                 <p className="vault-motto">{h.vault.motto}</p>
                 <div className="vault-actions">
-                  <span className="status-pill"><span className="status-dot" />{h.vault.status}</span>
-                  <Link to="/consultants" className="hub-link">{h.vault.cta} <ArrowRight /></Link>
+                  <span className="status-pill"><span className="status-dot status-dot--live" />{h.vault.status}</span>
+                  <Link to="/vault" className="btn btn-primary hub-btn-round">{h.vault.cta} <ArrowRight /></Link>
                 </div>
               </div>
               <ul className="vault-list">
@@ -315,21 +321,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* YNK TECH SOLUTIONS */}
+      {/* THE YNK STUDIO */}
       <section className="hub-section" id="solutions">
         <div className="container solutions">
           <div className="solutions-copy" data-reveal>
             <span className="section-tag">{h.solutions.tag}</span>
             <h2 className="hub-title">{h.solutions.title1}<br /><span className="text-gradient">{h.solutions.title2}</span></h2>
             <p className="vault-text">{h.solutions.text}</p>
-            <ul className="caps">
-              {h.solutions.caps.map((c) => <li key={c}>{c}</li>)}
+            <ul className="studio-offers">
+              {h.solutions.offers.map((offer, i) => (
+                <li key={offer.t} style={{ '--d': i }}>
+                  <span className="studio-icon">{STUDIO_ICONS[i]}</span>
+                  <span>
+                    <strong>{offer.t}</strong>
+                    <small>{offer.d}</small>
+                  </span>
+                </li>
+              ))}
             </ul>
-            <p className="vault-motto">{h.solutions.motto}</p>
+            <p className="studio-proof">
+              <svg {...svgProps} viewBox="0 0 24 24" width="15" height="15"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><polyline points="9 12 11 14 15 10" /></svg>
+              {h.solutions.proof}
+            </p>
             <div className="hx-ctas">
               <Link to="/start-project" className="btn btn-primary hub-btn-round">{t('hubNav.startProject')} <ArrowRight /></Link>
-              <Link to="/it-services" className="btn btn-ghost hub-btn-round">{h.solutions.ctaIT}</Link>
-              <Link to="/branding" className="btn btn-ghost hub-btn-round">{h.solutions.ctaBrand}</Link>
+              <Link to="/latest?type=engineering" className="btn btn-ghost hub-btn-round">{h.solutions.ctaBuilds}</Link>
             </div>
           </div>
           <div className="solutions-chat" data-reveal style={{ '--d': 2 }}>
