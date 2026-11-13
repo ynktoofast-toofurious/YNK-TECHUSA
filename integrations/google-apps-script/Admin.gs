@@ -149,10 +149,10 @@ function adminRejectArticle(articleId, note) {
   if (str_(row.get('syncState')).toUpperCase() !== SYNC.published) queue.set(row, 'syncState', SYNC.blocked)
   const stamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd')
   const reason = cleanInput_(note, 500)
-  queue.set(row, 'error', `Rejected ${stamp}${reason ? `: ${reason}` : ''}`)
+  queue.set(row, 'error', `Backlog ${stamp}${reason ? `: ${reason}` : ''}`)
   if (queue.map.notes != null) {
     const prev = str_(row.get('notes'))
-    queue.set(row, 'notes', safeCell_(`${prev ? `${prev}\n` : ''}Rejected ${stamp}${reason ? `: ${reason}` : ''}`))
+    queue.set(row, 'notes', safeCell_(`${prev ? `${prev}\n` : ''}Backlog ${stamp}${reason ? `: ${reason}` : ''}`))
   }
   return articleById_(articleId)
 }
@@ -287,7 +287,7 @@ function articleView_(queue, row) {
   const slug = str_(row.get('slug'))
   let stage = 'review'
   if (sync === SYNC.published) stage = 'published'
-  else if (sync !== SYNC.prOpen && (/REJECT/.test(approval) || /^Rejected /.test(str_(row.get('error'))))) stage = 'rejected'
+  else if (sync !== SYNC.prOpen && (/REJECT/.test(approval) || /^(Rejected|Backlog) /.test(str_(row.get('error'))))) stage = 'rejected'
   const rawType = str_(row.get('type')).toLowerCase()
   const docs = {}
   LANGS.forEach(([lang, col]) => {

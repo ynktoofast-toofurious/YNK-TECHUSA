@@ -112,7 +112,7 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Sent back'], ['requests', 'Access requests']];
+  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Backlog'], ['requests', 'Access requests']];
   var state = { tab: 'review', data: null, preview: null, lang: 'en' };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
@@ -201,7 +201,7 @@
     } else {
       items = d.articles.filter(function (a) { return a.stage === state.tab; }).map(articleCard);
     }
-    var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'Nothing has been sent back.', requests: 'No access requests yet.' }[state.tab];
+    var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'The backlog is empty.', requests: 'No access requests yet.' }[state.tab];
     set(main, [tabs].concat(items.length ? items : [h('div', { class: 'empty', text: emptyText })]));
   }
 
@@ -309,13 +309,13 @@
         });
       });
     } });
-    var sendBack = h('button', { class: 'btn danger big', type: 'button', text: 'Send back', onclick: function () {
+    var sendBack = h('button', { class: 'btn danger big', type: 'button', text: 'Move to backlog', onclick: function () {
       var reason = h('textarea', { placeholder: 'What needs to change? (optional)', maxlength: '500' });
-      ask('Send back for changes?', [reason], 'Send back').then(function (ok) {
+      ask('Move to backlog?', [reason], 'Move to backlog').then(function (ok) {
         if (!ok) return;
         call('adminRejectArticle', [a.id, reason.value], sendBack).then(function (updated) {
           replaceItem('articles', updated);
-          toast('Sent back.');
+          toast('Moved to backlog.');
           state.preview = null;
           state.tab = 'review';
           render();
