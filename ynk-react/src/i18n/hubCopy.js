@@ -67,7 +67,7 @@ const hubCopy = {
           'What does the cost of living really tell us?',
           'Which skills will matter most in five years?',
         ],
-        status: 'Community features in development.',
+        status: 'Topic requests are open. More community features are on the way.',
       },
       solutions: {
         tag: 'The YNK Studio',
@@ -190,7 +190,7 @@ const hubCopy = {
           'Que nous dit vraiment le coût de la vie ?',
           'Quelles compétences compteront le plus dans cinq ans ?',
         ],
-        status: 'Fonctionnalités communautaires en développement.',
+        status: 'Les propositions de sujets sont ouvertes. D’autres fonctionnalités communautaires arrivent.',
       },
       solutions: {
         tag: 'Le Studio YNK',
@@ -313,7 +313,7 @@ const hubCopy = {
           '¿Qué nos dice realmente el costo de vida?',
           '¿Qué habilidades importarán más dentro de cinco años?',
         ],
-        status: 'Funciones de comunidad en desarrollo.',
+        status: 'Las solicitudes de temas están abiertas. Pronto llegarán más funciones de comunidad.',
       },
       solutions: {
         tag: 'El Estudio YNK',

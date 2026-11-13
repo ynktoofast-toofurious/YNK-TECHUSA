@@ -202,6 +202,10 @@ export default function Vault() {
               )
             })}
           </div>
+          <div className="tr-cta" data-reveal>
+            <span>{t('topicRequest.ctaText')}</span>
+            <Link to="/#suggest" className="btn btn-ghost hub-btn-round">{t('topicRequest.cta')} <ArrowRight /></Link>
+          </div>
         </div>
       </section>
 

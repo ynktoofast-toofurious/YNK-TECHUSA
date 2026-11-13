@@ -4,6 +4,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import AIBall3D from '../components/AIBall3D'
 import DemoChat from '../components/DemoChat'
 import LatestCard from '../components/LatestCard'
+import TopicRequest from '../components/TopicRequest'
 import { ArrowRight } from '../components/Icons'
 import useReveal from '../hooks/useReveal'
 import { LATEST } from '../content/latest'
@@ -308,15 +309,18 @@ export default function Home() {
             <h2 className="hub-title">{h.community.title1}<br /><span className="text-gradient">{h.community.title2}</span></h2>
             <p className="hub-sub">{h.community.sub}</p>
             <p className="vault-text">{h.community.text}</p>
-            <span className="status-pill"><span className="status-dot" />{h.community.status}</span>
+            <div className="community-prompts" aria-hidden="true">
+              {h.community.prompts.map((p, i) => (
+                <div key={i} className="prompt-bubble" style={{ '--d': i + 1 }}>
+                  <svg {...svgProps} viewBox="0 0 24 24" width="18" height="18"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
+                  <span>{p}</span>
+                </div>
+              ))}
+            </div>
+            <span className="status-pill"><span className="status-dot status-dot--live" />{h.community.status}</span>
           </div>
-          <div className="community-prompts" aria-hidden="true">
-            {h.community.prompts.map((p, i) => (
-              <div key={i} className="prompt-bubble" data-reveal style={{ '--d': i + 1 }}>
-                <svg {...svgProps} viewBox="0 0 24 24" width="18" height="18"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
-                <span>{p}</span>
-              </div>
-            ))}
+          <div data-reveal style={{ '--d': 1 }}>
+            <TopicRequest />
           </div>
         </div>
       </section>

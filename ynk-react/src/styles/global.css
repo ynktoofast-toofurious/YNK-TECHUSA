@@ -8225,3 +8225,218 @@ img {
     .st-dim { opacity: 1; animation: none !important; }
     .st-bar { transform: none; animation: none !important; }
 }
+
+/* ── Topic request ── */
+.community {
+    align-items: start;
+}
+
+.community-copy .community-prompts {
+    margin-top: 26px;
+    margin-bottom: 4px;
+}
+
+.community-copy .prompt-bubble {
+    font-size: 0.95rem;
+    padding: 16px 18px;
+}
+
+.tr-card {
+    position: relative;
+    padding: 32px;
+    border-radius: 28px;
+    background:
+        radial-gradient(ellipse 80% 60% at 100% 0%, rgba(41, 181, 232, 0.14), transparent 65%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+    border: 1px solid rgba(41, 181, 232, 0.25);
+    box-shadow: 0 30px 70px -30px rgba(41, 181, 232, 0.35);
+    scroll-margin-top: calc(var(--nav-height) + 20px);
+}
+
+.tr-title {
+    margin-top: 4px;
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+}
+
+.tr-sub {
+    margin: 8px 0 24px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.tr-label-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tr-label-row .sp-label {
+    margin-top: 0;
+}
+
+.tr-count {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+.tr-topics .sp-choice,
+.tr-roles .sp-choice {
+    padding: 8px 14px;
+    font-size: 0.84rem;
+}
+
+.tr-topics .sp-choice:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.tr-field {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.tr-field .sp-label {
+    margin-top: 0;
+}
+
+.tr-roles + .tr-field {
+    margin-top: 20px;
+}
+
+.tr-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+}
+
+.tr-submit {
+    width: 100%;
+    margin-top: 22px;
+}
+
+.tr-done {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.tr-done h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-text-primary);
+}
+
+.tr-done p {
+    color: var(--color-text-secondary);
+}
+
+.tr-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 40px;
+    color: var(--color-text-secondary);
+}
+
+/* ── Service notice ── */
+.sn-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(5, 9, 18, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: dvFade 0.25s ease forwards;
+    opacity: 0;
+}
+
+.sn-card {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    padding: 36px 30px 28px;
+    border-radius: 26px;
+    text-align: center;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(41, 181, 232, 0.18), transparent 70%), #0c1324;
+    border: 1px solid rgba(41, 181, 232, 0.3);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    animation: hubRise 0.45s var(--hub-ease);
+}
+
+.sn-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.sn-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    color: var(--color-accent);
+    background: rgba(41, 181, 232, 0.12);
+    border: 1px solid rgba(41, 181, 232, 0.3);
+}
+
+.sn-card h2 {
+    margin: 16px 0 8px;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-text-primary);
+}
+
+.sn-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.sn-context {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 0.88rem !important;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.sn-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+@media (max-width: 640px) {
+    .tr-card {
+        padding: 24px 18px;
+    }
+}

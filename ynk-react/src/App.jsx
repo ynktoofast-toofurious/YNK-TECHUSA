@@ -7,6 +7,7 @@ import ScrollToTop from './components/ScrollToTop'
 import LanguagePopup from './components/LanguagePopup'
 import AccessGate from './components/AccessGate'
 import CookieConsent from './components/CookieConsent'
+import ServiceNotice from './components/ServiceNotice'
 import { AccessProvider, useAccess } from './context/AccessContext'
 import Home from './pages/Home'
 import ITServices from './pages/ITServices'
@@ -56,6 +57,7 @@ function App() {
       <LanguagePopup />
       <ScrollToTop />
       <CookieConsent />
+      <ServiceNotice />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

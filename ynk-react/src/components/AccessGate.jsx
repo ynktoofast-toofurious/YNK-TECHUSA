@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAccess } from '../context/AccessContext'
 import { useLanguage } from '../i18n/LanguageContext'
 import { getDynamicCodes } from '../utils/tracking'
+import { API_ONLINE, showServiceNotice } from '../config/services'
 import { ArrowLeft } from './Icons'
 
 // Same hashes as ConsultantsPortal; any valid portal code unlocks the site
@@ -58,6 +59,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
       setError(t('hubGate.invalid'))
       setCode('')
       inputRef.current?.focus()
+      if (!API_ONLINE) showServiceNotice('access')
     }
   }
 

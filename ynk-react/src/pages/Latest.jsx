@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
+import { ArrowRight } from '../components/Icons'
 import LatestCard from '../components/LatestCard'
 import { LATEST, LATEST_TYPES, markLatestSeen, tagLabel } from '../content/latest'
 import useReveal from '../hooks/useReveal'
@@ -91,6 +92,10 @@ export default function Latest() {
               </div>
             </>
           )}
+          <div className="tr-cta" data-reveal>
+            <span>{t('topicRequest.ctaText')}</span>
+            <Link to="/#suggest" className="btn btn-ghost hub-btn-round">{t('topicRequest.cta')} <ArrowRight /></Link>
+          </div>
         </div>
       </section>
     </div>

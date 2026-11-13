@@ -5,6 +5,7 @@ import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage, trackLoginAtt
 import { useLanguage } from '../i18n/LanguageContext'
 import ResumeCard from '../components/ResumeCard'
 import { ArrowLeft } from '../components/Icons'
+import { API_ONLINE, showServiceNotice } from '../config/services'
 import { escapeAll } from '../utils/escapeHtml'
 
 const EMAILJS_SERVICE_ID = 'service_sw3zais'
@@ -95,6 +96,7 @@ export default function ConsultantsPortal() {
         codeRef.current.value = ''
         codeRef.current.focus()
         trackLoginAttempt(false)
+        if (!API_ONLINE) showServiceNotice('access')
       }
     } catch (err) {
       console.error('Access code error:', err)

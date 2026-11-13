@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || ''
+import { API_ONLINE } from '../config/services'
+
+const API_URL = API_ONLINE ? (import.meta.env.VITE_API_URL || '') : ''
 
 // localStorage keys (fallback when API not configured)
 const STATS_KEY = 'ynk_site_stats'
@@ -84,6 +86,7 @@ export async function getDynamicCodes() {
 
 // ── Access code usage + location tracking ──────────────────────
 async function getGeoLocation() {
+  if (!API_URL) return null
   try {
     const res = await fetch('https://ipapi.co/json/', {
       signal: AbortSignal.timeout ? AbortSignal.timeout(4000) : undefined,
