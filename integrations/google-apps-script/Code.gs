@@ -121,7 +121,9 @@ function syncApprovedArticles() {
       try {
         const pending = REVIEWS.filter(([key]) => !PASSED_RE.test(str_(row.get(key)))).map(([, name]) => name)
         if (pending.length) {
-          Logger.log('%s: BLOCKED, waiting on %s', id, pending.join(', '))
+          const detail = REVIEWS.filter(([, name]) => pending.indexOf(name) >= 0)
+            .map(([key, name]) => `${name} = "${str_(row.get(key))}" (options: ${queue.options(row, key).join(', ') || 'free text'})`)
+          Logger.log('%s: BLOCKED, waiting on %s', id, detail.join('; '))
           setIfChanged_(queue, row, 'syncState', SYNC.blocked)
           setIfChanged_(queue, row, 'error', `Waiting on review: ${pending.join(', ')} (mark as PASS, APPROVED or N/A).`)
           return
@@ -467,6 +469,11 @@ function openTable_(sheetId, tabName, cols, requiredKey, ensureKeys) {
     map,
     rows,
     set: (row, key, value) => sheet.getRange(row.rowNumber, map[key] + 1).setValue(value),
+    options: (row, key) => {
+      const rule = sheet.getRange(row.rowNumber, map[key] + 1).getDataValidation()
+      const vals = rule ? rule.getCriteriaValues()[0] : null
+      return Array.isArray(vals) ? vals.map(String) : []
+    },
   }
 }
 
