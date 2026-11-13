@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
-import { saveAccessRequest, getDynamicCodes, trackAccessCodeUsage, trackLoginAttempt } from '../utils/tracking'
+import { trackAccessCodeUsage, trackLoginAttempt } from '../utils/tracking'
+import { submitAccessRequest, verifyAccessCode, intakeEnabled } from '../utils/intake'
 import { useLanguage } from '../i18n/LanguageContext'
 import ResumeCard from '../components/ResumeCard'
 import { ArrowLeft } from '../components/Icons'
-import { API_ONLINE, showServiceNotice } from '../config/services'
+import { showServiceNotice } from '../config/services'
 import { escapeAll } from '../utils/escapeHtml'
 
 const EMAILJS_SERVICE_ID = 'service_sw3zais'
@@ -78,10 +79,12 @@ export default function ConsultantsPortal() {
       // Check static codes
       let found = RESUME_MAP.find((r) => r.hash === hash)
 
-      // Check dynamic codes from API/localStorage (admin-approved)
+      // Check codes approved in the YNK Admin console
       if (!found) {
-        const dynamicCodes = await getDynamicCodes()
-        found = dynamicCodes.find((r) => r.hash === hash)
+        const approved = await verifyAccessCode(code)
+        if (approved) {
+          found = RESUME_MAP.find((r) => r.industry === approved.industry && !r.viewOnly) || { industry: approved.industry }
+        }
       }
 
       if (found) {
@@ -96,7 +99,7 @@ export default function ConsultantsPortal() {
         codeRef.current.value = ''
         codeRef.current.focus()
         trackLoginAttempt(false)
-        if (!API_ONLINE) showServiceNotice('access')
+        if (!intakeEnabled) showServiceNotice('access')
       }
     } catch (err) {
       console.error('Access code error:', err)
@@ -134,9 +137,29 @@ export default function ConsultantsPortal() {
       industry: formData.get('req_industry'),
       reason: formData.get('req_reason'),
     }
+    const honeypot = formData.get('website') || ''
     const r = escapeAll(requestData)
 
     try {
+      if (intakeEnabled) {
+        const res = await submitAccessRequest({ ...requestData, website: honeypot })
+        if (!res.ok) {
+          throw new Error(res.error === 'rate_limited'
+            ? 'Too many requests. Please try again in an hour.'
+            : 'Please check the form fields and try again.')
+        }
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: requestData.email,
+          heading: 'We received your access request',
+          content_html: `<p>Thanks ${r.name || 'there'}.</p>
+<p>We received your access request for the <strong>${r.industry}</strong> section and will review it shortly.</p>
+<p>We will follow up at ${r.email} as soon as possible.</p>`,
+          footer_note: 'This is an automated confirmation from YNK-Tech USA.',
+        }).catch(() => {})
+        setRequestSent(true)
+        return
+      }
+
       const requestHtml = `<p>A visitor has requested access to the <strong>Consultants Portal</strong>.</p>
 <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
 <strong>Name:</strong> ${r.name}<br/>
@@ -169,8 +192,6 @@ export default function ConsultantsPortal() {
         }),
       ])
 
-      // Save to cloud/localStorage for admin portal
-      await saveAccessRequest(requestData)
       setRequestSent(true)
     } catch (err) {
       console.error('EmailJS error:', err)
@@ -345,6 +366,7 @@ export default function ConsultantsPortal() {
                         <strong><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" style={{verticalAlign: 'middle', marginRight: '4px'}}><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> {t('consultantsPage.pleaseNote')}</strong> <span dangerouslySetInnerHTML={{ __html: t('consultantsPage.expiryNote') }} />
                       </div>
                       <div className="quote-form-grid">
+                        <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
                         <div className="form-group">
                           <label htmlFor="req_name">
                             {t('consultantsPage.fullName')} <span className="required">*</span>

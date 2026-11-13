@@ -7,7 +7,7 @@ const CSP = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: blob:",
-  "connect-src 'self' https://*.execute-api.us-east-1.amazonaws.com https://api.emailjs.com https://ipapi.co",
+  "connect-src 'self' https://script.google.com https://script.googleusercontent.com https://*.execute-api.us-east-1.amazonaws.com https://api.emailjs.com https://ipapi.co",
   "worker-src 'self' blob:",
   "frame-src 'self'",
   "object-src 'none'",

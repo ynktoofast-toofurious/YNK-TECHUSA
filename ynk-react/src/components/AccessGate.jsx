@@ -2,8 +2,8 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAccess } from '../context/AccessContext'
 import { useLanguage } from '../i18n/LanguageContext'
-import { getDynamicCodes } from '../utils/tracking'
-import { API_ONLINE, showServiceNotice } from '../config/services'
+import { verifyAccessCode, intakeEnabled } from '../utils/intake'
+import { showServiceNotice } from '../config/services'
 import { ArrowLeft } from './Icons'
 
 // Same hashes as ConsultantsPortal; any valid portal code unlocks the site
@@ -46,10 +46,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
     const hash = await sha256(val)
 
     let valid = SITE_CODE_HASHES.includes(hash)
-    if (!valid) {
-      const dynamic = await getDynamicCodes()
-      valid = dynamic.some((c) => c.hash === hash)
-    }
+    if (!valid) valid = Boolean(await verifyAccessCode(val))
 
     setChecking(false)
     if (valid) {
@@ -59,7 +56,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
       setError(t('hubGate.invalid'))
       setCode('')
       inputRef.current?.focus()
-      if (!API_ONLINE) showServiceNotice('access')
+      if (!intakeEnabled) showServiceNotice('access')
     }
   }
 

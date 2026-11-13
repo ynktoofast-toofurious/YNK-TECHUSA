@@ -44,6 +44,8 @@ const SYNC = {
 const QUEUE_COLS = {
   articleId: ['article_id'],
   slug: ['slug'],
+  titleEn: ['title_en'],
+  notes: ['notes'],
   date: ['issue_date', 'publish_date', 'date'],
   approval: ['approval_status'],
   languageReview: ['language_review'],
