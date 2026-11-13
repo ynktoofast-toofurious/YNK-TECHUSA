@@ -1,24 +1,20 @@
 /**
  * YNK Tech Intelligence: Google Drive -> GitHub publishing bridge (Google Apps Script).
  *
- * Reads the Editorial Queue sheet, takes ONLY rows marked APPROVED_FOR_SYNC, exports the
- * EN/FR/ES Google Docs plus rights-checked images, and opens a pull request that adds them under
- * ynk-react/public/intelligence/. Nothing is pushed to main; you merge the PR to publish.
+ * Reads Editorial_Queue, takes ONLY rows with approval_status = APPROVED_FOR_SYNC whose review
+ * checks have passed, exports the EN/FR/ES Google Docs plus rights-checked images, and opens a pull
+ * request under ynk-react/public/intelligence/. Nothing is pushed to main; you merge the PR to publish.
  *
  * Setup (one time):
- *  1. script.google.com > New project. Paste this file as Code.gs and appsscript.json as the manifest
- *     (Project Settings > "Show appsscript.json manifest file").
- *  2. GitHub > Settings > Developer settings > Fine-grained tokens > Generate:
- *     Repository access: only ynktoofast-toofurious/YNK-TECHUSA.
- *     Permissions: Contents = Read and write, Pull requests = Read and write (Metadata = Read is automatic).
- *  3. Apps Script > Project Settings > Script Properties > add GITHUB_TOKEN = <token>.
- *     Never paste the token into this code, a sheet, chat, or the repo.
- *  4. Run testConnection() once (authorize when prompted). Then run installHourlyTrigger().
+ *  1. script.google.com > New project. Paste this file as Code.gs and appsscript.json as the manifest.
+ *  2. GitHub fine-grained token, only ynktoofast-toofurious/YNK-TECHUSA,
+ *     Contents = Read and write, Pull requests = Read and write.
+ *  3. Project Settings > Script Properties > GITHUB_TOKEN = <token>. Never put the token in code, sheets or chat.
+ *  4. Run testConnection(), then installHourlyTrigger().
  *
- * Queue columns (header names, case-insensitive): article_id, slug, status, doc_en, doc_fr, doc_es,
- * plus optional type, publish_date, tags, hero_asset_id, source_references.
- * The script adds sync_hash, pr_url, last_sync, sync_note if they are missing.
- * Status flow: DRAFT -> (you) APPROVED_FOR_SYNC -> SYNC_PR_OPEN -> PUBLISHED after merge.
+ * You edit: approval_status (DRAFT -> APPROVED_FOR_SYNC), language_review, source_review, image_rights_review.
+ * The script writes: sync_state (SYNC_PR_OPEN -> PUBLISHED, or SYNC_ERROR / SYNC_BLOCKED / SYNC_PR_CLOSED),
+ * pr_url, last_sync_hash, last_error. Editing a published article's Docs sends an update PR automatically.
  */
 
 const CONFIG = {
@@ -27,53 +23,75 @@ const CONFIG = {
   baseBranch: 'main',
   contentRoot: 'ynk-react/public/intelligence',
   queueSheetId: '1whz0UbIFTJp8QBjPsa1VQcttjoawXNTu9fz36Van1_M',
-  queueTab: '', // '' = first tab
+  queueTab: 'Editorial_Queue',
   registrySheetId: '1qig-v8xy3jjziXiLcKGHD6Dcn8FYvOHEaRNWkJuxdb4',
-  registryTab: '',
+  assetsTab: 'Image_Assets',
+  articleImagesTab: 'Article_Images',
   maxImageBytes: 1.5 * 1024 * 1024,
+  resizeWidth: 1600,
 }
 
-const STATUS = {
-  approved: 'APPROVED_FOR_SYNC',
+const APPROVED = 'APPROVED_FOR_SYNC'
+const SYNC = {
   prOpen: 'SYNC_PR_OPEN',
   published: 'PUBLISHED',
   prClosed: 'SYNC_PR_CLOSED',
   error: 'SYNC_ERROR',
+  blocked: 'SYNC_BLOCKED',
 }
 
 const QUEUE_COLS = {
-  articleId: ['article_id', 'article id', 'id'],
+  articleId: ['article_id'],
   slug: ['slug'],
-  status: ['status', 'approval_state', 'editorial_status', 'approval status'],
+  date: ['issue_date', 'publish_date', 'date'],
+  approval: ['approval_status'],
+  languageReview: ['language_review'],
+  sourceReview: ['source_review'],
+  imageReview: ['image_rights_review'],
+  docEn: ['doc_en_id', 'doc_en'],
+  docFr: ['doc_fr_id', 'doc_fr'],
+  docEs: ['doc_es_id', 'doc_es'],
   type: ['type', 'content_type'],
-  date: ['publish_date', 'date', 'publication_date'],
   tags: ['tags'],
-  docEn: ['doc_en', 'en_doc', 'english_doc', 'en doc link', 'en_doc_url', 'english doc link'],
-  docFr: ['doc_fr', 'fr_doc', 'french_doc', 'fr doc link', 'fr_doc_url', 'french doc link'],
-  docEs: ['doc_es', 'es_doc', 'spanish_doc', 'es doc link', 'es_doc_url', 'spanish doc link'],
-  heroAssetId: ['hero_asset_id', 'hero_asset'],
-  sources: ['source_references', 'sources', 'source_urls'],
-  syncHash: ['sync_hash'],
+  sources: ['source_references', 'sources'],
+  syncState: ['sync_state'],
   prUrl: ['pr_url'],
-  lastSync: ['last_sync'],
-  note: ['sync_note'],
+  syncHash: ['last_sync_hash'],
+  error: ['last_error'],
 }
 
-const REGISTRY_COLS = {
-  assetId: ['asset_id', 'asset id', 'image_id', 'image asset id', 'asset_key', 'primary_key', 'id'],
-  rights: ['rights_status', 'rights', 'image_rights', 'clearance', 'clearance_status', 'rights status'],
-  file: ['drive_file_id', 'file_id', 'drive_url', 'drive_link', 'file_url', 'image_url', 'drive file'],
-  credit: ['credit', 'photo_credit', 'attribution'],
-  source: ['source_url', 'original_url', 'source', 'source link'],
-  altEn: ['alt_en', 'alt_text_en', 'alt', 'alt text'],
-  altFr: ['alt_fr', 'alt_text_fr'],
-  altEs: ['alt_es', 'alt_text_es'],
+const ASSET_COLS = {
+  assetId: ['asset_id'],
+  rights: ['rights_status'],
+  useStatus: ['use_status'],
+  file: ['drive_original_file_id', 'drive_original_url'],
+  credit: ['photographer_credit'],
+  publisher: ['publisher'],
+  source: ['source_post_url'],
+  altEn: ['alt_en'],
+  altFr: ['alt_fr'],
+  altEs: ['alt_es'],
+  captionEn: ['caption_en'],
+  captionFr: ['caption_fr'],
+  captionEs: ['caption_es'],
+}
+
+const ARTICLE_IMAGE_COLS = {
+  articleId: ['article_id'],
+  assetId: ['asset_id'],
+  placement: ['placement'],
+  order: ['display_order'],
+  status: ['editorial_status'],
 }
 
 const LANGS = [['en', 'docEn'], ['fr', 'docFr'], ['es', 'docEs']]
+const REVIEWS = [['languageReview', 'language_review'], ['sourceReview', 'source_review'], ['imageReview', 'image_rights_review']]
 const TYPES = ['analysis', 'release', 'engineering']
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
-const CLEARED_RE = /^(cleared|rights[ _-]?cleared|approved|licensed|owned|original|yes)$/i
+const ID_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{2,80}$/
+const PASSED_RE = /^(pass|passed|approved|ok|yes|true|complete|completed|done|cleared|verified|n\/?a|not applicable)$/i
+const CLEARED_RE = /^(cleared|rights[ _-]?cleared|cleared[ _-]for[ _-]\w+|approved|licensed|owned|original|public[ _-]domain|permission[ _-]granted|yes)$/i
+const BLOCKED_USE_RE = /(link|reference|do[ _-]?not|blocked|restricted|pending|unverified)/i
 const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu
 const IMAGE_TYPES = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }
 
@@ -84,41 +102,43 @@ function syncApprovedArticles() {
   if (!lock.tryLock(30000)) return
   try {
     const token = getToken_()
-    const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncHash', 'prUrl', 'lastSync', 'note'])
+    const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error'])
     refreshPrStatuses_(queue, token)
 
-    const registry = openTable_(CONFIG.registrySheetId, CONFIG.registryTab, REGISTRY_COLS, 'assetId', [])
+    const assetsTable = openTable_(CONFIG.registrySheetId, CONFIG.assetsTab, ASSET_COLS, 'assetId', [])
+    const linksTable = openTable_(CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId', [])
     const assets = {}
-    registry.rows.forEach((r) => { const id = str_(r.get('assetId')); if (id) assets[id] = r })
+    assetsTable.rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
 
     const files = {}
     const batch = []
     queue.rows.forEach((row) => {
-      if (str_(row.get('status')).toUpperCase() !== STATUS.approved) return
+      if (str_(row.get('approval')).toUpperCase() !== APPROVED) return
+      if (str_(row.get('syncState')).toUpperCase() === SYNC.prOpen) return
       try {
-        const built = buildArticle_(row, assets)
-        if (built.hash === str_(row.get('syncHash'))) {
-          queue.set(row, 'note', 'Unchanged since last sync; nothing to send.')
-          if (str_(row.get('prUrl'))) queue.set(row, 'status', STATUS.prOpen)
+        const pending = REVIEWS.filter(([key]) => !PASSED_RE.test(str_(row.get(key)))).map(([, name]) => name)
+        if (pending.length) {
+          setIfChanged_(queue, row, 'syncState', SYNC.blocked)
+          setIfChanged_(queue, row, 'error', `Waiting on review: ${pending.join(', ')} (mark as PASS, APPROVED or N/A).`)
           return
         }
+        const built = buildArticle_(row, assets, linksTable.rows)
+        if (built.hash === str_(row.get('syncHash'))) return
         Object.assign(files, built.files)
         batch.push({ row, built })
       } catch (e) {
-        queue.set(row, 'status', STATUS.error)
-        queue.set(row, 'note', String(e.message || e).slice(0, 480))
+        setIfChanged_(queue, row, 'syncState', SYNC.error)
+        setIfChanged_(queue, row, 'error', String(e.message || e).slice(0, 480))
       }
     })
     if (!batch.length) return
 
     const pr = openPullRequest_(token, files, batch)
-    const now = new Date()
     batch.forEach(({ row, built }) => {
-      queue.set(row, 'status', STATUS.prOpen)
+      queue.set(row, 'syncState', SYNC.prOpen)
       queue.set(row, 'prUrl', pr.html_url)
       queue.set(row, 'syncHash', built.hash)
-      queue.set(row, 'lastSync', now)
-      queue.set(row, 'note', built.fixes ? `${built.fixes} em dash/emoji fix(es) applied automatically.` : 'Sent for review.')
+      queue.set(row, 'error', '')
     })
   } finally {
     lock.releaseLock()
@@ -135,10 +155,15 @@ function installHourlyTrigger() {
 function testConnection() {
   const repo = gh_(getToken_(), 'GET', '')
   Logger.log('GitHub repo: %s (push access: %s)', repo.full_name, repo.permissions && repo.permissions.push)
-  const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', [])
-  Logger.log('Queue tab "%s": %s rows, columns found: %s', queue.tab, queue.rows.length, Object.keys(queue.map).join(', '))
-  const registry = openTable_(CONFIG.registrySheetId, CONFIG.registryTab, REGISTRY_COLS, 'assetId', [])
-  Logger.log('Registry tab "%s": %s rows, columns found: %s', registry.tab, registry.rows.length, Object.keys(registry.map).join(', '))
+  ;[
+    [CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId'],
+    [CONFIG.registrySheetId, CONFIG.assetsTab, ASSET_COLS, 'assetId'],
+    [CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId'],
+  ].forEach(([id, tab, cols, key]) => {
+    const t = openTable_(id, tab, cols, key, [])
+    const missing = Object.keys(cols).filter((k) => t.map[k] == null)
+    Logger.log('%s: %s rows | found: %s | not found: %s', t.tab, t.rows.length, Object.keys(t.map).join(', '), missing.join(', ') || 'none')
+  })
 }
 
 // Logs every tab's first non-empty row in both sheets so column names can be mapped.
@@ -152,31 +177,51 @@ function listHeaders() {
   })
 }
 
+// Dry run: builds every approved article without touching GitHub or the sheet, and logs the result.
+function previewApproved() {
+  const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', [])
+  const assetsTable = openTable_(CONFIG.registrySheetId, CONFIG.assetsTab, ASSET_COLS, 'assetId', [])
+  const linksTable = openTable_(CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId', [])
+  const assets = {}
+  assetsTable.rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
+  queue.rows.forEach((row) => {
+    const id = str_(row.get('articleId'))
+    try {
+      const built = buildArticle_(row, assets, linksTable.rows)
+      Logger.log('%s [approval=%s]: OK slug=%s, files=%s, fixes=%s', id, str_(row.get('approval')), built.slug, Object.keys(built.files).join(', '), built.fixes)
+    } catch (e) {
+      Logger.log('%s [approval=%s]: %s', id, str_(row.get('approval')), e.message)
+    }
+  })
+}
+
 /* ---------------- Article export ---------------- */
 
-function buildArticle_(row, assets) {
+function buildArticle_(row, assets, imageLinks) {
   const articleId = str_(row.get('articleId'))
-  if (!/^[A-Za-z0-9][A-Za-z0-9_-]{2,80}$/.test(articleId)) throw new Error('article_id is missing or has invalid characters.')
+  if (!ID_RE.test(articleId)) throw new Error('article_id is missing or has invalid characters.')
 
   const counter = { fixes: 0 }
   const editions = {}
   LANGS.forEach(([lang, col]) => {
     const docId = driveId_(row.get(col))
-    if (!docId) throw new Error(`Missing ${lang.toUpperCase()} Google Doc link.`)
+    if (!docId) throw new Error(`Missing doc_${lang}_id.`)
     editions[lang] = parseDoc_(docId, counter)
   })
 
   const slug = str_(row.get('slug')) || slugify_(editions.en.title)
   if (!SLUG_RE.test(slug) || slug.length > 80) throw new Error(`Invalid slug "${slug}". Use lowercase letters, numbers and hyphens.`)
 
-  const type = TYPES.indexOf(str_(row.get('type')).toLowerCase()) >= 0 ? str_(row.get('type')).toLowerCase() : 'analysis'
+  const rawType = str_(row.get('type')).toLowerCase()
+  const type = TYPES.indexOf(rawType) >= 0 ? rawType : 'analysis'
   const rawDate = row.get('date')
-  const date = Utilities.formatDate(rawDate instanceof Date ? rawDate : new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd')
+  const parsedDate = rawDate instanceof Date ? rawDate : (str_(rawDate) ? new Date(str_(rawDate)) : new Date())
+  const date = Utilities.formatDate(isNaN(parsedDate) ? new Date() : parsedDate, Session.getScriptTimeZone(), 'yyyy-MM-dd')
   const tags = str_(row.get('tags')).split(',').map((t) => clean_(t, counter)).filter(Boolean).slice(0, 6)
   const sources = str_(row.get('sources')).split(/[\s,]+/).filter((u) => /^https:\/\/\S+$/i.test(u))
 
   const files = {}
-  const heroId = str_(row.get('heroAssetId'))
+  const heroId = pickHero_(articleId, imageLinks)
   if (heroId) Object.assign(files, buildAsset_(heroId, assets[heroId], counter))
 
   const meta = {
@@ -194,7 +239,17 @@ function buildArticle_(row, assets) {
   LANGS.forEach(([lang]) => { files[`articles/${slug}/${lang}.json`] = json64_(editions[lang]) })
 
   const hash = sha256_(Object.keys(files).sort().map((k) => k + files[k]).join('|'))
-  return { slug, articleId, files, hash, fixes: counter.fixes, langs: LANGS.length, hasImage: Boolean(heroId) }
+  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(heroId) }
+}
+
+function pickHero_(articleId, imageLinks) {
+  const rows = imageLinks.filter((r) => str_(r.get('articleId')) === articleId && str_(r.get('assetId')))
+    .filter((r) => !str_(r.get('status')) || PASSED_RE.test(str_(r.get('status'))) || /publish|final/i.test(str_(r.get('status'))))
+  if (!rows.length) return ''
+  const hero = rows.find((r) => /hero|cover|lead|main/i.test(str_(r.get('placement'))))
+  if (hero) return str_(hero.get('assetId'))
+  rows.sort((a, b) => (Number(a.get('order')) || 999) - (Number(b.get('order')) || 999))
+  return str_(rows[0].get('assetId'))
 }
 
 function parseDoc_(docId, counter) {
@@ -242,38 +297,57 @@ function parseDoc_(docId, counter) {
 }
 
 function buildAsset_(assetId, row, counter) {
-  if (!row) throw new Error(`hero_asset_id ${assetId} is not in the Image Asset Registry.`)
-  if (!/^[A-Za-z0-9][A-Za-z0-9_-]{2,80}$/.test(assetId)) throw new Error(`Invalid asset_id ${assetId}.`)
+  if (!row) throw new Error(`Image ${assetId} is linked in Article_Images but missing from Image_Assets.`)
+  if (!ID_RE.test(assetId)) throw new Error(`Invalid asset_id ${assetId}.`)
   const altEn = clean_(row.get('altEn'), counter)
-  const alt = {
-    en: altEn,
-    fr: clean_(row.get('altFr'), counter) || altEn,
-    es: clean_(row.get('altEs'), counter) || altEn,
+  if (!altEn) throw new Error(`Image ${assetId} needs alt_en.`)
+  const tri = (en, fr, es) => {
+    const base = clean_(row.get(en), counter)
+    return { en: base, fr: clean_(row.get(fr), counter) || base, es: clean_(row.get(es), counter) || base }
   }
-  if (!altEn) throw new Error(`Asset ${assetId} needs alt text.`)
+  const alt = tri('altEn', 'altFr', 'altEs')
+  const caption = tri('captionEn', 'captionFr', 'captionEs')
   const sourceUrl = /^https:\/\/\S+$/i.test(str_(row.get('source'))) ? str_(row.get('source')) : ''
-  const cleared = CLEARED_RE.test(str_(row.get('rights')))
-  const files = {}
+  const cleared = CLEARED_RE.test(str_(row.get('rights'))) && !BLOCKED_USE_RE.test(str_(row.get('useStatus')))
   const asset = { asset_id: assetId, rights: cleared ? 'cleared' : 'unverified', alt, source_url: sourceUrl }
+  if (caption.en) asset.caption = caption
+  const files = {}
 
   if (cleared) {
     const fileId = driveId_(row.get('file'))
-    if (!fileId) throw new Error(`Cleared asset ${assetId} has no Drive file link.`)
-    const blob = DriveApp.getFileById(fileId).getBlob()
-    const ext = IMAGE_TYPES[blob.getContentType()]
-    if (!ext) throw new Error(`Asset ${assetId} must be JPG, PNG or WebP.`)
-    const bytes = blob.getBytes()
-    if (bytes.length > CONFIG.maxImageBytes) throw new Error(`Asset ${assetId} is over 1.5 MB; upload an optimized version.`)
-    const credit = clean_(row.get('credit'), counter)
-    if (!credit) throw new Error(`Cleared asset ${assetId} needs a credit.`)
+    if (!fileId) throw new Error(`Cleared image ${assetId} has no drive_original_file_id.`)
+    const image = loadImage_(fileId, assetId)
+    const credit = clean_(row.get('credit'), counter) || clean_(row.get('publisher'), counter)
+    if (!credit) throw new Error(`Cleared image ${assetId} needs photographer_credit or publisher.`)
     asset.credit = credit
-    asset.file = `images/${assetId}.${ext}`
-    files[asset.file] = Utilities.base64Encode(bytes)
+    asset.file = `images/${assetId}.${image.ext}`
+    files[asset.file] = Utilities.base64Encode(image.bytes)
   } else if (!sourceUrl) {
-    throw new Error(`Asset ${assetId} is not rights-cleared and has no https source link to point to.`)
+    throw new Error(`Image ${assetId} is not rights-cleared and has no https source_post_url to link to.`)
   }
   files[`assets/${assetId}.json`] = json64_(asset)
   return files
+}
+
+// Uses the original if it is small enough, otherwise Drive's resized rendition.
+function loadImage_(fileId, assetId) {
+  const blob = DriveApp.getFileById(fileId).getBlob()
+  const ext = IMAGE_TYPES[blob.getContentType()]
+  const bytes = blob.getBytes()
+  if (ext && bytes.length <= CONFIG.maxImageBytes) return { ext, bytes }
+
+  const auth = { headers: { Authorization: `Bearer ${ScriptApp.getOAuthToken()}` }, muteHttpExceptions: true }
+  const info = UrlFetchApp.fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?fields=thumbnailLink&supportsAllDrives=true`, auth)
+  const link = info.getResponseCode() === 200 ? JSON.parse(info.getContentText()).thumbnailLink : ''
+  if (link) {
+    const res = UrlFetchApp.fetch(link.replace(/=s\d+$/, `=s${CONFIG.resizeWidth}`), auth)
+    const resized = res.getBlob()
+    const rext = IMAGE_TYPES[resized.getContentType()]
+    if (res.getResponseCode() === 200 && rext && resized.getBytes().length <= CONFIG.maxImageBytes) {
+      return { ext: rext, bytes: resized.getBytes() }
+    }
+  }
+  throw new Error(`Image ${assetId} must be JPG, PNG or WebP under 1.5 MB (automatic resize failed).`)
 }
 
 /* ---------------- GitHub ---------------- */
@@ -301,7 +375,7 @@ function openPullRequest_(token, files, batch) {
     '',
     ...lines,
     '',
-    'Checks run automatically on this PR. Review the preview, then **merge to publish**; GitHub Pages deploys from `main`.',
+    'Checks run automatically on this PR. Review, then **merge to publish**; GitHub Pages deploys from `main`.',
   ].join('\n')
   return gh_(token, 'POST', '/pulls', { title: message, head: branch, base: CONFIG.baseBranch, body, maintainer_can_modify: true })
 }
@@ -309,16 +383,15 @@ function openPullRequest_(token, files, batch) {
 function refreshPrStatuses_(queue, token) {
   const cache = {}
   queue.rows.forEach((row) => {
-    if (str_(row.get('status')).toUpperCase() !== STATUS.prOpen) return
+    if (str_(row.get('syncState')).toUpperCase() !== SYNC.prOpen) return
     const m = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
     if (!m) return
     const pr = cache[m[1]] || (cache[m[1]] = gh_(token, 'GET', `/pulls/${m[1]}`))
     if (pr.merged_at) {
-      queue.set(row, 'status', STATUS.published)
-      queue.set(row, 'note', `Published ${pr.merged_at.slice(0, 10)}.`)
+      queue.set(row, 'syncState', SYNC.published)
     } else if (pr.state === 'closed') {
-      queue.set(row, 'status', STATUS.prClosed)
-      queue.set(row, 'note', 'Pull request was closed without merging.')
+      queue.set(row, 'syncState', SYNC.prClosed)
+      queue.set(row, 'error', 'Pull request was closed without merging. Edit the Docs to send a new version.')
     }
   })
 }
@@ -350,41 +423,26 @@ function getToken_() {
 
 function openTable_(sheetId, tabName, cols, requiredKey, ensureKeys) {
   const ss = SpreadsheetApp.openById(sheetId)
-  const sheets = tabName ? [ss.getSheetByName(tabName)] : ss.getSheets()
-  if (!sheets[0]) throw new Error(`Tab "${tabName}" not found in ${ss.getName()}.`)
-  const norm = (s) => String(s).toLowerCase().replace(/[\s_-]+/g, '')
-  const findMap = (headerRow) => {
-    const map = {}
-    const headers = headerRow.map(norm)
+  const sheet = ss.getSheetByName(tabName)
+  if (!sheet) throw new Error(`Tab "${tabName}" not found in ${ss.getName()}.`)
+  // "asset_id (PK)" -> "assetid"
+  const norm = (s) => String(s).toLowerCase().replace(/\(.*?\)/g, '').replace(/[\s_-]+/g, '')
+  const values = sheet.getDataRange().getValues()
+
+  let headerIdx = -1
+  let map = {}
+  for (let r = 0; r < Math.min(values.length, 20); r++) {
+    const headers = values[r].map(norm)
+    const m = {}
     Object.keys(cols).forEach((key) => {
       for (const alias of cols[key]) {
         const idx = headers.indexOf(norm(alias))
-        if (idx >= 0) { map[key] = idx; break }
+        if (idx >= 0) { m[key] = idx; break }
       }
     })
-    return map
+    if (m[requiredKey] != null && Object.keys(m).length > Object.keys(map).length) { headerIdx = r; map = m }
   }
-
-  // Header row may be on any tab and below a title block; take the row matching the most columns.
-  let sheet = null
-  let values = []
-  let headerIdx = -1
-  let map = {}
-  let best = 0
-  const seen = []
-  for (const sh of sheets) {
-    const vals = sh.getDataRange().getValues()
-    for (let r = 0; r < Math.min(vals.length, 20); r++) {
-      const m = findMap(vals[r])
-      const score = Object.keys(m).length
-      if (m[requiredKey] != null && score > best) { sheet = sh; values = vals; headerIdx = r; map = m; best = score }
-    }
-    const firstRow = vals.find((row) => row.some((c) => str_(c)))
-    seen.push(`"${sh.getName()}": ${firstRow ? firstRow.filter((c) => str_(c)).slice(0, 12).join(' | ') : '(empty)'}`)
-  }
-  if (!sheet) {
-    throw new Error(`Could not find a "${cols[requiredKey][0]}" column in ${ss.getName()}. Tabs and first rows seen: ${seen.join(' ;; ')}`)
-  }
+  if (headerIdx < 0) throw new Error(`No "${cols[requiredKey][0]}" header found in ${ss.getName()} / ${tabName}.`)
 
   ensureKeys.forEach((key) => {
     if (map[key] != null) return
@@ -399,11 +457,15 @@ function openTable_(sheetId, tabName, cols, requiredKey, ensureKeys) {
   })).filter((r) => str_(r.get(requiredKey)))
 
   return {
-    tab: sheet.getName(),
+    tab: tabName,
     map,
     rows,
     set: (row, key, value) => sheet.getRange(row.rowNumber, map[key] + 1).setValue(value),
   }
+}
+
+function setIfChanged_(table, row, key, value) {
+  if (str_(row.get(key)) !== str_(value)) table.set(row, key, value)
 }
 
 /* ---------------- Utilities ---------------- */

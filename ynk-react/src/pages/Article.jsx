@@ -24,12 +24,14 @@ function Block({ block }) {
 function HeroAsset({ asset, language, t }) {
   if (!asset) return null
   const alt = asset.alt?.[language] || asset.alt?.en || ''
+  const caption = asset.caption?.[language] || asset.caption?.en || ''
   const source = safeHttps(asset.source_url)
   if (asset.rights === 'cleared' && asset.file) {
     return (
       <figure className="ar-hero">
         <img src={`/intelligence/${asset.file}`} alt={alt} loading="eager" decoding="async" />
         <figcaption>
+          {caption && <span className="ar-caption">{caption}</span>}
           {t('latestUi.article.credit')}: {asset.credit}
           {source && <> · <a href={source} target="_blank" rel="noopener noreferrer nofollow">{hostOf(source)}</a></>}
         </figcaption>
@@ -38,7 +40,7 @@ function HeroAsset({ asset, language, t }) {
   }
   return source ? (
     <a className="ar-hero-link" href={source} target="_blank" rel="noopener noreferrer nofollow">
-      <span>{alt}</span>
+      <span>{caption || alt}</span>
       <span className="hub-link">{t('latestUi.article.imageAtSource')} <ArrowRight /></span>
     </a>
   ) : null

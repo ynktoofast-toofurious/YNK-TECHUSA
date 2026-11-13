@@ -60,6 +60,7 @@ for (const name of listJson(join(CONTENT, 'assets'))) {
   checkStrings(a, where)
   if (!ID_RE.test(a.asset_id || '') || `${a.asset_id}.json` !== name) fail(where, 'asset_id must match the file name')
   if (!LANGS.every((l) => nonEmpty(a.alt?.[l], 300))) fail(where, 'alt text required for en, fr, es')
+  if (a.caption != null && !LANGS.every((l) => nonEmpty(a.caption?.[l], 500))) fail(where, 'caption, if present, needs en, fr, es (max 500 chars)')
   if (a.rights === 'cleared') {
     if (!nonEmpty(a.credit, 200)) fail(where, 'credit is required for cleared images')
     const file = typeof a.file === 'string' ? a.file : ''
@@ -85,6 +86,7 @@ for (const name of listJson(join(CONTENT, 'assets'))) {
     credit: a.credit || '',
     source_url: a.source_url || '',
     alt: a.alt,
+    caption: a.caption || null,
   }
 }
 

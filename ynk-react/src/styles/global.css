@@ -8830,6 +8830,13 @@ img {
     color: var(--color-text-muted);
 }
 
+.ar-caption {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
 .ar-hero figcaption a,
 .ar-sources a {
     color: var(--color-accent);
