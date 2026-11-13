@@ -13,7 +13,7 @@
  *  4. Run testConnection(), then installHourlyTrigger().
  *
  * You edit: approval_status (DRAFT -> APPROVED_FOR_SYNC), language_review, source_review, image_rights_review.
- * The script writes: sync_state (SYNC_PR_OPEN -> PUBLISHED, or SYNC_ERROR / SYNC_BLOCKED / SYNC_PR_CLOSED),
+ * The script writes: sync_state (PR_OPEN -> MERGED, or SYNC_ERROR / NOT_SYNCED with the reason in last_error),
  * pr_url, last_sync_hash, last_error. Editing a published article's Docs sends an update PR automatically.
  */
 
@@ -32,12 +32,13 @@ const CONFIG = {
 }
 
 const APPROVED = 'APPROVED_FOR_SYNC'
+// Must match the sync_state dropdown in Editorial_Queue.
 const SYNC = {
-  prOpen: 'SYNC_PR_OPEN',
-  published: 'PUBLISHED',
-  prClosed: 'SYNC_PR_CLOSED',
+  prOpen: 'PR_OPEN',
+  published: 'MERGED',
+  prClosed: 'NOT_SYNCED',
   error: 'SYNC_ERROR',
-  blocked: 'SYNC_BLOCKED',
+  blocked: 'NOT_SYNCED',
 }
 
 const QUEUE_COLS = {
@@ -89,7 +90,7 @@ const REVIEWS = [['languageReview', 'language_review'], ['sourceReview', 'source
 const TYPES = ['analysis', 'release', 'engineering']
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const ID_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{2,80}$/
-const PASSED_RE = /^(pass|passed|approved|ok|yes|true|complete|completed|done|cleared|verified|n\/?a|not applicable)$/i
+const PASSED_RE = /^(pass|passed|approved|ok|yes|true|complete|completed|done|cleared|verified|reviewed|accepted|confirmed|n\/?a|not applicable)$/i
 const CLEARED_RE = /^(cleared|rights[ _-]?cleared|cleared[ _-]for[ _-]\w+|approved|licensed|owned|original|public[ _-]domain|permission[ _-]granted|yes)$/i
 const BLOCKED_USE_RE = /(link|reference|do[ _-]?not|blocked|restricted|pending|unverified)/i
 const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu
