@@ -9,74 +9,102 @@
     --text: #f1f5f9; --muted: #94a3b8; --accent: #29B5E8; --ok: #22c55e; --warn: #f59e0b; --bad: #ef4444;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
   a { color: var(--accent); }
-  header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 16px; padding: 14px 24px; background: rgba(11,17,32,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  header h1 { margin: 0; font-size: 16px; letter-spacing: .02em; }
-  header .who { margin-left: auto; color: var(--muted); font-size: 12px; }
-  main { max-width: 980px; margin: 0 auto; padding: 24px; }
-  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
-  .tab { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; }
+  header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 16px; padding: 14px 24px; background: rgba(11,17,32,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  header h1 { margin: 0; font-size: 17px; }
+  header .sub { color: var(--muted); font-size: 12px; }
+  header .right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 24px 120px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .tab { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
   .tab[aria-selected="true"] { color: var(--text); background: rgba(41,181,232,.14); border-color: rgba(41,181,232,.4); }
   .count { min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: #04121c; font-size: 11px; line-height: 20px; text-align: center; }
-  .count:empty, .count[data-zero] { display: none; }
-  .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
-  .chip { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-size: 12px; cursor: pointer; }
-  .chip[aria-pressed="true"] { color: var(--text); border-color: var(--accent); }
-  .card { padding: 18px 20px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
-  .card h3 { margin: 0 0 4px; font-size: 15px; }
+  .count:empty { display: none; }
+  .card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; margin-bottom: 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+  .card.click { cursor: pointer; transition: border-color .2s; }
+  .card.click:hover { border-color: rgba(41,181,232,.45); }
+  .card .grow { flex: 1; min-width: 0; }
+  .card h3 { margin: 0 0 2px; font-size: 15px; }
   .meta { color: var(--muted); font-size: 12px; display: flex; flex-wrap: wrap; gap: 4px 12px; }
-  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
-  .pill { padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; border: 1px solid var(--line); color: var(--muted); }
-  .pill.ok { color: var(--ok); border-color: rgba(34,197,94,.4); }
-  .pill.warn { color: var(--warn); border-color: rgba(245,158,11,.4); }
-  .pill.bad { color: var(--bad); border-color: rgba(239,68,68,.4); }
-  .reason { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--panel-2); white-space: pre-wrap; }
-  .alert { margin-top: 10px; padding: 8px 12px; border-radius: 10px; font-size: 12px; background: rgba(239,68,68,.1); color: #fca5a5; }
-  .alert.info { background: rgba(41,181,232,.1); color: #bae6fd; }
-  .actions { margin-left: auto; display: flex; gap: 8px; }
-  button.btn { padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); font: inherit; font-weight: 600; cursor: pointer; }
-  button.btn:disabled { opacity: .5; cursor: progress; }
-  button.primary { background: var(--accent); border-color: var(--accent); color: #04121c; }
-  button.danger { color: #fca5a5; border-color: rgba(239,68,68,.4); background: transparent; }
-  button.link { background: none; border: 0; color: var(--accent); cursor: pointer; font: inherit; padding: 0; }
-  .reject-box { margin-top: 12px; padding: 12px; border-radius: 10px; background: var(--panel-2); }
-  textarea { width: 100%; min-height: 70px; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font: inherit; resize: vertical; }
-  label.inline { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
-  .empty { padding: 48px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; }
-  #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 10px 16px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .badge { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .03em; border: 1px solid var(--line); color: var(--muted); }
+  .badge.study { color: #fbbf24; border-color: rgba(251,191,36,.35); }
+  .badge.article { color: #a78bfa; border-color: rgba(167,139,250,.35); }
+  .badge.err { color: #fca5a5; border-color: rgba(239,68,68,.4); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+  .btn:disabled { opacity: .55; cursor: progress; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #04121c; }
+  .btn.big { padding: 13px 22px; font-size: 15px; }
+  .btn.ghost { background: transparent; }
+  .btn.danger { background: transparent; color: #fca5a5; border-color: rgba(239,68,68,.4); }
+  .empty { padding: 56px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; }
+  .loading { color: var(--muted); padding: 32px 0; text-align: center; }
+  .note { margin: 12px 0; padding: 10px 14px; border-radius: 10px; font-size: 13px; background: rgba(41,181,232,.08); color: #bae6fd; }
+  .note.err { background: rgba(239,68,68,.1); color: #fca5a5; }
+
+  /* Preview */
+  .back { margin-bottom: 16px; }
+  .langs { display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line); margin-bottom: 18px; }
+  .langs button { padding: 6px 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .langs button[aria-pressed="true"] { background: var(--accent); color: #04121c; }
+  .reader h1 { margin: 6px 0 12px; font-size: 30px; line-height: 1.2; letter-spacing: -.02em; }
+  .reader .summary { font-size: 18px; color: var(--text); margin: 0 0 22px; }
+  .reader p, .reader li { color: #cbd5e1; font-size: 16px; line-height: 1.8; }
+  .reader h2 { margin: 30px 0 10px; font-size: 21px; }
+  .reader h3 { margin: 24px 0 8px; font-size: 17px; }
+  .reader blockquote { margin: 22px 0; padding: 12px 18px; border-left: 3px solid var(--accent); background: rgba(41,181,232,.07); border-radius: 0 10px 10px 0; font-weight: 600; }
+  .reader figure { margin: 0 0 22px; }
+  .reader figure img { width: 100%; border-radius: 14px; border: 1px solid var(--line); display: block; }
+  .reader figcaption { margin-top: 8px; color: var(--muted); font-size: 13px; }
+  .linked-img { margin: 0 0 22px; padding: 16px; border: 1px dashed rgba(41,181,232,.4); border-radius: 12px; color: var(--muted); font-size: 13px; }
+  .editlinks { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; padding: 14px 24px; background: rgba(11,17,32,.96); border-top: 1px solid var(--line); }
+  .bar .inner { max-width: 860px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .bar .hint { color: var(--muted); font-size: 13px; flex: 1; min-width: 200px; }
+  .sendback { width: 100%; }
+  textarea { width: 100%; min-height: 70px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font: inherit; resize: vertical; }
+  .done { text-align: center; padding: 56px 16px; }
+  .done .check { width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%; display: grid; place-items: center; background: rgba(34,197,94,.14); color: var(--ok); }
+  .done h2 { margin: 0 0 6px; }
+  .done p { color: var(--muted); margin: 0 0 22px; }
+
+  /* Requests */
+  .req { display: block; }
+  .req .reason { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--panel-2); white-space: pre-wrap; font-size: 14px; }
+  .req .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+  .req .row .push { margin-left: auto; display: flex; gap: 8px; }
+  label.inline { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
+  .code { font: 700 22px/1.4 ui-monospace, Consolas, monospace; letter-spacing: 3px; padding: 12px; margin: 12px 0; border-radius: 10px; background: var(--bg); text-align: center; }
+
+  #toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); z-index: 9; padding: 10px 16px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); opacity: 0; transition: opacity .2s; pointer-events: none; max-width: 90vw; }
   #toast.show { opacity: 1; }
   #toast.error { border-color: rgba(239,68,68,.5); color: #fca5a5; }
   dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--text); max-width: 420px; padding: 22px; }
   dialog::backdrop { background: rgba(0,0,0,.6); }
-  dialog h2 { margin: 0 0 8px; font-size: 16px; }
-  .code { font: 700 20px/1.4 ui-monospace, Consolas, monospace; letter-spacing: 2px; padding: 10px 12px; margin: 12px 0; border-radius: 10px; background: var(--bg); text-align: center; }
-  .loading { color: var(--muted); padding: 24px 0; }
-  @media (max-width: 640px) { main { padding: 16px; } .actions { margin-left: 0; width: 100%; } .actions .btn { flex: 1; } }
+  dialog h2 { margin: 0 0 8px; font-size: 17px; }
+  dialog .row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  @media (max-width: 640px) { main { padding: 16px 16px 140px; } .reader h1 { font-size: 24px; } .bar .btn { flex: 1; } }
 </style>
 </head>
 <body>
 <header>
-  <h1>YNK Tech Admin</h1>
-  <button class="btn" id="refresh" type="button">Refresh</button>
-  <a id="sheet" target="_blank" rel="noopener" href="#">Open sheet</a>
-  <span class="who" id="who"></span>
+  <div>
+    <h1>YNK Staging</h1>
+    <div class="sub">Review, then approve to publish on ynk-techusa.com</div>
+  </div>
+  <div class="right">
+    <button class="btn ghost" id="refresh" type="button">Refresh</button>
+  </div>
 </header>
 
-<main>
-  <div class="tabs" role="tablist">
-    <button class="tab" role="tab" data-tab="articles" aria-selected="true">Articles <span class="count" id="count-articles"></span></button>
-    <button class="tab" role="tab" data-tab="requests" aria-selected="false">Access requests <span class="count" id="count-requests"></span></button>
-  </div>
-  <div class="filters" id="filters"></div>
-  <div id="list"><p class="loading">Loading...</p></div>
-</main>
+<main id="main"><p class="loading">Loading...</p></main>
+<div id="bar"></div>
 
 <dialog id="dlg">
   <h2 id="dlg-title"></h2>
   <div id="dlg-body"></div>
-  <div class="row" style="justify-content:flex-end">
-    <button class="btn" id="dlg-cancel" type="button">Cancel</button>
+  <div class="row">
+    <button class="btn ghost" id="dlg-cancel" type="button">Cancel</button>
     <button class="btn primary" id="dlg-ok" type="button">Confirm</button>
   </div>
 </dialog>
@@ -84,262 +112,288 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var FILTERS = {
-    articles: [['review', 'Needs review'], ['ready', 'Ready to publish'], ['published', 'Published'], ['rejected', 'Rejected']],
-    requests: [['PENDING', 'Pending'], ['APPROVED', 'Approved'], ['REJECTED', 'Rejected'], ['REVOKED', 'Revoked']]
-  };
-  var state = { tab: 'articles', filter: { articles: 'review', requests: 'PENDING' }, data: null };
+  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Sent back'], ['requests', 'Access requests']];
+  var state = { tab: 'review', data: null, preview: null, lang: 'en' };
+  var main = document.getElementById('main');
+  var bar = document.getElementById('bar');
 
   function h(tag, attrs, children) {
     var el = document.createElement(tag);
     Object.keys(attrs || {}).forEach(function (k) {
-      if (k === 'text') el.textContent = attrs[k];
-      else if (k === 'class') el.className = attrs[k];
-      else if (k.slice(0, 2) === 'on') el.addEventListener(k.slice(2), attrs[k]);
-      else if (attrs[k] !== false && attrs[k] != null) el.setAttribute(k, attrs[k]);
+      var v = attrs[k];
+      if (k === 'text') el.textContent = v;
+      else if (k === 'class') el.className = v;
+      else if (k.slice(0, 2) === 'on') el.addEventListener(k.slice(2), v);
+      else if (v !== false && v != null) el.setAttribute(k, v);
     });
     (children || []).forEach(function (c) { if (c) el.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
     return el;
   }
+  function set(el, nodes) { el.replaceChildren.apply(el, nodes.filter(Boolean)); }
 
   function toast(msg, isError) {
     var t = document.getElementById('toast');
     t.textContent = msg;
     t.className = 'show' + (isError ? ' error' : '');
     clearTimeout(toast.timer);
-    toast.timer = setTimeout(function () { t.className = ''; }, isError ? 6000 : 3500);
+    toast.timer = setTimeout(function () { t.className = ''; }, isError ? 7000 : 3500);
   }
 
-  function call(fn, args, button) {
-    if (button) { button.disabled = true; button.dataset.label = button.textContent; button.textContent = 'Working...'; }
+  function call(fn, args, button, busyLabel) {
+    var label = button ? button.textContent : '';
+    if (button) { button.disabled = true; button.textContent = busyLabel || 'Working...'; }
     return new Promise(function (resolve, reject) {
       google.script.run
         .withSuccessHandler(resolve)
         .withFailureHandler(function (err) { toast(err && err.message ? err.message : String(err), true); reject(err); })
         [fn].apply(null, args || []);
     }).finally(function () {
-      if (button && button.isConnected) { button.disabled = false; button.textContent = button.dataset.label; }
+      if (button && button.isConnected) { button.disabled = false; button.textContent = label; }
     });
   }
 
-  function confirmDialog(title, bodyNodes, okLabel) {
+  function ask(title, bodyNodes, okLabel) {
     var dlg = document.getElementById('dlg');
     document.getElementById('dlg-title').textContent = title;
-    var body = document.getElementById('dlg-body');
-    body.replaceChildren.apply(body, bodyNodes);
+    set(document.getElementById('dlg-body'), bodyNodes);
     var ok = document.getElementById('dlg-ok');
+    var cancel = document.getElementById('dlg-cancel');
     ok.textContent = okLabel || 'Confirm';
-    ok.style.display = '';
-    document.getElementById('dlg-cancel').textContent = 'Cancel';
     return new Promise(function (resolve) {
-      function done(v) { dlg.close(); ok.onclick = null; document.getElementById('dlg-cancel').onclick = null; resolve(v); }
+      function done(v) { ok.onclick = cancel.onclick = dlg.oncancel = null; if (dlg.open) dlg.close(); resolve(v); }
       ok.onclick = function () { done(true); };
-      document.getElementById('dlg-cancel').onclick = function () { done(false); };
-      dlg.oncancel = function () { resolve(false); };
+      cancel.onclick = function () { done(false); };
+      dlg.oncancel = function () { done(false); };
       dlg.showModal();
     });
   }
 
-  function showCode(name, code, expires) {
-    var copy = h('button', { class: 'btn', type: 'button', text: 'Copy code', onclick: function () {
-      navigator.clipboard.writeText(code).then(function () { toast('Code copied'); });
-    } });
-    confirmDialog('Approved: ' + name, [
-      h('p', { class: 'meta', text: 'The code was emailed to the requester. It is shown only once and expires ' + expires + '.' }),
-      h('div', { class: 'code', text: code }),
-      copy
-    ], 'Done').then(function () {});
-    document.getElementById('dlg-cancel').textContent = 'Close';
-  }
-
+  /* ---------- Data ---------- */
   function load() {
-    document.getElementById('list').replaceChildren(h('p', { class: 'loading', text: 'Loading...' }));
-    call('adminLoad').then(function (data) {
-      state.data = data;
-      document.getElementById('who').textContent = data.user;
-      document.getElementById('sheet').href = data.sheetUrl;
-      render();
-    });
+    state.preview = null;
+    set(bar, []);
+    set(main, [h('p', { class: 'loading', text: 'Loading...' })]);
+    call('adminLoad').then(function (data) { state.data = data; render(); });
   }
 
   function replaceItem(kind, item) {
-    var arr = state.data[kind];
-    for (var i = 0; i < arr.length; i++) if (arr[i].id === item.id) arr[i] = item;
-    render();
+    state.data[kind] = state.data[kind].map(function (x) { return x.id === item.id ? item : x; });
   }
 
+  /* ---------- Lists ---------- */
   function render() {
+    set(bar, []);
     var d = state.data;
-    if (!d) return;
-    var pendingA = d.articles.filter(function (a) { return a.stage === 'review' || a.stage === 'ready'; }).length;
-    var pendingR = d.requests.filter(function (r) { return r.status === 'PENDING'; }).length;
-    setCount('count-articles', pendingA);
-    setCount('count-requests', pendingR);
-
-    document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === state.tab)); });
-
-    var counts = {};
-    (state.tab === 'articles' ? d.articles.map(function (a) { return a.stage; }) : d.requests.map(function (r) { return r.status; }))
-      .forEach(function (k) { counts[k] = (counts[k] || 0) + 1; });
-    var filters = document.getElementById('filters');
-    filters.replaceChildren.apply(filters, FILTERS[state.tab].map(function (f) {
-      return h('button', { class: 'chip', type: 'button', 'aria-pressed': String(state.filter[state.tab] === f[0]),
-        text: f[1] + ' (' + (counts[f[0]] || 0) + ')',
-        onclick: function () { state.filter[state.tab] = f[0]; render(); } });
+    var counts = {
+      review: d.articles.filter(function (a) { return a.stage === 'review'; }).length,
+      requests: d.requests.filter(function (r) { return r.status === 'PENDING'; }).length
+    };
+    var tabs = h('div', { class: 'tabs', role: 'tablist' }, TABS.map(function (t) {
+      return h('button', { class: 'tab', role: 'tab', type: 'button', 'aria-selected': String(state.tab === t[0]),
+        onclick: function () { state.tab = t[0]; render(); } },
+        [t[1], h('span', { class: 'count', text: counts[t[0]] ? String(counts[t[0]]) : '' })]);
     }));
 
-    var list = document.getElementById('list');
-    var items = state.tab === 'articles'
-      ? d.articles.filter(function (a) { return a.stage === state.filter.articles; }).map(articleCard)
-      : d.requests.filter(function (r) { return r.status === state.filter.requests; }).slice().reverse().map(requestCard);
-    list.replaceChildren.apply(list, items.length ? items : [h('div', { class: 'empty', text: 'Nothing here. All caught up.' })]);
+    var items;
+    if (state.tab === 'requests') {
+      var order = { PENDING: 0, APPROVED: 1, REJECTED: 2, REVOKED: 3 };
+      items = d.requests.slice().sort(function (a, b) { return (order[a.status] - order[b.status]) || (a.submitted < b.submitted ? 1 : -1); }).map(requestCard);
+    } else {
+      items = d.articles.filter(function (a) { return a.stage === state.tab; }).map(articleCard);
+    }
+    var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'Nothing has been sent back.', requests: 'No access requests yet.' }[state.tab];
+    set(main, [tabs].concat(items.length ? items : [h('div', { class: 'empty', text: emptyText })]));
   }
 
-  function setCount(id, n) {
-    var el = document.getElementById(id);
-    el.textContent = n ? String(n) : '';
-    if (n) el.removeAttribute('data-zero'); else el.setAttribute('data-zero', '');
-  }
-
-  function rejectBox(onConfirm, withNotify) {
-    var text = h('textarea', { placeholder: withNotify ? 'Reason (optional, included in the email)' : 'Reason (optional, saved in the sheet)', maxlength: '500' });
-    var notify = withNotify ? h('input', { type: 'checkbox', checked: 'checked' }) : null;
-    var box = h('div', { class: 'reject-box' }, [
-      text,
-      h('div', { class: 'row' }, [
-        notify ? h('label', { class: 'inline' }, [notify, 'Email the requester']) : null,
-        h('div', { class: 'actions' }, [
-          h('button', { class: 'btn', type: 'button', text: 'Cancel', onclick: function () { box.remove(); } }),
-          h('button', { class: 'btn danger', type: 'button', text: 'Confirm reject', onclick: function (e) {
-            onConfirm(text.value, notify ? notify.checked : false, e.currentTarget);
-          } })
-        ])
-      ])
-    ]);
-    return box;
+  function typeBadge(type) {
+    return h('span', { class: 'badge ' + (type === 'Study' ? 'study' : 'article'), text: type });
   }
 
   function articleCard(a) {
-    var card = h('div', { class: 'card' });
-    var docLinks = ['en', 'fr', 'es'].filter(function (l) { return a.docs[l]; }).map(function (l) {
-      return h('a', { href: a.docs[l], target: '_blank', rel: 'noopener', text: l.toUpperCase() + ' doc' });
-    });
-    var reviews = a.reviews.map(function (r) {
-      return h('span', { class: 'pill ' + (r.passed ? 'ok' : 'warn'), text: r.name + ': ' + (r.value || 'pending') });
-    });
-
-    var actions = [];
-    if (a.stage === 'review') {
-      actions.push(h('button', { class: 'btn danger', type: 'button', text: 'Reject', onclick: function () { openReject(); } }));
-      actions.push(h('button', { class: 'btn primary', type: 'button', text: 'Approve', onclick: function (e) {
-        var btn = e.currentTarget;
-        confirmDialog('Approve this article?', [
-          h('p', { text: a.title }),
-          h('p', { class: 'meta', text: 'All three reviews will be marked as passed and a pull request will be opened on GitHub. Nothing goes live until you click Publish.' })
-        ], 'Approve').then(function (ok) {
-          if (!ok) return;
-          call('adminApproveArticle', [a.id], btn).then(function (updated) {
-            replaceItem('articles', updated);
-            toast(updated.stage === 'ready' ? 'Approved. Pull request opened, ready to publish.' : 'Approved. ' + (updated.error || 'It will sync on the next hourly run.'));
-          });
-        });
-      } }));
-    } else if (a.stage === 'ready') {
-      actions.push(h('button', { class: 'btn danger', type: 'button', text: 'Reject', onclick: function () { openReject(); } }));
-      if (a.prUrl) actions.push(h('a', { class: 'btn', href: a.prUrl, target: '_blank', rel: 'noopener', text: 'Review changes' }));
-      actions.push(h('button', { class: 'btn primary', type: 'button', text: 'Publish', onclick: function (e) {
-        var btn = e.currentTarget;
-        confirmDialog('Publish to ynk-techusa.com?', [
-          h('p', { text: a.title }),
-          h('p', { class: 'meta', text: 'The pull request is merged and the site redeploys in about 2 minutes. If the content checks fail, the live site stays unchanged.' })
-        ], 'Publish').then(function (ok) {
-          if (!ok) return;
-          call('adminPublishArticle', [a.id], btn).then(function (updated) {
-            replaceItem('articles', updated);
-            toast('Published. Live in about 2 minutes.');
-          });
-        });
-      } }));
-    } else if (a.stage === 'published' && a.liveUrl) {
-      actions.push(h('a', { class: 'btn', href: a.liveUrl, target: '_blank', rel: 'noopener', text: 'View live' }));
-    }
-
-    function openReject() {
-      if (card.querySelector('.reject-box')) return;
-      card.appendChild(rejectBox(function (note, _notify, btn) {
-        call('adminRejectArticle', [a.id, note], btn).then(function (updated) {
-          replaceItem('articles', updated);
-          toast('Article rejected.');
-        });
-      }, false));
-    }
-
-    card.append(
-      h('h3', { text: a.title }),
-      h('div', { class: 'meta' }, [h('span', { text: a.id }), a.date ? h('span', { text: a.date }) : null].concat(docLinks)),
-      h('div', { class: 'row' }, reviews.concat([h('div', { class: 'actions' }, actions)]))
-    );
-    if (a.error) card.appendChild(h('div', { class: 'alert' + (a.stage === 'rejected' ? ' info' : ''), text: a.error }));
+    var right = a.stage === 'published'
+      ? (a.liveUrl ? h('a', { class: 'btn', href: a.liveUrl, target: '_blank', rel: 'noopener', text: 'View on site' }) : null)
+      : h('button', { class: 'btn primary', type: 'button', text: a.stage === 'rejected' ? 'Review again' : 'Review' });
+    var card = h('div', { class: 'card' + (a.stage === 'published' ? '' : ' click') }, [
+      h('div', { class: 'grow' }, [
+        h('h3', { text: a.title }),
+        h('div', { class: 'meta' }, [typeBadge(a.type), a.date ? h('span', { text: a.date }) : null,
+          a.stage === 'review' && a.syncState === 'SYNC_ERROR' ? h('span', { class: 'badge err', text: 'Needs attention' }) : null])
+      ]),
+      right
+    ]);
+    if (a.stage !== 'published') card.addEventListener('click', function () { openPreview(a); });
     return card;
   }
 
+  /* ---------- Preview ---------- */
+  function openPreview(a) {
+    state.preview = { article: a, data: null };
+    state.lang = 'en';
+    window.scrollTo(0, 0);
+    set(bar, []);
+    set(main, [backButton(), h('h2', { text: a.title }), h('p', { class: 'loading', text: 'Preparing preview from Google Docs...' })]);
+    call('adminPreview', [a.id]).then(function (p) {
+      if (!state.preview || state.preview.article.id !== a.id) return;
+      state.preview.data = p;
+      renderPreview();
+    }).catch(function () {
+      set(main, [backButton(), h('div', { class: 'note err', text: 'The preview could not be built. Check that the three Google Docs exist and are shared with this account.' })]);
+    });
+  }
+
+  function backButton() {
+    return h('button', { class: 'btn ghost back', type: 'button', text: 'Back to list', onclick: function () { state.preview = null; render(); } });
+  }
+
+  function renderPreview() {
+    var a = state.preview.article;
+    var p = state.preview.data;
+    var ed = p.editions[state.lang];
+    var langs = h('div', { class: 'langs' }, ['en', 'fr', 'es'].map(function (l) {
+      return h('button', { type: 'button', 'aria-pressed': String(state.lang === l), text: l.toUpperCase(),
+        onclick: function () { state.lang = l; renderPreview(); } });
+    }));
+
+    var hero = null;
+    if (p.hero) {
+      var alt = (p.hero.alt && (p.hero.alt[state.lang] || p.hero.alt.en)) || '';
+      var cap = p.hero.caption ? (p.hero.caption[state.lang] || p.hero.caption.en) : '';
+      hero = p.hero.src
+        ? h('figure', {}, [h('img', { src: p.hero.src, alt: alt }), h('figcaption', { text: [cap, p.hero.credit ? 'Image: ' + p.hero.credit : ''].filter(Boolean).join(' | ') })])
+        : h('div', { class: 'linked-img', text: 'Image shown as a link to its original source (rights not cleared): ' + (cap || alt) });
+    }
+
+    var blocks = ed.blocks.map(function (b) {
+      if (b.type === 'h2') return h('h2', { text: b.text });
+      if (b.type === 'h3') return h('h3', { text: b.text });
+      if (b.type === 'quote') return h('blockquote', { text: b.text });
+      if (b.type === 'ul') return h('ul', {}, b.items.map(function (i) { return h('li', { text: i }); }));
+      return h('p', { text: b.text });
+    });
+
+    var notes = [];
+    if (a.stage === 'review' && a.syncState === 'SYNC_ERROR' && a.error) notes.push(h('div', { class: 'note err', text: 'Last attempt: ' + a.error }));
+    if (a.stage === 'rejected' && a.error) notes.push(h('div', { class: 'note', text: a.error }));
+    if (p.fixes) notes.push(h('div', { class: 'note', text: p.fixes + ' em dash or emoji character(s) will be cleaned up automatically.' }));
+
+    var edits = h('div', { class: 'editlinks' }, ['To change the text, edit the Google Doc, then reopen this preview: ']
+      .concat(['en', 'fr', 'es'].filter(function (l) { return a.docs[l]; }).map(function (l, i) {
+        return h('span', {}, [i ? ' | ' : '', h('a', { href: a.docs[l], target: '_blank', rel: 'noopener', text: l.toUpperCase() })]);
+      })));
+
+    set(main, [
+      backButton(),
+      langs,
+      h('article', { class: 'reader' }, [
+        h('div', { class: 'meta' }, [typeBadge(p.type === 'study' ? 'Study' : 'Article'), h('span', { text: p.date })]),
+        h('h1', { text: ed.title }),
+        hero,
+        h('p', { class: 'summary', text: ed.summary })
+      ].concat(blocks)),
+      edits
+    ].concat(notes));
+
+    renderBar(a);
+  }
+
+  function renderBar(a) {
+    var approve = h('button', { class: 'btn primary big', type: 'button', text: 'Approve and publish', onclick: function () {
+      ask('Publish this ' + a.type.toLowerCase() + '?', [
+        h('p', { text: a.title }),
+        h('p', { class: 'meta', text: 'It goes live on ynk-techusa.com in English, French and Spanish in about 2 minutes.' })
+      ], 'Publish').then(function (ok) {
+        if (!ok) return;
+        call('adminApproveArticle', [a.id], approve, 'Publishing...').then(function (updated) {
+          replaceItem('articles', updated);
+          showPublished(updated);
+        });
+      });
+    } });
+    var sendBack = h('button', { class: 'btn danger big', type: 'button', text: 'Send back', onclick: function () {
+      var reason = h('textarea', { placeholder: 'What needs to change? (optional)', maxlength: '500' });
+      ask('Send back for changes?', [reason], 'Send back').then(function (ok) {
+        if (!ok) return;
+        call('adminRejectArticle', [a.id, reason.value], sendBack).then(function (updated) {
+          replaceItem('articles', updated);
+          toast('Sent back.');
+          state.preview = null;
+          state.tab = 'review';
+          render();
+        });
+      });
+    } });
+    set(bar, [h('div', { class: 'bar' }, [h('div', { class: 'inner' }, [
+      h('span', { class: 'hint', text: 'Read it in all three languages, then decide.' }),
+      sendBack,
+      approve
+    ])])]);
+  }
+
+  function showPublished(a) {
+    state.preview = null;
+    set(bar, []);
+    set(main, [h('div', { class: 'done' }, [
+      h('div', { class: 'check', text: '\u2713' }),
+      h('h2', { text: 'Published' }),
+      h('p', { text: a.title + ' will be live in about 2 minutes.' }),
+      h('div', {}, [
+        a.liveUrl ? h('a', { class: 'btn primary', href: a.liveUrl, target: '_blank', rel: 'noopener', text: 'View on site' }) : null,
+        ' ',
+        h('button', { class: 'btn ghost', type: 'button', text: 'Back to list', onclick: function () { state.tab = 'review'; render(); } })
+      ])
+    ])]);
+  }
+
+  /* ---------- Access requests ---------- */
   function requestCard(r) {
-    var card = h('div', { class: 'card' });
+    var card = h('div', { class: 'card req' });
     var actions = [];
-    if (r.status === 'PENDING' || r.status === 'REJECTED') {
-      if (r.status === 'PENDING') actions.push(h('button', { class: 'btn danger', type: 'button', text: 'Reject', onclick: function () {
-        if (card.querySelector('.reject-box')) return;
-        card.appendChild(rejectBox(function (note, notify, btn) {
-          call('adminRejectUser', [r.id, note, notify], btn).then(function (updated) {
-            replaceItem('requests', updated);
-            toast('Request rejected.');
-          });
-        }, true));
+    if (r.status === 'PENDING') {
+      actions.push(h('button', { class: 'btn danger', type: 'button', text: 'Decline', onclick: function (e) {
+        var btn = e.currentTarget;
+        var reason = h('textarea', { placeholder: 'Reason (optional, included in the email)', maxlength: '500' });
+        var notify = h('input', { type: 'checkbox', checked: 'checked' });
+        ask('Decline ' + r.name + '?', [reason, h('label', { class: 'inline' }, [notify, 'Email them'])], 'Decline').then(function (ok) {
+          if (!ok) return;
+          call('adminRejectUser', [r.id, reason.value, notify.checked], btn).then(function (u) { replaceItem('requests', u); render(); toast('Declined.'); });
+        });
       } }));
+    }
+    if (r.status === 'PENDING' || r.status === 'REJECTED') {
       actions.push(h('button', { class: 'btn primary', type: 'button', text: 'Approve', onclick: function (e) {
         var btn = e.currentTarget;
-        confirmDialog('Approve ' + r.name + '?', [
-          h('p', { class: 'meta', text: 'A 7-day access code for ' + r.industry + ' will be emailed to ' + r.email + '.' })
-        ], 'Approve and email code').then(function (ok) {
+        ask('Approve ' + r.name + '?', [h('p', { class: 'meta', text: 'A 7-day access code for ' + r.industry + ' is emailed to ' + r.email + '.' })], 'Approve').then(function (ok) {
           if (!ok) return;
           call('adminApproveUser', [r.id], btn).then(function (res) {
             replaceItem('requests', res.request);
-            showCode(r.name, res.code, res.request.expires);
+            render();
+            var copy = h('button', { class: 'btn', type: 'button', text: 'Copy code', onclick: function () { navigator.clipboard.writeText(res.code).then(function () { toast('Copied'); }); } });
+            ask('Approved', [h('p', { class: 'meta', text: 'Emailed to ' + r.email + '. Valid until ' + res.request.expires + '. Shown only once.' }), h('div', { class: 'code', text: res.code }), copy], 'Done');
           });
         });
       } }));
-    } else if (r.status === 'APPROVED') {
-      actions.push(h('button', { class: 'btn danger', type: 'button', text: 'Revoke access', onclick: function (e) {
+    }
+    if (r.status === 'APPROVED') {
+      actions.push(h('button', { class: 'btn danger', type: 'button', text: 'Revoke', onclick: function (e) {
         var btn = e.currentTarget;
-        confirmDialog('Revoke access for ' + r.name + '?', [h('p', { class: 'meta', text: 'Their code stops working immediately.' })], 'Revoke').then(function (ok) {
+        ask('Revoke access for ' + r.name + '?', [h('p', { class: 'meta', text: 'Their code stops working immediately.' })], 'Revoke').then(function (ok) {
           if (!ok) return;
-          call('adminRevokeUser', [r.id], btn).then(function (updated) { replaceItem('requests', updated); toast('Access revoked.'); });
+          call('adminRevokeUser', [r.id], btn).then(function (u) { replaceItem('requests', u); render(); toast('Revoked.'); });
         });
       } }));
     }
-
-    var statusPill = r.status === 'APPROVED'
-      ? h('span', { class: 'pill ' + (r.expired ? 'warn' : 'ok'), text: r.expired ? 'Expired ' + r.expires : 'Active until ' + r.expires })
-      : null;
-
-    card.append(
+    var statusText = { PENDING: 'Waiting', APPROVED: r.expired ? 'Expired ' + r.expires : 'Active until ' + r.expires, REJECTED: 'Declined', REVOKED: 'Revoked' }[r.status];
+    set(card, [
       h('h3', { text: r.name }),
-      h('div', { class: 'meta' }, [
-        h('a', { href: 'mailto:' + r.email, text: r.email }),
-        h('span', { text: r.company }),
-        h('span', { text: r.industry }),
-        h('span', { text: 'Submitted ' + r.submitted })
-      ]),
+      h('div', { class: 'meta' }, [h('span', { class: 'badge', text: statusText }), h('a', { href: 'mailto:' + r.email, text: r.email }),
+        h('span', { text: r.company }), h('span', { text: r.industry }), h('span', { text: r.submitted })]),
       h('p', { class: 'reason', text: r.reason }),
-      h('div', { class: 'row' }, [statusPill, h('div', { class: 'actions' }, actions)])
-    );
-    if (r.note) card.appendChild(h('div', { class: 'alert info', text: 'Note: ' + r.note }));
+      r.note ? h('div', { class: 'note', text: 'Note: ' + r.note }) : null,
+      h('div', { class: 'row' }, [h('div', { class: 'push' }, actions)])
+    ]);
     return card;
   }
 
-  document.querySelectorAll('.tab').forEach(function (t) {
-    t.addEventListener('click', function () { state.tab = t.dataset.tab; render(); });
-  });
   document.getElementById('refresh').addEventListener('click', load);
   load();
 </script>

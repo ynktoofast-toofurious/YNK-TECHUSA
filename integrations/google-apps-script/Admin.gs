@@ -71,36 +71,71 @@ function adminLoad() {
 
 function adminApproveArticle(articleId) {
   assertAdmin_()
-  const { queue, row } = findArticle_(articleId)
-  REVIEWS.forEach(([key]) => {
-    if (!PASSED_RE.test(str_(row.get(key)))) queue.set(row, key, pickOption_(queue.options(row, key), PASSED_RE, 'PASS'))
-  })
-  queue.set(row, 'approval', APPROVED)
+  let { queue, row } = findArticle_(articleId)
   if (str_(row.get('syncState')).toUpperCase() !== SYNC.prOpen) {
+    REVIEWS.forEach(([key]) => {
+      if (!PASSED_RE.test(str_(row.get(key)))) queue.set(row, key, pickOption_(queue.options(row, key), PASSED_RE, 'PASS'))
+    })
+    queue.set(row, 'approval', APPROVED)
     queue.set(row, 'syncState', SYNC.blocked)
     // An explicit approval always sends, even if the content matches a previously closed PR.
     queue.set(row, 'syncHash', '')
+    queue.set(row, 'error', '')
+    SpreadsheetApp.flush()
+    syncApprovedArticles()
+    ;({ queue, row } = findArticle_(articleId))
   }
-  queue.set(row, 'error', '')
-  SpreadsheetApp.flush()
-  syncApprovedArticles()
+  if (str_(row.get('syncState')).toUpperCase() !== SYNC.prOpen) {
+    throw new Error(str_(row.get('error')) || 'Could not prepare the article. Please try again in a minute.')
+  }
+  mergeArticlePr_(queue, row)
   return articleById_(articleId)
 }
 
-function adminPublishArticle(articleId) {
+function adminPreview(articleId) {
   assertAdmin_()
-  const { queue, row } = findArticle_(articleId)
-  const m = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
-  if (!m) throw new Error('No pull request to publish yet. Approve the article first.')
-  const token = getToken_()
-  const pr = gh_(token, 'GET', `/pulls/${m[1]}`)
-  if (!pr.merged_at) {
-    if (pr.state !== 'open') throw new Error('The pull request was closed. Approve the article again to send a new one.')
-    gh_(token, 'PUT', `/pulls/${m[1]}/merge`, { merge_method: 'squash' })
+  const { row } = findArticle_(articleId)
+  const assetsTable = openTable_(CONFIG.registrySheetId, CONFIG.assetsTab, ASSET_COLS, 'assetId', [])
+  const linksTable = openTable_(CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId', [])
+  const assets = {}
+  assetsTable.rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
+  const built = buildArticle_(row, assets, linksTable.rows)
+  let hero = null
+  if (built.hero) {
+    const a = built.hero.asset
+    hero = {
+      src: built.hero.image ? `data:${a.file.endsWith('.png') ? 'image/png' : a.file.endsWith('.webp') ? 'image/webp' : 'image/jpeg'};base64,${Utilities.base64Encode(built.hero.image.bytes)}` : '',
+      alt: a.alt,
+      caption: a.caption || null,
+      credit: a.credit || '',
+      sourceUrl: a.source_url || '',
+    }
   }
+  return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, fixes: built.fixes }
+}
+
+function mergeArticlePr_(queue, row) {
+  const m = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
+  if (!m) throw new Error('Nothing to publish yet.')
+  const token = getToken_()
+  let lastError = null
+  // GitHub needs a moment to compute mergeability for a brand-new pull request.
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const pr = gh_(token, 'GET', `/pulls/${m[1]}`)
+    if (pr.merged_at) break
+    if (pr.state !== 'open') throw new Error('This version was withdrawn. Approve again to send a fresh copy.')
+    try {
+      gh_(token, 'PUT', `/pulls/${m[1]}/merge`, { merge_method: 'squash' })
+      lastError = null
+      break
+    } catch (e) {
+      lastError = e
+      Utilities.sleep(2500)
+    }
+  }
+  if (lastError) throw new Error(`Publishing did not complete: ${lastError.message}`)
   queue.set(row, 'syncState', SYNC.published)
   queue.set(row, 'error', '')
-  return articleById_(articleId)
 }
 
 function adminRejectArticle(articleId, note) {
@@ -252,8 +287,8 @@ function articleView_(queue, row) {
   const slug = str_(row.get('slug'))
   let stage = 'review'
   if (sync === SYNC.published) stage = 'published'
-  else if (sync === SYNC.prOpen) stage = 'ready'
-  else if (/REJECT/.test(approval) || /^Rejected /.test(str_(row.get('error')))) stage = 'rejected'
+  else if (sync !== SYNC.prOpen && (/REJECT/.test(approval) || /^Rejected /.test(str_(row.get('error'))))) stage = 'rejected'
+  const rawType = str_(row.get('type')).toLowerCase()
   const docs = {}
   LANGS.forEach(([lang, col]) => {
     const id = driveId_(row.get(col))
@@ -262,6 +297,7 @@ function articleView_(queue, row) {
   return {
     id: str_(row.get('articleId')),
     title: str_(row.get('titleEn')) || slug,
+    type: rawType === 'study' ? 'Study' : 'Article',
     date: fmtDate_(row.get('date')),
     stage,
     approval,

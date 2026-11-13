@@ -11,7 +11,7 @@ const OUT = join(ROOT, 'src', 'content', 'intelligence.generated.json')
 const CHECK_ONLY = process.argv.includes('--check')
 
 const LANGS = ['en', 'fr', 'es']
-const TYPES = ['analysis', 'release', 'engineering']
+const TYPES = ['analysis', 'study', 'release', 'engineering']
 const BLOCK_TEXT = ['p', 'h2', 'h3', 'quote']
 const IMAGE_EXT = ['.jpg', '.jpeg', '.png', '.webp']
 const MAX_IMAGE_BYTES = 1.5 * 1024 * 1024

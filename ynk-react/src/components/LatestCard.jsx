@@ -7,6 +7,7 @@ const icon = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLin
 
 const TYPE_ICONS = {
   analysis: <svg {...icon} viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>,
+  study: <svg {...icon} viewBox="0 0 24 24" width="14" height="14"><path d="M2 4h7a3 3 0 013 3v13a2 2 0 00-2-2H2z" /><path d="M22 4h-7a3 3 0 00-3 3v13a2 2 0 012-2h8z" /></svg>,
   release: <svg {...icon} viewBox="0 0 24 24" width="14" height="14"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z" /></svg>,
   engineering: <svg {...icon} viewBox="0 0 24 24" width="14" height="14"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>,
 }

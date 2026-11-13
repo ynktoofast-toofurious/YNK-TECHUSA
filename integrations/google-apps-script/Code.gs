@@ -89,7 +89,7 @@ const ARTICLE_IMAGE_COLS = {
 
 const LANGS = [['en', 'docEn'], ['fr', 'docFr'], ['es', 'docEs']]
 const REVIEWS = [['languageReview', 'language_review'], ['sourceReview', 'source_review'], ['imageReview', 'image_rights_review']]
-const TYPES = ['analysis', 'release', 'engineering']
+const TYPES = ['analysis', 'study', 'release', 'engineering']
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const ID_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{2,80}$/
 const PASSED_RE = /^(pass|passed|approved|ok|yes|true|complete|completed|done|cleared|verified|reviewed|accepted|confirmed|n\/?a|not applicable)$/i
@@ -232,7 +232,8 @@ function buildArticle_(row, assets, imageLinks) {
 
   const files = {}
   const heroId = pickHero_(articleId, imageLinks)
-  if (heroId) Object.assign(files, buildAsset_(heroId, assets[heroId], counter))
+  const hero = heroId ? buildAsset_(heroId, assets[heroId], counter) : null
+  if (hero) Object.assign(files, hero.files)
 
   const meta = {
     article_id: articleId,
@@ -249,7 +250,7 @@ function buildArticle_(row, assets, imageLinks) {
   LANGS.forEach(([lang]) => { files[`articles/${slug}/${lang}.json`] = json64_(editions[lang]) })
 
   const hash = sha256_(Object.keys(files).sort().map((k) => k + files[k]).join('|'))
-  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(heroId) }
+  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(heroId), editions, meta, hero }
 }
 
 function pickHero_(articleId, imageLinks) {
@@ -322,11 +323,12 @@ function buildAsset_(assetId, row, counter) {
   const asset = { asset_id: assetId, rights: cleared ? 'cleared' : 'unverified', alt, source_url: sourceUrl }
   if (caption.en) asset.caption = caption
   const files = {}
+  let image = null
 
   if (cleared) {
     const fileId = driveId_(row.get('file'))
     if (!fileId) throw new Error(`Cleared image ${assetId} has no drive_original_file_id.`)
-    const image = loadImage_(fileId, assetId)
+    image = loadImage_(fileId, assetId)
     const credit = clean_(row.get('credit'), counter) || clean_(row.get('publisher'), counter)
     if (!credit) throw new Error(`Cleared image ${assetId} needs photographer_credit or publisher.`)
     asset.credit = credit
@@ -336,7 +338,7 @@ function buildAsset_(assetId, row, counter) {
     throw new Error(`Image ${assetId} is not rights-cleared and has no https source_post_url to link to.`)
   }
   files[`assets/${assetId}.json`] = json64_(asset)
-  return files
+  return { files, asset, image }
 }
 
 // Uses the original if it is small enough, otherwise Drive's resized rendition.

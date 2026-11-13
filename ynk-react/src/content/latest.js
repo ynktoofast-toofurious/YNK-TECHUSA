@@ -66,7 +66,7 @@ export const LATEST = [
   ...MANUAL,
 ].sort((a, b) => b.date.localeCompare(a.date))
 
-export const LATEST_TYPES = ['analysis', 'release', 'engineering']
+export const LATEST_TYPES = ['analysis', 'study', 'release', 'engineering']
 
 const SEEN_KEY = 'ynk-latest-seen'
 const NEW_WINDOW_MS = 45 * 24 * 60 * 60 * 1000
