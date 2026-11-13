@@ -125,7 +125,7 @@ function adminPreview(articleId) {
   const linksTable = openTable_(CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId', [])
   const assets = {}
   assetsTable.rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
-  const built = buildArticle_(row, assets, linksTable.rows)
+  const built = buildArticle_(row, assets, linksTable.rows, { lenientImage: true })
   let hero = null
   if (built.hero) {
     const a = built.hero.asset
@@ -137,7 +137,7 @@ function adminPreview(articleId) {
       sourceUrl: a.source_url || '',
     }
   }
-  return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, fixes: built.fixes }
+  return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, imageError: built.imageError, fixes: built.fixes }
 }
 
 function mergeArticlePr_(queue, row) {

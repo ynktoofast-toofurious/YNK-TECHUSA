@@ -298,8 +298,8 @@
       if (!state.preview || state.preview.article.id !== a.id) return;
       state.preview.data = p;
       renderPreview();
-    }).catch(function () {
-      set(main, [backButton(), h('div', { class: 'note err', text: 'The preview could not be built. Check that the three Google Docs exist and are shared with this account.' })]);
+    }).catch(function (err) {
+      set(main, [backButton(), h('div', { class: 'note err', text: 'The preview could not be built: ' + (err && err.message ? err.message : String(err)) })]);
     });
   }
 
@@ -337,6 +337,7 @@
     if (a.stage === 'review' && a.syncState === 'SYNC_ERROR' && a.error) notes.push(h('div', { class: 'note err', text: 'Last attempt: ' + a.error }));
     if (a.stage === 'rejected' && a.error) notes.push(h('div', { class: 'note', text: a.error }));
     if (p.fixes) notes.push(h('div', { class: 'note', text: p.fixes + ' em dash or emoji character(s) will be cleaned up automatically.' }));
+    if (p.imageError) notes.unshift(h('div', { class: 'note err', text: 'Image problem (fix it in the Image Asset Registry before publishing): ' + p.imageError }));
 
     var edits = h('div', { class: 'editlinks' }, ['To change the text, edit the Google Doc, then reopen this preview: ']
       .concat(['en', 'fr', 'es'].filter(function (l) { return a.docs[l]; }).map(function (l, i) {

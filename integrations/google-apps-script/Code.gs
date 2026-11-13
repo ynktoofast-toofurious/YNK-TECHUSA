@@ -207,7 +207,7 @@ function previewApproved() {
 
 /* ---------------- Article export ---------------- */
 
-function buildArticle_(row, assets, imageLinks) {
+function buildArticle_(row, assets, imageLinks, opts) {
   const articleId = str_(row.get('articleId'))
   if (!ID_RE.test(articleId)) throw new Error('article_id is missing or has invalid characters.')
 
@@ -232,7 +232,16 @@ function buildArticle_(row, assets, imageLinks) {
 
   const files = {}
   const heroId = pickHero_(articleId, imageLinks)
-  const hero = heroId ? buildAsset_(heroId, assets[heroId], counter) : null
+  let hero = null
+  let imageError = ''
+  if (heroId) {
+    try {
+      hero = buildAsset_(heroId, assets[heroId], counter)
+    } catch (e) {
+      if (!(opts && opts.lenientImage)) throw e
+      imageError = String(e.message || e)
+    }
+  }
   if (hero) Object.assign(files, hero.files)
 
   const meta = {
@@ -250,7 +259,7 @@ function buildArticle_(row, assets, imageLinks) {
   LANGS.forEach(([lang]) => { files[`articles/${slug}/${lang}.json`] = json64_(editions[lang]) })
 
   const hash = sha256_(Object.keys(files).sort().map((k) => k + files[k]).join('|'))
-  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(heroId), editions, meta, hero }
+  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(hero), editions, meta, hero, imageError }
 }
 
 function pickHero_(articleId, imageLinks) {
