@@ -141,6 +141,17 @@ function testConnection() {
   Logger.log('Registry tab "%s": %s rows, columns found: %s', registry.tab, registry.rows.length, Object.keys(registry.map).join(', '))
 }
 
+// Logs every tab's first non-empty row in both sheets so column names can be mapped.
+function listHeaders() {
+  [['Queue', CONFIG.queueSheetId], ['Registry', CONFIG.registrySheetId]].forEach(([label, id]) => {
+    SpreadsheetApp.openById(id).getSheets().forEach((sh) => {
+      const vals = sh.getRange(1, 1, Math.min(sh.getLastRow() || 1, 20), Math.max(sh.getLastColumn(), 1)).getValues()
+      const row = vals.find((r) => r.filter((c) => str_(c)).length >= 2) || []
+      Logger.log('%s / "%s": %s', label, sh.getName(), row.filter((c) => str_(c)).join(' | ') || '(empty)')
+    })
+  })
+}
+
 /* ---------------- Article export ---------------- */
 
 function buildArticle_(row, assets) {
@@ -354,19 +365,20 @@ function openTable_(sheetId, tabName, cols, requiredKey, ensureKeys) {
     return map
   }
 
-  // Header row may be on any tab and below a title block; take the first match.
+  // Header row may be on any tab and below a title block; take the row matching the most columns.
   let sheet = null
   let values = []
   let headerIdx = -1
   let map = {}
+  let best = 0
   const seen = []
   for (const sh of sheets) {
     const vals = sh.getDataRange().getValues()
     for (let r = 0; r < Math.min(vals.length, 20); r++) {
       const m = findMap(vals[r])
-      if (m[requiredKey] != null) { sheet = sh; values = vals; headerIdx = r; map = m; break }
+      const score = Object.keys(m).length
+      if (m[requiredKey] != null && score > best) { sheet = sh; values = vals; headerIdx = r; map = m; best = score }
     }
-    if (sheet) break
     const firstRow = vals.find((row) => row.some((c) => str_(c)))
     seen.push(`"${sh.getName()}": ${firstRow ? firstRow.filter((c) => str_(c)).slice(0, 12).join(' | ') : '(empty)'}`)
   }
