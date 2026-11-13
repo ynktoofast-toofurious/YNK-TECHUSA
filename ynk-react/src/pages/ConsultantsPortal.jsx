@@ -243,7 +243,7 @@ export default function ConsultantsPortal() {
               ))}
             </div>
             <div className="detail-action" style={{ marginTop: '48px' }}>
-              <Link to="/request-quote" className="btn btn-primary">Work With Us</Link>
+              <Link to="/start-project" className="btn btn-primary">Work With Us</Link>
               <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}><ArrowLeft />{t('consultantsPage.backHome')}</Link>
             </div>
           </div>

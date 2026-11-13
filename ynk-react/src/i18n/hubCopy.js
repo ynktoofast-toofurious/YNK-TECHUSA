@@ -2,6 +2,8 @@ const hubCopy = {
   en: {
     hubNav: {
       intelligence: 'Intelligence',
+      latest: 'Latest',
+      startProject: 'Start a Project',
       method: 'Method',
       vault: 'The Vault',
       solutions: 'Solutions',
@@ -88,13 +90,14 @@ const hubCopy = {
       connect: 'Connect',
       links: {
         desk: 'Intelligence Desk',
+        latest: 'The Latest',
         method: 'The YNK Method',
         vault: 'Insider Vault',
         community: 'Community',
         it: 'IT Services',
         branding: 'Branding',
         printing: 'YB Printing',
-        quote: 'Request a Quote',
+        quote: 'Start a Project',
         book: 'Book a Consultation',
         access: 'Access Portal',
         login: 'Admin Log In',
@@ -119,6 +122,8 @@ const hubCopy = {
   fr: {
     hubNav: {
       intelligence: 'Intelligence',
+      latest: 'Nouveautés',
+      startProject: 'Démarrer un projet',
       method: 'Méthode',
       vault: 'Le Coffre',
       solutions: 'Solutions',
@@ -205,13 +210,14 @@ const hubCopy = {
       connect: 'Contact',
       links: {
         desk: 'Bureau de l’Intelligence',
+        latest: 'Nouveautés',
         method: 'La Méthode YNK',
         vault: 'Le Coffre des initiés',
         community: 'Communauté',
         it: 'Services IT',
         branding: 'Branding',
         printing: 'YB Printing',
-        quote: 'Demander un devis',
+        quote: 'Démarrer un projet',
         book: 'Réserver une consultation',
         access: 'Portail d’accès',
         login: 'Connexion admin',
@@ -236,6 +242,8 @@ const hubCopy = {
   es: {
     hubNav: {
       intelligence: 'Inteligencia',
+      latest: 'Novedades',
+      startProject: 'Iniciar un proyecto',
       method: 'Método',
       vault: 'La Bóveda',
       solutions: 'Soluciones',
@@ -322,13 +330,14 @@ const hubCopy = {
       connect: 'Contacto',
       links: {
         desk: 'Mesa de Inteligencia',
+        latest: 'Novedades',
         method: 'El Método YNK',
         vault: 'La Bóveda Interna',
         community: 'Comunidad',
         it: 'Servicios IT',
         branding: 'Marca',
         printing: 'YB Printing',
-        quote: 'Solicitar cotización',
+        quote: 'Iniciar un proyecto',
         book: 'Reservar consulta',
         access: 'Portal de acceso',
         login: 'Acceso admin',

@@ -112,8 +112,9 @@ export default function AIBall3D() {
     ctx.fillRect(0, 0, size, size)
     const glowTex = new THREE.CanvasTexture(glowCanvas)
 
+    // Kept smaller than the camera view so the glow fades out before the canvas edge (no visible box)
     const halo = new THREE.Mesh(
-      new THREE.PlaneGeometry(4.2, 4.2),
+      new THREE.PlaneGeometry(2.8, 2.8),
       new THREE.MeshBasicMaterial({ map: glowTex, transparent: true, depthWrite: false })
     )
     halo.position.z = -0.5

@@ -168,7 +168,7 @@ export default function DemoChat() {
             <p className="dc-quote-sub">{t('demoChat.quoteSub')}</p>
             <button
               className="btn btn-primary dc-quote-btn"
-              onClick={() => { setShowQuote(false); navigate('/request-quote') }}
+              onClick={() => { setShowQuote(false); navigate('/start-project') }}
             >
               {t('demoChat.quoteBtn')}
             </button>

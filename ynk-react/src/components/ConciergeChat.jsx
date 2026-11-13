@@ -13,7 +13,7 @@ const NAV_OPTIONS = [
   { label: 'IT Services & Digital Solutions', icon: 'it',       path: '/it-services',    desc: 'Web, AI, Cloud & Data' },
   { label: 'Branding & Creative Services',   icon: 'branding',  path: '/branding',       desc: 'Design, Events & Identity' },
   { label: 'Consultants Portal',             icon: 'portal',    path: '/consultants',    desc: 'Secure access & resources' },
-  { label: 'Request a Free Quote',           icon: 'quote',     path: '/request-quote',  desc: 'Get started today' },
+  { label: 'Start a Project',                icon: 'quote',     path: '/start-project',  desc: 'Get started today' },
 ]
 
 const GREETING = "Hi! I'm YNK's AI Concierge. How can I help you today?"

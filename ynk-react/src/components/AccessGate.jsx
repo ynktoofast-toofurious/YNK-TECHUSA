@@ -114,7 +114,7 @@ export default function AccessGate({ redirectTo = '/it-services' }) {
 
         <button
           className="ag-btn-request"
-          onClick={() => navigate('/request-quote')}
+          onClick={() => navigate('/start-project')}
         >
           {t('hubGate.request')}
         </button>

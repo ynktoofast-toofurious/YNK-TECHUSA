@@ -149,7 +149,7 @@ export default function Branding() {
               ))}
             </div>
             <div className="detail-action" style={{ marginTop: '48px' }}>
-              <Link to="/request-quote?category=branding" className="btn btn-primary">Start a Project</Link>
+              <Link to="/start-project?category=branding" className="btn btn-primary">Start a Project</Link>
               <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}><ArrowLeft />{t('brandingPage.backHome')}</Link>
             </div>
           </div>

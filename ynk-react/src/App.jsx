@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { trackPageView } from './utils/tracking'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -12,7 +12,8 @@ import Home from './pages/Home'
 import ITServices from './pages/ITServices'
 import Branding from './pages/Branding'
 import ConsultantsPortal from './pages/ConsultantsPortal'
-import RequestQuote from './pages/RequestQuote'
+import StartProject from './pages/StartProject'
+import Latest from './pages/Latest'
 import NotFound from './pages/NotFound'
 
 const PAGE_MAP = {
@@ -20,7 +21,13 @@ const PAGE_MAP = {
   '/it-services': 'it-services',
   '/branding': 'branding',
   '/consultants': 'consultants',
-  '/request-quote': 'request-quote',
+  '/start-project': 'start-project',
+  '/latest': 'latest',
+}
+
+function LegacyQuoteRedirect() {
+  const { search } = useLocation()
+  return <Navigate to={`/start-project${search}`} replace />
 }
 
 function ProtectedRoute({ children }) {
@@ -48,7 +55,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/request-quote" element={<RequestQuote />} />
+        <Route path="/start-project" element={<StartProject />} />
+        <Route path="/latest" element={<Latest />} />
+        <Route path="/request-quote" element={<LegacyQuoteRedirect />} />
         <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />
         <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />
         <Route path="/consultants" element={<ProtectedRoute><ConsultantsPortal /></ProtectedRoute>} />

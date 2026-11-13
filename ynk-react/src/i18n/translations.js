@@ -1,8 +1,10 @@
 import hubCopy from './hubCopy'
+import projectCopy from './projectCopy'
 
 const translations = {
   en: {
     ...hubCopy.en,
+    ...projectCopy.en,
     // Disclaimer banner
     disclaimer: {
       text: 'This website is currently under development. Some features and service samples may not be available yet.',
@@ -448,6 +450,7 @@ const translations = {
 
   fr: {
     ...hubCopy.fr,
+    ...projectCopy.fr,
     disclaimer: {
       text: 'Ce site est actuellement en cours de développement. Certaines fonctionnalités et exemples de services ne sont pas encore disponibles.',
       dismiss: 'Compris',
@@ -844,6 +847,7 @@ const translations = {
 
   es: {
     ...hubCopy.es,
+    ...projectCopy.es,
     disclaimer: {
       text: 'Este sitio web está actualmente en desarrollo. Algunas funciones y muestras de servicios pueden no estar disponibles todavía.',
       dismiss: 'Entendido',

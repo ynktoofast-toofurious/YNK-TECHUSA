@@ -137,7 +137,7 @@ export default function ITServices() {
               </div>
               <div className="detail-action">
                 <p style={{ color: 'var(--color-text-secondary)', marginBottom: '20px', textAlign: 'center', maxWidth: '600px', margin: '0 auto 20px' }}>{t('itPage.tagline')}</p>
-                <Link to="/request-quote?category=it" className="btn btn-primary" style={{ marginRight: '12px' }}>Request IT Quote</Link>
+                <Link to="/start-project?category=it" className="btn btn-primary" style={{ marginRight: '12px' }}>Start a Project</Link>
                 <Link to="/" className="btn btn-secondary"><ArrowLeft />{t('itPage.backHome')}</Link>
               </div>
             </div>
@@ -176,7 +176,7 @@ export default function ITServices() {
               ))}
             </div>
             <div className="detail-action" style={{ marginTop: '48px' }}>
-              <Link to="/request-quote?category=it" className="btn btn-primary">Start a Project</Link>
+              <Link to="/start-project?category=it" className="btn btn-primary">Start a Project</Link>
               <Link to="/" className="btn btn-secondary" style={{ marginLeft: '12px' }}><ArrowLeft />{t('itPage.backHome')}</Link>
             </div>
           </div>

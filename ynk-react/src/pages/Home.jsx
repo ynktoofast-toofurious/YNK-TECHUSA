@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import AIBall3D from '../components/AIBall3D'
 import DemoChat from '../components/DemoChat'
+import LatestCard from '../components/LatestCard'
 import { ArrowRight } from '../components/Icons'
 import useReveal from '../hooks/useReveal'
-
-const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
+import { LATEST } from '../content/latest'
 
 const svgProps = {
   fill: 'none',
@@ -83,6 +83,14 @@ export default function Home() {
 
   const h = t('home')
   const titleAWords = h.titleA.split(' ').length
+  const newest = LATEST[0]
+  const announceInner = (
+    <>
+      <span className="hx-announce-badge">{t('latestUi.announce')}</span>
+      <span className="hx-announce-text">{newest.title[language] || newest.title.en}</span>
+      <ArrowRight size={12} />
+    </>
+  )
 
   useEffect(() => {
     const bar = progressRef.current
@@ -120,7 +128,10 @@ export default function Home() {
       <section className="hx" id="hero">
         <div className="hx-inner">
           <div className="hx-copy">
-            <span className="hx-eyebrow hx-in" style={{ '--d': 0 }}>
+            {newest.native
+              ? <a href={newest.href} className="hx-announce hx-in" style={{ '--d': 0 }}>{announceInner}</a>
+              : <Link to={newest.href} className="hx-announce hx-in" style={{ '--d': 0 }}>{announceInner}</Link>}
+            <span className="hx-eyebrow hx-in" style={{ '--d': 1 }}>
               <span className="hx-pulse" aria-hidden="true" />
               {h.eyebrow}
             </span>
@@ -201,6 +212,28 @@ export default function Home() {
                 <span className="status-pill"><span className="status-dot" />{h.desk.status}</span>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* THE LATEST */}
+      <section className="hub-section" id="latest">
+        <div className="container">
+          <header className="hub-head" data-reveal>
+            <span className="section-tag">{t('latestUi.tag')}</span>
+            <h2 className="hub-title">{t('latestUi.title1')}<br /><span className="text-gradient">{t('latestUi.title2')}</span></h2>
+            <p className="hub-sub">{t('latestUi.sub')}</p>
+          </header>
+          <div className="lt-home" key={language}>
+            <LatestCard item={LATEST[0]} featured />
+            <div className="lt-home-side">
+              {LATEST.slice(1, 3).map((item, i) => (
+                <LatestCard key={item.id} item={item} style={{ '--d': i + 1 }} />
+              ))}
+            </div>
+          </div>
+          <div className="lt-home-more" data-reveal>
+            <Link to="/latest" className="btn btn-ghost hub-btn-round">{t('latestUi.viewAll')} <ArrowRight /></Link>
           </div>
         </div>
       </section>
@@ -294,9 +327,9 @@ export default function Home() {
             </ul>
             <p className="vault-motto">{h.solutions.motto}</p>
             <div className="hx-ctas">
-              <Link to="/it-services" className="btn btn-primary hub-btn-round">{h.solutions.ctaIT} <ArrowRight /></Link>
+              <Link to="/start-project" className="btn btn-primary hub-btn-round">{t('hubNav.startProject')} <ArrowRight /></Link>
+              <Link to="/it-services" className="btn btn-ghost hub-btn-round">{h.solutions.ctaIT}</Link>
               <Link to="/branding" className="btn btn-ghost hub-btn-round">{h.solutions.ctaBrand}</Link>
-              <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn-ghost hub-btn-round">{h.solutions.ctaBook}</a>
             </div>
           </div>
           <div className="solutions-chat" data-reveal style={{ '--d': 2 }}>

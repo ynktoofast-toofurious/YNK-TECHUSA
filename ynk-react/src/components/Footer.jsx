@@ -29,6 +29,7 @@ export default function Footer() {
           <nav className="ft-col" aria-label={f.explore}>
             <h4>{f.explore}</h4>
             <Link to="/#intelligence">{f.links.desk}</Link>
+            <Link to="/latest">{f.links.latest}</Link>
             <Link to="/#method">{f.links.method}</Link>
             <Link to="/#vault">{f.links.vault}</Link>
             <Link to="/#community">{f.links.community}</Link>
@@ -39,7 +40,7 @@ export default function Footer() {
             <Link to="/it-services">{f.links.it}</Link>
             <Link to="/branding">{f.links.branding}</Link>
             <a href="/yb-Printing/">{f.links.printing}</a>
-            <Link to="/request-quote">{f.links.quote}</Link>
+            <Link to="/start-project">{f.links.quote}</Link>
           </nav>
 
           <nav className="ft-col" aria-label={f.connect}>
