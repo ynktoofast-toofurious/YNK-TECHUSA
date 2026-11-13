@@ -33,6 +33,7 @@ export default function Footer() {
             <Link to="/#method">{f.links.method}</Link>
             <Link to="/vault">{f.links.vault}</Link>
             <Link to="/#community">{f.links.community}</Link>
+            <Link to="/about">{f.links.about}</Link>
           </nav>
 
           <nav className="ft-col" aria-label={f.solutions}>

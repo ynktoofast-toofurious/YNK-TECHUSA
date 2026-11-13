@@ -2,6 +2,7 @@ import hubCopy from './hubCopy'
 import projectCopy from './projectCopy'
 import vaultCopy from './vaultCopy'
 import communityCopy from './communityCopy'
+import aboutCopy from './aboutCopy'
 
 const translations = {
   en: {
@@ -9,6 +10,7 @@ const translations = {
     ...projectCopy.en,
     ...vaultCopy.en,
     ...communityCopy.en,
+    ...aboutCopy.en,
     // Disclaimer banner
     disclaimer: {
       text: 'This website is currently under development. Some features and service samples may not be available yet.',
@@ -456,6 +458,7 @@ const translations = {
     ...projectCopy.fr,
     ...vaultCopy.fr,
     ...communityCopy.fr,
+    ...aboutCopy.fr,
     disclaimer: {
       text: 'Ce site est actuellement en cours de développement. Certaines fonctionnalités et exemples de services ne sont pas encore disponibles.',
       dismiss: 'Compris',
@@ -854,6 +857,7 @@ const translations = {
     ...projectCopy.es,
     ...vaultCopy.es,
     ...communityCopy.es,
+    ...aboutCopy.es,
     disclaimer: {
       text: 'Este sitio web está actualmente en desarrollo. Algunas funciones y muestras de servicios pueden no estar disponibles todavía.',
       dismiss: 'Entendido',

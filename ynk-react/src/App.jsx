@@ -17,6 +17,7 @@ import StartProject from './pages/StartProject'
 import Latest from './pages/Latest'
 import Vault from './pages/Vault'
 import DrcStudy from './pages/DrcStudy'
+import About from './pages/About'
 import NotFound from './pages/NotFound'
 
 const PAGE_MAP = {
@@ -28,6 +29,7 @@ const PAGE_MAP = {
   '/latest': 'latest',
   '/vault': 'vault',
   '/vault/drc-government': 'vault-drc-study',
+  '/about': 'about',
 }
 
 function LegacyQuoteRedirect() {
@@ -65,6 +67,7 @@ function App() {
         <Route path="/latest" element={<Latest />} />
         <Route path="/vault" element={<Vault />} />
         <Route path="/vault/drc-government" element={<DrcStudy />} />
+        <Route path="/about" element={<About />} />
         <Route path="/request-quote" element={<LegacyQuoteRedirect />} />
         <Route path="/yb-Printing/*" element={<Navigate to="/start-project" replace />} />
         <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />

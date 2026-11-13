@@ -270,6 +270,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* MEET THE FOUNDER */}
+      <section className="hub-section ab-teaser-section" id="founder">
+        <div className="container">
+          <div className="ab-teaser" data-reveal>
+            <img className="ab-teaser-photo" src="/assets/team/yannick-nkongolo.jpg" alt={t('about.founder.photoAlt')} width="640" height="800" loading="lazy" decoding="async" />
+            <div className="ab-teaser-copy">
+              <span className="section-tag">{t('about.founder.tag')}</span>
+              <h2 className="ab-teaser-name">{t('about.founder.name')}</h2>
+              <p className="ab-teaser-roles">{t('about.founder.roles').join(' · ')}</p>
+              <blockquote className="ab-belief">{t('about.founder.belief')}</blockquote>
+              <p className="ab-teaser-mission">{t('about.mission.statement')}</p>
+              <Link to="/about" className="hub-link">{t('about.founder.teaserCta')} <ArrowRight /></Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* THE INSIDER VAULT */}
       <section className="hub-section" id="vault">
         <div className="container">

@@ -6,8 +6,8 @@ import { LANGUAGES } from '../i18n/languages'
 import { hasUnseenLatest } from '../content/latest'
 import { ArrowRight, ChevronDown, Globe } from './Icons'
 
-const HUB_LINKS = ['intelligence', 'latest', 'method', 'vault', 'solutions']
-const ROUTE_LINKS = { latest: '/latest', vault: '/vault' }
+const HUB_LINKS = ['intelligence', 'latest', 'method', 'vault', 'solutions', 'about']
+const ROUTE_LINKS = { latest: '/latest', vault: '/vault', about: '/about' }
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
