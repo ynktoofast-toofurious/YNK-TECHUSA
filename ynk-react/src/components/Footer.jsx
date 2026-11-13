@@ -47,6 +47,7 @@ export default function Footer() {
             <h4>{f.connect}</h4>
             <a href={CALENDLY} target="_blank" rel="noopener noreferrer">{f.links.book}</a>
             <Link to="/consultants">{f.links.access}</Link>
+            <a href="/Admin/" rel="nofollow">{f.links.login}</a>
           </nav>
         </div>
 

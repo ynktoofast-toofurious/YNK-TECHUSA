@@ -13,7 +13,7 @@
 const ADMIN = {
   requestsTab: 'Access_Requests',
   topicsTab: 'Topic_Requests',
-  driveRootId: '1Mm3XNSGGezqVRByJ5fqj7OH4ZePvh6bp',
+  driveRootIds: ['1Mm3XNSGGezqVRByJ5fqj7OH4ZePvh6bp', '181eZXt5MNOKN_5bDTVANp6dXCi1516Wk'],
   codeDays: 7,
   siteUrl: 'https://ynk-techusa.com',
   industries: ['Healthcare', 'Finance', 'Education', 'Technology', 'Government', 'Retail', 'Data Engineering'],
@@ -357,7 +357,13 @@ function discoverDrive_() {
   })
 
   const docs = []
-  collectDocs_(DriveApp.getFolderById(ADMIN.driveRootId), [], 0, docs)
+  const seen = {}
+  ADMIN.driveRootIds.forEach((id) => {
+    const found = []
+    collectDocs_(DriveApp.getFolderById(id), [], 0, found)
+    // The two roots may overlap; keep the first sighting of each file.
+    found.forEach((d) => { if (!seen[d.file.getId()]) { seen[d.file.getId()] = true; docs.push(d) } })
+  })
   const groups = {}
   docs.forEach((d) => {
     const folderLang = langOfFolder_(d.path[d.path.length - 1])
