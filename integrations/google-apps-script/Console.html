@@ -53,6 +53,11 @@
   .reader h2 { margin: 30px 0 10px; font-size: 21px; }
   .reader h3 { margin: 24px 0 8px; font-size: 17px; }
   .reader blockquote { margin: 22px 0; padding: 12px 18px; border-left: 3px solid var(--accent); background: rgba(41,181,232,.07); border-radius: 0 10px 10px 0; font-weight: 600; }
+  .reader a { text-decoration: underline; text-underline-offset: 3px; }
+  .reader .tbl { overflow-x: auto; margin: 22px 0; border: 1px solid var(--line); border-radius: 10px; }
+  .reader table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .reader th, .reader td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; color: #cbd5e1; }
+  .reader th { color: var(--text); background: var(--panel-2); }
   .reader figure { margin: 0 0 22px; }
   .reader figure img { width: 100%; border-radius: 14px; border: 1px solid var(--line); display: block; }
   .reader figcaption { margin-top: 8px; color: var(--muted); font-size: 13px; }
@@ -325,21 +330,37 @@
         : h('div', { class: 'linked-img', text: 'Image shown as a link to its original source (rights not cleared): ' + (cap || alt) });
     }
 
+    function rich(tag, b) {
+      if (!b.runs) return h(tag, { text: b.text });
+      return h(tag, {}, b.runs.map(function (r) {
+        var node = h(r.bold ? 'strong' : r.italic ? 'em' : 'span', { text: r.text });
+        return r.href && /^https:\/\//i.test(r.href) ? h('a', { href: r.href, target: '_blank', rel: 'noopener' }, [node]) : node;
+      }));
+    }
     var blocks = ed.blocks.map(function (b) {
-      if (b.type === 'h2') return h('h2', { text: b.text });
-      if (b.type === 'h3') return h('h3', { text: b.text });
-      if (b.type === 'quote') return h('blockquote', { text: b.text });
-      if (b.type === 'ul') return h('ul', {}, b.items.map(function (i) { return h('li', { text: i }); }));
-      return h('p', { text: b.text });
+      if (b.type === 'h2' || b.type === 'h3') return rich(b.type, b);
+      if (b.type === 'quote') return rich('blockquote', b);
+      if (b.type === 'ul' || b.type === 'ol') return h(b.type, {}, b.items.map(function (i) { return typeof i === 'string' ? h('li', { text: i }) : rich('li', i); }));
+      if (b.type === 'img') {
+        var src = b.src && p.images ? p.images[b.src] : '';
+        if (!src) return b.href ? h('div', { class: 'linked-img' }, ['Image linked to its source: ', h('a', { href: b.href, target: '_blank', rel: 'noopener', text: b.caption || b.alt || b.href })]) : null;
+        return h('figure', {}, [h('img', { src: src, alt: b.alt }), (b.caption || b.href) ? h('figcaption', {}, [b.caption || '', b.href ? h('a', { href: b.href, target: '_blank', rel: 'noopener', text: (b.caption ? '  Source' : 'Source') }) : null]) : null]);
+      }
+      if (b.type === 'table') {
+        return h('div', { class: 'tbl' }, [h('table', {}, b.rows.map(function (row, r) {
+          return h('tr', {}, row.map(function (c) { return h(b.head && r === 0 ? 'th' : 'td', { text: c }); }));
+        }))]);
+      }
+      return rich('p', b);
     });
 
     var notes = [];
     if (a.stage === 'review' && a.syncState === 'SYNC_ERROR' && a.error) notes.push(h('div', { class: 'note err', text: 'Last attempt: ' + a.error }));
     if (a.stage === 'rejected' && a.error) notes.push(h('div', { class: 'note', text: a.error }));
     if (p.fixes) notes.push(h('div', { class: 'note', text: p.fixes + ' em dash or emoji character(s) will be cleaned up automatically.' }));
-    if (p.imageError) notes.unshift(h('div', { class: 'note err', text: 'Image problem (fix it in the Image Asset Registry before publishing): ' + p.imageError }));
+    if (p.imageError) notes.unshift(h('div', { class: 'note err', text: 'Image problem: ' + p.imageError }));
 
-    var edits = h('div', { class: 'editlinks' }, ['To change the text, edit the Google Doc, then reopen this preview: ']
+    var edits = h('div', { class: 'editlinks' }, ['To change the text, edit the source file in Drive, then reopen this preview: ']
       .concat(['en', 'fr', 'es'].filter(function (l) { return a.docs[l]; }).map(function (l, i) {
         return h('span', {}, [i ? ' | ' : '', h('a', { href: a.docs[l], target: '_blank', rel: 'noopener', text: l.toUpperCase() })]);
       })));

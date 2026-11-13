@@ -11,13 +11,65 @@ const hostOf = (url) => {
   try { return new URL(url).hostname.replace(/^www\./, '') } catch { return url }
 }
 
-function Block({ block }) {
+function Rich({ text, runs }) {
+  if (!runs) return text
+  return runs.map((r, i) => {
+    let node = r.text
+    if (r.italic) node = <em>{node}</em>
+    if (r.bold) node = <strong>{node}</strong>
+    const href = r.href && safeHttps(r.href)
+    return href
+      ? <a key={i} href={href} target="_blank" rel="noopener noreferrer nofollow">{node}</a>
+      : <span key={i}>{node}</span>
+  })
+}
+
+function InlineImage({ block, t }) {
+  const href = block.href && safeHttps(block.href)
+  if (!block.src) {
+    return href ? (
+      <a className="ar-hero-link" href={href} target="_blank" rel="noopener noreferrer nofollow">
+        <span>{block.caption || block.alt}</span>
+        <span className="hub-link">{t('latestUi.article.imageAtSource')} <ArrowRight /></span>
+      </a>
+    ) : null
+  }
+  return (
+    <figure className="ar-figure">
+      <img src={`/intelligence/${block.src}`} alt={block.alt} loading="lazy" decoding="async" />
+      {(block.caption || href) && (
+        <figcaption>
+          {block.caption}
+          {href && <>{block.caption ? ' · ' : ''}<a href={href} target="_blank" rel="noopener noreferrer nofollow">{hostOf(href)}</a></>}
+        </figcaption>
+      )}
+    </figure>
+  )
+}
+
+function Block({ block, t }) {
   switch (block.type) {
-    case 'h2': return <h2>{block.text}</h2>
-    case 'h3': return <h3>{block.text}</h3>
-    case 'quote': return <blockquote>{block.text}</blockquote>
-    case 'ul': return <ul>{block.items.map((item, i) => <li key={i}>{item}</li>)}</ul>
-    default: return <p>{block.text}</p>
+    case 'h2': return <h2><Rich {...block} /></h2>
+    case 'h3': return <h3><Rich {...block} /></h3>
+    case 'quote': return <blockquote><Rich {...block} /></blockquote>
+    case 'ul':
+    case 'ol': {
+      const List = block.type
+      return <List>{block.items.map((item, i) => <li key={i}>{typeof item === 'string' ? item : <Rich {...item} />}</li>)}</List>
+    }
+    case 'img': return <InlineImage block={block} t={t} />
+    case 'table': {
+      const [head, ...rest] = block.head ? block.rows : [null, ...block.rows]
+      return (
+        <div className="ar-table">
+          <table>
+            {head && <thead><tr>{head.map((c, i) => <th key={i}>{c}</th>)}</tr></thead>}
+            <tbody>{rest.map((row, r) => <tr key={r}>{row.map((c, i) => <td key={i}>{c}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+      )
+    }
+    default: return <p><Rich {...block} /></p>
   }
 }
 
@@ -95,7 +147,7 @@ export default function Article() {
         {doc && (
           <div className="ar-body">
             <p className="ar-summary">{doc.summary}</p>
-            {doc.blocks.map((block, i) => <Block key={i} block={block} />)}
+            {doc.blocks.map((block, i) => <Block key={i} block={block} t={t} />)}
           </div>
         )}
 

@@ -212,11 +212,12 @@ function buildArticle_(row, assets, imageLinks, opts) {
   if (!ID_RE.test(articleId)) throw new Error('article_id is missing or has invalid characters.')
 
   const counter = { fixes: 0 }
+  const ctx = { counter, prefix: articleId.toLowerCase().replace(/[^a-z0-9-]/g, ''), images: {}, warnings: [] }
   const editions = {}
   LANGS.forEach(([lang, col]) => {
     const docId = driveId_(row.get(col))
     if (!docId) throw new Error(`Missing doc_${lang}_id.`)
-    editions[lang] = parseDoc_(docId, counter)
+    editions[lang] = parseSource_(docId, ctx)
   })
 
   const slug = str_(row.get('slug')) || slugify_(editions.en.title)
@@ -243,6 +244,7 @@ function buildArticle_(row, assets, imageLinks, opts) {
     }
   }
   if (hero) Object.assign(files, hero.files)
+  Object.keys(ctx.images).forEach((path) => { files[path] = Utilities.base64Encode(ctx.images[path].bytes) })
 
   const meta = {
     article_id: articleId,
@@ -259,7 +261,269 @@ function buildArticle_(row, assets, imageLinks, opts) {
   LANGS.forEach(([lang]) => { files[`articles/${slug}/${lang}.json`] = json64_(editions[lang]) })
 
   const hash = sha256_(Object.keys(files).sort().map((k) => k + files[k]).join('|'))
-  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(hero), editions, meta, hero, imageError }
+  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(hero), editions, meta, hero, imageError, images: ctx.images, warnings: ctx.warnings }
+}
+
+function parseSource_(fileId, ctx) {
+  const file = DriveApp.getFileById(fileId)
+  if (file.getMimeType() === MimeType.GOOGLE_DOCS) return parseDoc_(fileId, ctx.counter)
+  if (isHtmlFile_(file)) {
+    const parents = file.getParents()
+    ctx.folder = parents.hasNext() ? parents.next() : null
+    return parseHtml_(file.getBlob().getDataAsString('UTF-8'), ctx, file.getName())
+  }
+  throw new Error(`"${file.getName()}" must be a Google Doc or an .html file.`)
+}
+
+function isHtmlFile_(file) {
+  return /html/i.test(file.getMimeType()) || /\.html?$/i.test(file.getName())
+}
+
+/* ---------------- HTML source ---------------- */
+
+const HTML_ENTITIES = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', rsquo: '\u2019', lsquo: '\u2018', ldquo: '\u201C', rdquo: '\u201D',
+  ndash: '\u2013', mdash: '\u2014', hellip: '\u2026', laquo: '\u00AB', raquo: '\u00BB', copy: '\u00A9', reg: '\u00AE', deg: '\u00B0', euro: '\u20AC',
+  eacute: '\u00E9', egrave: '\u00E8', ecirc: '\u00EA', euml: '\u00EB', agrave: '\u00E0', aacute: '\u00E1', acirc: '\u00E2', ccedil: '\u00E7',
+  icirc: '\u00EE', iuml: '\u00EF', iacute: '\u00ED', ocirc: '\u00F4', oacute: '\u00F3', ucirc: '\u00FB', ugrave: '\u00F9', uacute: '\u00FA',
+  uuml: '\u00FC', ntilde: '\u00F1', iquest: '\u00BF', iexcl: '\u00A1', Eacute: '\u00C9', Agrave: '\u00C0', Ccedil: '\u00C7',
+}
+
+function decodeEntities_(s) {
+  return s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
+    if (e[0] === '#') {
+      const code = e[1].toLowerCase() === 'x' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10)
+      return code > 0 && code < 0x110000 ? String.fromCodePoint(code) : m
+    }
+    return HTML_ENTITIES[e] != null ? HTML_ENTITIES[e] : m
+  })
+}
+
+function attr_(attrs, name) {
+  const m = attrs.match(new RegExp(`\\b${name}\\s*=\\s*("([^"]*)"|'([^']*)'|([^\\s>]+))`, 'i'))
+  return m ? decodeEntities_(m[2] != null ? m[2] : m[3] != null ? m[3] : m[4]) : ''
+}
+
+function safeHref_(href) {
+  return /^https:\/\/[^\s<>"']+$/i.test(str_(href)) ? str_(href) : ''
+}
+
+// Converts trusted-format HTML (h1-h4, p, ul/ol/li, blockquote, a, strong/em, img, figure/figcaption, table)
+// into the site's block model. Everything else (scripts, styles, attributes) is dropped.
+function parseHtml_(html, ctx, fileName) {
+  const counter = ctx.counter
+  const docTitle = decodeEntities_(((html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || '').replace(/<[^>]+>/g, ''))
+  const metaDesc = attr_((html.match(/<meta[^>]+name\s*=\s*["']description["'][^>]*>/i) || [''])[0], 'content')
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i)
+  const src = (bodyMatch ? bodyMatch[1] : html)
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<(script|style|noscript|svg|template|iframe|head|nav|form|button)\b[\s\S]*?<\/\1\s*>/gi, '')
+
+  const blocks = []
+  let title = ''
+  let summary = ''
+  let cur = null
+  let list = null
+  let item = null
+  let table = null
+  let tableRow = null
+  let cell = null
+  let caption = null
+  let lastImg = null
+  let bold = 0
+  let italic = 0
+  const links = []
+
+  const target = () => cell || caption || item || cur
+  const addText = (raw) => {
+    const text = decodeEntities_(raw).replace(/\s+/g, ' ')
+    if (!text.trim() && !target()) return
+    if (!target()) cur = { type: 'p', runs: [] }
+    const t = target()
+    const href = links.length ? links[links.length - 1] : ''
+    const prev = t.runs[t.runs.length - 1]
+    if (prev && prev.href === href && prev.b === bold > 0 && prev.i === italic > 0) prev.text += text
+    else t.runs.push({ text, href, b: bold > 0, i: italic > 0 })
+  }
+  const finishRuns = (runs) => {
+    const out = runs.map((r) => {
+      const o = { text: cleanRun_(r.text, counter) }
+      if (r.href) o.href = r.href
+      if (r.b) o.bold = true
+      if (r.i) o.italic = true
+      return o
+    })
+    if (out.length) { out[0].text = out[0].text.replace(/^\s+/, ''); out[out.length - 1].text = out[out.length - 1].text.replace(/\s+$/, '') }
+    const kept = out.filter((r) => r.text)
+    const text = kept.map((r) => r.text).join('').replace(/\s+/g, ' ').trim()
+    const rich = kept.some((r) => r.href || r.bold || r.italic)
+    return { text, runs: rich ? kept : null }
+  }
+  const flushCur = () => {
+    if (!cur) return
+    const { text, runs } = finishRuns(cur.runs)
+    const block = cur
+    cur = null
+    if (!text) return
+    if (block.type === 'title') {
+      if (!title) { title = text; return }
+      block.type = 'h2'
+    }
+    if (block.summary && !summary) { summary = text; return }
+    const out = { type: block.type, text }
+    if (runs) out.runs = runs
+    blocks.push(out)
+  }
+  const flushList = () => {
+    if (item) { const { text, runs } = finishRuns(item.runs); if (text) list.items.push(runs ? { text, runs } : text); item = null }
+    if (list && list.items.length) blocks.push(list)
+    list = null
+  }
+
+  const re = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)([^>]*)>|([^<]+)/g
+  let m
+  while ((m = re.exec(src))) {
+    if (m[4] != null) { addText(m[4]); continue }
+    const closing = m[1] === '/'
+    const tag = m[2].toLowerCase()
+    const attrs = m[3] || ''
+    if (!closing) {
+      if (/^h[1-6]$/.test(tag) || tag === 'p' || tag === 'blockquote') {
+        if (tag === 'p' && cur && cur.type === 'quote') continue
+        if (tag === 'p' && (cell || caption || item)) continue
+        flushCur()
+        const type = tag === 'h1' ? 'title' : tag === 'h2' ? 'h2' : /^h[3-6]$/.test(tag) ? 'h3' : tag === 'blockquote' ? 'quote' : 'p'
+        cur = { type, runs: [], summary: tag === 'p' && /\b(summary|lead|dek|standfirst)\b/i.test(attr_(attrs, 'class')) }
+      } else if (tag === 'ul' || tag === 'ol') {
+        flushCur()
+        if (!list) list = { type: tag, items: [] }
+      } else if (tag === 'li') {
+        flushCur()
+        if (!list) list = { type: 'ul', items: [] }
+        if (item) { const { text, runs } = finishRuns(item.runs); if (text) list.items.push(runs ? { text, runs } : text) }
+        item = { runs: [] }
+      } else if (tag === 'table') {
+        flushCur(); flushList()
+        table = { type: 'table', rows: [] }
+      } else if (tag === 'tr' && table) {
+        tableRow = []
+      } else if ((tag === 'td' || tag === 'th') && tableRow) {
+        cell = { runs: [], th: tag === 'th' }
+      } else if (tag === 'figcaption') {
+        caption = { runs: [] }
+      } else if (tag === 'img') {
+        flushCur()
+        const img = htmlImage_(attrs, ctx, links.length ? links[links.length - 1] : '')
+        if (img) { blocks.push(img); lastImg = img }
+      } else if (tag === 'a') {
+        links.push(safeHref_(attr_(attrs, 'href')))
+      } else if (tag === 'strong' || tag === 'b') {
+        bold++
+      } else if (tag === 'em' || tag === 'i') {
+        italic++
+      } else if (tag === 'br') {
+        addText(' ')
+      } else if (/^(div|section|article|main|header|footer|aside|figure)$/.test(tag)) {
+        flushCur()
+      }
+    } else {
+      if (/^h[1-6]$/.test(tag) || tag === 'p' || tag === 'blockquote') {
+        if (tag === 'p' && cur && cur.type === 'quote') continue
+        if (tag === 'p' && (cell || caption || item)) continue
+        flushCur()
+      } else if (tag === 'li') {
+        if (item && list) { const { text, runs } = finishRuns(item.runs); if (text) list.items.push(runs ? { text, runs } : text) }
+        item = null
+      } else if (tag === 'ul' || tag === 'ol') {
+        flushList()
+      } else if ((tag === 'td' || tag === 'th') && cell && tableRow) {
+        tableRow.push(finishRuns(cell.runs).text)
+        if (cell.th && !table.rows.length) table.head = true
+        cell = null
+      } else if (tag === 'tr' && tableRow && table) {
+        if (tableRow.some(Boolean)) table.rows.push(tableRow.slice(0, 12))
+        tableRow = null
+      } else if (tag === 'table' && table) {
+        if (table.rows.length) blocks.push(Object.assign(table, { rows: table.rows.slice(0, 100) }))
+        table = null
+      } else if (tag === 'figcaption' && caption) {
+        const { text, runs } = finishRuns(caption.runs)
+        if (lastImg && text) {
+          lastImg.caption = text
+          if (!lastImg.alt) lastImg.alt = text.slice(0, 300)
+          const link = runs && runs.find((r) => r.href)
+          if (link && !lastImg.href) lastImg.href = link.href
+        }
+        caption = null
+      } else if (tag === 'a') {
+        links.pop()
+      } else if (tag === 'strong' || tag === 'b') {
+        bold = Math.max(0, bold - 1)
+      } else if (tag === 'em' || tag === 'i') {
+        italic = Math.max(0, italic - 1)
+      } else if (/^(div|section|article|main|header|footer|aside)$/.test(tag)) {
+        flushCur()
+      }
+    }
+  }
+  flushCur()
+  flushList()
+
+  blocks.forEach((b) => { if (b.type === 'img' && !b.alt) b.alt = title || 'Illustration' })
+  title = (title || clean_(docTitle, counter) || clean_(fileName.replace(/\.html?$/i, ''), counter)).slice(0, 200)
+  if (!summary) summary = clean_(metaDesc, counter)
+  if (!summary) {
+    const first = blocks.find((b) => b.type === 'p')
+    summary = first ? first.text : title
+  }
+  if (summary.length > 600) summary = `${summary.slice(0, 590).replace(/\s+\S*$/, '')}\u2026`
+  if (!blocks.length) throw new Error(`"${fileName}" has no readable content.`)
+  return { title, summary, blocks }
+}
+
+function htmlImage_(attrs, ctx, wrapHref) {
+  const src = attr_(attrs, 'src').trim()
+  const alt = clean_(attr_(attrs, 'alt'), ctx.counter).slice(0, 300)
+  let img = null
+  try {
+    const dm = src.match(/^data:image\/(png|jpe?g|webp);base64,([\s\S]+)$/i)
+    if (dm) {
+      img = { bytes: Utilities.base64Decode(dm[2].replace(/\s+/g, '')), ext: dm[1].toLowerCase().replace('jpeg', 'jpg') }
+    } else if (/^https:\/\/(drive|docs)\.google\.com\//i.test(src) && driveId_(src)) {
+      img = loadImage_(driveId_(src), alt || 'image')
+    } else if (src && !/^[a-z]+:/i.test(src) && ctx.folder) {
+      const it = ctx.folder.getFilesByName(decodeURIComponent(src.split('/').pop()))
+      if (it.hasNext()) img = loadImage_(it.next().getId(), src)
+    }
+  } catch (e) {
+    ctx.warnings.push(`Image skipped: ${e.message}`)
+    img = null
+  }
+  if (img && img.bytes.length > CONFIG.maxImageBytes) {
+    ctx.warnings.push(`An embedded image is larger than 1.5 MB and was skipped.`)
+    img = null
+  }
+  if (img) {
+    const digest = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, img.bytes)
+      .slice(0, 6).map((b) => (b < 0 ? b + 256 : b).toString(16).padStart(2, '0')).join('')
+    const path = `images/${ctx.prefix}-${digest}.${img.ext}`
+    ctx.images[path] = img
+    const block = { type: 'img', src: path, alt }
+    if (safeHref_(wrapHref)) block.href = safeHref_(wrapHref)
+    return block
+  }
+  if (/^https:\/\//i.test(src)) return { type: 'img', href: safeHref_(wrapHref) || safeHref_(src), alt }
+  return null
+}
+
+function cleanRun_(text, counter) {
+  let t = String(text)
+  const dashes = (t.match(/\u2014/g) || []).length
+  const emoji = (t.match(EMOJI_RE) || []).length
+  if (dashes) t = t.replace(/\s*\u2014\s*/g, ', ')
+  if (emoji) t = t.replace(EMOJI_RE, '')
+  counter.fixes += dashes + emoji
+  return t
 }
 
 function pickHero_(articleId, imageLinks) {

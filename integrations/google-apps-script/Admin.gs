@@ -137,7 +137,14 @@ function adminPreview(articleId) {
       sourceUrl: a.source_url || '',
     }
   }
-  return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, imageError: built.imageError, fixes: built.fixes }
+  const images = {}
+  Object.keys(built.images || {}).forEach((path) => {
+    const img = built.images[path]
+    const mime = img.ext === 'png' ? 'image/png' : img.ext === 'webp' ? 'image/webp' : 'image/jpeg'
+    images[path] = `data:${mime};base64,${Utilities.base64Encode(img.bytes)}`
+  })
+  return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, images,
+    imageError: [built.imageError].concat(built.warnings || []).filter(Boolean).join(' '), fixes: built.fixes }
 }
 
 function mergeArticlePr_(queue, row) {
@@ -318,7 +325,7 @@ function articleView_(queue, row) {
   const docs = {}
   LANGS.forEach(([lang, col]) => {
     const id = driveId_(row.get(col))
-    if (id) docs[lang] = `https://docs.google.com/document/d/${id}/edit`
+    if (id) docs[lang] = `https://drive.google.com/open?id=${id}`
   })
   return {
     id: str_(row.get('articleId')),
@@ -354,13 +361,15 @@ function discoverDrive_() {
   const groups = {}
   docs.forEach((d) => {
     const folderLang = langOfFolder_(d.path[d.path.length - 1])
-    const parts = splitName_(d.file.getName())
+    const parts = splitName_(d.file.getName().replace(/\.html?$/i, ''))
     const lang = folderLang || parts.lang
     if (!lang) return
     const series = folderLang ? d.path.slice(0, -1) : d.path
     const key = `${series.join('/')}::${parts.base.toLowerCase()}`
-    const g = groups[key] || (groups[key] = { series, title: parts.title, date: parts.date, docs: {} })
-    if (!g.docs[lang]) g.docs[lang] = d.file
+    const g = groups[key] || (groups[key] = { series, title: parts.title, date: parts.date, docs: {}, all: [] })
+    g.all.push(d.file)
+    // HTML wins over a Google Doc for the same language.
+    if (!g.docs[lang] || (d.html && !isHtmlFile_(g.docs[lang]))) g.docs[lang] = d.file
   })
 
   const sheet = SpreadsheetApp.openById(CONFIG.queueSheetId).getSheetByName(CONFIG.queueTab)
@@ -368,9 +377,21 @@ function discoverDrive_() {
   const draft = queue.rows.length ? pickOption_(queue.options(queue.rows[0], 'approval'), /draft/i, 'DRAFT') : 'DRAFT'
   const added = []
   const incomplete = []
+  const upgraded = []
 
   Object.keys(groups).forEach((key) => {
     const g = groups[key]
+    const knownRow = queue.rows.find((r) => g.all.some((f) => LANGS.some(([, col]) => driveId_(r.get(col)) === f.getId())))
+    if (knownRow) {
+      if (str_(knownRow.get('syncState')).toUpperCase() === SYNC.published) return
+      let changed = false
+      LANGS.forEach(([lang, col]) => {
+        const f = g.docs[lang]
+        if (f && isHtmlFile_(f) && driveId_(knownRow.get(col)) !== f.getId()) { queue.set(knownRow, col, f.getId()); changed = true }
+      })
+      if (changed) upgraded.push({ id: str_(knownRow.get('articleId')), title: str_(knownRow.get('titleEn')) || g.title })
+      return
+    }
     const files = Object.keys(g.docs).map((l) => g.docs[l])
     if (files.some((f) => knownDocs[f.getId()])) return
     const missing = ['en', 'fr', 'es'].filter((l) => !g.docs[l])
@@ -402,13 +423,17 @@ function discoverDrive_() {
     files.forEach((f) => { knownDocs[f.getId()] = true })
     added.push({ id: articleId, title: g.title })
   })
-  return { added, incomplete }
+  return { added, incomplete, upgraded }
 }
 
 function collectDocs_(folder, path, depth, out) {
   const here = path.concat(folder.getName())
-  const it = folder.getFilesByType(MimeType.GOOGLE_DOCS)
-  while (it.hasNext()) out.push({ file: it.next(), path: here })
+  const it = folder.getFiles()
+  while (it.hasNext()) {
+    const f = it.next()
+    if (f.getMimeType() === MimeType.GOOGLE_DOCS) out.push({ file: f, path: here, html: false })
+    else if (isHtmlFile_(f)) out.push({ file: f, path: here, html: true })
+  }
   if (depth >= 5) return
   const subs = folder.getFolders()
   while (subs.hasNext()) collectDocs_(subs.next(), here, depth + 1, out)

@@ -48,6 +48,9 @@ function checkStrings(value, where) {
 }
 
 const nonEmpty = (s, max) => typeof s === 'string' && s.trim().length > 0 && s.length <= max
+const validRuns = (runs) => Array.isArray(runs) && runs.length <= 300 && runs.every((r) =>
+  r && typeof r.text === 'string' && r.text.length <= 5000 && (r.href == null || isHttps(r.href)) &&
+  (r.bold == null || typeof r.bold === 'boolean') && (r.italic == null || typeof r.italic === 'boolean'))
 const listDirs = (p) => (existsSync(p) ? readdirSync(p).filter((n) => statSync(join(p, n)).isDirectory()) : [])
 const listJson = (p) => (existsSync(p) ? readdirSync(p).filter((n) => n.endsWith('.json')) : [])
 
@@ -124,10 +127,32 @@ for (const slug of listDirs(join(CONTENT, 'articles'))) {
       fail(lw, 'blocks must be a non-empty array')
     } else {
       doc.blocks.forEach((b, i) => {
-        const ok = BLOCK_TEXT.includes(b?.type)
-          ? nonEmpty(b.text, 5000)
-          : b?.type === 'ul' && Array.isArray(b.items) && b.items.length > 0 && b.items.every((t) => nonEmpty(t, 2000))
-        if (!ok) fail(lw, `blocks[${i}] must be {type: p|h2|h3|quote, text} or {type: ul, items}`)
+        const bw = `${lw}.blocks[${i}]`
+        if (BLOCK_TEXT.includes(b?.type)) {
+          if (!nonEmpty(b.text, 5000)) fail(bw, 'text is required')
+          if (b.runs != null && !validRuns(b.runs)) fail(bw, 'runs must be [{text, href?: https, bold?, italic?}]')
+        } else if (b?.type === 'ul' || b?.type === 'ol') {
+          const ok = Array.isArray(b.items) && b.items.length > 0 && b.items.every((it) =>
+            typeof it === 'string' ? nonEmpty(it, 2000) : nonEmpty(it?.text, 2000) && (it.runs == null || validRuns(it.runs)))
+          if (!ok) fail(bw, 'items must be strings or {text, runs}')
+        } else if (b?.type === 'img') {
+          if (!nonEmpty(b.alt, 300)) fail(bw, 'image alt text is required')
+          if (b.caption != null && !nonEmpty(b.caption, 500)) fail(bw, 'caption must be a short string')
+          if (b.href != null && !isHttps(b.href)) fail(bw, 'image href must be https')
+          if (!b.src && !b.href) fail(bw, 'image needs src or href')
+          if (b.src) {
+            const full = join(CONTENT, String(b.src))
+            if (!String(b.src).startsWith('images/') || String(b.src).includes('..') || !IMAGE_EXT.some((e) => String(b.src).toLowerCase().endsWith(e))) fail(bw, 'src must be images/<name>.jpg|jpeg|png|webp')
+            else if (!existsSync(full)) fail(bw, `image ${b.src} not found`)
+            else if (statSync(full).size > MAX_IMAGE_BYTES) fail(bw, `image ${b.src} is larger than 1.5 MB`)
+          }
+        } else if (b?.type === 'table') {
+          const ok = Array.isArray(b.rows) && b.rows.length > 0 && b.rows.length <= 100 &&
+            b.rows.every((r) => Array.isArray(r) && r.length > 0 && r.length <= 12 && r.every((c) => typeof c === 'string' && c.length <= 500))
+          if (!ok) fail(bw, 'table rows must be 1-100 rows of 1-12 short text cells')
+        } else {
+          fail(bw, 'unknown block type')
+        }
       })
     }
     title[lang] = doc.title
