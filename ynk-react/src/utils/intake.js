@@ -18,6 +18,10 @@ export function submitAccessRequest(data) {
   return post({ action: 'request', ...data })
 }
 
+export function submitTopicRequest(data) {
+  return post({ action: 'topic', ...data })
+}
+
 // Resolves to { industry } for an approved, unexpired code, otherwise null.
 export async function verifyAccessCode(code) {
   if (!intakeEnabled) return null

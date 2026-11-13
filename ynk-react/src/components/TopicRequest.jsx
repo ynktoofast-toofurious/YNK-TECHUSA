@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
 import communityCopy from '../i18n/communityCopy'
 import { escapeHtml } from '../utils/escapeHtml'
+import { intakeEnabled, submitTopicRequest } from '../utils/intake'
 import { ArrowRight } from './Icons'
 
 const EMAILJS_SERVICE_ID = 'service_sw3zais'
@@ -55,6 +56,19 @@ export default function TopicRequest() {
 
     setSending(true)
     try {
+      if (intakeEnabled) {
+        const res = await submitTopicRequest({
+          topics: picks,
+          custom: form.custom.trim(),
+          role: form.role !== null ? en.roles[form.role] : '',
+          email: form.email.trim(),
+          language,
+        })
+        if (!res.ok) throw new Error(res.error || 'send')
+        localStorage.setItem(SENT_KEY, String(Date.now()))
+        setDone(true)
+        return
+      }
       emailjs.init(EMAILJS_PUBLIC_KEY)
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         to_email: 'yannicknkongolo7@gmail.com',

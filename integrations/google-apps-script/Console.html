@@ -75,6 +75,12 @@
   .req .row .push { margin-left: auto; display: flex; gap: 8px; }
   label.inline { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
   .code { font: 700 22px/1.4 ui-monospace, Consolas, monospace; letter-spacing: 3px; padding: 12px; margin: 12px 0; border-radius: 10px; background: var(--bg); text-align: center; }
+  .section-title { margin: 24px 0 10px; font-size: 15px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .rank { margin-bottom: 12px; }
+  .rank:last-child { margin-bottom: 0; }
+  .rank-top { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+  .rank-bar { height: 6px; margin-top: 6px; border-radius: 999px; background: var(--panel-2); overflow: hidden; }
+  .rank-bar span { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
 
   #toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); z-index: 9; padding: 10px 16px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); opacity: 0; transition: opacity .2s; pointer-events: none; max-width: 90vw; }
   #toast.show { opacity: 1; }
@@ -112,7 +118,7 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Backlog'], ['requests', 'Access requests']];
+  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Backlog'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
   var state = { tab: 'review', data: null, preview: null, lang: 'en' };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
@@ -186,6 +192,7 @@
     var d = state.data;
     var counts = {
       review: d.articles.filter(function (a) { return a.stage === 'review'; }).length,
+      topics: d.topics.suggestions.filter(function (s) { return s.status === 'NEW'; }).length,
       requests: d.requests.filter(function (r) { return r.status === 'PENDING'; }).length
     };
     var tabs = h('div', { class: 'tabs', role: 'tablist' }, TABS.map(function (t) {
@@ -195,6 +202,10 @@
     }));
 
     var items;
+    if (state.tab === 'topics') {
+      set(main, [tabs].concat(topicsView(d.topics)));
+      return;
+    }
     if (state.tab === 'requests') {
       var order = { PENDING: 0, APPROVED: 1, REJECTED: 2, REVOKED: 3 };
       items = d.requests.slice().sort(function (a, b) { return (order[a.status] - order[b.status]) || (a.submitted < b.submitted ? 1 : -1); }).map(requestCard);
@@ -202,7 +213,58 @@
       items = d.articles.filter(function (a) { return a.stage === state.tab; }).map(articleCard);
     }
     var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'The backlog is empty.', requests: 'No access requests yet.' }[state.tab];
-    set(main, [tabs].concat(items.length ? items : [h('div', { class: 'empty', text: emptyText })]));
+    var notices = [];
+    if (state.tab === 'review' && d.drive) {
+      if (d.drive.added.length) notices.push(h('div', { class: 'note', text: d.drive.added.length + ' new item(s) found in Google Drive and added for review: ' + d.drive.added.map(function (x) { return x.title; }).join(', ') }));
+      d.drive.incomplete.forEach(function (x) { notices.push(h('div', { class: 'note err', text: 'Drive folder "' + x.name + '" is missing the ' + x.missing.join(', ') + ' version, so it is not in the list yet.' })); });
+      if (d.drive.error) notices.push(h('div', { class: 'note err', text: 'Could not scan Google Drive: ' + d.drive.error }));
+    }
+    set(main, [tabs].concat(notices, items.length ? items : [h('div', { class: 'empty', text: emptyText })]));
+  }
+
+  function topicsView(t) {
+    var max = t.ranking.length ? t.ranking[0].count : 1;
+    var rank = t.ranking.length
+      ? t.ranking.map(function (r) {
+          return h('div', { class: 'rank' }, [
+            h('div', { class: 'rank-top' }, [h('span', { text: r.topic }), h('strong', { text: String(r.count) })]),
+            h('div', { class: 'rank-bar' }, [h('span', { style: 'width:' + Math.max(6, Math.round(r.count / max * 100)) + '%' })])
+          ]);
+        })
+      : [h('div', { class: 'empty', text: 'No topic votes yet. They appear here as visitors use "What should we decode next?" on the homepage.' })];
+
+    var order = { NEW: 0, PLANNED: 1, ARCHIVED: 2 };
+    var ideas = t.suggestions.slice().sort(function (a, b) { return order[a.status] - order[b.status]; }).map(function (s) {
+      var actions = [];
+      if (s.status !== 'PLANNED') actions.push(h('button', { class: 'btn primary', type: 'button', text: 'Plan it', onclick: function (e) { setTopic(s.id, 'PLANNED', e.currentTarget); } }));
+      if (s.status !== 'ARCHIVED') actions.push(h('button', { class: 'btn ghost', type: 'button', text: 'Archive', onclick: function (e) { setTopic(s.id, 'ARCHIVED', e.currentTarget); } }));
+      return h('div', { class: 'card req' }, [
+        h('h3', { text: s.custom }),
+        h('div', { class: 'meta' }, [
+          h('span', { class: 'badge', text: s.status === 'NEW' ? 'New' : s.status === 'PLANNED' ? 'Planned' : 'Archived' }),
+          s.audience ? h('span', { text: s.audience }) : null,
+          s.email ? h('a', { href: 'mailto:' + s.email, text: s.email }) : null,
+          h('span', { text: s.submitted })
+        ]),
+        s.topics ? h('p', { class: 'meta', text: 'Also picked: ' + s.topics }) : null,
+        h('div', { class: 'row' }, [h('div', { class: 'push' }, actions)])
+      ]);
+    });
+
+    return [
+      h('p', { class: 'meta', text: t.total + ' submission(s) in total. Ranking covers the last 90 days.' }),
+      h('h2', { class: 'section-title', text: 'Most requested topics' }),
+      h('div', { class: 'card req' }, rank),
+      h('h2', { class: 'section-title', text: 'Suggested by visitors' })
+    ].concat(ideas.length ? ideas : [h('div', { class: 'empty', text: 'No custom suggestions yet.' })]);
+  }
+
+  function setTopic(id, status, btn) {
+    call('adminSetTopicStatus', [id, status], btn).then(function (topics) {
+      state.data.topics = topics;
+      render();
+      toast(status === 'PLANNED' ? 'Marked as planned.' : 'Archived.');
+    });
   }
 
   function typeBadge(type) {

@@ -12,6 +12,8 @@
 
 const ADMIN = {
   requestsTab: 'Access_Requests',
+  topicsTab: 'Topic_Requests',
+  driveRootId: '1Mm3XNSGGezqVRByJ5fqj7OH4ZePvh6bp',
   codeDays: 7,
   siteUrl: 'https://ynk-techusa.com',
   industries: ['Healthcare', 'Finance', 'Education', 'Technology', 'Government', 'Retail', 'Data Engineering'],
@@ -20,6 +22,8 @@ const ADMIN = {
 const REQ_HEADERS = ['request_id', 'submitted_at', 'name', 'email', 'company', 'industry', 'reason', 'status',
   'decided_at', 'decided_by', 'decision_note', 'code_hash', 'code_expires_at']
 const REQ = { pending: 'PENDING', approved: 'APPROVED', rejected: 'REJECTED', revoked: 'REVOKED' }
+const TOPIC_HEADERS = ['request_id', 'submitted_at', 'topics', 'custom_topic', 'audience', 'email', 'language', 'status']
+const TOPIC_STATUS = ['NEW', 'PLANNED', 'ARCHIVED']
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 
 /* ---------------- Web entry points ---------------- */
@@ -43,6 +47,7 @@ function doPost(e) {
   try {
     if (body.action === 'request') return json_(intakeRequest_(body))
     if (body.action === 'verify') return json_(verifyCode_(body))
+    if (body.action === 'topic') return json_(intakeTopic_(body))
     return json_({ ok: false, error: 'unknown_action' })
   } catch (err) {
     console.error(err)
@@ -52,21 +57,42 @@ function doPost(e) {
 
 function setupAdmin() {
   requestsSheet_()
+  topicsSheet_()
   MailApp.getRemainingDailyQuota()
-  Logger.log('Access_Requests tab ready. Console admin: %s', Session.getEffectiveUser().getEmail())
+  Logger.log('Access_Requests and Topic_Requests tabs ready. Console admin: %s', Session.getEffectiveUser().getEmail())
+  Logger.log('Drive scan: %s', JSON.stringify(discoverDrive_()))
 }
 
 /* ---------------- Console API (google.script.run) ---------------- */
 
 function adminLoad() {
   assertAdmin_()
+  let drive
+  try {
+    drive = discoverDrive_()
+  } catch (e) {
+    drive = { added: [], incomplete: [], error: String(e.message || e) }
+  }
   const ss = SpreadsheetApp.openById(CONFIG.queueSheetId)
   return {
     user: Session.getActiveUser().getEmail(),
     sheetUrl: ss.getUrl(),
+    drive,
     articles: listArticles_(),
     requests: readRequests_().map(publicRequest_),
+    topics: topicsView_(),
   }
+}
+
+function adminSetTopicStatus(requestId, status) {
+  assertAdmin_()
+  if (TOPIC_STATUS.indexOf(status) < 0) throw new Error('Unknown status.')
+  const sheet = topicsSheet_()
+  const ids = sheet.getRange(2, 1, Math.max(sheet.getLastRow() - 1, 1), 1).getValues().map((r) => str_(r[0]))
+  const idx = ids.indexOf(str_(requestId))
+  if (idx < 0) throw new Error('Topic request not found.')
+  sheet.getRange(idx + 2, TOPIC_HEADERS.indexOf('status') + 1).setValue(status)
+  return topicsView_()
 }
 
 function adminApproveArticle(articleId) {
@@ -308,6 +334,164 @@ function articleView_(queue, row) {
     liveUrl: stage === 'published' && slug ? `${ADMIN.siteUrl}/latest/${slug}` : '',
     error: str_(row.get('error')),
   }
+}
+
+/* ---------------- Drive discovery ---------------- */
+
+// Adds Drive folders holding an EN, FR and ES Google Doc to the Editorial Queue as DRAFT rows.
+function discoverDrive_() {
+  const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error', 'type'])
+  const knownDocs = {}
+  const knownSlugs = {}
+  queue.rows.forEach((r) => {
+    LANGS.forEach(([, col]) => { const id = driveId_(r.get(col)); if (id) knownDocs[id] = true })
+    knownSlugs[str_(r.get('slug'))] = true
+  })
+
+  const pieces = []
+  walkDrive_(DriveApp.getFolderById(ADMIN.driveRootId), [], 0, pieces)
+
+  const sheet = SpreadsheetApp.openById(CONFIG.queueSheetId).getSheetByName(CONFIG.queueTab)
+  const width = sheet.getLastColumn()
+  const draft = queue.rows.length ? pickOption_(queue.options(queue.rows[0], 'approval'), /draft/i, 'DRAFT') : 'DRAFT'
+  const added = []
+  const incomplete = []
+  const dateRe = /(\d{4})[-_. ](\d{2})[-_. ](\d{2})/
+
+  pieces.forEach((p) => {
+    if (p.docs.some((d) => knownDocs[d.getId()])) return
+    const langs = assignLangs_(p.docs)
+    const missing = ['en', 'fr', 'es'].filter((l) => !langs[l])
+    const name = p.folder.getName()
+    if (missing.length) {
+      incomplete.push({ name, missing: missing.map((l) => l.toUpperCase()) })
+      return
+    }
+    const dm = name.match(dateRe)
+    const date = dm ? new Date(`${dm[1]}-${dm[2]}-${dm[3]}T12:00:00`) : p.folder.getDateCreated()
+    const title = name.replace(dateRe, '').replace(/^[\s\-_|:]+|[\s\-_|:]+$/g, '').trim() || name
+    let slug = slugify_(title) || `piece-${p.folder.getId().slice(-6).toLowerCase()}`
+    if (knownSlugs[slug]) slug = `${slug}-${Utilities.formatDate(date, 'UTC', 'yyyyMMdd')}`.slice(0, 80)
+    knownSlugs[slug] = true
+    const isStudy = /stud|[e\u00e9]tude|estudio/i.test(p.path.concat(name).join(' '))
+    const articleId = `YNK-${Utilities.formatDate(date, 'UTC', 'yyyyMMdd')}-${p.folder.getId().slice(-6).toUpperCase().replace(/[^A-Z0-9]/g, 'X')}`
+
+    const values = new Array(width).fill('')
+    const put = (key, v) => { if (queue.map[key] != null) values[queue.map[key]] = typeof v === 'string' ? safeCell_(v) : v }
+    put('articleId', articleId)
+    put('date', date)
+    put('slug', slug)
+    put('titleEn', title)
+    put('docEn', langs.en.getId())
+    put('docFr', langs.fr.getId())
+    put('docEs', langs.es.getId())
+    put('approval', draft)
+    put('syncState', SYNC.blocked)
+    put('type', isStudy ? 'study' : 'analysis')
+    sheet.appendRow(values)
+    p.docs.forEach((d) => { knownDocs[d.getId()] = true })
+    added.push({ id: articleId, title })
+  })
+  return { added, incomplete }
+}
+
+function walkDrive_(folder, path, depth, out) {
+  const docs = []
+  const it = folder.getFilesByType(MimeType.GOOGLE_DOCS)
+  while (it.hasNext()) docs.push(it.next())
+  if (docs.length >= 2 && depth > 0) {
+    out.push({ folder, path, docs })
+    return
+  }
+  if (depth >= 4) return
+  const subs = folder.getFolders()
+  while (subs.hasNext()) walkDrive_(subs.next(), path.concat(folder.getName()), depth + 1, out)
+}
+
+const NAME_LANG = {
+  en: /(^|[^a-z])(en|eng|english|anglais|ingl[e\u00e9]s)([^a-z]|$)/i,
+  fr: /(^|[^a-z])(fr|fra|fran[c\u00e7]ais|french|francais)([^a-z]|$)/i,
+  es: /(^|[^a-z])(es|esp|espa[n\u00f1]ol|spanish|espagnol)([^a-z]|$)/i,
+}
+const STOPWORDS = {
+  en: ['the', 'and', 'of', 'to', 'is', 'in', 'that', 'for', 'with'],
+  fr: ['le', 'la', 'les', 'et', 'des', 'est', 'une', 'du', 'pour', 'dans'],
+  es: ['el', 'los', 'las', 'y', 'del', 'una', 'por', 'para', 'con', 'que'],
+}
+
+function assignLangs_(docs) {
+  const out = {}
+  const rest = []
+  docs.forEach((d) => {
+    const hit = ['en', 'fr', 'es'].find((l) => !out[l] && NAME_LANG[l].test(d.getName()))
+    if (hit) out[hit] = d
+    else rest.push(d)
+  })
+  rest.forEach((d) => {
+    const open = ['en', 'fr', 'es'].filter((l) => !out[l])
+    if (!open.length) return
+    const words = DocumentApp.openById(d.getId()).getBody().getText().slice(0, 4000).toLowerCase().split(/[^a-z\u00e0-\u00ff]+/)
+    const score = (l) => words.filter((w) => STOPWORDS[l].indexOf(w) >= 0).length
+    const best = open.sort((a, b) => score(b) - score(a))[0]
+    if (score(best) > 0) out[best] = d
+  })
+  return out
+}
+
+/* ---------------- Topic requests ---------------- */
+
+function intakeTopic_(b) {
+  if (str_(b.website)) return { ok: true }
+  const topics = (Array.isArray(b.topics) ? b.topics : []).slice(0, 3).map((t) => cleanInput_(t, 80)).filter(Boolean)
+  const custom = cleanInput_(b.custom, 300)
+  const audience = cleanInput_(b.role, 40)
+  const email = cleanInput_(b.email, 200).toLowerCase()
+  const language = cleanInput_(b.language, 5)
+  if (!topics.length && !custom) return { ok: false, error: 'invalid' }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return { ok: false, error: 'invalid' }
+  if (!rateLimit_('tp:all', 120, 3600) || (email && !rateLimit_(`tp:${sha256_(email).slice(0, 20)}`, 5, 3600))) {
+    return { ok: false, error: 'rate_limited' }
+  }
+  const id = `TOP-${Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd')}-${Utilities.getUuid().slice(0, 6).toUpperCase()}`
+  const lock = LockService.getScriptLock()
+  lock.waitLock(10000)
+  try {
+    topicsSheet_().appendRow([id, new Date(), topics.join(' | '), custom, audience, email, language, 'NEW'].map(safeCell_))
+  } finally {
+    lock.releaseLock()
+  }
+  return { ok: true }
+}
+
+function topicsSheet_() {
+  const ss = SpreadsheetApp.openById(CONFIG.queueSheetId)
+  let sheet = ss.getSheetByName(ADMIN.topicsTab)
+  if (!sheet) {
+    sheet = ss.insertSheet(ADMIN.topicsTab)
+    sheet.getRange(1, 1, 1, TOPIC_HEADERS.length).setValues([TOPIC_HEADERS]).setFontWeight('bold')
+    sheet.setFrozenRows(1)
+  }
+  return sheet
+}
+
+function topicsView_() {
+  const values = topicsSheet_().getDataRange().getValues().slice(1).filter((r) => str_(r[0]))
+  const since = Date.now() - 90 * 864e5
+  const counts = {}
+  const suggestions = []
+  values.forEach((r) => {
+    const submitted = r[1] instanceof Date ? r[1] : new Date(r[1])
+    const status = str_(r[7]).toUpperCase() || 'NEW'
+    if (submitted.getTime() >= since) {
+      str_(r[2]).split('|').map((t) => t.trim()).filter(Boolean).forEach((t) => { counts[t] = (counts[t] || 0) + 1 })
+    }
+    if (str_(r[3])) {
+      suggestions.push({ id: str_(r[0]), submitted: fmtDate_(submitted, true), custom: str_(r[3]), topics: str_(r[2]),
+        audience: str_(r[4]), email: str_(r[5]), language: str_(r[6]), status })
+    }
+  })
+  const ranking = Object.keys(counts).map((t) => ({ topic: t, count: counts[t] })).sort((a, b) => b.count - a.count)
+  return { total: values.length, ranking, suggestions: suggestions.reverse() }
 }
 
 /* ---------------- Access requests storage ---------------- */
