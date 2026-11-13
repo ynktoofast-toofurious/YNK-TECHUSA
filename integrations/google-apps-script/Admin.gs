@@ -71,7 +71,7 @@ function adminLoad() {
   try {
     drive = discoverDrive_()
   } catch (e) {
-    drive = { added: [], incomplete: [], error: String(e.message || e) }
+    drive = { added: [], incomplete: [], upgraded: [], error: String(e.message || e) }
   }
   const ss = SpreadsheetApp.openById(CONFIG.queueSheetId)
   return {
@@ -143,7 +143,12 @@ function adminPreview(articleId) {
     const mime = img.ext === 'png' ? 'image/png' : img.ext === 'webp' ? 'image/webp' : 'image/jpeg'
     images[path] = `data:${mime};base64,${Utilities.base64Encode(img.bytes)}`
   })
-  return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, images,
+  const sources = LANGS.map(([lang, col]) => {
+    const id = driveId_(row.get(col))
+    const info = id && fileInfo_(id)
+    return info ? { lang, name: info.file.getName(), html: info.html, url: `https://drive.google.com/open?id=${id}` } : { lang, missing: true }
+  })
+  return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, images, sources,
     imageError: [built.imageError].concat(built.warnings || []).filter(Boolean).join(' '), fixes: built.fixes }
 }
 
@@ -345,37 +350,67 @@ function articleView_(queue, row) {
 
 /* ---------------- Drive discovery ---------------- */
 
-// Pairs EN/FR/ES Google Docs by "title - date" (across en/fr/es folders or within one folder)
+// Pairs EN/FR/ES sources by "title - date" (across en/fr/es folders or within one folder),
+// switches unpublished queue rows from Google Docs to matching HTML files,
 // and adds new complete sets to the Editorial Queue as DRAFT rows.
 function discoverDrive_() {
   const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error', 'type'])
-  const knownDocs = {}
+  const { docs, errors } = scanDrive_()
+  const byId = {}
+  docs.forEach((d) => { byId[d.id] = d })
+  const info = (id) => (id in byId ? byId[id] : (byId[id] = fileInfo_(id)))
+
   const knownSlugs = {}
-  queue.rows.forEach((r) => {
-    LANGS.forEach(([, col]) => { const id = driveId_(r.get(col)); if (id) knownDocs[id] = true })
-    knownSlugs[str_(r.get('slug'))] = true
+  const entries = queue.rows.map((row) => {
+    knownSlugs[str_(row.get('slug'))] = true
+    const ids = {}
+    LANGS.forEach(([, col]) => { ids[col] = driveId_(row.get(col)) })
+    return { row, ids, published: str_(row.get('syncState')).toUpperCase() === SYNC.published }
+  })
+  const claimed = () => {
+    const out = {}
+    entries.forEach((e) => LANGS.forEach(([, col]) => { if (e.ids[col]) out[e.ids[col]] = true }))
+    return out
+  }
+  const upgradedRows = new Map()
+  const retired = {}
+  const useFile = (e, col, file) => {
+    if (e.ids[col] === file.id) return
+    if (e.ids[col]) retired[e.ids[col]] = true
+    queue.set(e.row, col, file.id)
+    e.ids[col] = file.id
+    upgradedRows.set(e, true)
+  }
+
+  // Rows still pointing at Google Docs pick up the HTML file with the same title and date in that language.
+  const used = claimed()
+  entries.filter((e) => !e.published).forEach((e) => {
+    const keys = [normKey_(e.row.get('titleEn')), normKey_(e.row.get('slug'))]
+    LANGS.forEach(([, col]) => {
+      const id = e.ids[col]
+      if (!id) return
+      const d = info(id)
+      if (d) keys.push(d.key)
+    })
+    const rowDate = dayOf_(e.row.get('date'))
+    LANGS.forEach(([lang, col]) => {
+      const cur = e.ids[col] && info(e.ids[col])
+      if (cur && cur.html) return
+      const hit = docs
+        .filter((d) => d.html && d.lang === lang && !used[d.id] && keys.some((k) => sameKey_(k, d.key)) && (!d.date || !rowDate || d.date === rowDate))
+        .sort((a, b) => b.file.getLastUpdated() - a.file.getLastUpdated())[0]
+      if (hit) { useFile(e, col, hit); used[hit.id] = true }
+    })
   })
 
-  const docs = []
-  const seen = {}
-  ADMIN.driveRootIds.forEach((id) => {
-    const found = []
-    collectDocs_(DriveApp.getFolderById(id), [], 0, found)
-    // The two roots may overlap; keep the first sighting of each file.
-    found.forEach((d) => { if (!seen[d.file.getId()]) { seen[d.file.getId()] = true; docs.push(d) } })
-  })
   const groups = {}
   docs.forEach((d) => {
-    const folderLang = langOfFolder_(d.path[d.path.length - 1])
-    const parts = splitName_(d.file.getName().replace(/\.html?$/i, ''))
-    const lang = folderLang || parts.lang
-    if (!lang) return
-    const series = folderLang ? d.path.slice(0, -1) : d.path
-    const key = `${series.join('/')}::${parts.base.toLowerCase()}`
-    const g = groups[key] || (groups[key] = { series, title: parts.title, date: parts.date, docs: {}, all: [] })
-    g.all.push(d.file)
+    if (!d.lang) return
+    const key = `${d.series.join('/')}::${d.parts.base.toLowerCase()}`
+    const g = groups[key] || (groups[key] = { series: d.series, title: d.parts.title, date: d.parts.date, docs: {}, all: [] })
+    g.all.push(d)
     // HTML wins over a Google Doc for the same language.
-    if (!g.docs[lang] || (d.html && !isHtmlFile_(g.docs[lang]))) g.docs[lang] = d.file
+    if (!g.docs[d.lang] || (d.html && !g.docs[d.lang].html)) g.docs[d.lang] = d
   })
 
   const sheet = SpreadsheetApp.openById(CONFIG.queueSheetId).getSheetByName(CONFIG.queueTab)
@@ -383,35 +418,33 @@ function discoverDrive_() {
   const draft = queue.rows.length ? pickOption_(queue.options(queue.rows[0], 'approval'), /draft/i, 'DRAFT') : 'DRAFT'
   const added = []
   const incomplete = []
-  const upgraded = []
 
   Object.keys(groups).forEach((key) => {
     const g = groups[key]
-    const knownRow = queue.rows.find((r) => g.all.some((f) => LANGS.some(([, col]) => driveId_(r.get(col)) === f.getId())))
-    if (knownRow) {
-      if (str_(knownRow.get('syncState')).toUpperCase() === SYNC.published) return
-      let changed = false
+    const known = entries.find((e) => g.all.some((d) => LANGS.some(([, col]) => e.ids[col] === d.id)))
+    if (known) {
+      if (known.published) return
       LANGS.forEach(([lang, col]) => {
-        const f = g.docs[lang]
-        if (f && isHtmlFile_(f) && driveId_(knownRow.get(col)) !== f.getId()) { queue.set(knownRow, col, f.getId()); changed = true }
+        const d = g.docs[lang]
+        if (d && d.html) useFile(known, col, d)
       })
-      if (changed) upgraded.push({ id: str_(knownRow.get('articleId')), title: str_(knownRow.get('titleEn')) || g.title })
       return
     }
-    const files = Object.keys(g.docs).map((l) => g.docs[l])
-    if (files.some((f) => knownDocs[f.getId()])) return
+    const knownDocs = claimed()
+    const files = Object.keys(g.docs).map((l) => g.docs[l].file)
+    if (files.some((f) => knownDocs[f.getId()] || retired[f.getId()])) return
     const missing = ['en', 'fr', 'es'].filter((l) => !g.docs[l])
     const label = `${g.title}${g.date ? ` (${Utilities.formatDate(g.date, 'UTC', 'yyyy-MM-dd')})` : ''}`
     if (missing.length) {
       incomplete.push({ name: label, missing: missing.map((l) => l.toUpperCase()) })
       return
     }
-    const date = g.date || g.docs.en.getDateCreated()
-    let slug = slugify_(g.title) || `piece-${g.docs.en.getId().slice(-6).toLowerCase()}`
+    const date = g.date || g.docs.en.file.getDateCreated()
+    let slug = slugify_(g.title) || `piece-${g.docs.en.id.slice(-6).toLowerCase()}`
     if (knownSlugs[slug]) slug = `${slug}-${Utilities.formatDate(date, 'UTC', 'yyyy-MM-dd')}`.slice(0, 80)
     knownSlugs[slug] = true
     const isStudy = /stud|[e\u00e9]tude|estudio/i.test(g.series.join(' '))
-    const articleId = `YNK-${Utilities.formatDate(date, 'UTC', 'yyyyMMdd')}-${g.docs.en.getId().slice(-6).toUpperCase().replace(/[^A-Z0-9]/g, 'X')}`
+    const articleId = `YNK-${Utilities.formatDate(date, 'UTC', 'yyyyMMdd')}-${g.docs.en.id.slice(-6).toUpperCase().replace(/[^A-Z0-9]/g, 'X')}`
 
     const values = new Array(width).fill('')
     const put = (k, v) => { if (queue.map[k] != null) values[queue.map[k]] = typeof v === 'string' ? safeCell_(v) : v }
@@ -419,17 +452,132 @@ function discoverDrive_() {
     put('date', date)
     put('slug', slug)
     put('titleEn', g.title)
-    put('docEn', g.docs.en.getId())
-    put('docFr', g.docs.fr.getId())
-    put('docEs', g.docs.es.getId())
+    put('docEn', g.docs.en.id)
+    put('docFr', g.docs.fr.id)
+    put('docEs', g.docs.es.id)
     put('approval', draft)
     put('syncState', SYNC.blocked)
     put('type', isStudy ? 'study' : 'analysis')
     sheet.appendRow(values)
-    files.forEach((f) => { knownDocs[f.getId()] = true })
+    // Just added: nothing to upgrade.
+    entries.push({ row: null, ids: { docEn: g.docs.en.id, docFr: g.docs.fr.id, docEs: g.docs.es.id }, published: true })
     added.push({ id: articleId, title: g.title })
   })
-  return { added, incomplete, upgraded }
+
+  const upgraded = []
+  upgradedRows.forEach((_, e) => {
+    resetForNewSource_(queue, e.row)
+    upgraded.push({ id: str_(e.row.get('articleId')), title: str_(e.row.get('titleEn')) || str_(e.row.get('slug')) })
+  })
+  return { added, incomplete, upgraded, error: errors.join(' ') }
+}
+
+function scanDrive_() {
+  const docs = []
+  const errors = []
+  const seen = {}
+  ADMIN.driveRootIds.forEach((rootId) => {
+    const found = []
+    try {
+      collectDocs_(DriveApp.getFolderById(rootId), [], 0, found)
+    } catch (e) {
+      errors.push(`Drive folder ${rootId} could not be opened (${e.message || e}).`)
+      return
+    }
+    // The roots may overlap; keep the first sighting of each file.
+    found.forEach((d) => {
+      const id = d.file.getId()
+      if (seen[id]) return
+      seen[id] = true
+      const folderLang = langOfFolder_(d.path[d.path.length - 1])
+      const parts = splitName_(d.file.getName().replace(/\.html?$/i, ''))
+      docs.push(Object.assign(d, {
+        id,
+        parts,
+        lang: folderLang || parts.lang,
+        series: folderLang ? d.path.slice(0, -1) : d.path,
+        key: normKey_(parts.title),
+        date: parts.date ? Utilities.formatDate(parts.date, Session.getScriptTimeZone(), 'yyyy-MM-dd') : '',
+      }))
+    })
+  })
+  return { docs, errors }
+}
+
+// Source file outside the scanned folders: name-based key and format only.
+function fileInfo_(id) {
+  try {
+    const file = DriveApp.getFileById(id)
+    const parts = splitName_(file.getName().replace(/\.html?$/i, ''))
+    return { id, file, html: isHtmlFile_(file), key: normKey_(parts.title) }
+  } catch (e) {
+    return null
+  }
+}
+
+// "Congo Forest Intelligence - TEST" and "congo-forest-intelligence-2026-11-13" -> "congo forest intelligence"
+function normKey_(text) {
+  return str_(text).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/\.html?$/, '')
+    .replace(/\d{4}[-_. ]\d{2}[-_. ]\d{2}/g, ' ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\b(test|draft|final|copy|copie|copia|html)\b/g, ' ')
+    .replace(/\s+/g, ' ').trim()
+}
+
+function sameKey_(a, b) {
+  if (!a || !b) return false
+  if (a === b) return true
+  return Math.min(a.length, b.length) >= 12 && (a.indexOf(b) >= 0 || b.indexOf(a) >= 0)
+}
+
+function dayOf_(value) {
+  if (value instanceof Date) return Utilities.formatDate(value, Session.getScriptTimeZone(), 'yyyy-MM-dd')
+  const m = str_(value).match(/^(\d{4})-(\d{2})-(\d{2})/)
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : ''
+}
+
+// A new source makes any open pull request stale: close it so the next approval sends the new version.
+function resetForNewSource_(queue, row) {
+  const sync = str_(row.get('syncState')).toUpperCase()
+  if (sync === SYNC.published) return
+  const m = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
+  if (sync === SYNC.prOpen && m) {
+    try { gh_(getToken_(), 'PATCH', `/pulls/${m[1]}`, { state: 'closed' }) } catch (e) { console.warn(e) }
+  }
+  queue.set(row, 'syncState', SYNC.blocked)
+  queue.set(row, 'syncHash', '')
+}
+
+/* ---------------- Source files (console) ---------------- */
+
+function adminHtmlOptions(articleId, lang) {
+  assertAdmin_()
+  if (!LANGS.some(([l]) => l === lang)) throw new Error('Unknown language.')
+  const { row } = findArticle_(articleId)
+  const keys = [normKey_(row.get('titleEn')), normKey_(row.get('slug'))]
+  const { docs } = scanDrive_()
+  return docs
+    .filter((d) => d.html && (d.lang === lang || !d.lang))
+    .map((d) => ({ id: d.id, name: d.file.getName(), path: d.path.join(' / '), match: keys.some((k) => sameKey_(k, d.key)), t: d.file.getLastUpdated().getTime() }))
+    .sort((a, b) => (b.match - a.match) || (b.t - a.t))
+    .slice(0, 40)
+    .map(({ id, name, path, match }) => ({ id, name, path, match }))
+}
+
+function adminSetSource(articleId, lang, fileId) {
+  assertAdmin_()
+  const pair = LANGS.find(([l]) => l === lang)
+  if (!pair) throw new Error('Unknown language.')
+  const id = driveId_(fileId)
+  if (!id) throw new Error('Not a Drive file.')
+  const file = DriveApp.getFileById(id)
+  if (!isHtmlFile_(file) && file.getMimeType() !== MimeType.GOOGLE_DOCS) throw new Error(`"${file.getName()}" is not an HTML file or Google Doc.`)
+  const { queue, row } = findArticle_(articleId)
+  if (str_(row.get('syncState')).toUpperCase() === SYNC.published) throw new Error('This item is already published.')
+  queue.set(row, pair[1], id)
+  resetForNewSource_(queue, row)
+  return articleById_(articleId)
 }
 
 function collectDocs_(folder, path, depth, out) {
