@@ -4,7 +4,7 @@ const projectCopy = {
       tag: 'The Latest',
       title1: 'Fresh From the Desk.',
       title2: 'What We Just Released.',
-      sub: 'The newest analyses, releases, and engineering notes from YNK — the moment they ship.',
+      sub: 'The newest analyses, releases, and engineering notes from YNK, the moment they ship.',
       viewAll: 'See everything new',
       pageTitle1: 'Everything New,',
       pageTitle2: 'In One Place.',
@@ -22,7 +22,7 @@ const projectCopy = {
       tag: 'Start a Project',
       title1: "Tell Us What You're Building.",
       title2: "We'll Shape the Path.",
-      sub: 'A guided brief that takes about two minutes. No jargon, no obligation — just the essentials we need to give you a thoughtful answer.',
+      sub: 'A guided brief that takes about two minutes. No jargon, no obligation. Just the essentials we need to give you a thoughtful answer.',
       steps: ['Focus', 'Context', 'Scope', 'You'],
       stepTitles: [
         'What would you like to create?',
@@ -33,7 +33,7 @@ const projectCopy = {
       stepHints: [
         'Pick everything that applies.',
         'A little context helps us respond with substance.',
-        "Ranges are fine — we'll refine them together.",
+        "Ranges are fine. We'll refine them together.",
         'We reply personally, usually within 24 hours.',
       ],
       tracks: {
@@ -69,7 +69,7 @@ const projectCopy = {
         stage: 'Select where you are today.',
         outcome: 'Add a sentence or two about the outcome (at least 20 characters).',
         timeline: 'Pick a timeline.',
-        budget: 'Pick a budget range — "Not sure yet" is fine.',
+        budget: 'Pick a budget range. "Not sure yet" is fine.',
         name: 'Please add your name.',
         email: 'Please enter a valid email address.',
         send: 'We could not send your brief. Please try again, or book a call instead.',
@@ -94,7 +94,7 @@ const projectCopy = {
       success: {
         tag: 'Brief received',
         title: 'Thank you, {name}.',
-        text: "Your brief is in. We'll review it and reply personally — usually within 24 hours.",
+        text: "Your brief is in. We'll review it and reply personally, usually within 24 hours.",
         ref: 'Reference',
         next: 'What happens next',
         steps: [
@@ -114,7 +114,7 @@ const projectCopy = {
       tag: 'Nouveautés',
       title1: 'Tout juste sorti du Bureau.',
       title2: 'Nos dernières publications.',
-      sub: 'Les analyses, lancements et notes d’ingénierie les plus récents de YNK — dès leur sortie.',
+      sub: 'Les analyses, lancements et notes d’ingénierie les plus récents de YNK, dès leur sortie.',
       viewAll: 'Voir toutes les nouveautés',
       pageTitle1: 'Toutes les nouveautés,',
       pageTitle2: 'au même endroit.',
@@ -132,7 +132,7 @@ const projectCopy = {
       tag: 'Démarrer un projet',
       title1: 'Dites-nous ce que vous construisez.',
       title2: 'Nous traçons le chemin.',
-      sub: 'Un brief guidé d’environ deux minutes. Sans jargon, sans engagement — juste l’essentiel pour vous donner une réponse réfléchie.',
+      sub: 'Un brief guidé d’environ deux minutes. Sans jargon, sans engagement : juste l’essentiel pour vous donner une réponse réfléchie.',
       steps: ['Objectif', 'Contexte', 'Cadre', 'Vous'],
       stepTitles: [
         'Que souhaitez-vous créer ?',
@@ -143,7 +143,7 @@ const projectCopy = {
       stepHints: [
         'Sélectionnez tout ce qui s’applique.',
         'Un peu de contexte nous aide à répondre avec substance.',
-        'Des fourchettes suffisent — nous affinerons ensemble.',
+        'Des fourchettes suffisent, nous affinerons ensemble.',
         'Nous répondons personnellement, généralement sous 24 heures.',
       ],
       tracks: {
@@ -179,7 +179,7 @@ const projectCopy = {
         stage: 'Indiquez où vous en êtes.',
         outcome: 'Ajoutez une phrase ou deux sur le résultat (20 caractères minimum).',
         timeline: 'Choisissez un délai.',
-        budget: 'Choisissez une fourchette — « Pas encore sûr » convient.',
+        budget: 'Choisissez une fourchette. « Pas encore sûr » convient.',
         name: 'Veuillez indiquer votre nom.',
         email: 'Veuillez saisir une adresse e-mail valide.',
         send: 'Impossible d’envoyer votre brief. Réessayez ou réservez plutôt un appel.',
@@ -204,7 +204,7 @@ const projectCopy = {
       success: {
         tag: 'Brief reçu',
         title: 'Merci, {name}.',
-        text: 'Votre brief est bien arrivé. Nous l’étudions et vous répondons personnellement — généralement sous 24 heures.',
+        text: 'Votre brief est bien arrivé. Nous l’étudions et vous répondons personnellement, généralement sous 24 heures.',
         ref: 'Référence',
         next: 'La suite',
         steps: [
@@ -224,7 +224,7 @@ const projectCopy = {
       tag: 'Novedades',
       title1: 'Recién salido de la Mesa.',
       title2: 'Lo último que lanzamos.',
-      sub: 'Los análisis, lanzamientos y notas de ingeniería más recientes de YNK — en cuanto salen.',
+      sub: 'Los análisis, lanzamientos y notas de ingeniería más recientes de YNK, en cuanto salen.',
       viewAll: 'Ver todas las novedades',
       pageTitle1: 'Todo lo nuevo,',
       pageTitle2: 'en un solo lugar.',
@@ -242,7 +242,7 @@ const projectCopy = {
       tag: 'Iniciar un proyecto',
       title1: 'Cuéntanos qué estás construyendo.',
       title2: 'Nosotros trazamos el camino.',
-      sub: 'Un brief guiado de unos dos minutos. Sin jerga ni compromiso — solo lo esencial para darte una respuesta bien pensada.',
+      sub: 'Un brief guiado de unos dos minutos. Sin jerga ni compromiso: solo lo esencial para darte una respuesta bien pensada.',
       steps: ['Enfoque', 'Contexto', 'Alcance', 'Tú'],
       stepTitles: [
         '¿Qué te gustaría crear?',
@@ -253,7 +253,7 @@ const projectCopy = {
       stepHints: [
         'Elige todo lo que aplique.',
         'Un poco de contexto nos ayuda a responder con sustancia.',
-        'Los rangos están bien — los afinaremos juntos.',
+        'Los rangos están bien, los afinaremos juntos.',
         'Respondemos personalmente, normalmente en 24 horas.',
       ],
       tracks: {
@@ -289,7 +289,7 @@ const projectCopy = {
         stage: 'Indica en qué punto estás.',
         outcome: 'Agrega una o dos frases sobre el resultado (mínimo 20 caracteres).',
         timeline: 'Elige un plazo.',
-        budget: 'Elige un rango — «Aún no lo sé» está bien.',
+        budget: 'Elige un rango. «Aún no lo sé» está bien.',
         name: 'Por favor agrega tu nombre.',
         email: 'Ingresa un correo electrónico válido.',
         send: 'No pudimos enviar tu brief. Inténtalo de nuevo o agenda una llamada.',
@@ -314,7 +314,7 @@ const projectCopy = {
       success: {
         tag: 'Brief recibido',
         title: 'Gracias, {name}.',
-        text: 'Recibimos tu brief. Lo revisaremos y te responderemos personalmente — normalmente en 24 horas.',
+        text: 'Recibimos tu brief. Lo revisaremos y te responderemos personalmente, normalmente en 24 horas.',
         ref: 'Referencia',
         next: 'Qué sigue',
         steps: [

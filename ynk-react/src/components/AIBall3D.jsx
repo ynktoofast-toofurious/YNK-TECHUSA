@@ -73,7 +73,7 @@ export default function AIBall3D() {
   const targetRotRef = useRef({ x: 0, y: 0 })
   const currentRotRef = useRef({ x: 0, y: 0 })
   const mouseDistRef = useRef(0)
-  const mouseHasMovedRef = useRef(true)   // autostart — no wait for mouse
+  const mouseHasMovedRef = useRef(true)   // autostart, no wait for mouse
   const animTimeRef = useRef(0)
 
   useEffect(() => {
@@ -225,7 +225,7 @@ export default function AIBall3D() {
     const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0
     if (isMobile && window.DeviceOrientationEvent) {
       if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        // iOS 13+ — must request on user gesture
+        // iOS 13+: must request on user gesture
         const requestGyro = () => {
           DeviceOrientationEvent.requestPermission()
             .then((state) => {

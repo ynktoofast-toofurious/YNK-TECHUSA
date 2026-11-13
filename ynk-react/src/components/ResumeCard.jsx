@@ -1,7 +1,7 @@
 ﻿import { useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 
-/* ── Career Timeline (structural only — text comes from translations) ── */
+/* ── Career Timeline (structural only; text comes from translations) ── */
 const TIMELINE_META = [
   { period: '2024 - Present', company: 'YNK-Tech USA',                     color: '#29B5E8', current: false },
   { period: '2022 - Present', company: 'OptumRx \u2013 UnitedHealth Group', color: '#10b981', current: true  },
@@ -193,7 +193,7 @@ export default function ResumeCard({ industry }) {
           className="resume-print-btn no-print"
           title={t('resumeCard.requestPdf')}
           onClick={() => {
-            const subject = encodeURIComponent('PDF Resume Request \u2014 Data Engineering')
+            const subject = encodeURIComponent('PDF Resume Request: Data Engineering')
             const body = encodeURIComponent(
               'Hello,\n\nI would like to request a PDF version of Yannick Nkongolo\'s Data Engineering resume.\n\nBest regards,'
             )

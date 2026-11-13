@@ -13,9 +13,9 @@ export const LATEST = [
       es: 'El Hub de Inteligencia YNK ya está en línea',
     },
     summary: {
-      en: 'A new home for curious minds: the Intelligence Desk, the YNK Method, and a first look at the Insider Vault — in English, French, and Spanish.',
-      fr: 'Un nouvel espace pour les esprits curieux : le Bureau de l’Intelligence, la Méthode YNK et un premier aperçu du Coffre des initiés — en anglais, français et espagnol.',
-      es: 'Un nuevo hogar para mentes curiosas: la Mesa de Inteligencia, el Método YNK y un primer vistazo a la Bóveda Interna — en inglés, francés y español.',
+      en: 'A new home for curious minds: the Intelligence Desk, the YNK Method, and a first look at the Insider Vault, in English, French, and Spanish.',
+      fr: 'Un nouvel espace pour les esprits curieux : le Bureau de l’Intelligence, la Méthode YNK et un premier aperçu du Coffre des initiés, en anglais, français et espagnol.',
+      es: 'Un nuevo hogar para mentes curiosas: la Mesa de Inteligencia, el Método YNK y un primer vistazo a la Bóveda Interna, en inglés, francés y español.',
     },
   },
   {
@@ -31,9 +31,9 @@ export const LATEST = [
       es: 'Pipeline de pedidos serverless para YB Printing',
     },
     summary: {
-      en: 'Custom apparel orders now flow through a serverless API on AWS Lambda and API Gateway, landing directly in cloud storage — no servers to manage.',
-      fr: 'Les commandes de vêtements personnalisés passent désormais par une API serverless sur AWS Lambda et API Gateway, directement stockées dans le cloud — sans serveur à gérer.',
-      es: 'Los pedidos de ropa personalizada ahora pasan por una API serverless en AWS Lambda y API Gateway, y se guardan directamente en la nube — sin servidores que administrar.',
+      en: 'Custom apparel orders now flow through a serverless API on AWS Lambda and API Gateway, landing directly in cloud storage. No servers to manage.',
+      fr: 'Les commandes de vêtements personnalisés passent désormais par une API serverless sur AWS Lambda et API Gateway, directement stockées dans le cloud, sans serveur à gérer.',
+      es: 'Los pedidos de ropa personalizada ahora pasan por una API serverless en AWS Lambda y API Gateway, y se guardan directamente en la nube, sin servidores que administrar.',
     },
   },
   {
@@ -67,9 +67,9 @@ export const LATEST = [
       es: 'Mapear el gobierno de la RDC: un modelo de poder en esquema estrella',
     },
     summary: {
-      en: 'A Power BI–ready model of the Democratic Republic of the Congo’s national government — the Suminwa II cabinet plus parliament, judiciary, provincial, and local structures — with a hierarchy view of who sits where.',
-      fr: 'Un modèle prêt pour Power BI du gouvernement national de la République démocratique du Congo — le cabinet Suminwa II ainsi que les structures parlementaires, judiciaires, provinciales et locales — avec une vue hiérarchique des postes.',
-      es: 'Un modelo listo para Power BI del gobierno nacional de la República Democrática del Congo — el gabinete Suminwa II y las estructuras parlamentarias, judiciales, provinciales y locales — con una vista jerárquica de quién ocupa cada cargo.',
+      en: 'A Power BI–ready model of the Democratic Republic of the Congo’s national government (the Suminwa II cabinet plus parliament, judiciary, provincial, and local structures), with a hierarchy view of who sits where.',
+      fr: 'Un modèle prêt pour Power BI du gouvernement national de la République démocratique du Congo (le cabinet Suminwa II ainsi que les structures parlementaires, judiciaires, provinciales et locales), avec une vue hiérarchique des postes.',
+      es: 'Un modelo listo para Power BI del gobierno nacional de la República Democrática del Congo (el gabinete Suminwa II y las estructuras parlamentarias, judiciales, provinciales y locales), con una vista jerárquica de quién ocupa cada cargo.',
     },
   },
   {
@@ -84,9 +84,9 @@ export const LATEST = [
       es: 'Conoce al asistente YNK',
     },
     summary: {
-      en: 'An interactive concierge — paired with our signature 3D sphere — that answers common questions and points visitors to the right next step.',
-      fr: 'Un concierge interactif — associé à notre sphère 3D signature — qui répond aux questions courantes et oriente les visiteurs vers la bonne étape.',
-      es: 'Un conserje interactivo — junto a nuestra esfera 3D característica — que responde preguntas frecuentes y guía a los visitantes al siguiente paso.',
+      en: 'An interactive concierge, paired with our signature 3D sphere, that answers common questions and points visitors to the right next step.',
+      fr: 'Un concierge interactif, associé à notre sphère 3D signature, qui répond aux questions courantes et oriente les visiteurs vers la bonne étape.',
+      es: 'Un conserje interactivo, junto a nuestra esfera 3D característica, que responde preguntas frecuentes y guía a los visitantes al siguiente paso.',
     },
   },
 ]

@@ -5,7 +5,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { getDynamicCodes } from '../utils/tracking'
 import { ArrowLeft } from './Icons'
 
-// Same hashes as ConsultantsPortal — any valid portal code unlocks the site
+// Same hashes as ConsultantsPortal; any valid portal code unlocks the site
 const SITE_CODE_HASHES = [
   'd949343d40287395916ef061561782c1a506cdaca890a92f8c12d1faa4b65def',
   'f9f5f3d76bbd21f24148fbf487ace9328f8a51367e014bfcf4fd06e156ba568c',

@@ -28,7 +28,7 @@ const vaultCopy = {
       minutes: '{n} min read',
       enroll: {
         tag: 'Enroll',
-        title: 'Become an Insider — free.',
+        title: 'Become an Insider. It’s free.',
         sub: "Two fields and you're in. Member studies unlock instantly on this device.",
         name: 'Name',
         email: 'Email',
@@ -53,7 +53,7 @@ const vaultCopy = {
       back: 'Back to the Vault',
       kicker: 'Politics · Data model',
       title: 'Mapping the DRC Government: A Star-Schema Power Model',
-      dek: 'Who holds power in the Democratic Republic of the Congo, and how is it structured? We modeled the national government as data — so the answer can be explored, filtered, and kept current.',
+      dek: 'Who holds power in the Democratic Republic of the Congo, and how is it structured? We modeled the national government as data, so the answer can be explored, filtered, and kept current.',
       stats: [
         { v: '55', l: 'named office holders' },
         { v: '73', l: 'institutions mapped' },
@@ -63,7 +63,7 @@ const vaultCopy = {
       s1Title: 'The question',
       s1: 'Government structures are usually explained through long lists and org charts that go stale. We wanted a living model: one table of positions, connected to who holds them, which institution they sit in, which branch they belong to, and where.',
       s2Title: 'How the model works',
-      s2: 'The model is a star schema — the standard shape for business intelligence. One central fact table records every position. Five dimension tables describe it: people, institutions, role categories, branches, and geography. Each position also points to the position it reports to, so the hierarchy can be drawn as a tree.',
+      s2: 'The model is a star schema, the standard shape for business intelligence. One central fact table records every position. Five dimension tables describe it: people, institutions, role categories, branches, and geography. Each position also points to the position it reports to, so the hierarchy can be drawn as a tree.',
       fact: 'Government Position',
       factLabel: 'Fact table',
       dims: ['Person', 'Institution', 'Role Category', 'Branch', 'Geography'],
@@ -73,7 +73,7 @@ const vaultCopy = {
       values: CABINET,
       findings: [
         'The government below the Prime Minister counts 53 named members across five ranks.',
-        'Full ministers form the largest group — 24 of 53, about 45% — but a deep senior tier of 6 Vice Prime Ministers and 12 Ministers of State sits above them.',
+        'Full ministers form the largest group (24 of 53, about 45%), but a deep senior tier of 6 Vice Prime Ministers and 12 Ministers of State sits above them.',
         'The executive accounts for 56 of the 72 positions mapped so far. Legislative, judicial, provincial, and local levels are modeled as structure, ready for named office holders.',
       ],
       s4Title: 'Why it matters',
@@ -81,11 +81,11 @@ const vaultCopy = {
       s5Title: 'Limits & sources',
       s5: 'Cabinet membership follows the official Primature page for the Suminwa II government. Office holders at other levels are not yet named and should be verified before publication. This is a data model, not a finished report.',
       sources: [
-        { label: 'Primature — Suminwa II government members', url: PRIMATURE },
-        { label: 'Radio Okapi — government composition', url: OKAPI },
+        { label: 'Primature: Suminwa II government members', url: PRIMATURE },
+        { label: 'Radio Okapi: government composition', url: OKAPI },
       ],
       founding: 'Founding Members will be able to download the full model: CSV tables, relationships, and DAX measures.',
-      locked: { title: 'This study is for Insiders.', text: 'Enroll free to read the full analysis — it takes ten seconds.', cta: 'Enroll free' },
+      locked: { title: 'This study is for Insiders.', text: 'Enroll free to read the full analysis. It takes ten seconds.', cta: 'Enroll free' },
     },
   },
 
@@ -114,7 +114,7 @@ const vaultCopy = {
       minutes: '{n} min de lecture',
       enroll: {
         tag: 'Inscription',
-        title: 'Devenez initié — gratuitement.',
+        title: 'Devenez initié. C’est gratuit.',
         sub: 'Deux champs et c’est fait. Les études membres se débloquent immédiatement sur cet appareil.',
         name: 'Nom',
         email: 'E-mail',
@@ -139,7 +139,7 @@ const vaultCopy = {
       back: 'Retour au Coffre',
       kicker: 'Politique · Modèle de données',
       title: 'Cartographier le gouvernement de la RDC : un modèle en étoile du pouvoir',
-      dek: 'Qui détient le pouvoir en République démocratique du Congo, et comment est-il structuré ? Nous avons modélisé le gouvernement national en données — pour que la réponse puisse être explorée, filtrée et tenue à jour.',
+      dek: 'Qui détient le pouvoir en République démocratique du Congo, et comment est-il structuré ? Nous avons modélisé le gouvernement national en données, pour que la réponse puisse être explorée, filtrée et tenue à jour.',
       stats: [
         { v: '55', l: 'titulaires nommés' },
         { v: '73', l: 'institutions cartographiées' },
@@ -149,7 +149,7 @@ const vaultCopy = {
       s1Title: 'La question',
       s1: 'Les structures gouvernementales sont souvent présentées sous forme de longues listes et d’organigrammes vite dépassés. Nous voulions un modèle vivant : une table de postes, reliée à leurs titulaires, à leur institution, à leur branche et à leur territoire.',
       s2Title: 'Comment fonctionne le modèle',
-      s2: 'Le modèle est un schéma en étoile — la forme standard en business intelligence. Une table de faits centrale enregistre chaque poste. Cinq tables de dimensions le décrivent : personnes, institutions, catégories de rôle, branches et géographie. Chaque poste pointe aussi vers le poste dont il dépend, ce qui permet de dessiner la hiérarchie en arbre.',
+      s2: 'Le modèle est un schéma en étoile, la forme standard en business intelligence. Une table de faits centrale enregistre chaque poste. Cinq tables de dimensions le décrivent : personnes, institutions, catégories de rôle, branches et géographie. Chaque poste pointe aussi vers le poste dont il dépend, ce qui permet de dessiner la hiérarchie en arbre.',
       fact: 'Poste gouvernemental',
       factLabel: 'Table de faits',
       dims: ['Personne', 'Institution', 'Catégorie de rôle', 'Branche', 'Géographie'],
@@ -159,7 +159,7 @@ const vaultCopy = {
       values: CABINET,
       findings: [
         'Le gouvernement sous la Première ministre compte 53 membres nommés répartis sur cinq rangs.',
-        'Les ministres forment le groupe le plus nombreux — 24 sur 53, soit environ 45 % — mais un échelon supérieur étoffé de 6 Vice-Premiers ministres et 12 Ministres d’État se situe au-dessus.',
+        'Les ministres forment le groupe le plus nombreux (24 sur 53, soit environ 45 %), mais un échelon supérieur étoffé de 6 Vice-Premiers ministres et 12 Ministres d’État se situe au-dessus.',
         'L’exécutif représente 56 des 72 postes cartographiés à ce jour. Les niveaux législatif, judiciaire, provincial et local sont modélisés en structure, prêts à accueillir les titulaires nommés.',
       ],
       s4Title: 'Pourquoi c’est important',
@@ -167,11 +167,11 @@ const vaultCopy = {
       s5Title: 'Limites & sources',
       s5: 'La composition du gouvernement suit la page officielle de la Primature pour le gouvernement Suminwa II. Les titulaires des autres niveaux ne sont pas encore nommés et doivent être vérifiés avant publication. Il s’agit d’un modèle de données, non d’un rapport finalisé.',
       sources: [
-        { label: 'Primature — membres du gouvernement Suminwa II', url: PRIMATURE },
-        { label: 'Radio Okapi — composition du gouvernement', url: OKAPI },
+        { label: 'Primature : membres du gouvernement Suminwa II', url: PRIMATURE },
+        { label: 'Radio Okapi : composition du gouvernement', url: OKAPI },
       ],
       founding: 'Les Membres fondateurs pourront télécharger le modèle complet : tables CSV, relations et mesures DAX.',
-      locked: { title: 'Cette étude est réservée aux initiés.', text: 'Inscrivez-vous gratuitement pour lire l’analyse complète — dix secondes suffisent.', cta: 'S’inscrire gratuitement' },
+      locked: { title: 'Cette étude est réservée aux initiés.', text: 'Inscrivez-vous gratuitement pour lire l’analyse complète. Dix secondes suffisent.', cta: 'S’inscrire gratuitement' },
     },
   },
 
@@ -200,7 +200,7 @@ const vaultCopy = {
       minutes: '{n} min de lectura',
       enroll: {
         tag: 'Inscripción',
-        title: 'Hazte Insider — gratis.',
+        title: 'Hazte Insider. Es gratis.',
         sub: 'Dos campos y listo. Los estudios para miembros se desbloquean al instante en este dispositivo.',
         name: 'Nombre',
         email: 'Correo electrónico',
@@ -225,7 +225,7 @@ const vaultCopy = {
       back: 'Volver a la Bóveda',
       kicker: 'Política · Modelo de datos',
       title: 'Mapear el gobierno de la RDC: un modelo de poder en esquema estrella',
-      dek: '¿Quién tiene el poder en la República Democrática del Congo y cómo está estructurado? Modelamos el gobierno nacional como datos — para que la respuesta pueda explorarse, filtrarse y mantenerse al día.',
+      dek: '¿Quién tiene el poder en la República Democrática del Congo y cómo está estructurado? Modelamos el gobierno nacional como datos, para que la respuesta pueda explorarse, filtrarse y mantenerse al día.',
       stats: [
         { v: '55', l: 'titulares nombrados' },
         { v: '73', l: 'instituciones mapeadas' },
@@ -235,7 +235,7 @@ const vaultCopy = {
       s1Title: 'La pregunta',
       s1: 'Las estructuras de gobierno suelen explicarse con listas largas y organigramas que se vuelven obsoletos. Queríamos un modelo vivo: una tabla de cargos conectada a quién los ocupa, en qué institución, a qué rama pertenecen y dónde.',
       s2Title: 'Cómo funciona el modelo',
-      s2: 'El modelo es un esquema estrella — la forma estándar en inteligencia de negocios. Una tabla de hechos central registra cada cargo. Cinco tablas de dimensiones lo describen: personas, instituciones, categorías de rol, ramas y geografía. Cada cargo apunta también al cargo del que depende, de modo que la jerarquía se puede dibujar como un árbol.',
+      s2: 'El modelo es un esquema estrella, la forma estándar en inteligencia de negocios. Una tabla de hechos central registra cada cargo. Cinco tablas de dimensiones lo describen: personas, instituciones, categorías de rol, ramas y geografía. Cada cargo apunta también al cargo del que depende, de modo que la jerarquía se puede dibujar como un árbol.',
       fact: 'Cargo de gobierno',
       factLabel: 'Tabla de hechos',
       dims: ['Persona', 'Institución', 'Categoría de rol', 'Rama', 'Geografía'],
@@ -245,7 +245,7 @@ const vaultCopy = {
       values: CABINET,
       findings: [
         'El gobierno bajo la Primera Ministra cuenta con 53 miembros nombrados en cinco rangos.',
-        'Los ministros forman el grupo más grande — 24 de 53, cerca del 45 % — pero por encima se sitúa un nivel superior amplio de 6 Vice Primeros Ministros y 12 Ministros de Estado.',
+        'Los ministros forman el grupo más grande (24 de 53, cerca del 45 %), pero por encima se sitúa un nivel superior amplio de 6 Vice Primeros Ministros y 12 Ministros de Estado.',
         'El ejecutivo representa 56 de los 72 cargos mapeados hasta ahora. Los niveles legislativo, judicial, provincial y local están modelados como estructura, listos para titulares nombrados.',
       ],
       s4Title: 'Por qué importa',
@@ -253,11 +253,11 @@ const vaultCopy = {
       s5Title: 'Límites y fuentes',
       s5: 'La composición del gobierno sigue la página oficial de la Primatura para el gobierno Suminwa II. Los titulares de otros niveles aún no están nombrados y deben verificarse antes de publicarse. Es un modelo de datos, no un informe terminado.',
       sources: [
-        { label: 'Primatura — miembros del gobierno Suminwa II', url: PRIMATURE },
-        { label: 'Radio Okapi — composición del gobierno', url: OKAPI },
+        { label: 'Primatura: miembros del gobierno Suminwa II', url: PRIMATURE },
+        { label: 'Radio Okapi: composición del gobierno', url: OKAPI },
       ],
       founding: 'Los Miembros Fundadores podrán descargar el modelo completo: tablas CSV, relaciones y medidas DAX.',
-      locked: { title: 'Este estudio es para Insiders.', text: 'Inscríbete gratis para leer el análisis completo — toma diez segundos.', cta: 'Inscribirme gratis' },
+      locked: { title: 'Este estudio es para Insiders.', text: 'Inscríbete gratis para leer el análisis completo. Toma diez segundos.', cta: 'Inscribirme gratis' },
     },
   },
 }

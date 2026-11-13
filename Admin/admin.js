@@ -5,7 +5,7 @@
     window.onerror = function (msg, src, line, col, err) {
         console.error('Admin error:', msg, '\n  at', src, line + ':' + col, '\n', err && err.stack ? err.stack : '');
         var t = document.getElementById('admin-toast');
-        if (t) { t.textContent = 'Something went wrong — check console.'; t.classList.add('toast-visible'); setTimeout(function () { t.classList.remove('toast-visible'); }, 4000); }
+        if (t) { t.textContent = 'Something went wrong. Check the console.'; t.classList.add('toast-visible'); setTimeout(function () { t.classList.remove('toast-visible'); }, 4000); }
     };
     window.onunhandledrejection = function (e) {
         console.error('Unhandled promise rejection:', e.reason);
@@ -68,7 +68,7 @@
             renderAll();
         }).catch(function (err) {
             console.error('API fetch error:', err);
-            showToast('Cloud sync failed — showing cached data.');
+            showToast('Cloud sync failed. Showing cached data.');
         });
     }
 
@@ -218,7 +218,7 @@
        TWO-FACTOR AUTH
     ══════════════════════════════════════════════════ */
 
-    /** Step 1 — validate admin code (SHA-256 hash comparison) */
+    /** Step 1: validate admin code (SHA-256 hash comparison) */
     window.adminStep1 = function () {
         if (isLockedOut('gate-error-1')) return;
 
@@ -262,7 +262,7 @@
         });
     };
 
-    /** Step 2 — validate TOTP code */
+    /** Step 2: validate TOTP code */
     window.adminStep2 = function () {
         if (!pendingAuth) return;
         if (isLockedOut('gate-error-2')) return;
@@ -405,7 +405,7 @@
     };
 
     /* ══════════════════════════════════════════════════
-       TOTP — RFC 6238 via Web Crypto API (no libs)
+       TOTP: RFC 6238 via Web Crypto API (no libs)
     ══════════════════════════════════════════════════ */
 
     function base32Decode(base32) {
@@ -536,7 +536,7 @@
             localStorage.setItem(key, JSON.stringify(data));
             return true;
         } catch (e) {
-            showToast('Storage full — clear old data.');
+            showToast('Storage full. Clear old data.');
             return false;
         }
     }
@@ -1088,7 +1088,7 @@
             details.innerHTML =
                 '<div class="req-detail" style="margin-bottom:12px">' +
                     '<strong>' + escapeHtml(req.name) + '</strong> (' + escapeHtml(req.email) + ')' +
-                    '<br><span style="color:var(--color-text-muted)">' + escapeHtml(req.company || 'N/A') + ' — ' + escapeHtml(req.industry) + '</span>' +
+                    '<br><span style="color:var(--color-text-muted)">' + escapeHtml(req.company || 'N/A') + ' · ' + escapeHtml(req.industry) + '</span>' +
                 '</div>';
         }
 
@@ -1198,7 +1198,7 @@
                     }, 1500);
                 }).catch(function (err) {
                     console.error('EmailJS error:', err);
-                    sucEl.textContent = 'Approved & code saved. Email failed — use mailto below.';
+                    sucEl.textContent = 'Approved & code saved. Email failed, use mailto below.';
                     // Fallback mailto
                     var subject = encodeURIComponent('Your YNK-Tech Consultant Portal Access Code');
                     var body    = encodeURIComponent('Hello ' + req.name + ',\n\nYour access code is: ' + generatedCode + '\n\nUse it at: https://ynk-techusa.com/consultants\n\nBest regards,\nYNK-Tech USA');
@@ -1206,7 +1206,7 @@
                     renderAll();
                 });
             } else {
-                // No EmailJS — fallback to mailto
+                // No EmailJS: fallback to mailto
                 var subject = encodeURIComponent('Your YNK-Tech Consultant Portal Access Code');
                 var body    = encodeURIComponent('Hello ' + req.name + ',\n\nYour access code is: ' + generatedCode + '\n\nUse it at: https://ynk-techusa.com/consultants\n\nBest regards,\nYNK-Tech USA');
                 sucEl.innerHTML = 'Approved & code saved. <a href="mailto:' + encodeURIComponent(req.email) + '?subject=' + subject + '&body=' + body + '" style="color:var(--color-accent)">Send via Email Client</a>';
@@ -1562,7 +1562,7 @@
     };
 
     /* ══════════════════════════════════════════════════
-       ANALYTICS TAB — FULL REPORT
+       ANALYTICS TAB: FULL REPORT
     ══════════════════════════════════════════════════ */
 
     function renderAnalyticsTab() {
@@ -1922,7 +1922,7 @@
             var desc  = '';
             if (e.type === 'login_attempt')    desc = e.success ? 'Successful login' : 'Failed login attempt';
             else if (e.type === 'chat_interaction') desc = e.question ? '&ldquo;' + escapeHtml(e.question.slice(0, 55)) + (e.question.length > 55 ? '&hellip;' : '') + '&rdquo;' : 'Chat interaction';
-            else if (e.type === 'access_code') desc = escapeHtml(e.industry || 'Unknown') + ' &mdash; ' + escapeHtml(e.action || '');
+            else if (e.type === 'access_code') desc = escapeHtml(e.industry || 'Unknown') + ' &middot; ' + escapeHtml(e.action || '');
             else if (e.type === 'cookie_consent') desc = 'Consent: ' + escapeHtml(e.choice || 'unknown');
 
             html += '<div class="analytics-activity-item">' +
@@ -1965,7 +1965,7 @@
     };
 
     /* ══════════════════════════════════════════════════
-       ADMIN TOOLS — TAB SWITCHING
+       ADMIN TOOLS: TAB SWITCHING
     ══════════════════════════════════════════════════ */
 
     window.switchTool = function (tool, btn) {

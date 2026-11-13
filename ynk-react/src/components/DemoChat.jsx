@@ -51,7 +51,7 @@ export default function DemoChat() {
     return Array.isArray(c) ? c : []
   }, [t])
 
-  // Scroll messages container only — never the page
+  // Scroll messages container only, never the page
   const scrollToBottom = () => {
     if (msgsRef.current) {
       msgsRef.current.scrollTop = msgsRef.current.scrollHeight

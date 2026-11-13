@@ -14,9 +14,9 @@ export const STUDIES = [
       es: 'Mapear el gobierno de la RDC: un modelo de poder en esquema estrella',
     },
     summary: {
-      en: 'Who holds power, in which institution, and who reports to whom — the national government modeled as explorable data.',
-      fr: 'Qui détient le pouvoir, dans quelle institution, et qui rend compte à qui — le gouvernement national modélisé en données explorables.',
-      es: 'Quién tiene el poder, en qué institución y quién responde a quién — el gobierno nacional modelado como datos explorables.',
+      en: 'Who holds power, in which institution, and who reports to whom: the national government modeled as explorable data.',
+      fr: 'Qui détient le pouvoir, dans quelle institution, et qui rend compte à qui : le gouvernement national modélisé en données explorables.',
+      es: 'Quién tiene el poder, en qué institución y quién responde a quién: el gobierno nacional modelado como datos explorables.',
     },
   },
   {
@@ -24,9 +24,9 @@ export const STUDIES = [
     access: 'founding',
     status: 'soon',
     title: {
-      en: 'DRC government model — full dataset package',
-      fr: 'Modèle du gouvernement de la RDC — jeu de données complet',
-      es: 'Modelo del gobierno de la RDC — paquete de datos completo',
+      en: 'DRC government model: full dataset package',
+      fr: 'Modèle du gouvernement de la RDC : jeu de données complet',
+      es: 'Modelo del gobierno de la RDC: paquete de datos completo',
     },
     summary: {
       en: 'Every CSV table, relationship, and DAX measure, ready to load into Power BI.',
@@ -44,9 +44,9 @@ export const STUDIES = [
       es: '¿Qué dicen los números sobre tu mundo?',
     },
     summary: {
-      en: 'The trends behind costs, jobs, and opportunity — beyond the inflation headlines.',
-      fr: 'Les tendances derrière les coûts, l’emploi et les opportunités — au-delà des gros titres sur l’inflation.',
-      es: 'Las tendencias detrás de los costos, el empleo y las oportunidades — más allá de los titulares sobre inflación.',
+      en: 'The trends behind costs, jobs, and opportunity, beyond the inflation headlines.',
+      fr: 'Les tendances derrière les coûts, l’emploi et les opportunités, au-delà des gros titres sur l’inflation.',
+      es: 'Las tendencias detrás de los costos, el empleo y las oportunidades, más allá de los titulares sobre inflación.',
     },
   },
   {
