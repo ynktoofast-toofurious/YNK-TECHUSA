@@ -47,13 +47,16 @@ export default function Footer() {
             <h4>{f.connect}</h4>
             <a href={CALENDLY} target="_blank" rel="noopener noreferrer">{f.links.book}</a>
             <Link to="/consultants">{f.links.access}</Link>
-            <a href="/Admin/" rel="nofollow">{f.links.login}</a>
           </nav>
         </div>
 
         <div className="ft-bottom">
           <div className="ft-legal">
-            <p>{f.rights.replace('{year}', new Date().getFullYear())}</p>
+            <p>
+              {/* Discreet admin entry: the copyright sign. */}
+              <a href="/Admin/" rel="nofollow" className="ft-quiet" tabIndex={-1} aria-hidden="true">©</a>
+              {f.rights.replace('{year}', new Date().getFullYear()).replace(/^©/, '')}
+            </p>
             <span className="ft-signature">{f.signature}</span>
           </div>
 

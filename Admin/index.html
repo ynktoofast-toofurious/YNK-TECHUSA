@@ -4,31 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>YNK Admin</title>
+<title>YNK Tech USA</title>
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #0b1120; color: #94a3b8; font: 15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-  .card { width: 100%; max-width: 440px; padding: 36px 32px; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; background: #111a2e; text-align: center; }
-  img { width: 120px; height: auto; margin-bottom: 18px; }
-  h1 { margin: 0 0 6px; color: #f1f5f9; font-size: 22px; }
-  p { margin: 0 0 22px; }
-  .btn { display: block; padding: 13px 18px; border-radius: 12px; background: #29B5E8; color: #04121c; font-weight: 700; text-decoration: none; }
-  .btn:hover { background: #5ccef5; }
+  .card { width: 100%; max-width: 380px; padding: 36px 32px; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; background: #111a2e; text-align: center; }
+  img { width: 110px; height: auto; margin-bottom: 18px; }
+  h1 { margin: 0 0 18px; color: #f1f5f9; font-size: 20px; }
+  input { width: 100%; padding: 13px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: #0b1120; color: #f1f5f9; font: 700 22px/1 ui-monospace, Consolas, monospace; letter-spacing: 8px; text-align: center; }
+  input:focus { outline: 2px solid #29B5E8; outline-offset: 1px; }
+  .btn { display: block; width: 100%; margin-top: 14px; padding: 13px 18px; border: 0; border-radius: 12px; background: #29B5E8; color: #04121c; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+  .btn:disabled { opacity: .6; cursor: progress; }
   .alt { display: block; margin-top: 14px; font-size: 13px; color: #29B5E8; }
-  .note { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.08); font-size: 12px; }
-  .home { color: #64748b; }
+  .err { min-height: 20px; margin: 10px 0 0; font-size: 13px; color: #fca5a5; }
+  .home { display: inline-block; margin-top: 18px; font-size: 12px; color: #64748b; }
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
   <main class="card">
     <img src="/Logo/YNK/1.png" alt="YNK Tech USA">
-    <h1>YNK Staging</h1>
-    <p>Review articles, studies, topic ideas and access requests, then approve to publish.</p>
-    <a class="btn" href="https://script.google.com/macros/s/AKfycbxOyvd-e0vRvpBbbjM5Crz-V32NfgXHDUYDPnHIHnXX/dev" rel="noopener noreferrer">Open YNK Staging</a>
-    <a class="alt" href="https://script.google.com/macros/u/1/s/AKfycbxOyvd-e0vRvpBbbjM5Crz-V32NfgXHDUYDPnHIHnXX/dev" rel="noopener noreferrer">Signed in to several Google accounts? Use this link</a>
-    <p class="note">Sign-in is handled by Google. Only the YNK Tech admin account can open the staging area.<br><a class="home" href="/">Back to ynk-techusa.com</a></p>
+    <form id="gate" autocomplete="off">
+      <h1>Enter access code</h1>
+      <input id="code" type="password" inputmode="numeric" maxlength="12" aria-label="Access code" required autofocus>
+      <button class="btn" id="go" type="submit">Continue</button>
+      <p class="err" id="err" role="alert"></p>
+    </form>
+    <div id="open" hidden>
+      <h1>YNK Staging</h1>
+      <a class="btn" id="main-link" rel="noopener noreferrer">Continue with Google</a>
+      <a class="alt" id="alt-link" rel="noopener noreferrer">Signed in to several Google accounts? Use this link</a>
+    </div>
+    <a class="home" href="/">Back to ynk-techusa.com</a>
   </main>
+  <script src="gate.js"></script>
 </body>
 </html>

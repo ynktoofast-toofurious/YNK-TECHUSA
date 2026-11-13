@@ -60,28 +60,38 @@ function setupAdmin() {
   topicsSheet_()
   MailApp.getRemainingDailyQuota()
   Logger.log('Access_Requests and Topic_Requests tabs ready. Console admin: %s', Session.getEffectiveUser().getEmail())
-  Logger.log('Drive scan: %s', JSON.stringify(discoverDrive_()))
+  Logger.log('Drive scan: %s', JSON.stringify(discoverDrive_(true)))
 }
 
 /* ---------------- Console API (google.script.run) ---------------- */
 
 function adminLoad() {
   assertAdmin_()
-  let drive
-  try {
-    drive = discoverDrive_()
-  } catch (e) {
-    drive = { added: [], incomplete: [], upgraded: [], error: String(e.message || e) }
-  }
   const ss = SpreadsheetApp.openById(CONFIG.queueSheetId)
   return {
     user: Session.getActiveUser().getEmail(),
     sheetUrl: ss.getUrl(),
-    drive,
+    drive: null,
     articles: listArticles_(),
     requests: readRequests_().map(publicRequest_),
     topics: topicsView_(),
   }
+}
+
+// Runs after the list is on screen so a slow Drive never blocks the console.
+function adminScanDrive(force) {
+  assertAdmin_()
+  const lock = LockService.getScriptLock()
+  if (!lock.tryLock(30000)) return { drive: { added: [], incomplete: [], upgraded: [], error: '' }, articles: listArticles_() }
+  let drive
+  try {
+    drive = discoverDrive_(Boolean(force))
+  } catch (e) {
+    drive = { added: [], incomplete: [], upgraded: [], error: String(e.message || e) }
+  } finally {
+    lock.releaseLock()
+  }
+  return { drive, articles: listArticles_() }
 }
 
 function adminSetTopicStatus(requestId, status) {
@@ -146,7 +156,7 @@ function adminPreview(articleId) {
   const sources = LANGS.map(([lang, col]) => {
     const id = driveId_(row.get(col))
     const info = id && fileInfo_(id)
-    return info ? { lang, name: info.file.getName(), html: info.html, url: `https://drive.google.com/open?id=${id}` } : { lang, missing: true }
+    return info ? { lang, name: info.name, html: info.html, url: `https://drive.google.com/open?id=${id}` } : { lang, missing: true }
   })
   return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, images, sources,
     imageError: [built.imageError].concat(built.warnings || []).filter(Boolean).join(' '), fixes: built.fixes }
@@ -353,9 +363,9 @@ function articleView_(queue, row) {
 // Pairs EN/FR/ES sources by "title - date" (across en/fr/es folders or within one folder),
 // switches unpublished queue rows from Google Docs to matching HTML files,
 // and adds new complete sets to the Editorial Queue as DRAFT rows.
-function discoverDrive_() {
+function discoverDrive_(force) {
   const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error', 'type'])
-  const { docs, errors } = scanDrive_()
+  const { docs, errors } = scanDrive_(force)
   const byId = {}
   docs.forEach((d) => { byId[d.id] = d })
   const info = (id) => (id in byId ? byId[id] : (byId[id] = fileInfo_(id)))
@@ -398,7 +408,7 @@ function discoverDrive_() {
       if (cur && cur.html) return
       const hit = docs
         .filter((d) => d.html && d.lang === lang && !used[d.id] && keys.some((k) => sameKey_(k, d.key)) && (!d.date || !rowDate || d.date === rowDate))
-        .sort((a, b) => b.file.getLastUpdated() - a.file.getLastUpdated())[0]
+        .sort((a, b) => b.updated - a.updated)[0]
       if (hit) { useFile(e, col, hit); used[hit.id] = true }
     })
   })
@@ -431,15 +441,14 @@ function discoverDrive_() {
       return
     }
     const knownDocs = claimed()
-    const files = Object.keys(g.docs).map((l) => g.docs[l].file)
-    if (files.some((f) => knownDocs[f.getId()] || retired[f.getId()])) return
+    if (Object.keys(g.docs).some((l) => knownDocs[g.docs[l].id] || retired[g.docs[l].id])) return
     const missing = ['en', 'fr', 'es'].filter((l) => !g.docs[l])
     const label = `${g.title}${g.date ? ` (${Utilities.formatDate(g.date, 'UTC', 'yyyy-MM-dd')})` : ''}`
     if (missing.length) {
       incomplete.push({ name: label, missing: missing.map((l) => l.toUpperCase()) })
       return
     }
-    const date = g.date || g.docs.en.file.getDateCreated()
+    const date = g.date || new Date(g.docs.en.created)
     let slug = slugify_(g.title) || `piece-${g.docs.en.id.slice(-6).toLowerCase()}`
     if (knownSlugs[slug]) slug = `${slug}-${Utilities.formatDate(date, 'UTC', 'yyyy-MM-dd')}`.slice(0, 80)
     knownSlugs[slug] = true
@@ -472,8 +481,100 @@ function discoverDrive_() {
   return { added, incomplete, upgraded, error: errors.join(' ') }
 }
 
-function scanDrive_() {
-  const docs = []
+const SCAN_CACHE_KEY = 'drive-scan-v1'
+const DRIVE_API = 'https://www.googleapis.com/drive/v3/files'
+
+// File listing is cached for 10 minutes; Refresh in the console forces a fresh scan.
+function scanDrive_(force) {
+  const cache = CacheService.getScriptCache()
+  let raw = null
+  if (!force) {
+    const hit = cache.get(SCAN_CACHE_KEY)
+    if (hit) raw = JSON.parse(hit)
+  }
+  if (!raw) {
+    try {
+      raw = listTreeApi_()
+    } catch (e) {
+      console.warn(`Drive API listing failed, falling back to DriveApp: ${e.message || e}`)
+      raw = listTreeDriveApp_()
+    }
+    try { cache.put(SCAN_CACHE_KEY, JSON.stringify(raw), 600) } catch (e) { console.warn('Scan too large to cache.') }
+  }
+  const docs = raw.files.map((f) => {
+    const folderLang = langOfFolder_(f.path[f.path.length - 1])
+    const parts = splitName_(f.name.replace(/\.html?$/i, ''))
+    return Object.assign({}, f, {
+      parts,
+      lang: folderLang || parts.lang,
+      series: folderLang ? f.path.slice(0, -1) : f.path,
+      key: normKey_(parts.title),
+      date: parts.date ? Utilities.formatDate(parts.date, Session.getScriptTimeZone(), 'yyyy-MM-dd') : '',
+    })
+  })
+  return { docs, errors: raw.errors }
+}
+
+// Lists the folder trees level by level, all folders of a level in parallel.
+function listTreeApi_() {
+  const headers = { Authorization: `Bearer ${ScriptApp.getOAuthToken()}` }
+  const files = []
+  const errors = []
+  const seenFolders = {}
+  const seenFiles = {}
+  let level = []
+  UrlFetchApp.fetchAll(ADMIN.driveRootIds.map((id) => ({
+    url: `${DRIVE_API}/${id}?fields=id,name&supportsAllDrives=true`, headers, muteHttpExceptions: true,
+  }))).forEach((res, i) => {
+    const code = res.getResponseCode()
+    if (code === 200) {
+      const f = JSON.parse(res.getContentText())
+      if (!seenFolders[f.id]) { seenFolders[f.id] = true; level.push({ id: f.id, path: [f.name] }) }
+    } else if (code === 404) {
+      errors.push(`Drive folder ${ADMIN.driveRootIds[i]} could not be opened with this Google account.`)
+    } else {
+      throw new Error(`Drive API ${code}: ${res.getContentText().slice(0, 200)}`)
+    }
+  })
+
+  for (let depth = 0; level.length && depth <= 5; depth++) {
+    const next = []
+    let pending = level.map((folder) => ({ folder, pageToken: '' }))
+    while (pending.length) {
+      const batch = pending.slice(0, 40)
+      pending = pending.slice(40)
+      UrlFetchApp.fetchAll(batch.map((p) => ({ url: `${DRIVE_API}?${query_({
+        q: `'${p.folder.id}' in parents and trashed = false`,
+        fields: 'nextPageToken,files(id,name,mimeType,modifiedTime,createdTime)',
+        pageSize: 1000,
+        supportsAllDrives: true,
+        includeItemsFromAllDrives: true,
+        pageToken: p.pageToken,
+      })}`, headers, muteHttpExceptions: true }))).forEach((res, i) => {
+        const p = batch[i]
+        if (res.getResponseCode() !== 200) throw new Error(`Drive API ${res.getResponseCode()}: ${res.getContentText().slice(0, 200)}`)
+        const body = JSON.parse(res.getContentText())
+        ;(body.files || []).forEach((f) => {
+          if (f.mimeType === 'application/vnd.google-apps.folder') {
+            if (depth < 5 && !seenFolders[f.id]) { seenFolders[f.id] = true; next.push({ id: f.id, path: p.folder.path.concat(f.name) }) }
+            return
+          }
+          const html = /html/i.test(f.mimeType) || /\.html?$/i.test(f.name)
+          if ((html || f.mimeType === MimeType.GOOGLE_DOCS) && !seenFiles[f.id]) {
+            seenFiles[f.id] = true
+            files.push({ id: f.id, name: f.name, html, updated: Date.parse(f.modifiedTime), created: Date.parse(f.createdTime), path: p.folder.path })
+          }
+        })
+        if (body.nextPageToken) pending.push({ folder: p.folder, pageToken: body.nextPageToken })
+      })
+    }
+    level = next
+  }
+  return { files, errors }
+}
+
+function listTreeDriveApp_() {
+  const files = []
   const errors = []
   const seen = {}
   ADMIN.driveRootIds.forEach((rootId) => {
@@ -484,24 +585,19 @@ function scanDrive_() {
       errors.push(`Drive folder ${rootId} could not be opened (${e.message || e}).`)
       return
     }
-    // The roots may overlap; keep the first sighting of each file.
     found.forEach((d) => {
       const id = d.file.getId()
       if (seen[id]) return
       seen[id] = true
-      const folderLang = langOfFolder_(d.path[d.path.length - 1])
-      const parts = splitName_(d.file.getName().replace(/\.html?$/i, ''))
-      docs.push(Object.assign(d, {
-        id,
-        parts,
-        lang: folderLang || parts.lang,
-        series: folderLang ? d.path.slice(0, -1) : d.path,
-        key: normKey_(parts.title),
-        date: parts.date ? Utilities.formatDate(parts.date, Session.getScriptTimeZone(), 'yyyy-MM-dd') : '',
-      }))
+      files.push({ id, name: d.file.getName(), html: d.html, updated: d.file.getLastUpdated().getTime(), created: d.file.getDateCreated().getTime(), path: d.path })
     })
   })
-  return { docs, errors }
+  return { files, errors }
+}
+
+function query_(params) {
+  return Object.keys(params).filter((k) => params[k] !== '' && params[k] != null)
+    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
 }
 
 // Source file outside the scanned folders: name-based key and format only.
@@ -509,7 +605,7 @@ function fileInfo_(id) {
   try {
     const file = DriveApp.getFileById(id)
     const parts = splitName_(file.getName().replace(/\.html?$/i, ''))
-    return { id, file, html: isHtmlFile_(file), key: normKey_(parts.title) }
+    return { id, name: file.getName(), html: isHtmlFile_(file), key: normKey_(parts.title) }
   } catch (e) {
     return null
   }
@@ -556,10 +652,10 @@ function adminHtmlOptions(articleId, lang) {
   if (!LANGS.some(([l]) => l === lang)) throw new Error('Unknown language.')
   const { row } = findArticle_(articleId)
   const keys = [normKey_(row.get('titleEn')), normKey_(row.get('slug'))]
-  const { docs } = scanDrive_()
+  const { docs } = scanDrive_(false)
   return docs
     .filter((d) => d.html && (d.lang === lang || !d.lang))
-    .map((d) => ({ id: d.id, name: d.file.getName(), path: d.path.join(' / '), match: keys.some((k) => sameKey_(k, d.key)), t: d.file.getLastUpdated().getTime() }))
+    .map((d) => ({ id: d.id, name: d.name, path: d.path.join(' / '), match: keys.some((k) => sameKey_(k, d.key)), t: d.updated }))
     .sort((a, b) => (b.match - a.match) || (b.t - a.t))
     .slice(0, 40)
     .map(({ id, name, path, match }) => ({ id, name, path, match }))

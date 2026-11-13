@@ -6021,6 +6021,13 @@ img {
     color: var(--color-text-muted);
 }
 
+.ft-legal .ft-quiet,
+.ft-legal .ft-quiet:hover {
+    color: inherit;
+    text-decoration: none;
+    cursor: text;
+}
+
 .ft-signature {
     display: block;
     margin-top: 6px;

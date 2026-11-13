@@ -186,11 +186,36 @@
   }
 
   /* ---------- Data ---------- */
-  function load() {
+  function load(force) {
     state.preview = null;
+    state.data = null;
     set(bar, []);
     set(main, [h('p', { class: 'loading', text: 'Loading...' })]);
-    call('adminLoad').then(function (data) { state.data = data; render(); });
+    var slow = setTimeout(function () {
+      if (state.data) return;
+      set(main, [h('p', { class: 'loading', text: 'Still loading...' }), h('div', { class: 'note', text: 'If you are signed in to several Google accounts, open the staging link in an Incognito window, or use the "several Google accounts" link on the Admin page.' })]);
+    }, 15000);
+    call('adminLoad').then(function (data) {
+      clearTimeout(slow);
+      state.data = data;
+      render();
+      scan(force);
+    }).catch(function (err) {
+      clearTimeout(slow);
+      set(main, [h('div', { class: 'note err', text: 'Could not load: ' + (err && err.message ? err.message : String(err)) })]);
+    });
+  }
+
+  function scan(force) {
+    state.scanning = true;
+    if (!state.preview) render();
+    call('adminScanDrive', [Boolean(force)]).then(function (res) {
+      state.data.drive = res.drive;
+      state.data.articles = res.articles;
+    }).catch(function () {}).then(function () {
+      state.scanning = false;
+      if (!state.preview && state.data) render();
+    });
   }
 
   function replaceItem(kind, item) {
@@ -225,6 +250,7 @@
     }
     var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'The backlog is empty.', requests: 'No access requests yet.' }[state.tab];
     var notices = [];
+    if (state.tab === 'review' && state.scanning) notices.push(h('div', { class: 'note', text: 'Checking Google Drive for new or updated files...' }));
     if (state.tab === 'review' && d.drive) {
       if (d.drive.added.length) notices.push(h('div', { class: 'note', text: d.drive.added.length + ' new item(s) found in Google Drive and added for review: ' + d.drive.added.map(function (x) { return x.title; }).join(', ') }));
       if (d.drive.upgraded && d.drive.upgraded.length) notices.push(h('div', { class: 'note', text: 'Switched to the HTML files found in Drive: ' + d.drive.upgraded.map(function (x) { return x.title; }).join(', ') }));
@@ -512,7 +538,7 @@
     return card;
   }
 
-  document.getElementById('refresh').addEventListener('click', load);
+  document.getElementById('refresh').addEventListener('click', function () { load(true); });
   load();
 </script>
 </body>
