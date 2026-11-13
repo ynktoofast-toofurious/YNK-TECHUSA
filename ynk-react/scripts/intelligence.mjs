@@ -1,0 +1,159 @@
+// Validates approved Intelligence content in public/intelligence and generates
+// src/content/intelligence.generated.json for the React app.
+// Usage: node scripts/intelligence.mjs [--check]
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { dirname, join, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+const CONTENT = join(ROOT, 'public', 'intelligence')
+const OUT = join(ROOT, 'src', 'content', 'intelligence.generated.json')
+const CHECK_ONLY = process.argv.includes('--check')
+
+const LANGS = ['en', 'fr', 'es']
+const TYPES = ['analysis', 'release', 'engineering']
+const BLOCK_TEXT = ['p', 'h2', 'h3', 'quote']
+const IMAGE_EXT = ['.jpg', '.jpeg', '.png', '.webp']
+const MAX_IMAGE_BYTES = 1.5 * 1024 * 1024
+const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+const ID_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{2,80}$/
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/u
+
+const errors = []
+const fail = (where, msg) => errors.push(`${where}: ${msg}`)
+
+function readJson(path, where) {
+  try {
+    return JSON.parse(readFileSync(path, 'utf8').replace(/^\uFEFF/, ''))
+  } catch (e) {
+    fail(where, `invalid or missing JSON (${e.message})`)
+    return null
+  }
+}
+
+function isHttps(url) {
+  try { return new URL(url).protocol === 'https:' } catch { return false }
+}
+
+function checkStrings(value, where) {
+  if (typeof value === 'string') {
+    if (value.includes('\u2014')) fail(where, 'contains an em dash; use a comma, colon, period, or parentheses')
+    if (EMOJI_RE.test(value)) fail(where, 'contains an emoji')
+  } else if (Array.isArray(value)) {
+    value.forEach((v, i) => checkStrings(v, `${where}[${i}]`))
+  } else if (value && typeof value === 'object') {
+    Object.entries(value).forEach(([k, v]) => checkStrings(v, `${where}.${k}`))
+  }
+}
+
+const nonEmpty = (s, max) => typeof s === 'string' && s.trim().length > 0 && s.length <= max
+const listDirs = (p) => (existsSync(p) ? readdirSync(p).filter((n) => statSync(join(p, n)).isDirectory()) : [])
+const listJson = (p) => (existsSync(p) ? readdirSync(p).filter((n) => n.endsWith('.json')) : [])
+
+// Assets
+const assets = {}
+for (const name of listJson(join(CONTENT, 'assets'))) {
+  const where = `assets/${name}`
+  const a = readJson(join(CONTENT, 'assets', name), where)
+  if (!a) continue
+  checkStrings(a, where)
+  if (!ID_RE.test(a.asset_id || '') || `${a.asset_id}.json` !== name) fail(where, 'asset_id must match the file name')
+  if (!LANGS.every((l) => nonEmpty(a.alt?.[l], 300))) fail(where, 'alt text required for en, fr, es')
+  if (a.rights === 'cleared') {
+    if (!nonEmpty(a.credit, 200)) fail(where, 'credit is required for cleared images')
+    const file = typeof a.file === 'string' ? a.file : ''
+    const full = join(CONTENT, file)
+    if (!file.startsWith('images/') || file.includes('..') || !IMAGE_EXT.some((e) => file.toLowerCase().endsWith(e))) {
+      fail(where, 'file must be images/<name>.jpg|jpeg|png|webp')
+    } else if (!existsSync(full)) {
+      fail(where, `image ${file} not found`)
+    } else if (statSync(full).size > MAX_IMAGE_BYTES) {
+      fail(where, `image ${file} is larger than 1.5 MB; optimize it first`)
+    }
+  } else if (a.rights === 'unverified') {
+    if (a.file) fail(where, 'unverified images must not be copied; link to source_url instead')
+  } else {
+    fail(where, 'rights must be "cleared" or "unverified"')
+  }
+  if (a.source_url && !isHttps(a.source_url)) fail(where, 'source_url must be https')
+  if (a.rights === 'unverified' && !a.source_url) fail(where, 'source_url is required for unverified images')
+  assets[a.asset_id] = {
+    asset_id: a.asset_id,
+    rights: a.rights,
+    file: a.rights === 'cleared' ? a.file : null,
+    credit: a.credit || '',
+    source_url: a.source_url || '',
+    alt: a.alt,
+  }
+}
+
+// Articles
+const articles = []
+const seenIds = new Set()
+for (const slug of listDirs(join(CONTENT, 'articles'))) {
+  const dir = join(CONTENT, 'articles', slug)
+  const where = `articles/${slug}`
+  if (!SLUG_RE.test(slug) || slug.length > 80) fail(where, 'folder name must be a lowercase-hyphen slug')
+  const meta = readJson(join(dir, 'meta.json'), `${where}/meta.json`)
+  if (!meta) continue
+  checkStrings(meta, `${where}/meta.json`)
+  if (meta.slug !== slug) fail(`${where}/meta.json`, 'slug must match the folder name')
+  if (!ID_RE.test(meta.article_id || '')) fail(`${where}/meta.json`, 'article_id is required')
+  else if (seenIds.has(meta.article_id)) fail(`${where}/meta.json`, `duplicate article_id ${meta.article_id}`)
+  seenIds.add(meta.article_id)
+  if (meta.status !== 'published') fail(`${where}/meta.json`, 'status must be "published" (only approved content belongs in the repo)')
+  if (!DATE_RE.test(meta.date || '') || Number.isNaN(Date.parse(meta.date))) fail(`${where}/meta.json`, 'date must be YYYY-MM-DD')
+  if (!TYPES.includes(meta.type)) fail(`${where}/meta.json`, `type must be one of ${TYPES.join(', ')}`)
+  if (!Array.isArray(meta.tags) || meta.tags.length > 6 || !meta.tags.every((t) => nonEmpty(t, 40))) fail(`${where}/meta.json`, 'tags must be up to 6 short strings')
+  if (!Array.isArray(meta.source_references) || !meta.source_references.every(isHttps)) fail(`${where}/meta.json`, 'source_references must be https URLs')
+  if (meta.hero_asset_id && !assets[meta.hero_asset_id]) fail(`${where}/meta.json`, `hero_asset_id ${meta.hero_asset_id} has no assets/${meta.hero_asset_id}.json`)
+
+  const title = {}
+  const summary = {}
+  for (const lang of LANGS) {
+    const lw = `${where}/${lang}.json`
+    const doc = readJson(join(dir, `${lang}.json`), lw)
+    if (!doc) continue
+    checkStrings(doc, lw)
+    if (!nonEmpty(doc.title, 200)) fail(lw, 'title is required (max 200 chars)')
+    if (!nonEmpty(doc.summary, 600)) fail(lw, 'summary is required (max 600 chars)')
+    if (!Array.isArray(doc.blocks) || doc.blocks.length === 0) {
+      fail(lw, 'blocks must be a non-empty array')
+    } else {
+      doc.blocks.forEach((b, i) => {
+        const ok = BLOCK_TEXT.includes(b?.type)
+          ? nonEmpty(b.text, 5000)
+          : b?.type === 'ul' && Array.isArray(b.items) && b.items.length > 0 && b.items.every((t) => nonEmpty(t, 2000))
+        if (!ok) fail(lw, `blocks[${i}] must be {type: p|h2|h3|quote, text} or {type: ul, items}`)
+      })
+    }
+    title[lang] = doc.title
+    summary[lang] = doc.summary
+  }
+
+  articles.push({
+    id: meta.article_id,
+    slug,
+    type: meta.type,
+    date: meta.date,
+    tags: meta.tags || [],
+    hero_asset_id: meta.hero_asset_id || null,
+    source_references: meta.source_references || [],
+    title,
+    summary,
+  })
+}
+
+if (errors.length) {
+  console.error(`Intelligence content check failed (${errors.length}):`)
+  errors.forEach((e) => console.error(`  - ${e}`))
+  process.exit(1)
+}
+
+articles.sort((a, b) => b.date.localeCompare(a.date))
+console.log(`Intelligence content OK: ${articles.length} article(s), ${Object.keys(assets).length} asset(s).`)
+
+if (!CHECK_ONLY) {
+  writeFileSync(OUT, `${JSON.stringify({ articles, assets }, null, 2)}\n`)
+}

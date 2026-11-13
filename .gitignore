@@ -5,6 +5,7 @@ dist/
 .DS_Store
 lambda-deploy.zip
 ynk-react/.env
+ynk-react/src/content/intelligence.generated.json
 # IAM/S3 policy files contain the AWS account ID; keep out of the public repo
 lambda/*.json
 # Original headshot; the optimized copy lives in ynk-react/public/assets/team

@@ -4,8 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/intelligence.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/intelligence.mjs",
     "build": "vite build",
+    "validate:intelligence": "node scripts/intelligence.mjs --check",
     "lint": "eslint .",
     "preview": "vite preview"
   },

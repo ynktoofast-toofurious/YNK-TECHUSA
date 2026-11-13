@@ -17,6 +17,15 @@ const projectCopy = {
       open: 'Open',
       vault: 'In the Vault',
       announce: 'New',
+      article: {
+        back: 'Back to The Latest',
+        by: 'Written by',
+        sources: 'Sources',
+        credit: 'Image',
+        imageAtSource: 'View the original image at its source',
+        loading: 'Loading article',
+        unavailable: 'This article could not be loaded. Please try again shortly.',
+      },
     },
     project: {
       tag: 'Start a Project',
@@ -127,6 +136,15 @@ const projectCopy = {
       open: 'Ouvrir',
       vault: 'Dans le Coffre',
       announce: 'Nouveau',
+      article: {
+        back: 'Retour aux Nouveautés',
+        by: 'Rédigé par',
+        sources: 'Sources',
+        credit: 'Image',
+        imageAtSource: 'Voir l’image originale à sa source',
+        loading: 'Chargement de l’article',
+        unavailable: 'Impossible de charger cet article. Veuillez réessayer dans un instant.',
+      },
     },
     project: {
       tag: 'Démarrer un projet',
@@ -237,6 +255,15 @@ const projectCopy = {
       open: 'Abrir',
       vault: 'En la Bóveda',
       announce: 'Nuevo',
+      article: {
+        back: 'Volver a Novedades',
+        by: 'Escrito por',
+        sources: 'Fuentes',
+        credit: 'Imagen',
+        imageAtSource: 'Ver la imagen original en su fuente',
+        loading: 'Cargando artículo',
+        unavailable: 'No se pudo cargar este artículo. Inténtelo de nuevo en un momento.',
+      },
     },
     project: {
       tag: 'Iniciar un proyecto',

@@ -1,6 +1,9 @@
 // Newest first. To publish: add an entry at the top. `native: true` = plain link outside the React app.
 // Tags may be plain strings or { en, fr, es } objects.
-export const LATEST = [
+// Approved Google Drive articles are merged in from intelligence.generated.json (see scripts/intelligence.mjs).
+import intelligence from './intelligence.generated.json'
+
+const MANUAL = [
   {
     id: 'intelligence-hub',
     type: 'release',
@@ -54,6 +57,14 @@ export const LATEST = [
     },
   },
 ]
+
+export const INTELLIGENCE = intelligence.articles
+export const INTELLIGENCE_ASSETS = intelligence.assets
+
+export const LATEST = [
+  ...INTELLIGENCE.map((a) => ({ ...a, href: `/latest/${a.slug}` })),
+  ...MANUAL,
+].sort((a, b) => b.date.localeCompare(a.date))
 
 export const LATEST_TYPES = ['analysis', 'release', 'engineering']
 

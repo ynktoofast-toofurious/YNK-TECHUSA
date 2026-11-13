@@ -18,6 +18,7 @@ import Latest from './pages/Latest'
 import Vault from './pages/Vault'
 import DrcStudy from './pages/DrcStudy'
 import About from './pages/About'
+import Article from './pages/Article'
 import NotFound from './pages/NotFound'
 
 const PAGE_MAP = {
@@ -65,6 +66,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/start-project" element={<StartProject />} />
         <Route path="/latest" element={<Latest />} />
+        <Route path="/latest/:slug" element={<Article />} />
         <Route path="/vault" element={<Vault />} />
         <Route path="/vault/drc-government" element={<DrcStudy />} />
         <Route path="/about" element={<About />} />
