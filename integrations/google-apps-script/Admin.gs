@@ -338,7 +338,8 @@ function articleView_(queue, row) {
 
 /* ---------------- Drive discovery ---------------- */
 
-// Adds Drive folders holding an EN, FR and ES Google Doc to the Editorial Queue as DRAFT rows.
+// Pairs EN/FR/ES Google Docs by "title - date" (across en/fr/es folders or within one folder)
+// and adds new complete sets to the Editorial Queue as DRAFT rows.
 function discoverDrive_() {
   const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error', 'type'])
   const knownDocs = {}
@@ -348,94 +349,98 @@ function discoverDrive_() {
     knownSlugs[str_(r.get('slug'))] = true
   })
 
-  const pieces = []
-  walkDrive_(DriveApp.getFolderById(ADMIN.driveRootId), [], 0, pieces)
+  const docs = []
+  collectDocs_(DriveApp.getFolderById(ADMIN.driveRootId), [], 0, docs)
+  const groups = {}
+  docs.forEach((d) => {
+    const folderLang = langOfFolder_(d.path[d.path.length - 1])
+    const parts = splitName_(d.file.getName())
+    const lang = folderLang || parts.lang
+    if (!lang) return
+    const series = folderLang ? d.path.slice(0, -1) : d.path
+    const key = `${series.join('/')}::${parts.base.toLowerCase()}`
+    const g = groups[key] || (groups[key] = { series, title: parts.title, date: parts.date, docs: {} })
+    if (!g.docs[lang]) g.docs[lang] = d.file
+  })
 
   const sheet = SpreadsheetApp.openById(CONFIG.queueSheetId).getSheetByName(CONFIG.queueTab)
   const width = sheet.getLastColumn()
   const draft = queue.rows.length ? pickOption_(queue.options(queue.rows[0], 'approval'), /draft/i, 'DRAFT') : 'DRAFT'
   const added = []
   const incomplete = []
-  const dateRe = /(\d{4})[-_. ](\d{2})[-_. ](\d{2})/
 
-  pieces.forEach((p) => {
-    if (p.docs.some((d) => knownDocs[d.getId()])) return
-    const langs = assignLangs_(p.docs)
-    const missing = ['en', 'fr', 'es'].filter((l) => !langs[l])
-    const name = p.folder.getName()
+  Object.keys(groups).forEach((key) => {
+    const g = groups[key]
+    const files = Object.keys(g.docs).map((l) => g.docs[l])
+    if (files.some((f) => knownDocs[f.getId()])) return
+    const missing = ['en', 'fr', 'es'].filter((l) => !g.docs[l])
+    const label = `${g.title}${g.date ? ` (${Utilities.formatDate(g.date, 'UTC', 'yyyy-MM-dd')})` : ''}`
     if (missing.length) {
-      incomplete.push({ name, missing: missing.map((l) => l.toUpperCase()) })
+      incomplete.push({ name: label, missing: missing.map((l) => l.toUpperCase()) })
       return
     }
-    const dm = name.match(dateRe)
-    const date = dm ? new Date(`${dm[1]}-${dm[2]}-${dm[3]}T12:00:00`) : p.folder.getDateCreated()
-    const title = name.replace(dateRe, '').replace(/^[\s\-_|:]+|[\s\-_|:]+$/g, '').trim() || name
-    let slug = slugify_(title) || `piece-${p.folder.getId().slice(-6).toLowerCase()}`
-    if (knownSlugs[slug]) slug = `${slug}-${Utilities.formatDate(date, 'UTC', 'yyyyMMdd')}`.slice(0, 80)
+    const date = g.date || g.docs.en.getDateCreated()
+    let slug = slugify_(g.title) || `piece-${g.docs.en.getId().slice(-6).toLowerCase()}`
+    if (knownSlugs[slug]) slug = `${slug}-${Utilities.formatDate(date, 'UTC', 'yyyy-MM-dd')}`.slice(0, 80)
     knownSlugs[slug] = true
-    const isStudy = /stud|[e\u00e9]tude|estudio/i.test(p.path.concat(name).join(' '))
-    const articleId = `YNK-${Utilities.formatDate(date, 'UTC', 'yyyyMMdd')}-${p.folder.getId().slice(-6).toUpperCase().replace(/[^A-Z0-9]/g, 'X')}`
+    const isStudy = /stud|[e\u00e9]tude|estudio/i.test(g.series.join(' '))
+    const articleId = `YNK-${Utilities.formatDate(date, 'UTC', 'yyyyMMdd')}-${g.docs.en.getId().slice(-6).toUpperCase().replace(/[^A-Z0-9]/g, 'X')}`
 
     const values = new Array(width).fill('')
-    const put = (key, v) => { if (queue.map[key] != null) values[queue.map[key]] = typeof v === 'string' ? safeCell_(v) : v }
+    const put = (k, v) => { if (queue.map[k] != null) values[queue.map[k]] = typeof v === 'string' ? safeCell_(v) : v }
     put('articleId', articleId)
     put('date', date)
     put('slug', slug)
-    put('titleEn', title)
-    put('docEn', langs.en.getId())
-    put('docFr', langs.fr.getId())
-    put('docEs', langs.es.getId())
+    put('titleEn', g.title)
+    put('docEn', g.docs.en.getId())
+    put('docFr', g.docs.fr.getId())
+    put('docEs', g.docs.es.getId())
     put('approval', draft)
     put('syncState', SYNC.blocked)
     put('type', isStudy ? 'study' : 'analysis')
     sheet.appendRow(values)
-    p.docs.forEach((d) => { knownDocs[d.getId()] = true })
-    added.push({ id: articleId, title })
+    files.forEach((f) => { knownDocs[f.getId()] = true })
+    added.push({ id: articleId, title: g.title })
   })
   return { added, incomplete }
 }
 
-function walkDrive_(folder, path, depth, out) {
-  const docs = []
+function collectDocs_(folder, path, depth, out) {
+  const here = path.concat(folder.getName())
   const it = folder.getFilesByType(MimeType.GOOGLE_DOCS)
-  while (it.hasNext()) docs.push(it.next())
-  if (docs.length >= 2 && depth > 0) {
-    out.push({ folder, path, docs })
-    return
-  }
-  if (depth >= 4) return
+  while (it.hasNext()) out.push({ file: it.next(), path: here })
+  if (depth >= 5) return
   const subs = folder.getFolders()
-  while (subs.hasNext()) walkDrive_(subs.next(), path.concat(folder.getName()), depth + 1, out)
+  while (subs.hasNext()) collectDocs_(subs.next(), here, depth + 1, out)
 }
 
-const NAME_LANG = {
-  en: /(^|[^a-z])(en|eng|english|anglais|ingl[e\u00e9]s)([^a-z]|$)/i,
-  fr: /(^|[^a-z])(fr|fra|fran[c\u00e7]ais|french|francais)([^a-z]|$)/i,
-  es: /(^|[^a-z])(es|esp|espa[n\u00f1]ol|spanish|espagnol)([^a-z]|$)/i,
-}
-const STOPWORDS = {
-  en: ['the', 'and', 'of', 'to', 'is', 'in', 'that', 'for', 'with'],
-  fr: ['le', 'la', 'les', 'et', 'des', 'est', 'une', 'du', 'pour', 'dans'],
-  es: ['el', 'los', 'las', 'y', 'del', 'una', 'por', 'para', 'con', 'que'],
+const LANG_WORDS = {
+  en: ['en', 'eng', 'english', 'anglais', 'ingles', 'ingl\u00e9s'],
+  fr: ['fr', 'fra', 'french', 'francais', 'fran\u00e7ais', 'frances', 'franc\u00e9s'],
+  es: ['es', 'esp', 'spanish', 'espanol', 'espa\u00f1ol', 'espagnol'],
 }
 
-function assignLangs_(docs) {
-  const out = {}
-  const rest = []
-  docs.forEach((d) => {
-    const hit = ['en', 'fr', 'es'].find((l) => !out[l] && NAME_LANG[l].test(d.getName()))
-    if (hit) out[hit] = d
-    else rest.push(d)
+function langOfFolder_(name) {
+  const n = str_(name).toLowerCase()
+  return ['en', 'fr', 'es'].find((l) => LANG_WORDS[l].indexOf(n) >= 0) || ''
+}
+
+// "RDC Presidency Strategic Intelligence - 2026-11-13 - ES" -> title, date, lang, and a language-free base key.
+function splitName_(name) {
+  const parts = str_(name).split(/\s+[-\u2013\u2014|_]\s+|\s*_\s*/).map((p) => p.trim()).filter(Boolean)
+  let lang = ''
+  let date = null
+  const keep = []
+  parts.forEach((p) => {
+    const low = p.toLowerCase()
+    const l = ['en', 'fr', 'es'].find((x) => LANG_WORDS[x].indexOf(low) >= 0)
+    const dm = p.match(/^(\d{4})[-_. ](\d{2})[-_. ](\d{2})$/)
+    if (l && !lang) lang = l
+    else if (dm && !date) { date = new Date(`${dm[1]}-${dm[2]}-${dm[3]}T12:00:00`); keep.push(p) }
+    else keep.push(p)
   })
-  rest.forEach((d) => {
-    const open = ['en', 'fr', 'es'].filter((l) => !out[l])
-    if (!open.length) return
-    const words = DocumentApp.openById(d.getId()).getBody().getText().slice(0, 4000).toLowerCase().split(/[^a-z\u00e0-\u00ff]+/)
-    const score = (l) => words.filter((w) => STOPWORDS[l].indexOf(w) >= 0).length
-    const best = open.sort((a, b) => score(b) - score(a))[0]
-    if (score(best) > 0) out[best] = d
-  })
-  return out
+  const title = keep.filter((p) => !/^\d{4}[-_. ]\d{2}[-_. ]\d{2}$/.test(p)).join(' - ') || str_(name)
+  return { lang, date, title, base: keep.join(' - ') }
 }
 
 /* ---------------- Topic requests ---------------- */
