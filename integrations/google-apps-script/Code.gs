@@ -60,7 +60,7 @@ const QUEUE_COLS = {
 }
 
 const REGISTRY_COLS = {
-  assetId: ['asset_id', 'asset id', 'id'],
+  assetId: ['asset_id', 'asset id', 'image_id', 'image asset id', 'asset_key', 'primary_key', 'id'],
   rights: ['rights_status', 'rights', 'image_rights', 'clearance', 'clearance_status', 'rights status'],
   file: ['drive_file_id', 'file_id', 'drive_url', 'drive_link', 'file_url', 'image_url', 'drive file'],
   credit: ['credit', 'photo_credit', 'attribution'],
@@ -134,11 +134,11 @@ function installHourlyTrigger() {
 
 function testConnection() {
   const repo = gh_(getToken_(), 'GET', '')
-  const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', [])
-  const registry = openTable_(CONFIG.registrySheetId, CONFIG.registryTab, REGISTRY_COLS, 'assetId', [])
   Logger.log('GitHub repo: %s (push access: %s)', repo.full_name, repo.permissions && repo.permissions.push)
-  Logger.log('Queue rows: %s, columns found: %s', queue.rows.length, Object.keys(queue.map).join(', '))
-  Logger.log('Registry rows: %s, columns found: %s', registry.rows.length, Object.keys(registry.map).join(', '))
+  const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', [])
+  Logger.log('Queue tab "%s": %s rows, columns found: %s', queue.tab, queue.rows.length, Object.keys(queue.map).join(', '))
+  const registry = openTable_(CONFIG.registrySheetId, CONFIG.registryTab, REGISTRY_COLS, 'assetId', [])
+  Logger.log('Registry tab "%s": %s rows, columns found: %s', registry.tab, registry.rows.length, Object.keys(registry.map).join(', '))
 }
 
 /* ---------------- Article export ---------------- */
@@ -339,9 +339,8 @@ function getToken_() {
 
 function openTable_(sheetId, tabName, cols, requiredKey, ensureKeys) {
   const ss = SpreadsheetApp.openById(sheetId)
-  const sheet = tabName ? ss.getSheetByName(tabName) : ss.getSheets()[0]
-  if (!sheet) throw new Error(`Tab "${tabName}" not found in ${ss.getName()}.`)
-  const values = sheet.getDataRange().getValues()
+  const sheets = tabName ? [ss.getSheetByName(tabName)] : ss.getSheets()
+  if (!sheets[0]) throw new Error(`Tab "${tabName}" not found in ${ss.getName()}.`)
   const norm = (s) => String(s).toLowerCase().replace(/[\s_-]+/g, '')
   const findMap = (headerRow) => {
     const map = {}
@@ -355,13 +354,25 @@ function openTable_(sheetId, tabName, cols, requiredKey, ensureKeys) {
     return map
   }
 
+  // Header row may be on any tab and below a title block; take the first match.
+  let sheet = null
+  let values = []
   let headerIdx = -1
   let map = {}
-  for (let r = 0; r < Math.min(values.length, 6); r++) {
-    const m = findMap(values[r])
-    if (m[requiredKey] != null) { headerIdx = r; map = m; break }
+  const seen = []
+  for (const sh of sheets) {
+    const vals = sh.getDataRange().getValues()
+    for (let r = 0; r < Math.min(vals.length, 20); r++) {
+      const m = findMap(vals[r])
+      if (m[requiredKey] != null) { sheet = sh; values = vals; headerIdx = r; map = m; break }
+    }
+    if (sheet) break
+    const firstRow = vals.find((row) => row.some((c) => str_(c)))
+    seen.push(`"${sh.getName()}": ${firstRow ? firstRow.filter((c) => str_(c)).slice(0, 12).join(' | ') : '(empty)'}`)
   }
-  if (headerIdx < 0) throw new Error(`Could not find a header row with ${cols[requiredKey][0]} in ${ss.getName()}.`)
+  if (!sheet) {
+    throw new Error(`Could not find a "${cols[requiredKey][0]}" column in ${ss.getName()}. Tabs and first rows seen: ${seen.join(' ;; ')}`)
+  }
 
   ensureKeys.forEach((key) => {
     if (map[key] != null) return
@@ -376,6 +387,7 @@ function openTable_(sheetId, tabName, cols, requiredKey, ensureKeys) {
   })).filter((r) => str_(r.get(requiredKey)))
 
   return {
+    tab: sheet.getName(),
     map,
     rows,
     set: (row, key, value) => sheet.getRange(row.rowNumber, map[key] + 1).setValue(value),
