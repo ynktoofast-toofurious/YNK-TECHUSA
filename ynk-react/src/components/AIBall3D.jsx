@@ -6,6 +6,7 @@ const VERT = `
   uniform float uTime;
   uniform float uScroll;
   uniform float uMouseDist;
+  uniform float uIntensity;
   varying vec2 vUv;
   varying vec3 vNormal;
   varying vec3 vWorldPos;
@@ -19,7 +20,7 @@ const VERT = `
     float d3 = cos(pos.z * 3.0  + uTime * 1.7) * 0.38;
     float d4 = sin((pos.x + pos.z) * 5.0 + uTime * 2.8) * 0.28;
     float d5 = cos((pos.y - pos.x) * 4.2 + uTime * 3.2) * 0.22;
-    float distort = d1 + d2 + d3 + d4 + d5;
+    float distort = (d1 + d2 + d3 + d4 + d5) * uIntensity;
     pos += normalize(pos) * distort;
     // Scroll-driven extra spike
     float scrollSpike = uScroll * 0.0015;
@@ -80,6 +81,9 @@ export default function AIBall3D() {
     const mount = mountRef.current
     if (!mount) return
 
+    // Touch devices have no hover pointer; without this the ball sits at max inflation.
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
     const scene = new THREE.Scene()
     const w = mount.clientWidth || 500
     const h = mount.clientHeight || 500
@@ -97,6 +101,7 @@ export default function AIBall3D() {
       uTime:      { value: 0 },
       uScroll:    { value: 0 },
       uMouseDist: { value: 0 },
+      uIntensity: { value: isTouch ? 0.55 : 1 },
       camPos:     { value: camera.position },
     }
 
@@ -179,11 +184,11 @@ export default function AIBall3D() {
       currentRotRef.current.x += (targetRotRef.current.x - currentRotRef.current.x) * 0.05
       currentRotRef.current.y += (targetRotRef.current.y - currentRotRef.current.y) * 0.05
 
-      const mdist = Math.max(0, 1 - Math.sqrt(mouseRef.current.x ** 2 + mouseRef.current.y ** 2) * 1.4)
+      const mdist = isTouch ? 0 : Math.max(0, 1 - Math.sqrt(mouseRef.current.x ** 2 + mouseRef.current.y ** 2) * 1.4)
       mouseDistRef.current += (mdist - mouseDistRef.current) * 0.08
 
       uniforms.uTime.value = t
-      uniforms.uScroll.value = scroll
+      uniforms.uScroll.value = isTouch ? 0 : Math.min(scroll, 600)
       uniforms.uMouseDist.value = mouseDistRef.current
 
       if (modelRef.current) {
@@ -222,7 +227,7 @@ export default function AIBall3D() {
       mouseRef.current.x = gx
       mouseRef.current.y = gy
     }
-    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    const isMobile = isTouch
     if (isMobile && window.DeviceOrientationEvent) {
       if (typeof DeviceOrientationEvent.requestPermission === 'function') {
         // iOS 13+: must request on user gesture
@@ -251,14 +256,15 @@ export default function AIBall3D() {
       camera.updateProjectionMatrix()
       renderer.setSize(nw, nh)
     }
-    window.addEventListener('resize', onResize)
+    const resizeObserver = new ResizeObserver(onResize)
+    resizeObserver.observe(mount)
 
     return () => {
       cancelAnimationFrame(animFrameRef.current)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('deviceorientation', onGyro)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onResize)
+      resizeObserver.disconnect()
       renderer.dispose()
       if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
     }

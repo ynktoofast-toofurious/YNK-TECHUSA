@@ -19,42 +19,6 @@ export const LATEST = [
     },
   },
   {
-    id: 'yb-orders-pipeline',
-    type: 'engineering',
-    date: '2026-05-16',
-    href: '/yb-Printing/',
-    native: true,
-    tags: ['AWS Lambda', 'API Gateway', 'S3'],
-    title: {
-      en: 'Serverless order pipeline for YB Printing',
-      fr: 'Pipeline de commandes serverless pour YB Printing',
-      es: 'Pipeline de pedidos serverless para YB Printing',
-    },
-    summary: {
-      en: 'Custom apparel orders now flow through a serverless API on AWS Lambda and API Gateway, landing directly in cloud storage. No servers to manage.',
-      fr: 'Les commandes de vêtements personnalisés passent désormais par une API serverless sur AWS Lambda et API Gateway, directement stockées dans le cloud, sans serveur à gérer.',
-      es: 'Los pedidos de ropa personalizada ahora pasan por una API serverless en AWS Lambda y API Gateway, y se guardan directamente en la nube, sin servidores que administrar.',
-    },
-  },
-  {
-    id: 'yb-printing',
-    type: 'release',
-    date: '2026-05-15',
-    href: '/yb-Printing/',
-    native: true,
-    tags: ['E-commerce', { en: 'Brand', fr: 'Marque', es: 'Marca' }],
-    title: {
-      en: 'YB Printing storefront launches',
-      fr: 'Lancement de la boutique YB Printing',
-      es: 'Lanzamiento de la tienda YB Printing',
-    },
-    summary: {
-      en: 'A dedicated storefront for custom apparel and printing, now live inside the YNK ecosystem.',
-      fr: 'Une boutique dédiée aux vêtements personnalisés et à l’impression, désormais intégrée à l’écosystème YNK.',
-      es: 'Una tienda dedicada a ropa personalizada e impresión, ahora integrada en el ecosistema YNK.',
-    },
-  },
-  {
     id: 'drc-government-model',
     type: 'analysis',
     date: '2026-04-28',

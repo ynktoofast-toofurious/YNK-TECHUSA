@@ -66,6 +66,7 @@ function App() {
         <Route path="/vault" element={<Vault />} />
         <Route path="/vault/drc-government" element={<DrcStudy />} />
         <Route path="/request-quote" element={<LegacyQuoteRedirect />} />
+        <Route path="/yb-Printing/*" element={<Navigate to="/start-project" replace />} />
         <Route path="/it-services" element={<ProtectedRoute><ITServices /></ProtectedRoute>} />
         <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />
         <Route path="/consultants" element={<ProtectedRoute><ConsultantsPortal /></ProtectedRoute>} />

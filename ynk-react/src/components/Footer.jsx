@@ -39,7 +39,6 @@ export default function Footer() {
             <h4>{f.solutions}</h4>
             <Link to="/it-services">{f.links.it}</Link>
             <Link to="/branding">{f.links.branding}</Link>
-            <a href="/yb-Printing/">{f.links.printing}</a>
             <Link to="/start-project">{f.links.quote}</Link>
           </nav>
 
