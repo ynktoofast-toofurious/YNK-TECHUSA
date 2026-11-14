@@ -423,6 +423,21 @@ function stripPublishKey_(html) {
   return key ? html.split(key).join('') : html
 }
 
+// Empty key turns auto-publish off.
+function adminSetPublishKey(key) {
+  assertAdmin_()
+  const value = str_(key)
+  const props = PropertiesService.getScriptProperties()
+  if (!value) {
+    props.deleteProperty('AUTO_PUBLISH_KEY')
+    return false
+  }
+  if (!/^[A-Za-z0-9_-]{4,64}$/.test(value)) throw new Error('Use 4 to 64 letters, numbers, dashes or underscores.')
+  props.setProperty('AUTO_PUBLISH_KEY', value)
+  ensureAutoTrigger_()
+  return true
+}
+
 function ensureAutoTrigger_() {
   // Triggers belong to whoever creates them; only the owner's runs as the owner.
   if ((Session.getActiveUser().getEmail() || '').toLowerCase() !== (Session.getEffectiveUser().getEmail() || '').toLowerCase()) return

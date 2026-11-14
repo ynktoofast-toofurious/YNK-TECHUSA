@@ -277,9 +277,7 @@
     var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'The backlog is empty.', requests: 'No access requests yet.' }[state.tab];
     var notices = [];
     if (state.tab === 'review' && state.scanning) notices.push(h('div', { class: 'note', text: 'Checking Google Drive for new or updated files...' }));
-    if (state.tab === 'review') notices.push(h('div', { class: 'note' + (d.autoPublish ? '' : ' err'), text: d.autoPublish
-      ? 'Auto-publish is on: HTML items carrying the keyword go live within 15 minutes (max 3 a day) and you get an email.'
-      : 'Auto-publish is off. To turn it on, add AUTO_PUBLISH_KEY in Apps Script Project Settings > Script Properties.' }));
+    if (state.tab === 'review') notices.push(autoPublishNote(d));
     if (state.tab === 'review' && d.drive) {
       if (d.drive.added.length) notices.push(h('div', { class: 'note', text: d.drive.added.length + ' new item(s) found in Google Drive and added for review: ' + d.drive.added.map(function (x) { return x.title; }).join(', ') }));
       if (d.drive.upgraded && d.drive.upgraded.length) notices.push(h('div', { class: 'note', text: 'Switched to the HTML files found in Drive: ' + d.drive.upgraded.map(function (x) { return x.title; }).join(', ') }));
@@ -414,6 +412,32 @@
       toast(f.label + ' saved.');
       render();
     }).catch(function () { render(); });
+  }
+
+  function autoPublishNote(d) {
+    var setKey = function (value, btn) {
+      call('adminSetPublishKey', [value], btn).then(function (on) {
+        d.autoPublish = on;
+        toast(on ? 'Auto-publish is on.' : 'Auto-publish is off.');
+        render();
+      });
+    };
+    if (d.autoPublish) {
+      return h('div', { class: 'note src' }, [
+        h('span', { text: 'Auto-publish is on: HTML items carrying the keyword go live within 15 minutes (max 3 a day) and you get an email.' }),
+        h('button', { class: 'btn ghost', type: 'button', text: 'Turn off', onclick: function (e) { setKey('', e.currentTarget); } })
+      ]);
+    }
+    var input = h('input', { type: 'password', placeholder: 'Keyword', autocomplete: 'off', maxlength: '64',
+      style: 'padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:13px;width:140px' });
+    return h('div', { class: 'note err src' }, [
+      h('span', { text: 'Auto-publish is off. Enter the keyword to turn it on.' }),
+      input,
+      h('button', { class: 'btn', type: 'button', text: 'Turn on', onclick: function (e) {
+        if (!input.value.trim()) { toast('Enter the keyword first.', true); return; }
+        setKey(input.value.trim(), e.currentTarget);
+      } })
+    ]);
   }
 
   function topicsView(t) {
