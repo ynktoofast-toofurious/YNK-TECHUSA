@@ -311,9 +311,9 @@
 
   function articleCard(a) {
     var right = a.stage === 'published'
-      ? (a.liveUrl ? h('a', { class: 'btn', href: a.liveUrl, target: '_blank', rel: 'noopener', text: 'View on site' }) : null)
+      ? (a.liveUrl ? h('a', { class: 'btn', href: a.liveUrl, target: '_blank', rel: 'noopener', text: 'View on site', onclick: function (e) { e.stopPropagation(); } }) : null)
       : h('button', { class: 'btn primary', type: 'button', text: a.stage === 'rejected' ? 'Review again' : 'Review' });
-    var card = h('div', { class: 'card' + (a.stage === 'published' ? '' : ' click') }, [
+    var card = h('div', { class: 'card click' }, [
       h('div', { class: 'grow' }, [
         h('h3', { text: a.title }),
         h('div', { class: 'meta' }, [typeBadge(a.type), a.date ? h('span', { text: a.date }) : null,
@@ -321,7 +321,7 @@
       ]),
       right
     ]);
-    if (a.stage !== 'published') card.addEventListener('click', function () { openPreview(a); });
+    card.addEventListener('click', function () { openPreview(a); });
     return card;
   }
 
@@ -389,13 +389,14 @@
 
     var notes = [];
     if (a.stage === 'review' && a.syncState === 'SYNC_ERROR' && a.error) notes.push(h('div', { class: 'note err', text: 'Last attempt: ' + a.error }));
+    if (a.stage === 'review' && a.syncState !== 'SYNC_ERROR' && a.error) notes.push(h('div', { class: 'note', text: a.error }));
     if (a.stage === 'rejected' && a.error) notes.push(h('div', { class: 'note', text: a.error }));
     if (p.fixes) notes.push(h('div', { class: 'note', text: p.fixes + ' em dash or emoji character(s) will be cleaned up automatically.' }));
     if (p.imageError) notes.unshift(h('div', { class: 'note err', text: 'Image problem: ' + p.imageError }));
 
     var sources = p.sources || [];
     var onDocs = sources.filter(function (s) { return !s.missing && !s.html; }).map(function (s) { return s.lang.toUpperCase(); });
-    if (onDocs.length && a.stage !== 'published') notes.unshift(h('div', { class: 'note err', text: onDocs.join(', ') + ' still read from a Google Doc. Use "Use HTML file" below to switch.' }));
+    if (onDocs.length) notes.unshift(h('div', { class: 'note err', text: onDocs.join(', ') + (a.stage === 'published' ? ' went live from a Google Doc. Use "Use HTML file" below to switch, then approve again to update the site.' : ' still read from a Google Doc. Use "Use HTML file" below to switch.') }));
 
     var edits = h('div', { class: 'editlinks' }, [h('div', { text: 'Source files. To change the text, edit the file in Drive, then reopen this preview.' })]
       .concat(sources.map(function (s) {
@@ -403,7 +404,7 @@
           h('strong', { text: s.lang.toUpperCase() }),
           s.missing ? h('span', { class: 'badge err', text: 'Missing' }) : h('span', { class: 'badge ' + (s.html ? 'html' : 'doc'), text: s.html ? 'HTML' : 'Google Doc' }),
           s.url ? h('a', { href: s.url, target: '_blank', rel: 'noopener', text: s.name }) : null,
-          a.stage !== 'published' ? h('button', { class: 'btn ghost', type: 'button', text: s.html ? 'Change' : 'Use HTML file', onclick: function (e) { pickSource(a, s.lang, e.currentTarget); } }) : null
+          h('button', { class: 'btn ghost', type: 'button', text: s.html ? 'Change' : 'Use HTML file', onclick: function (e) { pickSource(a, s.lang, e.currentTarget); } })
         ]);
       })));
 
@@ -419,7 +420,8 @@
       edits
     ].concat(notes));
 
-    renderBar(a);
+    if (a.stage === 'published') set(bar, []);
+    else renderBar(a);
   }
 
   function pickSource(a, lang, btn) {

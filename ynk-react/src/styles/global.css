@@ -8901,6 +8901,10 @@ img {
     color: var(--color-text-secondary);
 }
 
+.ar-status .btn {
+    margin-top: 0.75rem;
+}
+
 .ar-summary {
     font-size: 1.18rem !important;
     color: var(--color-text-primary) !important;

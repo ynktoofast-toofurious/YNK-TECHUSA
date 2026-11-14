@@ -25,6 +25,7 @@ const projectCopy = {
         imageAtSource: 'View the original image at its source',
         loading: 'Loading article',
         unavailable: 'This article could not be loaded. Please try again shortly.',
+        retry: 'Try again',
         gate: {
           tag: 'Members only',
           title: 'Keep reading with a free YNK Insider membership',
@@ -152,6 +153,7 @@ const projectCopy = {
         imageAtSource: 'Voir l’image originale à sa source',
         loading: 'Chargement de l’article',
         unavailable: 'Impossible de charger cet article. Veuillez réessayer dans un instant.',
+        retry: 'Réessayer',
         gate: {
           tag: 'Réservé aux membres',
           title: 'Poursuivez la lecture avec l’adhésion gratuite YNK Insider',
@@ -279,6 +281,7 @@ const projectCopy = {
         imageAtSource: 'Ver la imagen original en su fuente',
         loading: 'Cargando artículo',
         unavailable: 'No se pudo cargar este artículo. Inténtelo de nuevo en un momento.',
+        retry: 'Reintentar',
         gate: {
           tag: 'Solo para miembros',
           title: 'Siga leyendo con la membresía gratuita YNK Insider',

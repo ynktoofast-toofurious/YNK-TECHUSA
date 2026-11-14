@@ -346,7 +346,7 @@ function articleView_(queue, row) {
     id: str_(row.get('articleId')),
     title: str_(row.get('titleEn')) || slug,
     type: rawType === 'study' ? 'Study' : 'Article',
-    date: fmtDate_(row.get('date')),
+    date: dayOf_(row.get('date')) || fmtDate_(row.get('date')),
     stage,
     approval,
     syncState: sync,
@@ -392,9 +392,9 @@ function discoverDrive_(force) {
     upgradedRows.set(e, true)
   }
 
-  // Rows still pointing at Google Docs pick up the HTML file with the same title and date in that language.
+  // Rows still pointing at Google Docs (published ones too) pick up the HTML file with the same title and date in that language.
   const used = claimed()
-  entries.filter((e) => !e.published).forEach((e) => {
+  entries.forEach((e) => {
     const keys = [normKey_(e.row.get('titleEn')), normKey_(e.row.get('slug'))]
     LANGS.forEach(([, col]) => {
       const id = e.ids[col]
@@ -407,7 +407,7 @@ function discoverDrive_(force) {
       const cur = e.ids[col] && info(e.ids[col])
       if (cur && cur.html) return
       const hit = docs
-        .filter((d) => d.html && d.lang === lang && !used[d.id] && keys.some((k) => sameKey_(k, d.key)) && (!d.date || !rowDate || d.date === rowDate))
+        .filter((d) => d.html && d.lang === lang && !used[d.id] && keys.some((k) => sameKey_(k, d.key)) && closeDays_(d.date, rowDate))
         .sort((a, b) => b.updated - a.updated)[0]
       if (hit) { useFile(e, col, hit); used[hit.id] = true }
     })
@@ -433,7 +433,7 @@ function discoverDrive_(force) {
     const g = groups[key]
     const known = entries.find((e) => g.all.some((d) => LANGS.some(([, col]) => e.ids[col] === d.id)))
     if (known) {
-      if (known.published) return
+      if (!known.row) return
       LANGS.forEach(([lang, col]) => {
         const d = g.docs[lang]
         if (d && d.html) useFile(known, col, d)
@@ -628,15 +628,25 @@ function sameKey_(a, b) {
 }
 
 function dayOf_(value) {
-  if (value instanceof Date) return Utilities.formatDate(value, Session.getScriptTimeZone(), 'yyyy-MM-dd')
+  if (value instanceof Date) return Utilities.formatDate(value, sheetTz_(), 'yyyy-MM-dd')
   const m = str_(value).match(/^(\d{4})-(\d{2})-(\d{2})/)
   return m ? `${m[1]}-${m[2]}-${m[3]}` : ''
 }
 
+// One day of slack absorbs file names dated in another time zone.
+function closeDays_(a, b) {
+  if (!a || !b) return true
+  return Math.abs(Date.parse(`${a}T00:00:00Z`) - Date.parse(`${b}T00:00:00Z`)) <= 86400000
+}
+
 // A new source makes any open pull request stale: close it so the next approval sends the new version.
+// A published item goes back to review; the live page keeps the old version until it is approved again.
 function resetForNewSource_(queue, row) {
   const sync = str_(row.get('syncState')).toUpperCase()
-  if (sync === SYNC.published) return
+  if (sync === SYNC.published) {
+    queue.set(row, 'approval', pickOption_(queue.options(row, 'approval'), /draft/i, 'DRAFT'))
+    queue.set(row, 'error', 'Live on the site with the previous version. Approve to publish the HTML version.')
+  }
   const m = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
   if (sync === SYNC.prOpen && m) {
     try { gh_(getToken_(), 'PATCH', `/pulls/${m[1]}`, { state: 'closed' }) } catch (e) { console.warn(e) }
@@ -670,7 +680,6 @@ function adminSetSource(articleId, lang, fileId) {
   const file = DriveApp.getFileById(id)
   if (!isHtmlFile_(file) && file.getMimeType() !== MimeType.GOOGLE_DOCS) throw new Error(`"${file.getName()}" is not an HTML file or Google Doc.`)
   const { queue, row } = findArticle_(articleId)
-  if (str_(row.get('syncState')).toUpperCase() === SYNC.published) throw new Error('This item is already published.')
   queue.set(row, pair[1], id)
   resetForNewSource_(queue, row)
   return articleById_(articleId)

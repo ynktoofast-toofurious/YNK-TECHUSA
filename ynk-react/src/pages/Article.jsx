@@ -12,19 +12,41 @@ const blockText = (b) => {
   return b.text || ''
 }
 
-// Non-members read roughly 10 to 25 percent of the piece (by text length).
+// Non-members read about 10 percent of the piece (by text length), never more than 15.
+const PREVIEW_SHARE = 0.1
+const PREVIEW_MAX = 0.15
+
 function previewCount(blocks) {
   const lens = blocks.map((b) => blockText(b).length)
   const total = lens.reduce((a, n) => a + n, 0)
   let shown = 0
   let count = 0
   for (const len of lens) {
-    if (count > 0 && shown >= total * 0.2) break
-    if (count > 0 && shown >= total * 0.1 && shown + len > total * 0.25) break
+    if (count > 0 && (shown >= total * PREVIEW_SHARE || shown + len > total * PREVIEW_MAX)) break
     shown += len
     count += 1
   }
   return Math.min(count, Math.max(blocks.length - 1, 1))
+}
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+const fetchJson = (url, fresh) =>
+  fetch(url, fresh ? { cache: 'no-cache' } : undefined)
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+
+// Retries bypass the browser cache, which can hold a 404 from just before a publish finished deploying.
+async function loadEdition(slug, language) {
+  const base = `/intelligence/articles/${slug}/`
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      return await fetchJson(`${base}${language}.json`, attempt > 0)
+    } catch {
+      if (attempt < 2) await wait(600 * (attempt + 1))
+    }
+  }
+  if (language !== 'en') return fetchJson(`${base}en.json`, true)
+  throw new Error('unavailable')
 }
 
 const safeHttps = (url) => {
@@ -125,14 +147,14 @@ export default function Article() {
   const { slug } = useParams()
   const { t, language } = useLanguage()
   const meta = INTELLIGENCE.find((a) => a.slug === slug)
-  const key = `${slug}:${language}`
+  const [reload, setReload] = useState(0)
+  const key = `${slug}:${language}:${reload}`
   const [result, setResult] = useState({ key: null, doc: null, error: false })
 
   useEffect(() => {
     if (!meta) return
     let active = true
-    fetch(`/intelligence/articles/${meta.slug}/${language}.json`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+    loadEdition(meta.slug, language)
       .then((doc) => active && setResult({ key, doc, error: false }))
       .catch(() => active && setResult({ key, doc: null, error: true }))
     return () => { active = false }
@@ -170,7 +192,14 @@ export default function Article() {
         <HeroAsset asset={INTELLIGENCE_ASSETS[meta.hero_asset_id]} language={language} t={t} />
 
         {loading && <p className="ar-status" role="status">{t('latestUi.article.loading')}</p>}
-        {!loading && result.error && <p className="ar-status" role="alert">{t('latestUi.article.unavailable')}</p>}
+        {!loading && result.error && (
+          <div className="ar-status" role="alert">
+            <p>{t('latestUi.article.unavailable')}</p>
+            <button type="button" className="btn btn-secondary hub-btn-round" onClick={() => setReload((n) => n + 1)}>
+              {t('latestUi.article.retry')}
+            </button>
+          </div>
+        )}
         {doc && (
           <div className={`ar-body${gated ? ' ar-body--preview' : ''}`}>
             <p className="ar-summary">{doc.summary}</p>

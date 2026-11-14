@@ -227,7 +227,7 @@ function buildArticle_(row, assets, imageLinks, opts) {
   const type = TYPES.indexOf(rawType) >= 0 ? rawType : 'analysis'
   const rawDate = row.get('date')
   const parsedDate = rawDate instanceof Date ? rawDate : (str_(rawDate) ? new Date(str_(rawDate)) : new Date())
-  const date = Utilities.formatDate(isNaN(parsedDate) ? new Date() : parsedDate, Session.getScriptTimeZone(), 'yyyy-MM-dd')
+  const date = Utilities.formatDate(isNaN(parsedDate) ? new Date() : parsedDate, sheetTz_(), 'yyyy-MM-dd')
   const tags = str_(row.get('tags')).split(',').map((t) => clean_(t, counter)).filter(Boolean).slice(0, 6)
   const sources = str_(row.get('sources')).split(/[\s,]+/).filter((u) => /^https:\/\/\S+$/i.test(u))
 
@@ -277,6 +277,13 @@ function parseSource_(fileId, ctx) {
 
 function isHtmlFile_(file) {
   return /html/i.test(file.getMimeType()) || /\.html?$/i.test(file.getName())
+}
+
+// Sheet dates are midnight in the spreadsheet's zone; formatting them in the script zone can shift the day.
+let SHEET_TZ_ = ''
+function sheetTz_() {
+  if (!SHEET_TZ_) SHEET_TZ_ = SpreadsheetApp.openById(CONFIG.queueSheetId).getSpreadsheetTimeZone() || Session.getScriptTimeZone()
+  return SHEET_TZ_
 }
 
 /* ---------------- HTML source ---------------- */
