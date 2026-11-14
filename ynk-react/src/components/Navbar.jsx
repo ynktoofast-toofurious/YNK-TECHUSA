@@ -5,6 +5,7 @@ import { useAccess } from '../context/AccessContext'
 import { LANGUAGES } from '../i18n/languages'
 import { hasUnseenLatest } from '../content/latest'
 import { ArrowRight, ChevronDown, Globe } from './Icons'
+import SiteSearch from './SiteSearch'
 
 const HUB_LINKS = ['intelligence', 'latest', 'method', 'vault', 'solutions', 'about']
 const ROUTE_LINKS = { latest: '/latest', vault: '/vault', about: '/about' }
@@ -86,6 +87,7 @@ export default function Navbar() {
         </ul>
 
         <div className="nav-actions">
+          <SiteSearch />
           <div className="nav-lang" ref={langRef}>
             <button
               type="button"

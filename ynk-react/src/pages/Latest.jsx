@@ -10,7 +10,13 @@ export default function Latest() {
   const { t, language } = useLanguage()
   const [searchParams] = useSearchParams()
   const [filter, setFilter] = useState(() => (LATEST_TYPES.includes(searchParams.get('type')) ? searchParams.get('type') : 'all'))
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(() => searchParams.get('q') || '')
+  const qParam = searchParams.get('q') || ''
+  const [lastParam, setLastParam] = useState(qParam)
+  if (qParam !== lastParam) {
+    setLastParam(qParam)
+    setQuery(qParam)
+  }
 
   useEffect(() => { markLatestSeen() }, [])
 
