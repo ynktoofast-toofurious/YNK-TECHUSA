@@ -16,8 +16,10 @@ const MAX_WAIT_MS = 4 * 60 * 1000
 const STAGE_AT = [0, 8, 25, 55, 95]
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
+const INITIALS_SKIP = new Set('and the for with from your our une des pour avec dans los las una para con por website site web app brand marque marca application aplicacion'.split(' '))
+
 function initialsOf(text) {
-  const words = text.split(/\s+/).map((w) => w.replace(/[^\p{L}\p{N}]/gu, '')).filter((w) => w.length > 2)
+  const words = text.split(/\s+/).map((w) => w.replace(/[^\p{L}\p{N}]/gu, '')).filter((w) => w.length > 2 && !INITIALS_SKIP.has(w.toLowerCase()))
   return (words.slice(0, 2).map((w) => w[0]).join('') || 'YNK').toUpperCase()
 }
 
