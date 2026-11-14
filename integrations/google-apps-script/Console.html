@@ -474,8 +474,13 @@
       edits
     ].concat(notes));
 
-    if (a.stage === 'published') set(bar, []);
-    else renderBar(a);
+    if (a.stage === 'published') {
+      main.appendChild(h('div', { class: 'note', text: p.changed
+        ? 'The Drive files changed since this went live. Read the preview, then publish the update.'
+        : 'The live article matches the Drive files.' }));
+      if (p.changed) renderBar(a, true);
+      else set(bar, []);
+    } else renderBar(a);
   }
 
   function pickSource(a, lang, btn) {
@@ -496,12 +501,12 @@
     });
   }
 
-  function renderBar(a) {
-    var approve = h('button', { class: 'btn primary big', type: 'button', text: 'Approve and publish', onclick: function () {
-      ask('Publish this ' + a.type.toLowerCase() + '?', [
+  function renderBar(a, isUpdate) {
+    var approve = h('button', { class: 'btn primary big', type: 'button', text: isUpdate ? 'Publish update' : 'Approve and publish', onclick: function () {
+      ask((isUpdate ? 'Update the live ' : 'Publish this ') + a.type.toLowerCase() + '?', [
         h('p', { text: a.title }),
-        h('p', { class: 'meta', text: 'It goes live on ynk-techusa.com in English, French and Spanish in about 2 minutes.' })
-      ], 'Publish').then(function (ok) {
+        h('p', { class: 'meta', text: (isUpdate ? 'The live version is replaced' : 'It goes live on ynk-techusa.com') + ' in English, French and Spanish in about 2 minutes.' })
+      ], isUpdate ? 'Publish update' : 'Publish').then(function (ok) {
         if (!ok) return;
         call('adminApproveArticle', [a.id], approve, 'Publishing...').then(function (updated) {
           state.live = null;
@@ -524,8 +529,8 @@
       });
     } });
     set(bar, [h('div', { class: 'bar' }, [h('div', { class: 'inner' }, [
-      h('span', { class: 'hint', text: 'Read it in all three languages, then decide.' }),
-      sendBack,
+      h('span', { class: 'hint', text: isUpdate ? 'Live now. Publishing replaces the live version.' : 'Read it in all three languages, then decide.' }),
+      isUpdate ? null : sendBack,
       approve
     ])])]);
   }

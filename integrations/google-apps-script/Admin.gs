@@ -108,6 +108,12 @@ function adminSetTopicStatus(requestId, status) {
 function adminApproveArticle(articleId) {
   assertAdmin_()
   let { queue, row } = findArticle_(articleId)
+  if (str_(row.get('syncState')).toUpperCase() === SYNC.published) {
+    const assets = {}
+    openTable_(CONFIG.registrySheetId, CONFIG.assetsTab, ASSET_COLS, 'assetId', []).rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
+    const links = openTable_(CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId', []).rows
+    if (buildArticle_(row, assets, links).hash === str_(row.get('syncHash'))) throw new Error('Nothing changed in Drive since the last publish.')
+  }
   if (str_(row.get('syncState')).toUpperCase() !== SYNC.prOpen) {
     REVIEWS.forEach(([key]) => {
       if (!PASSED_RE.test(str_(row.get(key)))) queue.set(row, key, pickOption_(queue.options(row, key), PASSED_RE, 'PASS'))
@@ -159,6 +165,7 @@ function adminPreview(articleId) {
     return info ? { lang, name: info.name, html: info.html, url: `https://drive.google.com/open?id=${id}` } : { lang, missing: true }
   })
   return { id: built.articleId, type: built.meta.type, date: built.meta.date, editions: built.editions, hero, images, sources,
+    changed: str_(row.get('syncState')).toUpperCase() === SYNC.published && built.hash !== str_(row.get('syncHash')),
     imageError: [built.imageError].concat(built.warnings || []).filter(Boolean).join(' '), fixes: built.fixes }
 }
 
