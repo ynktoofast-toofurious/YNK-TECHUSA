@@ -1,0 +1,90 @@
+name: Contribution guard
+
+# Runs the copy of this file on main (pull_request_target), so a pull request cannot edit the guard to pass.
+# It never checks out or executes pull request code; it only reads the list of changed files.
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  guard:
+    name: contribution-guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check changed paths against the contributor's scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          ACTION: ${{ github.event.action }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          set -euo pipefail
+          APPROVAL_LABEL=scope-approved
+
+          # Never allowed from automation or assistants, even with approval: owner works on these in VS Code.
+          FORBIDDEN='^\.github/|^AGENTS\.md$|^ynk-react/vite\.config\.js$|^ynk-react/src/main\.jsx$|^ynk-react/src/config/|(^|/)appsscript\.json$|(^|/)\.clasp(rc)?\.json$|(^|/)\.claspignore$|^Admin/|(^|/)CNAME$|^lambda/|\.ps1$|(^|/)package(-lock)?\.json$|(^|/)\.env|(^|/)\.gitignore$|\.code-workspace$'
+          # Assistant contributions that need no extra approval.
+          ASSISTANT_OK='^ynk-react/public/intelligence/|^integrations/google-apps-script/[^/]+\.(gs|html)$|^ynk-react/scripts/intelligence\.mjs$'
+          # Staging bridge (Apps Script) branches only ever publish or remove content.
+          STAGING_OK='^ynk-react/public/intelligence/'
+
+          if [[ "$HEAD_REPO" != "$REPO" ]]; then zone=external
+          elif [[ "$HEAD_REF" == intelligence/sync-* || "$HEAD_REF" == intelligence/takedown-* ]]; then zone=staging
+          else zone=assistant
+          fi
+          echo "Branch: $HEAD_REF ($HEAD_REPO) -> zone: $zone"
+
+          has_label() { gh pr view "$PR" -R "$REPO" --json labels --jq '.labels[].name' | grep -x "$APPROVAL_LABEL" > /dev/null; }
+
+          # New commits after approval invalidate it.
+          if [[ "$ACTION" == synchronize ]] && has_label; then
+            gh pr edit "$PR" -R "$REPO" --remove-label "$APPROVAL_LABEL" || true
+            echo "::warning::New commits were pushed after '$APPROVAL_LABEL' was added; the approval was removed."
+          fi
+
+          approved=false
+          if has_label; then
+            by=$(gh api --paginate "repos/$REPO/issues/$PR/events" --jq ".[] | select(.event == \"labeled\" and .label.name == \"$APPROVAL_LABEL\") | .actor.login" | tail -n 1)
+            role=$(gh api "repos/$REPO/collaborators/$by/permission" --jq '.permission' 2>/dev/null || echo none)
+            if [[ "$role" == admin ]]; then approved=true
+            else echo "::warning::'$APPROVAL_LABEL' was added by '$by' ($role), not a repository admin; ignored."
+            fi
+          fi
+
+          mapfile -t files < <(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | .filename, (.previous_filename // empty)' | sort -u)
+          blocked=(); needs=()
+          for f in "${files[@]}"; do
+            if [[ "$f" =~ $FORBIDDEN ]]; then blocked+=("$f")
+            elif [[ "$zone" == staging ]]; then [[ "$f" =~ $STAGING_OK ]] || blocked+=("$f")
+            elif [[ ! "$f" =~ $ASSISTANT_OK ]]; then needs+=("$f")
+            fi
+          done
+
+          {
+            echo "### Contribution guard"
+            echo "Zone: **$zone**, files changed: ${#files[@]}, owner approval label: $approved"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          status=0
+          if (( ${#blocked[@]} )); then
+            echo "::error::These paths are reserved for the owner in VS Code and cannot change through this pull request:"
+            printf '  - %s\n' "${blocked[@]}"
+            printf -- '- reserved: `%s`\n' "${blocked[@]}" >> "$GITHUB_STEP_SUMMARY"
+            status=1
+          fi
+          if (( ${#needs[@]} )) && [[ "$approved" != true ]]; then
+            echo "::error::These paths are outside the assistant scope. The owner must review and add the '$APPROVAL_LABEL' label:"
+            printf '  - %s\n' "${needs[@]}"
+            printf -- '- needs approval: `%s`\n' "${needs[@]}" >> "$GITHUB_STEP_SUMMARY"
+            status=1
+          fi
+          (( status == 0 )) && echo "All changed paths are within scope."
+          exit $status
