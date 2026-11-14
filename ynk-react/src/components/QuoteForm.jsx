@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { submitQuote } from '../utils/intake'
+import { isBusy, submitQuote } from '../utils/intake'
 
 export default function QuoteForm({ serviceOptions }) {
   const formRef = useRef()
@@ -15,11 +15,11 @@ export default function QuoteForm({ serviceOptions }) {
     setFormError('')
     try {
       const res = await submitQuote(Object.fromEntries(new FormData(formRef.current)))
-      if (!res.ok) throw new Error(res.error === 'rate_limited' ? 'Too many requests, please try again later' : 'Please check the form fields')
+      if (!res.ok) throw new Error(isBusy(res.error) ? 'busy' : 'Please check the form fields')
       setSent(true)
     } catch (err) {
       console.error('Quote error:', err)
-      setFormError(`Failed to send: ${err?.message || 'Unknown error'}. Please email us directly at yannicknkongolo7@gmail.com`)
+      setFormError(isBusy(err) ? t('serviceBanner.short') : `Failed to send: ${err?.message || 'Unknown error'}. Please email us directly at yannicknkongolo7@gmail.com`)
     } finally {
       setSending(false)
     }

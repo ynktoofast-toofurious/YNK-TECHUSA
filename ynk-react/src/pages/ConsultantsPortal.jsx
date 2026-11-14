@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { trackAccessCodeUsage, trackLoginAttempt } from '../utils/tracking'
-import { submitAccessRequest, verifyAccessCode, intakeEnabled } from '../utils/intake'
+import { submitAccessRequest, verifyAccessCode, intakeEnabled, isBusy } from '../utils/intake'
 import { useLanguage } from '../i18n/LanguageContext'
 import ResumeCard from '../components/ResumeCard'
 import { ArrowLeft } from '../components/Icons'
@@ -135,16 +135,14 @@ export default function ConsultantsPortal() {
       if (!intakeEnabled) throw new Error('The request service is unavailable right now.')
       const res = await submitAccessRequest({ ...requestData, website: honeypot })
       if (!res.ok) {
-        throw new Error(res.error === 'rate_limited'
-          ? 'Too many requests. Please try again in an hour.'
-          : 'Please check the form fields and try again.')
+        throw new Error(isBusy(res.error) ? 'busy' : 'Please check the form fields and try again.')
       }
       setRequestSent(true)
     } catch (err) {
       console.error('Access request error:', err)
-      setRequestError(
-        `Failed to send: ${err?.message || 'Unknown error'}. Please email yannicknkongolo7@gmail.com directly.`
-      )
+      setRequestError(isBusy(err)
+        ? t('serviceBanner.short')
+        : `Failed to send: ${err?.message || 'Unknown error'}. Please email yannicknkongolo7@gmail.com directly.`)
     } finally {
       setRequestSending(false)
     }

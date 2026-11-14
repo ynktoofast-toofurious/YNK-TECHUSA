@@ -294,6 +294,7 @@
     if (state.tab === 'review') notices.push(autoPublishNote(d));
     if (state.tab === 'review') notices.push(aiNote(d));
     if (state.tab === 'review') notices.push(openAiNote(d));
+    if (state.tab === 'review' && d.service) notices.push(serviceNote(d));
     if (state.tab === 'review' && d.security && d.security.week) {
       notices.push(h('div', { class: 'note err', text: 'Security: ' + d.security.week + ' injection attempt(s) blocked in the last 7 days (' +
         Object.keys(d.security.categories).map(function (k) { return k + ' ' + d.security.categories[k]; }).join(', ') + '). Details are in the Security_Log tab of the Editorial Queue.' }));
@@ -553,6 +554,31 @@
         if (!input.value.trim()) { toast('Paste the key first.', true); return; }
         call('adminSetOpenAiKey', [input.value.trim()], e.currentTarget, 'Checking...').then(function (r) { d.openai = r.openai; toast('Idea Studio is on (' + r.model + ').'); render(); });
       } })
+    ]);
+  }
+
+  var SERVICE_LABELS = { ask: 'Ask the Hub', studio: 'Idea Studio', forms: 'Forms and requests' };
+
+  function serviceNote(d) {
+    var s = d.service;
+    var anyPaused = Object.keys(s.paused).some(function (k) { return s.paused[k]; });
+    var lowMail = s.mailLeft < s.mailReserve + 10;
+    var toggles = Object.keys(SERVICE_LABELS).map(function (f) {
+      var box = h('input', { type: 'checkbox', onchange: function (e) {
+        var on = e.target.checked;
+        call('adminSetServicePause', [f, on]).then(function (next) {
+          d.service = next;
+          toast(SERVICE_LABELS[f] + (on ? ' is paused: visitors see a short-break notice.' : ' is back on.'));
+          render();
+        });
+      } });
+      box.checked = s.paused[f];
+      return h('label', { class: 'inline' }, [box, 'Pause ' + SERVICE_LABELS[f]]);
+    });
+    return h('div', { class: 'note src' + (anyPaused || lowMail || s.busyToday ? ' err' : '') }, [
+      h('span', { text: 'Service: ' + s.mailLeft + ' emails left today (' + s.mailReserve + ' kept for you). Soft "short break" notices today: ' +
+        s.busyToday + ' from capacity limits, ' + s.pausedToday + ' from pauses.' }),
+      h('div', { class: 'row' }, toggles)
     ]);
   }
 

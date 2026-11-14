@@ -65,6 +65,13 @@ function doPost(e) {
       return json_({ ok: false, error: 'blocked' })
     }
   }
+  if (body.action === 'status') return json_({ ok: true, paused: servicePaused_() })
+  let limited = ''
+  try { limited = capacity_(str_(body.action)) } catch (err) { console.warn(`Capacity check failed: ${err.message || err}`) }
+  if (limited) {
+    capacityNote_(limited)
+    return json_({ ok: false, error: limited })
+  }
   try {
     if (body.action === 'request') return json_(intakeRequest_(body))
     if (body.action === 'verify') return json_(verifyCode_(body))
@@ -82,8 +89,75 @@ function doPost(e) {
     return json_({ ok: false, error: 'unknown_action' })
   } catch (err) {
     console.error(err)
+    capacityNote_('busy')
     return json_({ ok: false, error: 'server_error' })
   }
+}
+
+/* ---------------- Capacity: soft limits instead of outages ---------------- */
+
+// Apps Script and Gmail have hard daily quotas; staying under them keeps the hub up. Visitors who hit a cap
+// get 'busy' or 'paused', which the site turns into a friendly "short break" notice.
+const CAPACITY = {
+  perMinute: 120,
+  perHour: 3000,
+  mailReserve: 15,
+  mails: { request: 2, fullAccess: 1, ticket: 2, brief: 2, quote: 1, passRequest: 1 },
+  features: { ask: 'ask', prototype: 'studio', ticket: 'studio', pass: 'studio', passRequest: 'studio',
+    request: 'forms', verify: 'forms', topic: 'forms', fullAccess: 'forms', unlock: 'forms', brief: 'forms', quote: 'forms' },
+  // Polling a design already started is cheap and has its own limit, so it is not counted or paused.
+  uncounted: { prototypeStatus: true },
+}
+const SERVICE_FEATURES = ['ask', 'studio', 'forms']
+
+function capacity_(action) {
+  const feature = CAPACITY.features[action]
+  if (feature && servicePaused_()[feature]) return 'paused'
+  if (CAPACITY.uncounted[action]) return ''
+  const minute = Math.floor(Date.now() / 60000)
+  if (!rateLimit_(`cap:m:${minute}`, CAPACITY.perMinute, 120) || !rateLimit_(`cap:h:${Math.floor(minute / 60)}`, CAPACITY.perHour, 7200)) return 'busy'
+  const mails = CAPACITY.mails[action]
+  if (mails && MailApp.getRemainingDailyQuota() < CAPACITY.mailReserve + mails) return 'busy'
+  return ''
+}
+
+function servicePaused_() {
+  let saved = {}
+  try { saved = JSON.parse(PropertiesService.getScriptProperties().getProperty('SERVICE_PAUSE') || '{}') } catch (e) { saved = {} }
+  const out = {}
+  SERVICE_FEATURES.forEach((f) => { out[f] = saved[f] === true })
+  return out
+}
+
+// Counts soft notices per day so staging can show when visitors are being turned away.
+function capacityNote_(kind) {
+  try {
+    const day = Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd')
+    const cache = CacheService.getScriptCache()
+    const key = `cap:n:${day}:${kind}`
+    cache.put(key, String(Number(cache.get(key) || 0) + 1), 86400)
+  } catch (e) { /* counting is best effort */ }
+}
+
+function serviceStatus_() {
+  const day = Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd')
+  const cache = CacheService.getScriptCache()
+  return {
+    paused: servicePaused_(),
+    mailLeft: MailApp.getRemainingDailyQuota(),
+    mailReserve: CAPACITY.mailReserve,
+    busyToday: Number(cache.get(`cap:n:${day}:busy`) || 0),
+    pausedToday: Number(cache.get(`cap:n:${day}:paused`) || 0),
+  }
+}
+
+function adminSetServicePause(feature, paused) {
+  assertAdmin_()
+  if (SERVICE_FEATURES.indexOf(feature) < 0) throw new Error('Unknown feature.')
+  const next = servicePaused_()
+  next[feature] = Boolean(paused)
+  PropertiesService.getScriptProperties().setProperty('SERVICE_PAUSE', JSON.stringify(next))
+  return serviceStatus_()
 }
 
 function setupAdmin() {
@@ -108,6 +182,7 @@ function adminLoad() {
     ai: Boolean(PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY')),
     openai: Boolean(PropertiesService.getScriptProperties().getProperty('OPENAI_API_KEY')),
     security: securitySummary_(),
+    service: serviceStatus_(),
     articles: listArticles_(),
     requests: readRequests_().map(publicRequest_),
     fullAccess: readFullAccess_().map(publicFullAccess_).reverse(),

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { intakeEnabled, submitFullAccessRequest } from '../utils/intake'
+import { intakeEnabled, isBusy, submitFullAccessRequest } from '../utils/intake'
 import { ArrowRight } from './Icons'
 
 const COOLDOWN_MS = 60 * 1000
@@ -40,7 +40,7 @@ export default function RequestAccess({ item, compact = false }) {
       setDone(true)
     } catch (err) {
       console.error('Full access request failed:', err)
-      setError('send')
+      setError(isBusy(err) ? 'busy' : 'send')
     } finally {
       setSending(false)
     }
@@ -83,7 +83,7 @@ export default function RequestAccess({ item, compact = false }) {
         </>
       )}
       <input ref={honeypotRef} className="sp-hp" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-      {error && <p className="sp-error" role="alert">{a.errors[error]}</p>}
+      {error && <p className="sp-error" role="alert">{error === 'busy' ? t('serviceBanner.short') : a.errors[error]}</p>}
       <button type="submit" className="btn btn-primary hub-btn-round ra-submit" disabled={sending}>
         {sending ? a.sending : <>{a.submit} <ArrowRight /></>}
       </button>

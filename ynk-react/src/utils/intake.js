@@ -2,16 +2,53 @@ import { INTAKE_URL } from '../config/services'
 
 export const intakeEnabled = Boolean(INTAKE_URL)
 
+// Capacity limits, pauses and outages all surface as one soft "short break" notice, never a hard error.
+const BUSY_CODES = ['busy', 'paused', 'rate_limited', 'server_error']
+
+export function isBusy(errOrCode) {
+  return BUSY_CODES.includes(typeof errOrCode === 'string' ? errOrCode : errOrCode?.message)
+}
+
+function signalBusy(action) {
+  window.dispatchEvent(new CustomEvent('ynk:busy', { detail: { action } }))
+}
+
 // text/plain keeps this a "simple" CORS request; Apps Script cannot answer preflight checks.
 async function post(payload) {
-  const res = await fetch(INTAKE_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(payload),
-    redirect: 'follow',
-  })
-  if (!res.ok) throw new Error(`Request failed (${res.status})`)
-  return res.json()
+  let res
+  try {
+    res = await fetch(INTAKE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      redirect: 'follow',
+    })
+  } catch {
+    if (payload.action !== 'prototypeStatus') signalBusy(payload.action)
+    throw new Error('busy')
+  }
+  if (!res.ok) {
+    signalBusy(payload.action)
+    throw new Error('busy')
+  }
+  const data = await res.json()
+  if (data && data.ok === false && isBusy(data.error)) signalBusy(payload.action)
+  return data
+}
+
+let statusCache = null
+
+// { paused: { ask, studio, forms } }, fetched once every few minutes; unknown means nothing is paused.
+export async function serviceStatus() {
+  if (!intakeEnabled) return { paused: {} }
+  if (statusCache && Date.now() - statusCache.at < 120000) return statusCache.value
+  try {
+    const value = await post({ action: 'status' })
+    statusCache = { at: Date.now(), value: { paused: value.paused || {} } }
+    return statusCache.value
+  } catch {
+    return { paused: {} }
+  }
 }
 
 export function submitAccessRequest(data) {

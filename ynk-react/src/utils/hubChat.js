@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { askHub, intakeEnabled } from './intake'
+import { askHub, intakeEnabled, isBusy } from './intake'
 
 // One conversation with Ask the Hub. Each assistant turn: { mode, text, sources } or { status: 'error' | 'busy' }.
 export function useHubChat(language, { onReply } = {}) {
@@ -21,10 +21,10 @@ export function useHubChat(language, { onReply } = {}) {
     if (!intakeEnabled) { done({ status: 'error' }); return }
     askHub(text, language, history)
       .then((res) => {
-        if (!res || !res.ok) done({ status: res && res.error === 'rate_limited' ? 'busy' : 'error' })
+        if (!res || !res.ok) done({ status: res && isBusy(res.error) ? 'busy' : 'error' })
         else done({ mode: res.mode, text: res.answer || '', sig: res.sig || '', sources: res.sources || [], action: res.action || null, question: text })
       })
-      .catch(() => done({ status: 'error' }))
+      .catch((err) => done({ status: isBusy(err) ? 'busy' : 'error' }))
   }
 
   return { turns, pending, send, reset: () => setTurns([]) }

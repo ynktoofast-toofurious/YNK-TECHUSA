@@ -4,7 +4,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import projectCopy from '../i18n/projectCopy'
 import { ArrowLeft, ArrowRight } from '../components/Icons'
 import IdeaStudio from '../components/IdeaStudio'
-import { submitBrief } from '../utils/intake'
+import { isBusy, submitBrief } from '../utils/intake'
 
 const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
 const DRAFT_KEY = 'ynk-project-brief'
@@ -155,7 +155,7 @@ export default function StartProject() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err2) {
       console.error('Brief error:', err2)
-      setError('send')
+      setError(isBusy(err2) ? 'busy' : 'send')
     } finally {
       setSending(false)
     }
@@ -365,7 +365,7 @@ export default function StartProject() {
               )}
             </div>
 
-            {error && <p className="sp-error" role="alert">{p.errors[error]}</p>}
+            {error && <p className="sp-error" role="alert">{error === 'busy' ? t('serviceBanner.short') : p.errors[error]}</p>}
 
             <div className="sp-actions">
               {step > 0 ? (

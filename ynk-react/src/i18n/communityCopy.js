@@ -47,6 +47,12 @@ const communityCopy = {
       cta: 'Start a Project',
       close: 'Close',
     },
+    serviceBanner: {
+      title: 'We’re fine-tuning the Hub',
+      text: 'A few features are taking a short break while we handle high demand. Please try again in a few minutes; everything else works as usual.',
+      short: 'This feature is taking a short break while we fine-tune the Hub. Please try again in a few minutes; nothing you entered is lost.',
+      close: 'Close',
+    },
   },
 
   fr: {
@@ -97,6 +103,12 @@ const communityCopy = {
       cta: 'Démarrer un projet',
       close: 'Fermer',
     },
+    serviceBanner: {
+      title: 'Nous peaufinons le Hub',
+      text: 'Quelques fonctionnalités font une courte pause face à une forte affluence. Réessayez dans quelques minutes ; tout le reste fonctionne normalement.',
+      short: 'Cette fonctionnalité fait une courte pause pendant que nous peaufinons le Hub. Réessayez dans quelques minutes ; rien de ce que vous avez saisi n’est perdu.',
+      close: 'Fermer',
+    },
   },
 
   es: {
@@ -145,6 +157,12 @@ const communityCopy = {
       },
       ok: 'Entendido',
       cta: 'Iniciar un proyecto',
+      close: 'Cerrar',
+    },
+    serviceBanner: {
+      title: 'Estamos afinando el Hub',
+      text: 'Algunas funciones toman una breve pausa por la alta demanda. Inténtalo de nuevo en unos minutos; todo lo demás funciona con normalidad.',
+      short: 'Esta función toma una breve pausa mientras afinamos el Hub. Inténtalo de nuevo en unos minutos; no se pierde nada de lo que escribiste.',
       close: 'Cerrar',
     },
   },

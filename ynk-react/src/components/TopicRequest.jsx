@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 import communityCopy from '../i18n/communityCopy'
-import { intakeEnabled, submitTopicRequest } from '../utils/intake'
+import { intakeEnabled, isBusy, submitTopicRequest } from '../utils/intake'
 import { ArrowRight } from './Icons'
 
 const SENT_KEY = 'ynk-topic-request-sent'
@@ -56,7 +56,7 @@ export default function TopicRequest() {
       setDone(true)
     } catch (err) {
       console.error('Topic request error:', err)
-      setError('send')
+      setError(isBusy(err) ? 'busy' : 'send')
     } finally {
       setSending(false)
     }
@@ -146,7 +146,7 @@ export default function TopicRequest() {
       </label>
 
       <input ref={honeypotRef} className="sp-hp" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-      {error && <p className="sp-error" role="alert">{c.errors[error]}</p>}
+      {error && <p className="sp-error" role="alert">{error === 'busy' ? t('serviceBanner.short') : c.errors[error]}</p>}
 
       <button type="submit" className="btn btn-primary hub-btn-round tr-submit" disabled={sending}>
         {sending ? c.sending : <>{c.submit} <ArrowRight /></>}

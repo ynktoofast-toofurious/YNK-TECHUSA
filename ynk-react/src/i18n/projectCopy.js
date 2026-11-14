@@ -63,6 +63,11 @@ const projectCopy = {
         passLeft: 'Build Pass active: {n}% of your build time left, until {date}.',
         refineLocked: 'Your free changes are used. Unlock more with a Build Pass.',
         unlock: 'Unlock more changes',
+        paused: {
+          title: 'The Idea Studio is taking a short break',
+          text: 'We are fine-tuning it so your next prototype looks even better. Your idea still matters: send it in the brief below or book a session, and we will sketch it with you.',
+          brief: 'Send my idea in the brief',
+        },
         loader: {
           stages: ['Reading your idea', 'Planning the layout', 'Designing with the YNK style kit', 'Adding motion and polish', 'Final touches, almost there'],
           note: 'Great designs take a moment: usually one to two minutes. You can keep reading while we build.',
@@ -265,6 +270,11 @@ const projectCopy = {
         passLeft: 'Build Pass actif\u00a0: il vous reste {n}\u00a0% de temps de construction, jusqu\u2019au {date}.',
         refineLocked: 'Vos modifications gratuites sont utilis\u00e9es. D\u00e9bloquez-en davantage avec un Build Pass.',
         unlock: 'D\u00e9bloquer plus de modifications',
+        paused: {
+          title: 'Le Studio d\u2019id\u00e9es fait une courte pause',
+          text: 'Nous le peaufinons pour que votre prochain prototype soit encore plus r\u00e9ussi. Votre id\u00e9e compte toujours\u00a0: envoyez-la dans le brief ci-dessous ou r\u00e9servez une session, et nous l\u2019esquisserons avec vous.',
+          brief: 'Envoyer mon id\u00e9e dans le brief',
+        },
         loader: {
           stages: ['Lecture de votre id\u00e9e', 'Organisation de la mise en page', 'Design avec le kit de style YNK', 'Animations et finitions', 'Derni\u00e8res retouches, presque pr\u00eat'],
           note: 'Un beau design prend un moment\u00a0: g\u00e9n\u00e9ralement une \u00e0 deux minutes. Continuez \u00e0 lire pendant que nous construisons.',
@@ -467,6 +477,11 @@ const projectCopy = {
         passLeft: 'Build Pass activo: le queda un {n}\u00a0% de tiempo de construcci\u00f3n, hasta el {date}.',
         refineLocked: 'Sus cambios gratuitos ya se usaron. Desbloquee m\u00e1s con un Build Pass.',
         unlock: 'Desbloquear m\u00e1s cambios',
+        paused: {
+          title: 'El Estudio de ideas toma una breve pausa',
+          text: 'Lo estamos afinando para que su pr\u00f3ximo prototipo luzca a\u00fan mejor. Su idea sigue importando: env\u00edela en el brief de abajo o reserve una sesi\u00f3n, y la esbozaremos con usted.',
+          brief: 'Enviar mi idea en el brief',
+        },
         loader: {
           stages: ['Leyendo su idea', 'Planificando el dise\u00f1o', 'Dise\u00f1ando con el kit de estilo YNK', 'A\u00f1adiendo movimiento y detalles', '\u00daltimos retoques, casi listo'],
           note: 'Un buen dise\u00f1o toma un momento: normalmente uno a dos minutos. Puede seguir leyendo mientras construimos.',

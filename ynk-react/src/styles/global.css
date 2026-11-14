@@ -3239,6 +3239,102 @@ img {
     color: var(--color-accent);
 }
 
+.is-paused {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 22px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 18px;
+    background: rgba(245, 158, 11, 0.06);
+}
+
+.is-paused h3 {
+    margin: 0 0 6px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+}
+
+.is-paused p {
+    margin: 0 0 16px;
+    color: var(--color-text-secondary);
+}
+
+/* Soft "short break" notice: non-blocking, dismissible, never red. */
+.sb-banner {
+    position: fixed;
+    top: calc(var(--nav-height) + 12px);
+    left: 50%;
+    z-index: 1200;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: min(560px, calc(100% - 32px));
+    padding: 14px 16px;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 16px;
+    background: rgba(11, 17, 32, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+    transform: translateX(-50%);
+    animation: sbIn 0.5s var(--hub-ease, ease) both;
+}
+
+.sb-banner strong {
+    display: block;
+    font-family: var(--font-heading);
+    color: var(--color-text-primary);
+    font-size: 0.95rem;
+}
+
+.sb-banner p {
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+}
+
+.sb-pulse {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    margin-top: 6px;
+    border-radius: 50%;
+    background: #f59e0b;
+    animation: sbPulse 2s infinite;
+}
+
+.sb-close {
+    flex-shrink: 0;
+    margin-left: auto;
+    padding: 2px;
+    border: 0;
+    background: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+}
+
+.sb-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+@keyframes sbIn {
+    from { opacity: 0; transform: translate(-50%, -12px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes sbPulse {
+    0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.55); }
+    70%, 100% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sb-banner, .sb-pulse { animation: none; }
+}
+
 .is-result {
     margin-top: 24px;
     scroll-margin-top: calc(var(--nav-height) + 20px);

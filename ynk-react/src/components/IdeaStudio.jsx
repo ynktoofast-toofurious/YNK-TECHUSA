@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { checkBuildPass, generatePrototype, intakeEnabled, prototypeStatus, requestBuildPass, submitIdeaTicket } from '../utils/intake'
+import { checkBuildPass, generatePrototype, intakeEnabled, isBusy, prototypeStatus, requestBuildPass, serviceStatus, submitIdeaTicket } from '../utils/intake'
 import { ArrowRight } from './Icons'
 
 const SESSION_KEY = 'ynk-idea-studio'
@@ -103,11 +103,16 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
   const [paywall, setPaywall] = useState(false)
   const [passForm, setPassForm] = useState({ code: '', checking: false, error: '' })
   const [buy, setBuy] = useState({ sending: false, done: false, error: '', payUrl: '' })
+  const [paused, setPaused] = useState(false)
   const honeypotRef = useRef(null)
   const frameRef = useRef(null)
   const wrapRef = useRef(null)
   const aliveRef = useRef(true)
   useEffect(() => () => { aliveRef.current = false }, [])
+  useEffect(() => {
+    serviceStatus().then((s) => { if (aliveRef.current) setPaused(Boolean(s.paused.studio)) })
+  }, [])
+  const soft = (err, fallback) => (isBusy(err) ? t('serviceBanner.short') : c.errors[err?.message] || fallback)
 
   const freeLeft = trial ? trial.left : FREE_RUNS
   const locked = !pass && freeLeft <= 0
@@ -185,6 +190,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
           savePass(null)
           setPaywall(true)
         }
+        if (res.error === 'paused') setPaused(true)
         throw new Error(res.error || 'failed')
       }
       const next = { html: res.html, title: res.title, version: (proto?.version || 0) + 1 }
@@ -194,7 +200,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
       writeSession({ ...readSession(), idea: idea.trim(), html: next.html, title: next.title, version: next.version })
       setTimeout(() => frameRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
     } catch (err) {
-      setError(c.errors[err.message] || c.errors.failed)
+      setError(soft(err, c.errors.failed))
     } finally {
       setStatus('')
     }
@@ -215,7 +221,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
       setLastTicket(last)
       writeSession({ ...readSession(), ticketId: res.id, ticketFor: proto.version, lastTicket: last })
     } catch (err) {
-      setTicket((tk) => ({ ...tk, sending: false, error: c.errors[err.message] || c.errors.ticket }))
+      setTicket((tk) => ({ ...tk, sending: false, error: soft(err, c.errors.ticket) }))
     }
   }
 
@@ -227,7 +233,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
       if (!res.ok) throw new Error(res.error || 'failed')
       setBuy({ sending: false, done: true, error: '', payUrl: safeHttps(res.payUrl || '') })
     } catch (err) {
-      setBuy({ sending: false, done: false, error: c.errors[err.message] || c.errors.pass_request, payUrl: '' })
+      setBuy({ sending: false, done: false, error: soft(err, c.errors.pass_request), payUrl: '' })
     }
   }
 
@@ -274,6 +280,19 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
         <p className="hub-sub">{c.sub}</p>
       </div>
 
+      {paused ? (
+        <div className="is-paused" role="status">
+          <span className="sb-pulse" aria-hidden="true" />
+          <div>
+            <h3>{c.paused.title}</h3>
+            <p>{c.paused.text}</p>
+            <div className="is-next-actions">
+              {onBrief && <button type="button" className="btn btn-primary hub-btn-round" onClick={() => onBrief(idea.trim())}>{c.paused.brief} <ArrowRight /></button>}
+              <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn-ghost hub-btn-round">{c.book}</a>
+            </div>
+          </div>
+        </div>
+      ) : (
       <div className="is-input">
         <textarea
           className="sp-input is-idea"
@@ -293,6 +312,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
         <p className={`is-meter${pass ? ' is-meter--pass' : locked ? ' is-meter--out' : ''}`}>{meter}</p>
         {error && <p className="sp-error" role="alert">{error}</p>}
       </div>
+      )}
 
       {status === 'working' && <StudioLoader c={c} initials={initialsOf(idea)} />}
 
