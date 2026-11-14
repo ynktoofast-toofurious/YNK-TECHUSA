@@ -22,9 +22,10 @@ const CONFIG = {
   repo: 'YNK-TECHUSA',
   baseBranch: 'main',
   contentRoot: 'ynk-react/public/intelligence',
-  queueSheetId: '1whz0UbIFTJp8QBjPsa1VQcttjoawXNTu9fz36Van1_M',
+  // Private IDs live in Private.gs (not committed).
+  get queueSheetId() { return PRIVATE.queueSheetId },
   queueTab: 'Editorial_Queue',
-  registrySheetId: '1qig-v8xy3jjziXiLcKGHD6Dcn8FYvOHEaRNWkJuxdb4',
+  get registrySheetId() { return PRIVATE.registrySheetId },
   assetsTab: 'Image_Assets',
   articleImagesTab: 'Article_Images',
   maxImageBytes: 1.5 * 1024 * 1024,
@@ -330,6 +331,8 @@ function parseHtml_(html, ctx, fileName) {
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i)
   const src = (bodyMatch ? bodyMatch[1] : html)
     .replace(/<!--[\s\S]*?-->/g, '')
+    // Editorial notes for staging only (asset IDs, registry links, image guidance) never reach the site.
+    .replace(/<(aside|section|div)\b[^>]*\bclass\s*=\s*["'][^"']*\bynk-internal\b[^"']*["'][^>]*>[\s\S]*?<\/\1\s*>/gi, '')
     .replace(/<(script|style|noscript|svg|template|iframe|head|nav|form|button)\b[\s\S]*?<\/\1\s*>/gi, '')
 
   const blocks = []

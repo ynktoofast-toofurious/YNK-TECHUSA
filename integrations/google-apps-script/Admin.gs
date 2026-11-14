@@ -13,11 +13,11 @@
 const ADMIN = {
   requestsTab: 'Access_Requests',
   topicsTab: 'Topic_Requests',
-  driveRootIds: ['1Mm3XNSGGezqVRByJ5fqj7OH4ZePvh6bp', '181eZXt5MNOKN_5bDTVANp6dXCi1516Wk'],
+  get driveRootIds() { return PRIVATE.driveRootIds },
   codeDays: 7,
   siteUrl: 'https://ynk-techusa.com',
   notifyEmail: 'yannicknkongolo7@gmail.com',
-  opsSheetId: '1xQKlSfp2HEBF4v7GCIeyL4riiCEH5P08cRISaqJTk64',
+  get opsSheetId() { return PRIVATE.opsSheetId },
   opsTabs: [['Opportunity_Registry', 'Opportunities'], ['Research_Backlog', 'Research backlog'], ['Prototype_Tasks', 'Prototype tasks'], ['Review_Log', 'Review log']],
   industries: ['Healthcare', 'Finance', 'Education', 'Technology', 'Government', 'Retail', 'Data Engineering'],
 }

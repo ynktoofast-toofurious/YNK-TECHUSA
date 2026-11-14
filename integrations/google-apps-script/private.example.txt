@@ -1,0 +1,7 @@
+// Template for Private.gs (kept out of the public repo). Save a copy as Private.gs in this folder with real values.
+const PRIVATE = {
+  queueSheetId: '<Editorial Queue spreadsheet ID>',
+  registrySheetId: '<Image registry spreadsheet ID>',
+  opsSheetId: '<Operations Registry spreadsheet ID>',
+  driveRootIds: ['<Drive folder ID>'],
+}

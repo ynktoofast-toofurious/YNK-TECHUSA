@@ -30,7 +30,7 @@ jobs:
           APPROVAL_LABEL=scope-approved
 
           # Never allowed from automation or assistants, even with approval: owner works on these in VS Code.
-          FORBIDDEN='^\.github/|^AGENTS\.md$|^ynk-react/vite\.config\.js$|^ynk-react/src/main\.jsx$|^ynk-react/src/config/|(^|/)appsscript\.json$|(^|/)\.clasp(rc)?\.json$|(^|/)\.claspignore$|^Admin/|(^|/)CNAME$|^lambda/|\.ps1$|(^|/)package(-lock)?\.json$|(^|/)\.env|(^|/)\.gitignore$|\.code-workspace$'
+          FORBIDDEN='^\.github/|^AGENTS\.md$|^ynk-react/vite\.config\.js$|^ynk-react/src/main\.jsx$|^ynk-react/src/config/|(^|/)appsscript\.json$|(^|/)\.clasp(rc)?\.json$|(^|/)\.claspignore$|(^|/)Private\.gs$|^Admin/|(^|/)CNAME$|^lambda/|\.ps1$|(^|/)package(-lock)?\.json$|(^|/)\.env|(^|/)\.gitignore$|\.code-workspace$'
           # Assistant contributions that need no extra approval.
           ASSISTANT_OK='^ynk-react/public/intelligence/|^integrations/google-apps-script/[^/]+\.(gs|html)$|^ynk-react/scripts/intelligence\.mjs$'
           # Staging bridge (Apps Script) branches only ever publish or remove content.

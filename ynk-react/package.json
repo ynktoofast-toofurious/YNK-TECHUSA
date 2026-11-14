@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "gas:status": "cd ../integrations/google-apps-script && clasp show-file-status",
-    "gas:push": "cd ../integrations/google-apps-script && clasp push --force",
+    "gas:push": "node -e \"require('fs').accessSync('../integrations/google-apps-script/Private.gs')\" && cd ../integrations/google-apps-script && clasp push --force",
     "gas:pull": "cd ../integrations/google-apps-script && clasp pull"
   },
   "dependencies": {

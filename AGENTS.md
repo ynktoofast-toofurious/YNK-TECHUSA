@@ -23,6 +23,7 @@ The `contribution-guard` check enforces the paths below on every pull request.
   `ynk-react/public/intelligence/articles/<slug>/{meta,en,fr,es}.json`. Prefer adding HTML trios to Drive over writing JSON by hand.
 - Every article needs EN, FR and ES editions. No em dashes (U+2014) and no emoji anywhere in site copy.
 - Images must be rights-cleared (credit required) or linked to their source, never copied.
+- Editorial notes for staging (asset IDs, registry links, image guidance, test notes) go inside `<aside class="ynk-internal">...</aside>` or HTML comments. Staging drops them; anything else in the body is published.
 - Clearly label proposals and prototypes as proposals; never present them as announced or deployed.
 
 ## Apps Script
