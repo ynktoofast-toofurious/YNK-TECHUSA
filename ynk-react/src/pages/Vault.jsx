@@ -36,6 +36,8 @@ export default function Vault() {
   const honeypotRef = useRef(null)
   const enrollRef = useRef(null)
   const revealRef = useReveal([language, !!member])
+  const nextParam = new URLSearchParams(location.search).get('next') || ''
+  const next = /^\/latest\/[a-z0-9-]+$/.test(nextParam) ? nextParam : ''
 
   useEffect(() => {
     if (location.hash === '#enroll') {
@@ -220,7 +222,9 @@ export default function Vault() {
                     <svg viewBox="0 0 52 52" width="56" height="56"><circle cx="26" cy="26" r="24" /><path d="M15 27l7 7 15-15" /></svg>
                   </span>
                   <h2 className="hub-title">{justJoined ? v.enroll.done : v.welcome.replace('{name}', member.name)}</h2>
-                  <Link to={STUDIES[0].href} className="btn btn-primary hub-btn-round">{v.read} <ArrowRight /></Link>
+                  {next
+                    ? <Link to={next} className="btn btn-primary hub-btn-round">{t('latestUi.article.gate.continue')} <ArrowRight /></Link>
+                    : <Link to={STUDIES[0].href} className="btn btn-primary hub-btn-round">{v.read} <ArrowRight /></Link>}
                 </div>
               ) : (
                 <>

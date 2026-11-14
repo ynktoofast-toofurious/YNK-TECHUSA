@@ -25,6 +25,14 @@ const projectCopy = {
         imageAtSource: 'View the original image at its source',
         loading: 'Loading article',
         unavailable: 'This article could not be loaded. Please try again shortly.',
+        gate: {
+          tag: 'Members only',
+          title: 'Keep reading with a free YNK Insider membership',
+          text: 'You have read the opening of this piece. Enroll in the YNK Insider Vault to unlock the full analysis, the data behind it, and every future release.',
+          cta: 'Enroll free to keep reading',
+          note: 'Takes less than a minute. No payment required.',
+          continue: 'Continue reading',
+        },
       },
     },
     project: {
@@ -144,6 +152,14 @@ const projectCopy = {
         imageAtSource: 'Voir l’image originale à sa source',
         loading: 'Chargement de l’article',
         unavailable: 'Impossible de charger cet article. Veuillez réessayer dans un instant.',
+        gate: {
+          tag: 'Réservé aux membres',
+          title: 'Poursuivez la lecture avec l’adhésion gratuite YNK Insider',
+          text: 'Vous avez lu le début de cette publication. Inscrivez-vous au YNK Insider Vault pour débloquer l’analyse complète, les données qui la soutiennent et toutes les prochaines publications.',
+          cta: 'Inscription gratuite pour continuer',
+          note: 'Moins d’une minute. Aucun paiement requis.',
+          continue: 'Continuer la lecture',
+        },
       },
     },
     project: {
@@ -263,6 +279,14 @@ const projectCopy = {
         imageAtSource: 'Ver la imagen original en su fuente',
         loading: 'Cargando artículo',
         unavailable: 'No se pudo cargar este artículo. Inténtelo de nuevo en un momento.',
+        gate: {
+          tag: 'Solo para miembros',
+          title: 'Siga leyendo con la membresía gratuita YNK Insider',
+          text: 'Ha leído el comienzo de esta publicación. Inscríbase en el YNK Insider Vault para desbloquear el análisis completo, los datos que lo respaldan y todas las próximas publicaciones.',
+          cta: 'Inscríbase gratis para seguir leyendo',
+          note: 'Toma menos de un minuto. Sin pago.',
+          continue: 'Seguir leyendo',
+        },
       },
     },
     project: {

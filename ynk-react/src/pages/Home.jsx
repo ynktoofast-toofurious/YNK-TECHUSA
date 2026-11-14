@@ -91,10 +91,16 @@ export default function Home() {
   const h = t('home')
   const titleAWords = h.titleA.split(' ').length
   const newest = LATEST[0]
+  const newestTitle = newest.title[language] || newest.title.en
   const announceInner = (
     <>
       <span className="hx-announce-badge">{t('latestUi.announce')}</span>
-      <span className="hx-announce-text">{newest.title[language] || newest.title.en}</span>
+      <span className="hx-announce-text" title={newestTitle}>
+        <span className="hx-announce-track">
+          <span>{newestTitle}</span>
+          <span aria-hidden="true">{newestTitle}</span>
+        </span>
+      </span>
       <ArrowRight size={12} />
     </>
   )

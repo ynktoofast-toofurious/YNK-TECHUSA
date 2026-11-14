@@ -6391,15 +6391,45 @@ img {
 }
 
 .hx-announce-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 440px;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Ticker: the title is doubled and slides by half its width for a seamless loop. */
+.hx-announce-track {
+    display: inline-flex;
+    animation: hxTicker 18s linear infinite;
+}
+
+.hx-announce-track > span {
+    padding-right: 48px;
+}
+
+.hx-announce:hover .hx-announce-track {
+    animation-play-state: paused;
+}
+
+@keyframes hxTicker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hx-announce-track { animation: none; }
+    .hx-announce-track > span[aria-hidden] { display: none; }
+    .hx-announce-text { text-overflow: ellipsis; -webkit-mask-image: none; mask-image: none; }
 }
 
 .hx-copy {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    min-width: 0;
 }
 
 .hx-copy > .hx-title,
@@ -8967,6 +8997,39 @@ img {
     color: var(--color-text-primary);
     font-family: var(--font-heading);
     font-weight: 600;
+}
+
+.ar-body--preview {
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent);
+    mask-image: linear-gradient(180deg, #000 55%, transparent);
+}
+
+.ar-gate {
+    position: relative;
+    margin-top: -24px;
+    padding: 32px 28px;
+    border: 1px solid rgba(41, 181, 232, 0.35);
+    border-radius: var(--radius-lg, 18px);
+    background: linear-gradient(160deg, rgba(41, 181, 232, 0.1), rgba(255, 255, 255, 0.02));
+    text-align: center;
+}
+
+.ar-gate h2 {
+    margin: 10px 0 10px;
+    font-size: clamp(1.3rem, 3.4vw, 1.7rem);
+    line-height: 1.25;
+}
+
+.ar-gate p {
+    max-width: 560px;
+    margin: 0 auto 22px;
+    color: var(--color-text-secondary);
+}
+
+.ar-gate small {
+    display: block;
+    margin-top: 12px;
+    color: var(--color-text-muted);
 }
 
 .ar-sources {

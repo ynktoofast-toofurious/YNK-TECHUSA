@@ -2,7 +2,30 @@ import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import { INTELLIGENCE, INTELLIGENCE_ASSETS, formatDate, tagLabel } from '../content/latest'
+import { getMember } from '../content/vault'
 import { ArrowLeft, ArrowRight } from '../components/Icons'
+
+const blockText = (b) => {
+  if (b.type === 'ul' || b.type === 'ol') return b.items.map((i) => (typeof i === 'string' ? i : i.text)).join(' ')
+  if (b.type === 'table') return b.rows.flat().join(' ')
+  if (b.type === 'img') return b.caption || b.alt || ''
+  return b.text || ''
+}
+
+// Non-members read roughly 10 to 25 percent of the piece (by text length).
+function previewCount(blocks) {
+  const lens = blocks.map((b) => blockText(b).length)
+  const total = lens.reduce((a, n) => a + n, 0)
+  let shown = 0
+  let count = 0
+  for (const len of lens) {
+    if (count > 0 && shown >= total * 0.2) break
+    if (count > 0 && shown >= total * 0.1 && shown + len > total * 0.25) break
+    shown += len
+    count += 1
+  }
+  return Math.min(count, Math.max(blocks.length - 1, 1))
+}
 
 const safeHttps = (url) => {
   try { return new URL(url).protocol === 'https:' ? url : null } catch { return null }
@@ -121,6 +144,10 @@ export default function Article() {
   const doc = loading ? null : result.doc
   const title = doc?.title || meta.title[language] || meta.title.en
   const sources = meta.source_references.map(safeHttps).filter(Boolean)
+  const isMember = Boolean(getMember())
+  const visible = doc ? (isMember ? doc.blocks : doc.blocks.slice(0, previewCount(doc.blocks))) : []
+  const gated = doc && !isMember
+  const g = t('latestUi.article.gate')
 
   return (
     <div className="hub ar-page">
@@ -145,10 +172,22 @@ export default function Article() {
         {loading && <p className="ar-status" role="status">{t('latestUi.article.loading')}</p>}
         {!loading && result.error && <p className="ar-status" role="alert">{t('latestUi.article.unavailable')}</p>}
         {doc && (
-          <div className="ar-body">
+          <div className={`ar-body${gated ? ' ar-body--preview' : ''}`}>
             <p className="ar-summary">{doc.summary}</p>
-            {doc.blocks.map((block, i) => <Block key={i} block={block} t={t} />)}
+            {visible.map((block, i) => <Block key={i} block={block} t={t} />)}
           </div>
+        )}
+
+        {gated && (
+          <section className="ar-gate" aria-labelledby="ar-gate-title">
+            <span className="section-tag">{g.tag}</span>
+            <h2 id="ar-gate-title">{g.title}</h2>
+            <p>{g.text}</p>
+            <Link to={`/vault?next=${encodeURIComponent(`/latest/${meta.slug}`)}#enroll`} className="btn btn-primary hub-btn-round">
+              {g.cta} <ArrowRight />
+            </Link>
+            <small>{g.note}</small>
+          </section>
         )}
 
         {sources.length > 0 && (
