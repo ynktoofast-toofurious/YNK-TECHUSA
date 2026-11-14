@@ -67,11 +67,13 @@ function setupAdmin() {
 
 function adminLoad() {
   assertAdmin_()
+  try { ensureAutoTrigger_() } catch (e) { console.warn(`Auto-publish trigger: ${e.message || e}`) }
   const ss = SpreadsheetApp.openById(CONFIG.queueSheetId)
   return {
     user: Session.getActiveUser().getEmail(),
     sheetUrl: ss.getUrl(),
     drive: null,
+    autoPublish: Boolean(publishKey_()),
     articles: listArticles_(),
     requests: readRequests_().map(publicRequest_),
     topics: topicsView_(),
@@ -141,7 +143,7 @@ function adminPreview(articleId) {
   const linksTable = openTable_(CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId', [])
   const assets = {}
   assetsTable.rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
-  const built = buildArticle_(row, assets, linksTable.rows, { lenientImage: true })
+  const built = buildArticle_(row, assets, linksTable.rows, { lenientImage: true, preview: true })
   let hero = null
   if (built.hero) {
     const a = built.hero.asset
@@ -338,6 +340,109 @@ function ghRawAll_(token, paths) {
     if (res.getResponseCode() !== 200) return null
     try { return JSON.parse(res.getContentText('UTF-8').replace(/^\uFEFF/, '')) } catch (e) { return null }
   })
+}
+
+/* ---------------- Auto-publish (keyword) ---------------- */
+
+// The keyword lives in Script Properties (AUTO_PUBLISH_KEY), never in this public repo.
+const AUTO_PUBLISH_PER_DAY = 3
+
+function publishKey_() {
+  const key = str_(PropertiesService.getScriptProperties().getProperty('AUTO_PUBLISH_KEY'))
+  return key.length >= 4 ? key : ''
+}
+
+function stripPublishKey_(html) {
+  const key = publishKey_()
+  return key ? html.split(key).join('') : html
+}
+
+function ensureAutoTrigger_() {
+  // Triggers belong to whoever creates them; only the owner's runs as the owner.
+  if ((Session.getActiveUser().getEmail() || '').toLowerCase() !== (Session.getEffectiveUser().getEmail() || '').toLowerCase()) return
+  if (ScriptApp.getProjectTriggers().some((t) => t.getHandlerFunction() === 'autoPublish')) return
+  ScriptApp.newTrigger('autoPublish').timeBased().everyMinutes(15).create()
+}
+
+// Every 15 minutes: scan Drive, then publish HTML items whose files (or queue notes) contain the keyword.
+// Items in the Backlog (sent back or taken down) are never auto-published.
+function autoPublish() {
+  if (Session.getActiveUser().getEmail() && !isAdmin_()) throw new Error('Not authorized.')
+  const lock = LockService.getScriptLock()
+  if (!lock.tryLock(10000)) return
+  try { discoverDrive_(true) } finally { lock.releaseLock() }
+  const key = publishKey_()
+  if (!key) return
+
+  let queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error'])
+  const flagged = {}
+  queue.rows.forEach((row) => {
+    if (/REJECT/i.test(str_(row.get('approval'))) || /^(Rejected|Backlog) /.test(str_(row.get('error')))) return
+    const texts = LANGS.map(([, col]) => {
+      const id = driveId_(row.get(col))
+      try {
+        const file = id && DriveApp.getFileById(id)
+        return file && isHtmlFile_(file) ? file.getBlob().getDataAsString('UTF-8') : null
+      } catch (e) {
+        return null
+      }
+    })
+    if (texts.some((t) => t == null)) return
+    if (!texts.some((t) => t.indexOf(key) >= 0) && str_(row.get('notes')).indexOf(key) < 0) return
+    flagged[str_(row.get('articleId'))] = true
+    const sync = str_(row.get('syncState')).toUpperCase()
+    if (sync === SYNC.published || sync === SYNC.prOpen) return
+    REVIEWS.forEach(([k]) => {
+      if (!PASSED_RE.test(str_(row.get(k)))) queue.set(row, k, pickOption_(queue.options(row, k), PASSED_RE, 'PASS'))
+    })
+    queue.set(row, 'approval', APPROVED)
+    queue.set(row, 'syncState', SYNC.blocked)
+    queue.set(row, 'syncHash', '')
+    queue.set(row, 'error', '')
+  })
+  if (!Object.keys(flagged).length) return
+  SpreadsheetApp.flush()
+  // Opens one pull request for every approved item with new content (flagged ones included).
+  syncApprovedArticles()
+
+  const props = PropertiesService.getScriptProperties()
+  const today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd')
+  const used = JSON.parse(props.getProperty('AUTO_PUBLISH_COUNT') || '{}')
+  let count = used.day === today ? used.n : 0
+  const published = []
+  const problems = []
+  queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error'])
+  queue.rows.forEach((row) => {
+    const id = str_(row.get('articleId'))
+    if (!flagged[id] || str_(row.get('syncState')).toUpperCase() !== SYNC.prOpen) return
+    const title = str_(row.get('titleEn')) || str_(row.get('slug'))
+    if (count >= AUTO_PUBLISH_PER_DAY) { problems.push(`${title}: daily limit of ${AUTO_PUBLISH_PER_DAY} reached, waiting in To review`); return }
+    try {
+      mergeArticlePr_(queue, row)
+      count += 1
+      published.push({ title, url: `${ADMIN.siteUrl}/latest/${str_(row.get('slug'))}` })
+      if (queue.map.notes != null) {
+        const prev = str_(row.get('notes'))
+        queue.set(row, 'notes', safeCell_(`${prev ? `${prev}\n` : ''}Auto-published ${today}`))
+      }
+    } catch (e) {
+      problems.push(`${title}: ${e.message || e}`)
+    }
+  })
+  props.setProperty('AUTO_PUBLISH_COUNT', JSON.stringify({ day: today, n: count }))
+  // The same unresolved problem is reported once, not every 15 minutes.
+  const signature = problems.join('|')
+  const repeated = signature === (props.getProperty('AUTO_PUBLISH_LAST_PROBLEMS') || '')
+  props.setProperty('AUTO_PUBLISH_LAST_PROBLEMS', signature)
+
+  if (published.length || (problems.length && !repeated)) {
+    const html = [
+      published.length ? `<p>Published automatically:</p><ul>${published.map((p) => `<li><a href="${esc_(p.url)}">${esc_(p.title)}</a></li>`).join('')}</ul>` : '',
+      problems.length ? `<p>Not published:</p><ul>${problems.map((p) => `<li>${esc_(p)}</li>`).join('')}</ul>` : '',
+      '<p>Use YNK Staging, Published, Take down to remove anything.</p>',
+    ].join('')
+    MailApp.sendEmail({ to: Session.getEffectiveUser().getEmail(), subject: `YNK auto-publish: ${published.length} published${problems.length ? `, ${problems.length} need attention` : ''}`, htmlBody: html })
+  }
 }
 
 function adminApproveUser(requestId) {
@@ -566,6 +671,8 @@ function discoverDrive_(force) {
 
   Object.keys(groups).forEach((key) => {
     const g = groups[key]
+    // New items come from HTML sets only; Google Docs are no longer a source.
+    if (!Object.keys(g.docs).some((l) => g.docs[l].html)) return
     const known = entries.find((e) => g.all.some((d) => LANGS.some(([, col]) => e.ids[col] === d.id)))
     if (known) {
       if (!known.row) return
@@ -577,7 +684,7 @@ function discoverDrive_(force) {
     }
     const knownDocs = claimed()
     if (Object.keys(g.docs).some((l) => knownDocs[g.docs[l].id] || retired[g.docs[l].id])) return
-    const missing = ['en', 'fr', 'es'].filter((l) => !g.docs[l])
+    const missing = ['en', 'fr', 'es'].filter((l) => !g.docs[l] || !g.docs[l].html)
     const label = `${g.title}${g.date ? ` (${Utilities.formatDate(g.date, 'UTC', 'yyyy-MM-dd')})` : ''}`
     if (missing.length) {
       incomplete.push({ name: label, missing: missing.map((l) => l.toUpperCase()) })

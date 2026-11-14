@@ -136,6 +136,8 @@ function syncApprovedArticles() {
         batch.push({ row, built })
       } catch (e) {
         Logger.log('%s: ERROR %s', id, e.message)
+        // A live article stays live; the console explains the problem when it is opened.
+        if (str_(row.get('syncState')).toUpperCase() === SYNC.published) return
         setIfChanged_(queue, row, 'syncState', SYNC.error)
         setIfChanged_(queue, row, 'error', String(e.message || e).slice(0, 480))
       }
@@ -217,7 +219,7 @@ function buildArticle_(row, assets, imageLinks, opts) {
   LANGS.forEach(([lang, col]) => {
     const docId = driveId_(row.get(col))
     if (!docId) throw new Error(`Missing doc_${lang}_id.`)
-    editions[lang] = parseSource_(docId, ctx)
+    editions[lang] = parseSource_(docId, ctx, Boolean(opts && opts.preview))
   })
 
   const slug = str_(row.get('slug')) || slugify_(editions.en.title)
@@ -264,13 +266,17 @@ function buildArticle_(row, assets, imageLinks, opts) {
   return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(hero), editions, meta, hero, imageError, images: ctx.images, warnings: ctx.warnings }
 }
 
-function parseSource_(fileId, ctx) {
+// Google Docs can still be previewed (to switch them), but only HTML files are published.
+function parseSource_(fileId, ctx, allowDocs) {
   const file = DriveApp.getFileById(fileId)
-  if (file.getMimeType() === MimeType.GOOGLE_DOCS) return parseDoc_(fileId, ctx.counter)
+  if (file.getMimeType() === MimeType.GOOGLE_DOCS) {
+    if (!allowDocs) throw new Error(`"${file.getName()}" is a Google Doc. Only HTML files are published: switch this language to its HTML file.`)
+    return parseDoc_(fileId, ctx.counter)
+  }
   if (isHtmlFile_(file)) {
     const parents = file.getParents()
     ctx.folder = parents.hasNext() ? parents.next() : null
-    return parseHtml_(file.getBlob().getDataAsString('UTF-8'), ctx, file.getName())
+    return parseHtml_(stripPublishKey_(file.getBlob().getDataAsString('UTF-8')), ctx, file.getName())
   }
   throw new Error(`"${file.getName()}" must be a Google Doc or an .html file.`)
 }
