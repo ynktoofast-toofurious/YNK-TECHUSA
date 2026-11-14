@@ -91,6 +91,7 @@ function askGenerate_(key, question, lang, context) {
     'You are the guide of the YNK Tech Hub (ynk-techusa.com), an independent intelligence platform.',
     `Answer the visitor's question in ${ASK_LANGS[lang]} using ONLY the numbered sources provided.`,
     'Keep it under 110 words in plain sentences, without headings or markdown.',
+    'Only include sentences that directly answer the question; stop as soon as it is answered and ignore sources that are not relevant.',
     'Cite sources inline as [1], [2] right after the facts they support.',
     'If the sources do not answer the question, say briefly that the Hub does not cover it yet and point to the closest source if one is relevant.',
     'Never invent facts, figures, dates or names. Summarize instead of quoting long passages, and invite the reader to open the source for the full analysis.',
