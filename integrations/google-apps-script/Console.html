@@ -130,7 +130,7 @@
 
 <script>
   var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Backlog'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
-  var state = { tab: 'review', data: null, preview: null, lang: 'en' };
+  var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
 
@@ -189,6 +189,8 @@
   function load(force) {
     state.preview = null;
     state.data = null;
+    state.live = null;
+    state.liveError = false;
     set(bar, []);
     set(main, [h('p', { class: 'loading', text: 'Loading...' })]);
     var slow = setTimeout(function () {
@@ -228,6 +230,7 @@
     var d = state.data;
     var counts = {
       review: d.articles.filter(function (a) { return a.stage === 'review'; }).length,
+      published: state.live && state.live !== 'loading' ? state.live.items.length : 0,
       topics: d.topics.suggestions.filter(function (s) { return s.status === 'NEW'; }).length,
       requests: d.requests.filter(function (r) { return r.status === 'PENDING'; }).length
     };
@@ -240,6 +243,10 @@
     var items;
     if (state.tab === 'topics') {
       set(main, [tabs].concat(topicsView(d.topics)));
+      return;
+    }
+    if (state.tab === 'published') {
+      set(main, [tabs].concat(liveView()));
       return;
     }
     if (state.tab === 'requests') {
@@ -258,6 +265,53 @@
       if (d.drive.error) notices.push(h('div', { class: 'note err', text: 'Could not scan Google Drive: ' + d.drive.error }));
     }
     set(main, [tabs].concat(notices, items.length ? items : [h('div', { class: 'empty', text: emptyText })]));
+  }
+
+  /* ---------- Live on the site ---------- */
+  function liveView() {
+    if (state.liveError) return [h('div', { class: 'note err', text: 'Could not read the site content from GitHub. Use Refresh to try again.' })];
+    if (!state.live) {
+      state.live = 'loading';
+      call('adminLiveArticles').then(function (live) { state.live = live; }).catch(function () { state.live = null; state.liveError = true; })
+        .then(function () { if (!state.preview && state.tab === 'published') render(); });
+    }
+    if (state.live === 'loading') return [h('p', { class: 'loading', text: 'Checking what is live on ynk-techusa.com...' })];
+    var notes = [h('p', { class: 'meta', text: 'Everything below is live on ynk-techusa.com right now. Taking an item down removes it from the site in about 2 minutes and moves it to the Backlog, where it can be reviewed and published again.' })];
+    if (state.live.missing.length) notes.push(h('div', { class: 'note err', text: 'Marked as published in the Editorial Queue but not on the site: ' + state.live.missing.join(', ') }));
+    var items = state.live.items.map(liveCard);
+    return notes.concat(items.length ? items : [h('div', { class: 'empty', text: 'Nothing from Google Drive is live on the site.' })]);
+  }
+
+  function liveCard(a) {
+    var queued = a.queueId && state.data.articles.filter(function (x) { return x.id === a.queueId; })[0];
+    var takeDown = h('button', { class: 'btn danger', type: 'button', text: 'Take down', onclick: function (e) {
+      e.stopPropagation();
+      var reason = h('textarea', { placeholder: 'Why? (optional, kept in the Editorial Queue notes)', maxlength: '500' });
+      ask('Take this down from the site?', [
+        h('p', { text: a.title }),
+        h('p', { class: 'meta', text: 'It disappears from ynk-techusa.com in all three languages in about 2 minutes. Its Drive files are not touched.' }),
+        reason
+      ], 'Take down').then(function (ok) {
+        if (!ok) return;
+        call('adminTakeDown', [a.slug, reason.value], takeDown, 'Taking down...').then(function (res) {
+          state.live = res.live;
+          state.data.articles = res.articles;
+          toast('Taken down. It leaves the site in about 2 minutes.');
+          render();
+        });
+      });
+    } });
+    var card = h('div', { class: 'card' + (queued ? ' click' : '') }, [
+      h('div', { class: 'grow' }, [
+        h('h3', { text: a.title }),
+        h('div', { class: 'meta' }, [typeBadge(a.type), a.date ? h('span', { text: a.date }) : null, h('span', { text: '/latest/' + a.slug }),
+          queued ? null : h('span', { class: 'badge', text: 'Not in the Editorial Queue' })])
+      ]),
+      h('a', { class: 'btn', href: a.url, target: '_blank', rel: 'noopener', text: 'View', onclick: function (e) { e.stopPropagation(); } }),
+      takeDown
+    ]);
+    if (queued) card.addEventListener('click', function () { openPreview(queued); });
+    return card;
   }
 
   function topicsView(t) {
@@ -450,6 +504,7 @@
       ], 'Publish').then(function (ok) {
         if (!ok) return;
         call('adminApproveArticle', [a.id], approve, 'Publishing...').then(function (updated) {
+          state.live = null;
           replaceItem('articles', updated);
           showPublished(updated);
         });

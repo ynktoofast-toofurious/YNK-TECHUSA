@@ -165,15 +165,20 @@ function adminPreview(articleId) {
 function mergeArticlePr_(queue, row) {
   const m = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
   if (!m) throw new Error('Nothing to publish yet.')
-  const token = getToken_()
+  mergePr_(getToken_(), m[1])
+  queue.set(row, 'syncState', SYNC.published)
+  queue.set(row, 'error', '')
+}
+
+function mergePr_(token, number) {
   let lastError = null
   // GitHub needs a moment to compute mergeability for a brand-new pull request.
   for (let attempt = 0; attempt < 4; attempt++) {
-    const pr = gh_(token, 'GET', `/pulls/${m[1]}`)
+    const pr = gh_(token, 'GET', `/pulls/${number}`)
     if (pr.merged_at) break
     if (pr.state !== 'open') throw new Error('This version was withdrawn. Approve again to send a fresh copy.')
     try {
-      gh_(token, 'PUT', `/pulls/${m[1]}/merge`, { merge_method: 'squash' })
+      gh_(token, 'PUT', `/pulls/${number}/merge`, { merge_method: 'squash' })
       lastError = null
       break
     } catch (e) {
@@ -182,8 +187,6 @@ function mergeArticlePr_(queue, row) {
     }
   }
   if (lastError) throw new Error(`Publishing did not complete: ${lastError.message}`)
-  queue.set(row, 'syncState', SYNC.published)
-  queue.set(row, 'error', '')
 }
 
 function adminRejectArticle(articleId, note) {
@@ -203,6 +206,131 @@ function adminRejectArticle(articleId, note) {
     queue.set(row, 'notes', safeCell_(`${prev ? `${prev}\n` : ''}Backlog ${stamp}${reason ? `: ${reason}` : ''}`))
   }
   return articleById_(articleId)
+}
+
+/* ---------------- Live on the site ---------------- */
+
+// What is actually in the repo (and therefore on ynk-techusa.com), matched to Editorial Queue rows.
+function adminLiveArticles() {
+  assertAdmin_()
+  return liveView_(liveArticles_(getToken_()))
+}
+
+// Removes the article files (and images only it uses) from main; the site redeploys in about 2 minutes.
+function adminTakeDown(slug, note) {
+  assertAdmin_()
+  slug = str_(slug)
+  if (!SLUG_RE.test(slug)) throw new Error('Unknown article.')
+  const lock = LockService.getScriptLock()
+  if (!lock.tryLock(30000)) throw new Error('Another publish is running. Try again in a minute.')
+  let live
+  try {
+    const token = getToken_()
+    live = liveArticles_(token)
+    const target = live.find((a) => a.slug === slug)
+    if (!target) throw new Error('This article is no longer on the site.')
+
+    const root = CONFIG.contentRoot
+    const paths = ghList_(token, `${root}/articles/${slug}`).filter((f) => f.type === 'file').map((f) => f.path)
+    const editions = ghRawAll_(token, ['fr', 'es'].map((l) => `${root}/articles/${slug}/${l}.json`)).concat([target.en])
+    const images = {}
+    editions.forEach((ed) => ((ed && ed.blocks) || []).forEach((b) => {
+      if (b.type === 'img' && /^images\/[\w.-]+$/.test(str_(b.src))) images[`${root}/${b.src}`] = true
+    }))
+    const hero = target.heroAssetId
+    if (hero && !live.some((a) => a.slug !== slug && a.heroAssetId === hero)) {
+      ghList_(token, `${root}/assets`).filter((f) => f.name === `${hero}.json`).forEach((f) => paths.push(f.path))
+      ghList_(token, `${root}/images`).filter((f) => f.name.replace(/\.[^.]+$/, '') === hero).forEach((f) => { images[f.path] = true })
+    }
+    Object.keys(images).forEach((p) => paths.push(p))
+    if (!paths.length) throw new Error('No files found for this article.')
+
+    const baseSha = gh_(token, 'GET', `/git/ref/heads/${CONFIG.baseBranch}`).object.sha
+    const baseTree = gh_(token, 'GET', `/git/commits/${baseSha}`).tree.sha
+    const tree = paths.map((path) => ({ path, mode: '100644', type: 'blob', sha: null }))
+    const treeSha = gh_(token, 'POST', '/git/trees', { base_tree: baseTree, tree }).sha
+    const message = `Intelligence: take down ${slug}`
+    const commitSha = gh_(token, 'POST', '/git/commits', { message, tree: treeSha, parents: [baseSha] }).sha
+    const branch = `intelligence/takedown-${Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd-HHmmss')}`
+    gh_(token, 'POST', '/git/refs', { ref: `refs/heads/${branch}`, sha: commitSha })
+    const reason = cleanInput_(note, 500)
+    const pr = gh_(token, 'POST', '/pulls', { title: message, head: branch, base: CONFIG.baseBranch,
+      body: `Taken down from YNK Staging by ${Session.getActiveUser().getEmail() || 'an admin'}.${reason ? `\n\nReason: ${reason}` : ''}` })
+    mergePr_(token, pr.number)
+
+    const stamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd')
+    const entry = `Backlog ${stamp}: Taken down from the site${reason ? `. ${reason}` : ''}`
+    const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error'])
+    const row = queue.rows.find((r) => (target.articleId && str_(r.get('articleId')) === target.articleId) || str_(r.get('slug')) === slug)
+    if (row) {
+      const open = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
+      if (open && str_(row.get('syncState')).toUpperCase() === SYNC.prOpen) {
+        try { gh_(token, 'PATCH', `/pulls/${open[1]}`, { state: 'closed' }) } catch (e) { console.warn(e) }
+      }
+      queue.set(row, 'approval', pickOption_(queue.options(row, 'approval'), /reject/i, 'DRAFT'))
+      queue.set(row, 'syncState', SYNC.blocked)
+      queue.set(row, 'syncHash', '')
+      queue.set(row, 'error', entry)
+      if (queue.map.notes != null) {
+        const prev = str_(row.get('notes'))
+        queue.set(row, 'notes', safeCell_(`${prev ? `${prev}\n` : ''}${entry}`))
+      }
+    }
+    live = live.filter((a) => a.slug !== slug)
+  } finally {
+    lock.releaseLock()
+  }
+  return { live: liveView_(live), articles: listArticles_() }
+}
+
+function liveArticles_(token) {
+  const root = `${CONFIG.contentRoot}/articles`
+  const dirs = ghList_(token, root).filter((f) => f.type === 'dir')
+  const bodies = ghRawAll_(token, [].concat.apply([], dirs.map((d) => [`${root}/${d.name}/meta.json`, `${root}/${d.name}/en.json`])))
+  return dirs.map((d, i) => {
+    const meta = bodies[i * 2] || {}
+    const en = bodies[i * 2 + 1]
+    return { slug: d.name, articleId: str_(meta.article_id), title: str_(en && en.title) || d.name, date: str_(meta.date),
+      type: str_(meta.type), heroAssetId: str_(meta.hero_asset_id), en }
+  })
+}
+
+function liveView_(live) {
+  const queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', [])
+  const rowFor = (a) => queue.rows.find((r) => (a.articleId && str_(r.get('articleId')) === a.articleId) || str_(r.get('slug')) === a.slug)
+  const slugs = {}
+  const items = live.map((a) => {
+    slugs[a.slug] = true
+    const row = rowFor(a)
+    return { slug: a.slug, title: a.title, date: a.date, type: a.type === 'study' ? 'Study' : 'Article',
+      url: `${ADMIN.siteUrl}/latest/${a.slug}`, queueId: row ? str_(row.get('articleId')) : '' }
+  }).sort((a, b) => b.date.localeCompare(a.date))
+  // Rows the queue calls published that are not in the repo (taken down by hand, or never merged).
+  const missing = queue.rows
+    .filter((r) => str_(r.get('syncState')).toUpperCase() === SYNC.published && !slugs[str_(r.get('slug'))])
+    .map((r) => str_(r.get('titleEn')) || str_(r.get('slug')))
+  return { items, missing }
+}
+
+function ghList_(token, path) {
+  try {
+    const list = gh_(token, 'GET', `/contents/${path}?ref=${CONFIG.baseBranch}`)
+    return Array.isArray(list) ? list : []
+  } catch (e) {
+    if (/\(404\)/.test(String(e.message))) return []
+    throw e
+  }
+}
+
+function ghRawAll_(token, paths) {
+  if (!paths.length) return []
+  const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.raw+json', 'X-GitHub-Api-Version': '2022-11-28' }
+  return UrlFetchApp.fetchAll(paths.map((p) => ({
+    url: `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${p}?ref=${CONFIG.baseBranch}`, headers, muteHttpExceptions: true,
+  }))).map((res) => {
+    if (res.getResponseCode() !== 200) return null
+    try { return JSON.parse(res.getContentText('UTF-8').replace(/^\uFEFF/, '')) } catch (e) { return null }
+  })
 }
 
 function adminApproveUser(requestId) {
