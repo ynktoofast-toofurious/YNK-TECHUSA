@@ -2924,7 +2924,7 @@ img {
     border-radius: 18px;
     background: #0d1528;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .ss-field {
@@ -2980,7 +2980,124 @@ img {
     margin: 0;
     padding: 0 8px 8px;
     list-style: none;
-    overflow-y: auto;
+}
+
+.ss-item--ask strong {
+    color: var(--color-accent);
+}
+
+.ss-kind--ask {
+    display: grid;
+    place-items: center;
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.35);
+    background: rgba(251, 191, 36, 0.08);
+}
+
+.ss-answer {
+    margin: 14px 14px 4px;
+    padding: 16px 18px;
+    border: 1px solid rgba(41, 181, 232, 0.28);
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(41, 181, 232, 0.09), rgba(255, 255, 255, 0.02));
+}
+
+.ss-answer-q {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 10px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.ss-answer-q svg {
+    flex-shrink: 0;
+    color: #fbbf24;
+}
+
+.ss-answer-text {
+    margin: 0 0 12px;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    white-space: pre-line;
+}
+
+.ss-answer-wait {
+    margin: 0 0 10px;
+    color: var(--color-text-secondary);
+}
+
+.ss-cite {
+    display: inline-grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    margin: 0 2px;
+    padding: 0 4px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(41, 181, 232, 0.2);
+    color: var(--color-accent);
+    font: 700 0.68rem/1 var(--font-body);
+    vertical-align: 2px;
+    cursor: pointer;
+}
+
+.ss-sources {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ss-sources button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid var(--hub-border, rgba(255, 255, 255, 0.08));
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--color-text-primary);
+    font: inherit;
+    font-size: 0.86rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.ss-sources button:hover {
+    border-color: rgba(41, 181, 232, 0.4);
+}
+
+.ss-sources .ss-kind {
+    min-width: 0;
+}
+
+.ss-source-title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ss-answer-note {
+    margin: 10px 0 0;
+    font-size: 0.74rem;
+    color: var(--color-text-muted);
+}
+
+.ss-inline-link {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-accent);
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .ss-item {

@@ -1,20 +1,6 @@
 import { LATEST } from './latest'
 import { LIBRARY } from './vault'
-
-// Pages are matched on their translated title plus these keywords (all languages, so any wording finds them).
-const PAGES = [
-  { href: '/latest', titleKey: 'hubNav.latest', kw: 'latest news articles releases updates nouveautes novedades actualites' },
-  { href: '/vault', titleKey: 'hubFooter.links.vault', kw: 'library vault studies datasets prototypes full access request bibliotheque biblioteca coffre boveda' },
-  { href: '/#intelligence', titleKey: 'hubFooter.links.desk', kw: 'intelligence desk economy technology business ai bureau mesa economie economia' },
-  { href: '/#method', titleKey: 'hubFooter.links.method', kw: 'method discover decode connect empower methode metodo' },
-  { href: '/#solutions', titleKey: 'hubNav.solutions', kw: 'solutions services build studio ai dashboards soluciones' },
-  { href: '/#suggest', titleKey: 'hubFooter.links.community', kw: 'community suggest topic idea question communaute comunidad sujet tema' },
-  { href: '/about', titleKey: 'hubFooter.links.about', kw: 'about mission vision founder yannick nkongolo a propos acerca fondateur fundador' },
-  { href: '/start-project', titleKey: 'hubNav.startProject', kw: 'start project quote brief hire build contact projet proyecto devis presupuesto' },
-  { href: '/it-services', titleKey: 'hubFooter.links.it', kw: 'it services consulting data engineering power bi cloud services informatiques servicios' },
-  { href: '/branding', titleKey: 'hubFooter.links.branding', kw: 'branding brand design events stage lighting printing marque marca evenements eventos' },
-  { href: '/consultants', titleKey: 'hubFooter.links.access', kw: 'access portal consultants code acces acceso' },
-]
+import { PAGES } from './pages'
 
 export const normalize = (text) => String(text || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 

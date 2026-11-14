@@ -26,6 +26,11 @@ export function submitFullAccessRequest(data) {
   return post({ action: 'fullAccess', ...data })
 }
 
+// { mode: 'ai' | 'search' | 'none', answer, sources: [{ n, title, href, kind }] }
+export function askHub(q, language) {
+  return post({ action: 'ask', q, language })
+}
+
 // Resolves to { expires } for a valid personal link, false for an invalid or expired one, null if unreachable.
 export async function verifyUnlock(item, token) {
   if (!intakeEnabled) return null

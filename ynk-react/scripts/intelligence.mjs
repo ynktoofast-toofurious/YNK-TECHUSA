@@ -183,4 +183,16 @@ console.log(`Intelligence content OK: ${articles.length} article(s), ${Object.ke
 
 if (!CHECK_ONLY) {
   writeFileSync(OUT, `${JSON.stringify({ articles, assets }, null, 2)}\n`)
+
+  // Public catalog read by the Ask the Hub service (Apps Script) to know what exists on the site.
+  const { LIBRARY } = await import('../src/content/vault.js')
+  const { PAGES } = await import('../src/content/pages.js')
+  const { default: hubCopy } = await import('../src/i18n/hubCopy.js')
+  const lookup = (lang, key) => key.split('.').reduce((o, k) => (o ? o[k] : undefined), hubCopy[lang]) || key
+  const catalog = {
+    articles: articles.map(({ slug, type, date, title, summary }) => ({ slug, type, date, title, summary, href: `/latest/${slug}` })),
+    library: LIBRARY.map(({ id, kind, status, href, title, summary }) => ({ id, kind, status, title, summary, href: href || `/vault?request=${id}#request` })),
+    pages: PAGES.map(({ href, titleKey, about, kw }) => ({ href, about, kw, title: Object.fromEntries(LANGS.map((l) => [l, lookup(l, titleKey)])) })),
+  }
+  writeFileSync(join(CONTENT, 'catalog.json'), `${JSON.stringify(catalog)}\n`)
 }

@@ -58,6 +58,7 @@ function doPost(e) {
     if (body.action === 'topic') return json_(intakeTopic_(body))
     if (body.action === 'fullAccess') return json_(intakeFullAccess_(body))
     if (body.action === 'unlock') return json_(verifyUnlock_(body))
+    if (body.action === 'ask') return json_(askHub_(body))
     return json_({ ok: false, error: 'unknown_action' })
   } catch (err) {
     console.error(err)
@@ -84,6 +85,7 @@ function adminLoad() {
     sheetUrl: ss.getUrl(),
     drive: null,
     autoPublish: Boolean(publishKey_()),
+    ai: Boolean(PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY')),
     articles: listArticles_(),
     requests: readRequests_().map(publicRequest_),
     fullAccess: readFullAccess_().map(publicFullAccess_).reverse(),

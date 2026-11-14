@@ -282,6 +282,7 @@
     var notices = [];
     if (state.tab === 'review' && state.scanning) notices.push(h('div', { class: 'note', text: 'Checking Google Drive for new or updated files...' }));
     if (state.tab === 'review') notices.push(autoPublishNote(d));
+    if (state.tab === 'review') notices.push(aiNote(d));
     if (state.tab === 'review' && d.drive) {
       if (d.drive.added.length) notices.push(h('div', { class: 'note', text: d.drive.added.length + ' new item(s) found in Google Drive and added for review: ' + d.drive.added.map(function (x) { return x.title; }).join(', ') }));
       if (d.drive.upgraded && d.drive.upgraded.length) notices.push(h('div', { class: 'note', text: 'Switched to the HTML files found in Drive: ' + d.drive.upgraded.map(function (x) { return x.title; }).join(', ') }));
@@ -416,6 +417,28 @@
       toast(f.label + ' saved.');
       render();
     }).catch(function () { render(); });
+  }
+
+  function aiNote(d) {
+    if (d.ai) {
+      return h('div', { class: 'note src' }, [
+        h('span', { text: 'Ask the Hub is on: visitors get short AI answers drawn only from your published content, with sources.' }),
+        h('button', { class: 'btn ghost', type: 'button', text: 'Turn off', onclick: function (e) {
+          call('adminSetAiKey', [''], e.currentTarget).then(function (r) { d.ai = r.ai; toast('AI answers are off. Visitors still get matching sources.'); render(); });
+        } })
+      ]);
+    }
+    var input = h('input', { type: 'password', placeholder: 'Gemini API key', autocomplete: 'off', maxlength: '100',
+      style: 'padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:13px;width:180px' });
+    return h('div', { class: 'note src' }, [
+      h('span', {}, ['Ask the Hub AI answers are off (visitors get matching sources only). Paste a key from ',
+        h('a', { href: 'https://aistudio.google.com/apikey', target: '_blank', rel: 'noopener', text: 'Google AI Studio' }), ' to turn them on.']),
+      input,
+      h('button', { class: 'btn', type: 'button', text: 'Turn on', onclick: function (e) {
+        if (!input.value.trim()) { toast('Paste the key first.', true); return; }
+        call('adminSetAiKey', [input.value.trim()], e.currentTarget, 'Checking...').then(function (r) { d.ai = r.ai; toast('AI answers are on (' + r.model + ').'); render(); });
+      } })
+    ]);
   }
 
   function autoPublishNote(d) {
