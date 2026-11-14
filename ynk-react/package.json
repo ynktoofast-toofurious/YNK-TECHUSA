@@ -10,7 +10,10 @@
     "build": "vite build",
     "validate:intelligence": "node scripts/intelligence.mjs --check",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gas:status": "cd ../integrations/google-apps-script && clasp show-file-status",
+    "gas:push": "cd ../integrations/google-apps-script && clasp push --force",
+    "gas:pull": "cd ../integrations/google-apps-script && clasp pull"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
