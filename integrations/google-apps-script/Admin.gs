@@ -16,6 +16,9 @@ const ADMIN = {
   driveRootIds: ['1Mm3XNSGGezqVRByJ5fqj7OH4ZePvh6bp', '181eZXt5MNOKN_5bDTVANp6dXCi1516Wk'],
   codeDays: 7,
   siteUrl: 'https://ynk-techusa.com',
+  notifyEmail: 'yannicknkongolo7@gmail.com',
+  opsSheetId: '1xQKlSfp2HEBF4v7GCIeyL4riiCEH5P08cRISaqJTk64',
+  opsTabs: [['Opportunity_Registry', 'Opportunities'], ['Research_Backlog', 'Research backlog'], ['Prototype_Tasks', 'Prototype tasks'], ['Review_Log', 'Review log']],
   industries: ['Healthcare', 'Finance', 'Education', 'Technology', 'Government', 'Retail', 'Data Engineering'],
 }
 
@@ -342,6 +345,69 @@ function ghRawAll_(token, paths) {
   })
 }
 
+/* ---------------- Operations Registry ---------------- */
+
+// Columns are read from each tab's header row, so ChatGPT can add or rename columns without code changes.
+const OPS_SELECT_RE = /status|approval|decision|stage|state|priority|qualification|verdict/i
+const OPS_TEXT_RE = /note|comment|next.?step|blocker|owner|due/i
+const OPS_DONE_RE = /^(done|complete|completed|closed|archived|rejected|cancell?ed|published|resolved|declined|shipped|dropped|won't do|wont do)$/i
+
+function adminOpsLoad() {
+  assertAdmin_()
+  const ss = SpreadsheetApp.openById(ADMIN.opsSheetId)
+  return { url: ss.getUrl(), tabs: ADMIN.opsTabs.map(([name, label]) => opsTab_(ss, name, label)) }
+}
+
+function adminOpsUpdate(tabName, rowNumber, col, value, rowKey) {
+  assertAdmin_()
+  const tab = ADMIN.opsTabs.find(([name]) => name === tabName)
+  if (!tab) throw new Error('Unknown list.')
+  const ss = SpreadsheetApp.openById(ADMIN.opsSheetId)
+  const view = opsTab_(ss, tab[0], tab[1])
+  const field = view.fields.find((f) => f.col === col)
+  if (!field || !field.edit) throw new Error('This column cannot be changed here.')
+  const row = view.rows.find((r) => r.r === rowNumber)
+  // Rows can move if someone sorts or inserts in the sheet; refuse instead of editing the wrong item.
+  if (!row || row.cells.join('\u0001') !== str_(rowKey)) throw new Error('This item changed in the sheet. Refresh and try again.')
+  const text = field.edit === 'select' ? cleanInput_(value, 120) : cleanInput_(value, 2000)
+  if (field.edit === 'select' && field.options.length && field.options.indexOf(text) < 0) throw new Error('Pick one of the listed values.')
+  ss.getSheetByName(tab[0]).getRange(rowNumber, col + 1).setValue(safeCell_(text))
+  SpreadsheetApp.flush()
+  return opsTab_(ss, tab[0], tab[1])
+}
+
+function opsTab_(ss, name, label) {
+  const sheet = ss.getSheetByName(name)
+  const out = { name, label, gid: sheet ? sheet.getSheetId() : null, missing: !sheet, fields: [], rows: [], readOnly: /log/i.test(name) }
+  if (!sheet || sheet.getLastRow() < 1 || sheet.getLastColumn() < 1) return out
+  const values = sheet.getRange(1, 1, sheet.getLastRow(), sheet.getLastColumn()).getDisplayValues()
+  let headerIdx = values.slice(0, 5).findIndex((r) => r.filter((c) => str_(c)).length >= 2)
+  if (headerIdx < 0) headerIdx = 0
+  const headers = values[headerIdx].map(str_)
+  out.rows = values.slice(headerIdx + 1)
+    .map((cells, i) => ({ r: headerIdx + 2 + i, cells: cells.map(str_) }))
+    .filter((row) => row.cells.some(Boolean))
+  out.fields = headers.map((h, col) => {
+    const field = { col, name: h, label: h.replace(/[_-]+/g, ' ').replace(/\s*\(.*?\)\s*/g, ' ').trim() }
+    if (!h || out.readOnly) return field
+    if (OPS_SELECT_RE.test(h)) {
+      const rule = out.rows.length ? sheet.getRange(out.rows[0].r, col + 1).getDataValidation() : null
+      const listed = rule && rule.getCriteriaType() === SpreadsheetApp.DataValidationCriteria.VALUE_IN_LIST ? rule.getCriteriaValues()[0].map(String) : []
+      const seen = out.rows.map((row) => row.cells[col]).filter(Boolean)
+      field.edit = 'select'
+      // A dropdown in the sheet is the source of truth; otherwise offer the values already used.
+      field.options = listed.length ? listed : seen.filter((v, i) => seen.indexOf(v) === i)
+      field.status = true
+    } else if (OPS_TEXT_RE.test(h)) {
+      field.edit = 'text'
+    }
+    return field
+  }).filter((f) => f.name)
+  const statusCols = out.fields.filter((f) => f.status).map((f) => f.col)
+  out.rows.forEach((row) => { row.done = statusCols.some((c) => OPS_DONE_RE.test(row.cells[c])) })
+  return out
+}
+
 /* ---------------- Auto-publish (keyword) ---------------- */
 
 // The keyword lives in Script Properties (AUTO_PUBLISH_KEY), never in this public repo.
@@ -439,9 +505,9 @@ function autoPublish() {
     const html = [
       published.length ? `<p>Published automatically:</p><ul>${published.map((p) => `<li><a href="${esc_(p.url)}">${esc_(p.title)}</a></li>`).join('')}</ul>` : '',
       problems.length ? `<p>Not published:</p><ul>${problems.map((p) => `<li>${esc_(p)}</li>`).join('')}</ul>` : '',
-      '<p>Use YNK Staging, Published, Take down to remove anything.</p>',
+      `<p>To remove anything: <a href="${esc_(stagingUrl_())}">YNK Staging</a>, Published, Take down.</p>`,
     ].join('')
-    MailApp.sendEmail({ to: Session.getEffectiveUser().getEmail(), subject: `YNK auto-publish: ${published.length} published${problems.length ? `, ${problems.length} need attention` : ''}`, htmlBody: html })
+    MailApp.sendEmail({ to: ADMIN.notifyEmail, name: 'YNK Tech USA', subject: `YNK auto-publish: ${published.length} published${problems.length ? `, ${problems.length} need attention` : ''}`, htmlBody: html })
   }
 }
 
@@ -531,7 +597,7 @@ function intakeRequest_(b) {
     lock.releaseLock()
   }
 
-  sendMail_(Session.getEffectiveUser().getEmail(), `New access request: ${name} (${industry})`, [
+  sendMail_(ADMIN.notifyEmail, `New access request: ${name} (${industry})`, [
     '<p>A new access request is waiting in the YNK Tech Admin console.</p>',
     `<p><strong>${esc_(name)}</strong> &lt;${esc_(email)}&gt;<br>${esc_(company)} &middot; ${esc_(industry)}</p>`,
     `<p>${esc_(reason)}</p>`,
@@ -720,7 +786,27 @@ function discoverDrive_(force) {
     resetForNewSource_(queue, e.row)
     upgraded.push({ id: str_(e.row.get('articleId')), title: str_(e.row.get('titleEn')) || str_(e.row.get('slug')) })
   })
+  if (added.length || upgraded.length) {
+    try { notifyReady_(added, upgraded) } catch (e) { console.warn(`Ready email: ${e.message || e}`) }
+  }
   return { added, incomplete, upgraded, error: errors.join(' ') }
+}
+
+// The /dev staging link is kept out of this public repo: set STAGING_URL in Script Properties to link straight to it.
+function stagingUrl_() {
+  return str_(PropertiesService.getScriptProperties().getProperty('STAGING_URL')) || `${ADMIN.siteUrl}/Admin/`
+}
+
+function notifyReady_(added, upgraded) {
+  const items = added.map((x) => `<li>${esc_(x.title)} <span style="color:#64748b">(new)</span></li>`)
+    .concat(upgraded.map((x) => `<li>${esc_(x.title)} <span style="color:#64748b">(now reads from HTML)</span></li>`))
+  const url = stagingUrl_()
+  sendMail_(ADMIN.notifyEmail, `YNK Staging: ${items.length} item${items.length > 1 ? 's' : ''} ready for review`, [
+    '<p>Ready for review in YNK Staging:</p>',
+    `<ul>${items.join('')}</ul>`,
+    `<p><a href="${esc_(url)}" style="display:inline-block;background:#29B5E8;color:#04121c;text-decoration:none;padding:10px 20px;border-radius:999px;font-weight:700">Open YNK Staging</a></p>`,
+    '<p style="color:#64748b;font-size:12px">Items carrying the auto-publish keyword go live on their own; you will get a separate email.</p>',
+  ].join(''))
 }
 
 const SCAN_CACHE_KEY = 'drive-scan-v1'

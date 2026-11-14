@@ -93,6 +93,18 @@
   .rank-bar { height: 6px; margin-top: 6px; border-radius: 999px; background: var(--panel-2); overflow: hidden; }
   .rank-bar span { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
 
+  /* Operations */
+  .ops-pills { display: flex; flex-wrap: wrap; border-radius: 16px; }
+  .ops-bar { justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .ops-title { display: flex; align-items: baseline; gap: 10px; cursor: pointer; }
+  .ops-title h3 { flex: 1; }
+  .ops-fields { display: grid; grid-template-columns: minmax(110px, 32%) 1fr; gap: 8px 14px; margin: 14px 0 0; font-size: 14px; }
+  .ops-fields dt { color: var(--muted); }
+  .ops-fields dd { margin: 0; white-space: pre-wrap; word-break: break-word; }
+  .ops-fields select, .ops-fields textarea { font-size: 13px; }
+  .ops-fields .btn { margin-top: 6px; padding: 5px 12px; font-size: 12px; }
+  .badge.done { color: #86efac; border-color: rgba(34,197,94,.4); }
+
   #toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); z-index: 9; padding: 10px 16px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); opacity: 0; transition: opacity .2s; pointer-events: none; max-width: 90vw; }
   #toast.show { opacity: 1; }
   #toast.error { border-color: rgba(239,68,68,.5); color: #fca5a5; }
@@ -129,8 +141,8 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Backlog'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
-  var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null };
+  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
+  var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null, ops: null, opsTab: 'Opportunity_Registry', opsShowDone: false, opsOpen: {} };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
 
@@ -191,6 +203,8 @@
     state.data = null;
     state.live = null;
     state.liveError = false;
+    state.ops = null;
+    state.opsError = '';
     set(bar, []);
     set(main, [h('p', { class: 'loading', text: 'Loading...' })]);
     var slow = setTimeout(function () {
@@ -231,6 +245,7 @@
     var counts = {
       review: d.articles.filter(function (a) { return a.stage === 'review'; }).length,
       published: state.live && state.live !== 'loading' ? state.live.items.length : 0,
+      ops: state.ops && state.ops !== 'loading' ? state.ops.tabs.reduce(function (n, t) { return n + (t.readOnly ? 0 : t.rows.filter(function (r) { return !r.done; }).length); }, 0) : 0,
       topics: d.topics.suggestions.filter(function (s) { return s.status === 'NEW'; }).length,
       requests: d.requests.filter(function (r) { return r.status === 'PENDING'; }).length
     };
@@ -247,6 +262,10 @@
     }
     if (state.tab === 'published') {
       set(main, [tabs].concat(liveView()));
+      return;
+    }
+    if (state.tab === 'ops') {
+      set(main, [tabs].concat(opsView()));
       return;
     }
     if (state.tab === 'requests') {
@@ -315,6 +334,86 @@
     ]);
     if (queued) card.addEventListener('click', function () { openPreview(queued); });
     return card;
+  }
+
+  /* ---------- Operations Registry ---------- */
+  var TITLE_RE = /title|name|topic|opportunity|task|summary|subject|question|headline/i;
+
+  function opsView() {
+    if (state.opsError) return [h('div', { class: 'note err', text: 'Could not open the Operations Registry: ' + state.opsError + ' Use Refresh to try again.' })];
+    if (!state.ops) {
+      state.ops = 'loading';
+      call('adminOpsLoad').then(function (d) { state.ops = d; }).catch(function (err) { state.ops = null; state.opsError = err && err.message ? err.message : String(err); })
+        .then(function () { if (!state.preview && state.tab === 'ops') render(); });
+    }
+    if (state.ops === 'loading') return [h('p', { class: 'loading', text: 'Opening the Operations Registry...' })];
+    var d = state.ops;
+    var cur = d.tabs.filter(function (t) { return t.name === state.opsTab; })[0] || d.tabs[0];
+    var pills = h('div', { class: 'langs ops-pills' }, d.tabs.map(function (t) {
+      var open = t.rows.filter(function (r) { return !r.done; }).length;
+      return h('button', { type: 'button', 'aria-pressed': String(t === cur), text: t.label + (t.missing ? '' : ' (' + (t.readOnly ? t.rows.length : open) + ')'),
+        onclick: function () { state.opsTab = t.name; render(); } });
+    }));
+    var toggle = h('input', { type: 'checkbox', onchange: function (e) { state.opsShowDone = e.target.checked; render(); } });
+    toggle.checked = state.opsShowDone;
+    var bar = h('div', { class: 'meta ops-bar' }, [
+      cur.readOnly ? h('span', { text: 'Newest first. Read only.' }) : h('label', { class: 'inline' }, [toggle, 'Show completed']),
+      h('a', { href: d.url + (cur.gid != null ? '#gid=' + cur.gid : ''), target: '_blank', rel: 'noopener', text: 'Open in Google Sheets' })
+    ]);
+    if (cur.missing) return [pills, bar, h('div', { class: 'empty', text: 'There is no "' + cur.name + '" tab in the Operations Registry yet.' })];
+    var rows = cur.rows.filter(function (r) { return cur.readOnly || state.opsShowDone || !r.done; });
+    if (cur.readOnly) rows = rows.slice().reverse();
+    var empty = cur.rows.length ? 'Everything here is completed. Tick "Show completed" to see it.' : 'Nothing in this list yet.';
+    return [pills, bar].concat(rows.length ? rows.map(function (r) { return opsCard(cur, r); }) : [h('div', { class: 'empty', text: empty })]);
+  }
+
+  function opsCard(tab, row) {
+    var key = tab.name + ':' + row.r;
+    var titleField = tab.fields.filter(function (f) { return f.col > 0 && TITLE_RE.test(f.name) && row.cells[f.col]; })[0];
+    var title = titleField ? row.cells[titleField.col] : (row.cells.filter(function (c, i) { return i > 0 && c; })[0] || row.cells[0]);
+    var badges = tab.fields.filter(function (f) { return f.status && row.cells[f.col]; }).map(function (f) {
+      return h('span', { class: 'badge' + (row.done ? ' done' : ''), title: f.label, text: row.cells[f.col] });
+    });
+    var open = Boolean(state.opsOpen[key]);
+    var card = h('div', { class: 'card req' }, [
+      h('div', { class: 'ops-title', onclick: function () { state.opsOpen[key] = !open; render(); } }, [
+        h('h3', { text: title.length > 160 ? title.slice(0, 157) + '...' : title }),
+        h('span', { class: 'meta', text: open ? 'Close' : 'Open' })
+      ]),
+      h('div', { class: 'meta' }, [row.cells[0] && row.cells[0] !== title ? h('span', { text: row.cells[0] }) : null].concat(badges))
+    ]);
+    if (open) card.appendChild(h('dl', { class: 'ops-fields' }, [].concat.apply([], tab.fields.map(function (f) {
+      return [h('dt', { text: f.label }), h('dd', {}, [opsValue(tab, row, f)])];
+    }))));
+    return card;
+  }
+
+  function opsValue(tab, row, f) {
+    var v = row.cells[f.col];
+    if (f.edit === 'select') {
+      var opts = f.options.slice();
+      if (v && opts.indexOf(v) < 0) opts.unshift(v);
+      var sel = h('select', { onchange: function () { opsSave(tab, row, f, sel.value, sel); } },
+        (v ? [] : [h('option', { value: '', text: 'Choose...' })]).concat(opts.map(function (o) { return h('option', { value: o, text: o }); })));
+      sel.value = v;
+      return sel;
+    }
+    if (f.edit === 'text') {
+      var area = h('textarea', { maxlength: '2000' });
+      area.value = v;
+      var save = h('button', { class: 'btn', type: 'button', text: 'Save', onclick: function () { opsSave(tab, row, f, area.value, save); } });
+      return h('div', {}, [area, save]);
+    }
+    if (/^https:\/\/\S+$/i.test(v)) return h('a', { href: v, target: '_blank', rel: 'noopener', text: v });
+    return document.createTextNode(v || '-');
+  }
+
+  function opsSave(tab, row, f, value, el) {
+    call('adminOpsUpdate', [tab.name, row.r, f.col, value, row.cells.join('\u0001')], el.tagName === 'BUTTON' ? el : null, 'Saving...').then(function (updated) {
+      state.ops.tabs = state.ops.tabs.map(function (t) { return t.name === updated.name ? updated : t; });
+      toast(f.label + ' saved.');
+      render();
+    }).catch(function () { render(); });
   }
 
   function topicsView(t) {
