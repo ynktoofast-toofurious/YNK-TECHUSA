@@ -31,9 +31,20 @@ export function askHub(q, language, history = []) {
   return post({ action: 'ask', q, language, history })
 }
 
-// { ok, html, title } ; refine + html update the previous prototype.
+// { ok, html, title, trial: { token, left } | pass: { left, expires } } ; refine + html update the previous prototype.
+// Errors include trial_used, trial_busy and pass_invalid | pass_expired | pass_spent.
 export function generatePrototype(data) {
   return post({ action: 'prototype', ...data })
+}
+
+// { ok, valid, left, expires, reason }
+export function checkBuildPass(pass) {
+  return post({ action: 'pass', pass })
+}
+
+// { ok, payUrl } ; payUrl is empty when payment is arranged by email.
+export function requestBuildPass(data) {
+  return post({ action: 'passRequest', ...data })
 }
 
 // { ok, id } ; the ticket number is also emailed with the prototype attached.

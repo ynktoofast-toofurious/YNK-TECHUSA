@@ -294,6 +294,10 @@
     if (state.tab === 'review') notices.push(autoPublishNote(d));
     if (state.tab === 'review') notices.push(aiNote(d));
     if (state.tab === 'review') notices.push(openAiNote(d));
+    if (state.tab === 'review' && d.security && d.security.week) {
+      notices.push(h('div', { class: 'note err', text: 'Security: ' + d.security.week + ' injection attempt(s) blocked in the last 7 days (' +
+        Object.keys(d.security.categories).map(function (k) { return k + ' ' + d.security.categories[k]; }).join(', ') + '). Details are in the Security_Log tab of the Editorial Queue.' }));
+    }
     if (state.tab === 'review' && d.drive) {
       if (d.drive.added.length) notices.push(h('div', { class: 'note', text: d.drive.added.length + ' new item(s) found in Google Drive and added for review: ' + d.drive.added.map(function (x) { return x.title; }).join(', ') }));
       if (d.drive.upgraded && d.drive.upgraded.length) notices.push(h('div', { class: 'note', text: 'Switched to the HTML files found in Drive: ' + d.drive.upgraded.map(function (x) { return x.title; }).join(', ') }));
@@ -467,12 +471,28 @@
 
   var TICKET_STATUS = ['NEW', 'CONTACTED', 'IN PROGRESS', 'CLOSED'];
 
-  function ticketsView(list) {
-    var head = [h('p', { class: 'meta', text: 'Prototypes visitors created in the Idea Studio (Start a Project) and saved with their email. Each one received its ticket number by email with the prototype attached.' })];
+  function ticketsView(data) {
+    var list = data.tickets;
+    var s = data.settings;
+    var payInput = h('input', { type: 'url', placeholder: 'https://buy.stripe.com/...', value: data.payUrl || '', maxlength: '300',
+      style: 'padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:13px;width:280px' });
+    var head = [
+      h('p', { class: 'meta', text: 'Prototypes visitors created in the Idea Studio (Start a Project) and saved with their email. Each one received its ticket number by email with the prototype attached.' }),
+      h('div', { class: 'note src' }, [
+        h('span', { text: 'Free tries: ' + s.freeRuns + ' per visitor; all free tries stop at $' + s.freeDailyUsd.toFixed(2) + ' of AI per day (today: $' + data.freeToday.usd.toFixed(3) + ', ' + data.freeToday.runs + ' run(s)). ' +
+          'Build Pass: $' + s.price + ' of dev time, $' + s.budget + ' AI budget (25%), ' + s.days + ' days. Payment link:' }),
+        payInput,
+        h('button', { class: 'btn', type: 'button', text: 'Save link', onclick: function (e) {
+          call('adminSetPayUrl', [payInput.value.trim()], e.currentTarget).then(function (d) { state.tickets = d; toast(d.payUrl ? 'Payment link saved.' : 'Payment link removed: visitors are told you will email a payment link.'); render(); });
+        } })
+      ])
+    ];
+    var passesFor = {};
+    data.passes.forEach(function (p) { (passesFor[p.ticket] = passesFor[p.ticket] || []).push(p); });
     return head.concat(list.length ? list.map(function (t) {
       var sel = h('select', { style: 'width:auto', onchange: function () {
-        call('adminSetTicketStatus', [t.id, sel.value]).then(function (l) { state.tickets = l; toast('Status saved.'); render(); });
-      } }, TICKET_STATUS.map(function (s) { return h('option', { value: s, text: s }); }));
+        call('adminSetTicketStatus', [t.id, sel.value]).then(function (d) { state.tickets = d; toast('Status saved.'); render(); });
+      } }, TICKET_STATUS.map(function (st) { return h('option', { value: st, text: st }); }));
       sel.value = t.status;
       var view = h('button', { class: 'btn', type: 'button', text: 'View prototype', onclick: function (e) {
         call('adminTicketHtml', [t.id], e.currentTarget, 'Loading...').then(function (html) {
@@ -484,12 +504,33 @@
           ask(t.id + ' \u00b7 ' + t.title, [frame], 'Close').then(function () { dlg.style.maxWidth = ''; dlg.style.width = ''; });
         });
       } });
+      var passes = (passesFor[t.id] || []).map(function (p) {
+        return h('div', { class: 'meta' }, [
+          h('span', { class: 'badge' + (p.status === 'ACTIVE' ? ' html' : ''), text: p.id + ' ' + p.status }),
+          h('span', { text: '$' + p.spent.toFixed(2) + ' of $' + p.budget + ' AI used (' + p.left + '% left), ' + p.runs + ' run(s), until ' + p.expires }),
+          p.status === 'ACTIVE' ? h('button', { class: 'btn ghost', type: 'button', text: 'Revoke', onclick: function (e) {
+            ask('Revoke ' + p.id + '?', [h('p', { text: 'The visitor will no longer be able to use this pass.' })], 'Revoke').then(function (yes) {
+              if (yes) call('adminRevokePass', [p.id]).then(function (d) { state.tickets = d; toast('Pass revoked.'); render(); });
+            });
+          } }) : null
+        ]);
+      });
+      var issue = h('button', { class: 'btn' + (t.passRequested ? ' primary' : ' ghost'), type: 'button', text: 'Issue Build Pass', onclick: function (e) {
+        var btn = e.currentTarget;
+        ask('Issue a Build Pass for ' + t.id + '?', [h('p', { text: 'Only after the $' + s.price + ' payment for this ticket has arrived. ' + t.email + ' receives a private pass code with $' + s.budget + ' of AI build time for ' + s.days + ' days.' })], 'Issue pass').then(function (yes) {
+          if (yes) call('adminIssuePass', [t.id], btn, 'Issuing...').then(function (d) { state.tickets = d; toast('Build Pass sent to ' + t.email + '.'); render(); });
+        });
+      } });
       return h('div', { class: 'card req' }, [
         h('h3', { text: t.title }),
-        h('div', { class: 'meta' }, [h('span', { class: 'badge' + (t.status === 'NEW' ? ' err' : t.status === 'CLOSED' ? '' : ' html'), text: t.status }), h('span', { text: t.id }), h('span', { text: t.created }), h('span', { text: t.language.toUpperCase() })]),
+        h('div', { class: 'meta' }, [h('span', { class: 'badge' + (t.status === 'NEW' ? ' err' : t.status === 'CLOSED' ? '' : ' html'), text: t.status }),
+          t.passRequested ? h('span', { class: 'badge study', text: 'Wants a Build Pass' }) : null,
+          h('span', { text: t.id }), h('span', { text: t.created }), h('span', { text: t.language.toUpperCase() })]),
         h('p', { class: 'reason', text: t.name + ' \u00b7 ' + t.email + '\n' + t.idea }),
-        h('div', { class: 'row' }, [h('a', { class: 'btn ghost', href: 'mailto:' + t.email + '?subject=' + encodeURIComponent('Your YNK idea ticket ' + t.id), text: 'Email' }), h('div', { class: 'push' }, [sel, view])])
-      ]);
+        t.notes ? h('p', { class: 'meta', text: t.notes }) : null
+      ].concat(passes).concat([
+        h('div', { class: 'row' }, [h('a', { class: 'btn ghost', href: 'mailto:' + encodeURIComponent(t.email) + '?subject=' + encodeURIComponent('Your YNK idea ticket ' + t.id), text: 'Email' }), issue, h('div', { class: 'push' }, [sel, view])])
+      ]));
     }) : [h('div', { class: 'empty', text: 'No idea tickets yet.' })]);
   }
 

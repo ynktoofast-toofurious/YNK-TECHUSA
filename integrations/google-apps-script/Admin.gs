@@ -46,11 +46,19 @@ function doGet() {
 }
 
 function doPost(e) {
+  const raw = (e && e.postData && e.postData.contents) || '{}'
+  if (raw.length > SECURITY.maxBody) return json_({ ok: false, error: 'bad_request' })
   let body
   try {
-    body = JSON.parse((e && e.postData && e.postData.contents) || '{}')
+    body = JSON.parse(raw)
   } catch (err) {
     return json_({ ok: false, error: 'bad_request' })
+  }
+  if (!flatBody_(body)) return json_({ ok: false, error: 'bad_request' })
+  const threat = scanBody_(body)
+  if (threat) {
+    securityLog_(body.action, threat.field, threat.category, body[threat.field] && typeof body[threat.field] === 'string' ? body[threat.field] : '')
+    return json_({ ok: false, error: 'blocked' })
   }
   try {
     if (body.action === 'request') return json_(intakeRequest_(body))
@@ -61,6 +69,8 @@ function doPost(e) {
     if (body.action === 'ask') return json_(askHub_(body))
     if (body.action === 'prototype') return json_(studioPrototype_(body))
     if (body.action === 'ticket') return json_(studioTicket_(body))
+    if (body.action === 'pass') return json_(studioPassCheck_(body))
+    if (body.action === 'passRequest') return json_(studioPassRequest_(body))
     return json_({ ok: false, error: 'unknown_action' })
   } catch (err) {
     console.error(err)
@@ -89,6 +99,7 @@ function adminLoad() {
     autoPublish: Boolean(publishKey_()),
     ai: Boolean(PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY')),
     openai: Boolean(PropertiesService.getScriptProperties().getProperty('OPENAI_API_KEY')),
+    security: securitySummary_(),
     articles: listArticles_(),
     requests: readRequests_().map(publicRequest_),
     fullAccess: readFullAccess_().map(publicFullAccess_).reverse(),
@@ -643,7 +654,7 @@ function intakeRequest_(b) {
   const company = cleanInput_(b.company, 120) || 'N/A'
   const industry = cleanInput_(b.industry, 40)
   const reason = cleanInput_(b.reason, 1000)
-  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || ADMIN.industries.indexOf(industry) < 0 || reason.length < 5) {
+  if (!name || !validEmail_(email) || ADMIN.industries.indexOf(industry) < 0 || reason.length < 5) {
     return { ok: false, error: 'invalid' }
   }
   if (!rateLimit_('rq:all', 40, 3600) || !rateLimit_(`rq:${sha256_(email).slice(0, 20)}`, 3, 3600)) {
@@ -1127,7 +1138,7 @@ function intakeTopic_(b) {
   const email = cleanInput_(b.email, 200).toLowerCase()
   const language = cleanInput_(b.language, 5)
   if (!topics.length && !custom) return { ok: false, error: 'invalid' }
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return { ok: false, error: 'invalid' }
+  if (email && !validEmail_(email)) return { ok: false, error: 'invalid' }
   if (!rateLimit_('tp:all', 120, 3600) || (email && !rateLimit_(`tp:${sha256_(email).slice(0, 20)}`, 5, 3600))) {
     return { ok: false, error: 'rate_limited' }
   }
@@ -1199,7 +1210,7 @@ function intakeFullAccess_(b) {
   const purpose = cleanInput_(b.purpose, 500)
   const language = ['en', 'fr', 'es'].indexOf(b.language) >= 0 ? b.language : 'en'
   if (FULL_TYPES.indexOf(type) < 0 || !SLUG_RE.test(itemId) || !title || !FULL_PATH_RE.test(path) ||
-    !name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    !name || !validEmail_(email)) {
     return { ok: false, error: 'invalid' }
   }
   if (!rateLimit_('fa:all', 60, 3600) || !rateLimit_(`fa:${sha256_(email).slice(0, 20)}`, 5, 3600)) return { ok: false, error: 'rate_limited' }
@@ -1442,7 +1453,7 @@ function cleanInput_(value, max) {
 
 // Stops user text like "=IMPORTXML(...)" from being evaluated as a formula in the sheet.
 function safeCell_(value) {
-  return typeof value === 'string' && /^[=+\-@]/.test(value) ? `'${value}` : value
+  return typeof value === 'string' && /^[\s\u0000-\u001F]*[=+\-@]/.test(value) ? `'${value}` : value
 }
 
 function normalizeCode_(code) {
@@ -1462,12 +1473,12 @@ function pickOption_(options, re, fallback) {
 }
 
 function sendMail_(to, subject, html) {
-  if (!to) return
-  MailApp.sendEmail({ to, subject, htmlBody: html, name: 'YNK Tech USA' })
+  if (!validEmail_(str_(to))) return
+  MailApp.sendEmail({ to: str_(to), subject: oneLine_(subject, 250), htmlBody: html, name: 'YNK Tech USA' })
 }
 
 function esc_(s) {
-  return str_(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  return str_(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
 }
 
 function fmtDate_(value, withTime) {

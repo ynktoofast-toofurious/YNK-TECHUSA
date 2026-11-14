@@ -3347,6 +3347,92 @@ img {
     gap: 10px;
 }
 
+.is-meter {
+    margin: 10px 0 0;
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+}
+
+.is-meter--pass {
+    color: var(--color-accent);
+}
+
+.is-meter--out {
+    color: #fbbf24;
+}
+
+.is-refine--locked {
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    border: 1px dashed rgba(251, 191, 36, 0.45);
+    border-radius: 14px;
+}
+
+.is-refine--locked p {
+    margin: 0;
+    color: var(--color-text-secondary);
+}
+
+.is-paywall {
+    margin-top: 20px;
+    padding: 24px;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    border-radius: 18px;
+    background: linear-gradient(160deg, rgba(251, 191, 36, 0.08), rgba(255, 255, 255, 0.02));
+    scroll-margin-top: calc(var(--nav-height) + 20px);
+}
+
+.is-paywall h3 {
+    margin: 0 0 6px;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--color-text-primary);
+}
+
+.is-paywall p {
+    margin: 0 0 12px;
+    color: var(--color-text-secondary);
+}
+
+.is-pay-list {
+    margin: 0 0 16px;
+    padding-left: 20px;
+    color: var(--color-text-secondary);
+}
+
+.is-pay-list li {
+    margin: 4px 0;
+}
+
+.is-pay-done p {
+    color: var(--color-text-primary);
+}
+
+.is-pay-need {
+    font-style: italic;
+}
+
+.is-pass {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px;
+    margin: 18px 0 12px;
+}
+
+.is-pass .sp-field {
+    flex: 1;
+    min-width: 220px;
+}
+
+.is-pass .sp-input {
+    font-family: monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
 @media (max-width: 640px) {
     .is-wrap {
         padding: 20px;
