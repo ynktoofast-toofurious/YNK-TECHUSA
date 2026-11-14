@@ -16,9 +16,9 @@ const MANUAL = [
       es: 'El Hub de Inteligencia YNK ya está en línea',
     },
     summary: {
-      en: 'A new home for curious minds: the Intelligence Desk, the YNK Method, and a first look at the Insider Vault, in English, French, and Spanish.',
-      fr: 'Un nouvel espace pour les esprits curieux : le Bureau de l’Intelligence, la Méthode YNK et un premier aperçu du Coffre des initiés, en anglais, français et espagnol.',
-      es: 'Un nuevo hogar para mentes curiosas: la Mesa de Inteligencia, el Método YNK y un primer vistazo a la Bóveda Interna, en inglés, francés y español.',
+      en: 'A new home for curious minds: the Intelligence Desk, the YNK Method, and a first look at the Research Library, in English, French, and Spanish.',
+      fr: 'Un nouvel espace pour les esprits curieux : le Bureau de l’Intelligence, la Méthode YNK et un premier aperçu de la Bibliothèque de recherche, en anglais, français et espagnol.',
+      es: 'Un nuevo hogar para mentes curiosas: la Mesa de Inteligencia, el Método YNK y un primer vistazo a la Biblioteca de investigación, en inglés, francés y español.',
     },
   },
   {

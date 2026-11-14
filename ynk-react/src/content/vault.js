@@ -1,9 +1,9 @@
-// Vault library. access: 'insider' (free with enrollment) | 'founding' (premium, not yet open).
-// status: 'live' | 'soon' | 'research'. Only 'live' studies have a page.
-export const STUDIES = [
+// Research Library. kind: 'study' | 'dataset' | 'prototype' (published articles are added from The Latest).
+// status: 'live' | 'soon' | 'research'. Every item can be requested in full; only items with href have a page.
+export const LIBRARY = [
   {
     id: 'drc-government',
-    access: 'insider',
+    kind: 'study',
     status: 'live',
     date: '2026-04-28',
     minutes: 6,
@@ -21,8 +21,8 @@ export const STUDIES = [
   },
   {
     id: 'drc-dataset',
-    access: 'founding',
-    status: 'soon',
+    kind: 'dataset',
+    status: 'live',
     title: {
       en: 'DRC government model: full dataset package',
       fr: 'Modèle du gouvernement de la RDC : jeu de données complet',
@@ -35,8 +35,23 @@ export const STUDIES = [
     },
   },
   {
+    id: 'cfi-prototype',
+    kind: 'prototype',
+    status: 'research',
+    title: {
+      en: 'Congo Forest Intelligence: prototype briefing',
+      fr: 'Congo Forest Intelligence : note de prototype',
+      es: 'Congo Forest Intelligence: informe de prototipo',
+    },
+    summary: {
+      en: 'A proposed evidence layer connecting forest commitments, financing, verified outcomes and community benefits. A concept briefing, not a deployed system.',
+      fr: 'Une couche de preuves proposée reliant engagements forestiers, financements, résultats vérifiés et bénéfices pour les communautés. Une note de concept, pas un système déployé.',
+      es: 'Una capa de evidencia propuesta que conecta compromisos forestales, financiación, resultados verificados y beneficios para las comunidades. Un informe de concepto, no un sistema desplegado.',
+    },
+  },
+  {
     id: 'economy-numbers',
-    access: 'insider',
+    kind: 'study',
     status: 'research',
     title: {
       en: 'What do the numbers say about your world?',
@@ -51,7 +66,7 @@ export const STUDIES = [
   },
   {
     id: 'ai-real-hype',
-    access: 'insider',
+    kind: 'study',
     status: 'research',
     title: {
       en: 'AI: what’s real, what’s hype, and what’s next?',
@@ -66,7 +81,7 @@ export const STUDIES = [
   },
   {
     id: 'business-opportunities',
-    access: 'founding',
+    kind: 'study',
     status: 'research',
     title: {
       en: 'Where are the next opportunities hiding?',
@@ -80,22 +95,3 @@ export const STUDIES = [
     },
   },
 ]
-
-const MEMBER_KEY = 'ynk-vault-member'
-
-export function getMember() {
-  try {
-    const m = JSON.parse(localStorage.getItem(MEMBER_KEY) || 'null')
-    return m && m.tier ? m : null
-  } catch {
-    return null
-  }
-}
-
-export function saveMember(member) {
-  try { localStorage.setItem(MEMBER_KEY, JSON.stringify(member)) } catch { /* storage unavailable */ }
-}
-
-export function clearMember() {
-  try { localStorage.removeItem(MEMBER_KEY) } catch { /* storage unavailable */ }
-}

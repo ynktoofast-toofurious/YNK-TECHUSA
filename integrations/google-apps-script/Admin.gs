@@ -27,6 +27,11 @@ const REQ_HEADERS = ['request_id', 'submitted_at', 'name', 'email', 'company', '
 const REQ = { pending: 'PENDING', approved: 'APPROVED', rejected: 'REJECTED', revoked: 'REVOKED' }
 const TOPIC_HEADERS = ['request_id', 'submitted_at', 'topics', 'custom_topic', 'audience', 'email', 'language', 'status']
 const TOPIC_STATUS = ['NEW', 'PLANNED', 'ARCHIVED']
+const FULL_TAB = 'Full_Access_Requests'
+const FULL_HEADERS = ['request_id', 'submitted_at', 'item_type', 'item_id', 'item_title', 'item_path', 'name', 'email', 'organization',
+  'purpose', 'language', 'status', 'decided_at', 'decided_by', 'note', 'access_expires_at']
+const FULL_TYPES = ['article', 'study', 'dataset', 'prototype']
+const FULL_PATH_RE = /^\/(?:latest|vault)(?:\/[a-z0-9-]{1,80})?$/
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 
 /* ---------------- Web entry points ---------------- */
@@ -51,6 +56,8 @@ function doPost(e) {
     if (body.action === 'request') return json_(intakeRequest_(body))
     if (body.action === 'verify') return json_(verifyCode_(body))
     if (body.action === 'topic') return json_(intakeTopic_(body))
+    if (body.action === 'fullAccess') return json_(intakeFullAccess_(body))
+    if (body.action === 'unlock') return json_(verifyUnlock_(body))
     return json_({ ok: false, error: 'unknown_action' })
   } catch (err) {
     console.error(err)
@@ -79,6 +86,7 @@ function adminLoad() {
     autoPublish: Boolean(publishKey_()),
     articles: listArticles_(),
     requests: readRequests_().map(publicRequest_),
+    fullAccess: readFullAccess_().map(publicFullAccess_).reverse(),
     topics: topicsView_(),
   }
 }
@@ -1158,6 +1166,185 @@ function topicsView_() {
   })
   const ranking = Object.keys(counts).map((t) => ({ topic: t, count: counts[t] })).sort((a, b) => b.count - a.count)
   return { total: values.length, ranking, suggestions: suggestions.reverse() }
+}
+
+/* ---------------- Full access requests ---------------- */
+
+const FULL_MAIL = {
+  en: { subject: 'Your full access: {title}', hello: 'Hello {name},', intro: 'Thank you for your interest in <strong>{title}</strong>.',
+    message: 'Here is your private link to the complete piece.', cta: 'Open the full version', valid: 'This private link is valid until {date}. Please do not share it.',
+    declineSubject: 'Your request: {title}', decline: 'Thank you for your interest in <strong>{title}</strong>. We are not able to share the full version at this time.' },
+  fr: { subject: 'Votre accès complet : {title}', hello: 'Bonjour {name},', intro: 'Merci de votre intérêt pour <strong>{title}</strong>.',
+    message: 'Voici votre lien privé vers la version intégrale.', cta: 'Ouvrir la version complète', valid: 'Ce lien privé est valable jusqu’au {date}. Merci de ne pas le partager.',
+    declineSubject: 'Votre demande : {title}', decline: 'Merci de votre intérêt pour <strong>{title}</strong>. Nous ne sommes pas en mesure de partager la version complète pour le moment.' },
+  es: { subject: 'Su acceso completo: {title}', hello: 'Hola {name}:', intro: 'Gracias por su interés en <strong>{title}</strong>.',
+    message: 'Aquí tiene su enlace privado a la versión íntegra.', cta: 'Abrir la versión completa', valid: 'Este enlace privado es válido hasta el {date}. Le rogamos no compartirlo.',
+    declineSubject: 'Su solicitud: {title}', decline: 'Gracias por su interés en <strong>{title}</strong>. Por el momento no podemos compartir la versión completa.' },
+}
+
+function intakeFullAccess_(b) {
+  if (str_(b.website)) return { ok: true }
+  const type = cleanInput_(b.type, 20)
+  const itemId = cleanInput_(b.item, 80)
+  const title = cleanInput_(b.title, 200)
+  const path = cleanInput_(b.path, 100)
+  const name = cleanInput_(b.name, 100)
+  const email = cleanInput_(b.email, 200).toLowerCase()
+  const org = cleanInput_(b.organization, 120)
+  const purpose = cleanInput_(b.purpose, 500)
+  const language = ['en', 'fr', 'es'].indexOf(b.language) >= 0 ? b.language : 'en'
+  if (FULL_TYPES.indexOf(type) < 0 || !SLUG_RE.test(itemId) || !title || !FULL_PATH_RE.test(path) ||
+    !name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    return { ok: false, error: 'invalid' }
+  }
+  if (!rateLimit_('fa:all', 60, 3600) || !rateLimit_(`fa:${sha256_(email).slice(0, 20)}`, 5, 3600)) return { ok: false, error: 'rate_limited' }
+
+  const id = `FULL-${Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd')}-${Utilities.getUuid().slice(0, 6).toUpperCase()}`
+  const lock = LockService.getScriptLock()
+  lock.waitLock(10000)
+  try {
+    fullSheet_().appendRow([id, new Date(), type, itemId, title, path, name, email, org, purpose, language, REQ.pending, '', '', '', ''].map(safeCell_))
+  } finally {
+    lock.releaseLock()
+  }
+  sendMail_(ADMIN.notifyEmail, `Full access request: ${title}`, [
+    `<p><strong>${esc_(name)}</strong> &lt;${esc_(email)}&gt;${org ? ` &middot; ${esc_(org)}` : ''} requested the full ${esc_(type)}:</p>`,
+    `<p style="font-size:16px"><strong>${esc_(title)}</strong></p>`,
+    purpose ? `<p>Purpose: ${esc_(purpose)}</p>` : '',
+    `<p>Language: ${esc_(language.toUpperCase())}</p>`,
+    `<p><a href="${esc_(stagingUrl_())}" style="display:inline-block;background:#29B5E8;color:#04121c;text-decoration:none;padding:10px 20px;border-radius:999px;font-weight:700">Review in YNK Staging</a></p>`,
+  ].join(''))
+  return { ok: true }
+}
+
+function adminSendFullAccess(requestId, message, extraLink, days) {
+  assertAdmin_()
+  const { sheet, req } = findFullAccess_(requestId)
+  const link = str_(extraLink)
+  if (link && !/^https:\/\/[^\s<>"']+$/i.test(link)) throw new Error('The extra link must start with https://')
+  const pageLink = req.item_type === 'article' || req.item_type === 'study'
+  if (!pageLink && !link) throw new Error('Add the link to share (for example a Drive link to the dataset or briefing).')
+  const validDays = Math.min(Math.max(Number(days) || 30, 1), 365)
+  const expires = new Date(Date.now() + validDays * 864e5)
+  const L = FULL_MAIL[req.language] || FULL_MAIL.en
+  const fill = (s) => s.replace('{title}', esc_(req.item_title)).replace('{name}', esc_(req.name))
+    .replace('{date}', Utilities.formatDate(expires, Session.getScriptTimeZone(), 'yyyy-MM-dd'))
+  const url = pageLink ? `${ADMIN.siteUrl}${req.item_path}?access=${accessToken_(req.item_id, expires.getTime())}` : link
+  const note = cleanInput_(message, 2000)
+  const button = (href, text) => `<p><a href="${esc_(href)}" style="display:inline-block;background:#29B5E8;color:#04121c;text-decoration:none;padding:12px 22px;border-radius:999px;font-weight:700">${text}</a></p>`
+  sendMail_(req.email, L.subject.replace('{title}', req.item_title), [
+    `<p>${fill(L.hello)}</p>`,
+    `<p>${fill(L.intro)}</p>`,
+    `<p>${note ? esc_(note) : L.message}</p>`,
+    button(url, L.cta),
+    pageLink && link ? `<p><a href="${esc_(link)}">${esc_(link)}</a></p>` : '',
+    pageLink ? `<p style="color:#64748b;font-size:12px">${fill(L.valid)}</p>` : '',
+    '<p>YNK Tech USA</p>',
+  ].join(''))
+  writeFullAccess_(sheet, req.rowNumber, { status: 'SENT', decided_at: new Date(), decided_by: Session.getActiveUser().getEmail(),
+    note, access_expires_at: pageLink ? expires : '' })
+  return publicFullAccess_(Object.assign(req, { status: 'SENT', decided_at: new Date(), note, access_expires_at: pageLink ? expires : '' }))
+}
+
+function adminDeclineFullAccess(requestId, message, notify) {
+  assertAdmin_()
+  const { sheet, req } = findFullAccess_(requestId)
+  const note = cleanInput_(message, 1000)
+  if (notify) {
+    const L = FULL_MAIL[req.language] || FULL_MAIL.en
+    const fill = (s) => s.replace('{title}', esc_(req.item_title)).replace('{name}', esc_(req.name))
+    sendMail_(req.email, L.declineSubject.replace('{title}', req.item_title),
+      [`<p>${fill(L.hello)}</p>`, `<p>${fill(L.decline)}</p>`, note ? `<p>${esc_(note)}</p>` : '', '<p>YNK Tech USA</p>'].join(''))
+  }
+  writeFullAccess_(sheet, req.rowNumber, { status: REQ.rejected, decided_at: new Date(), decided_by: Session.getActiveUser().getEmail(), note })
+  return publicFullAccess_(Object.assign(req, { status: REQ.rejected, decided_at: new Date(), note }))
+}
+
+// Links are signed for one item and an expiry date; nothing per visitor is stored on the site.
+function accessToken_(itemId, expiresMs) {
+  const exp = Math.floor(expiresMs / 1000).toString(36)
+  const sig = Utilities.computeHmacSha256Signature(`${itemId}|${exp}`, accessSecret_())
+  return `${exp}.${Utilities.base64EncodeWebSafe(sig).replace(/=+$/, '').slice(0, 32)}`
+}
+
+function accessSecret_() {
+  const props = PropertiesService.getScriptProperties()
+  let secret = props.getProperty('ACCESS_SECRET')
+  if (!secret) {
+    secret = Utilities.getUuid() + Utilities.getUuid()
+    props.setProperty('ACCESS_SECRET', secret)
+  }
+  return secret
+}
+
+function verifyUnlock_(b) {
+  if (!rateLimit_('ul:all', 300, 600)) return { ok: false, error: 'rate_limited' }
+  const itemId = str_(b.item)
+  const token = str_(b.token)
+  const m = token.match(/^([0-9a-z]{1,10})\.([A-Za-z0-9_-]{32})$/)
+  if (!SLUG_RE.test(itemId) || !m) return { ok: true, valid: false }
+  const expiresMs = parseInt(m[1], 36) * 1000
+  if (!(expiresMs > Date.now())) return { ok: true, valid: false, expired: true }
+  const expected = accessToken_(itemId, expiresMs)
+  let diff = expected.length ^ token.length
+  for (let i = 0; i < Math.min(expected.length, token.length); i++) diff |= expected.charCodeAt(i) ^ token.charCodeAt(i)
+  return diff === 0 ? { ok: true, valid: true, expires: expiresMs } : { ok: true, valid: false }
+}
+
+function fullSheet_() {
+  const ss = SpreadsheetApp.openById(CONFIG.queueSheetId)
+  let sheet = ss.getSheetByName(FULL_TAB)
+  if (!sheet) {
+    sheet = ss.insertSheet(FULL_TAB)
+    sheet.getRange(1, 1, 1, FULL_HEADERS.length).setValues([FULL_HEADERS]).setFontWeight('bold')
+    sheet.setFrozenRows(1)
+  }
+  return sheet
+}
+
+function readFullAccess_() {
+  const values = fullSheet_().getDataRange().getValues()
+  const headers = values[0].map(str_)
+  return values.slice(1).map((cells, i) => {
+    const obj = { rowNumber: i + 2 }
+    headers.forEach((h, c) => { obj[h] = cells[c] })
+    obj.request_id = str_(obj.request_id)
+    obj.status = str_(obj.status).toUpperCase() || REQ.pending
+    return obj
+  }).filter((r) => r.request_id)
+}
+
+function findFullAccess_(requestId) {
+  const sheet = fullSheet_()
+  const req = readFullAccess_().find((r) => r.request_id === str_(requestId))
+  if (!req) throw new Error(`Request ${requestId} was not found.`)
+  return { sheet, req }
+}
+
+function writeFullAccess_(sheet, rowNumber, fields) {
+  Object.keys(fields).forEach((key) => {
+    const col = FULL_HEADERS.indexOf(key)
+    if (col >= 0) sheet.getRange(rowNumber, col + 1).setValue(safeCell_(fields[key]))
+  })
+}
+
+function publicFullAccess_(r) {
+  return {
+    id: r.request_id,
+    submitted: fmtDate_(r.submitted_at, true),
+    type: str_(r.item_type),
+    title: str_(r.item_title),
+    url: `${ADMIN.siteUrl}${str_(r.item_path)}`,
+    name: str_(r.name),
+    email: str_(r.email),
+    organization: str_(r.organization),
+    purpose: str_(r.purpose),
+    language: str_(r.language),
+    status: r.status,
+    decidedAt: fmtDate_(r.decided_at, true),
+    note: str_(r.note),
+    expires: fmtDate_(r.access_expires_at),
+  }
 }
 
 /* ---------------- Access requests storage ---------------- */

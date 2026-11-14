@@ -141,7 +141,7 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var TABS = [['review', 'To review'], ['published', 'Published'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
+  var TABS = [['review', 'To review'], ['published', 'Published'], ['full', 'Full access'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
   var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null, ops: null, opsTab: 'Opportunity_Registry', opsShowDone: false, opsOpen: {} };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
@@ -247,6 +247,7 @@
       published: state.live && state.live !== 'loading' ? state.live.items.length : 0,
       ops: state.ops && state.ops !== 'loading' ? state.ops.tabs.reduce(function (n, t) { return n + (t.readOnly ? 0 : t.rows.filter(function (r) { return !r.done; }).length); }, 0) : 0,
       topics: d.topics.suggestions.filter(function (s) { return s.status === 'NEW'; }).length,
+      full: (d.fullAccess || []).filter(function (r) { return r.status === 'PENDING'; }).length,
       requests: d.requests.filter(function (r) { return r.status === 'PENDING'; }).length
     };
     var tabs = h('div', { class: 'tabs', role: 'tablist' }, TABS.map(function (t) {
@@ -271,10 +272,13 @@
     if (state.tab === 'requests') {
       var order = { PENDING: 0, APPROVED: 1, REJECTED: 2, REVOKED: 3 };
       items = d.requests.slice().sort(function (a, b) { return (order[a.status] - order[b.status]) || (a.submitted < b.submitted ? 1 : -1); }).map(requestCard);
+    } else if (state.tab === 'full') {
+      var fullOrder = { PENDING: 0, SENT: 1, REJECTED: 2 };
+      items = (d.fullAccess || []).slice().sort(function (a, b) { return ((fullOrder[a.status] || 0) - (fullOrder[b.status] || 0)) || (a.submitted < b.submitted ? 1 : -1); }).map(fullCard);
     } else {
       items = d.articles.filter(function (a) { return a.stage === state.tab; }).map(articleCard);
     }
-    var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'The backlog is empty.', requests: 'No access requests yet.' }[state.tab];
+    var emptyText = { review: 'Nothing waiting for review. You are all caught up.', published: 'Nothing published yet.', rejected: 'The backlog is empty.', requests: 'No access requests yet.', full: 'No full-access requests yet. They arrive from the "Request full access" forms on the site.' }[state.tab];
     var notices = [];
     if (state.tab === 'review' && state.scanning) notices.push(h('div', { class: 'note', text: 'Checking Google Drive for new or updated files...' }));
     if (state.tab === 'review') notices.push(autoPublishNote(d));
@@ -438,6 +442,57 @@
         setKey(input.value.trim(), e.currentTarget);
       } })
     ]);
+  }
+
+  /* ---------- Full access requests ---------- */
+  var KIND = { article: 'Article', study: 'Study', dataset: 'Dataset', prototype: 'Prototype briefing' };
+
+  function fullCard(r) {
+    var card = h('div', { class: 'card req' });
+    var actions = [];
+    if (r.status === 'PENDING') {
+      actions.push(h('button', { class: 'btn danger', type: 'button', text: 'Decline', onclick: function (e) {
+        var btn = e.currentTarget;
+        var reason = h('textarea', { placeholder: 'Note (optional, included in the email)', maxlength: '1000' });
+        var notify = h('input', { type: 'checkbox', checked: 'checked' });
+        ask('Decline this request?', [h('p', { text: r.name + ' \u00b7 ' + r.title }), reason, h('label', { class: 'inline' }, [notify, 'Email them'])], 'Decline').then(function (ok) {
+          if (!ok) return;
+          call('adminDeclineFullAccess', [r.id, reason.value, notify.checked], btn).then(function (u) { replaceItem('fullAccess', u); toast('Declined.'); render(); });
+        });
+      } }));
+      actions.push(h('button', { class: 'btn primary', type: 'button', text: 'Send access', onclick: function (e) {
+        var btn = e.currentTarget;
+        var page = r.type === 'article' || r.type === 'study';
+        var msg = h('textarea', { placeholder: 'Personal note (optional). A standard message in ' + r.language.toUpperCase() + ' is used if empty.', maxlength: '2000' });
+        var link = h('input', { type: 'url', placeholder: page ? 'Extra link (optional, https://)' : 'Link to share (required, https://), e.g. a Drive link', style: 'width:100%;padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:13px;margin-top:8px' });
+        var days = h('select', {}, [7, 14, 30, 90].map(function (n) { return h('option', { value: String(n), text: n + ' days' }); }));
+        days.value = '30';
+        var body = [
+          h('p', { text: r.name + ' <' + r.email + '>' }),
+          h('p', { class: 'meta', text: page ? 'They receive a private link that unlocks "' + r.title + '" on the site.' : 'They receive your note and the link you add below.' }),
+          msg, link
+        ];
+        if (page) body.push(h('label', { class: 'inline', style: 'margin-top:8px' }, ['Link valid for ', days]));
+        ask('Send access?', body, 'Send').then(function (ok) {
+          if (!ok) return;
+          call('adminSendFullAccess', [r.id, msg.value, link.value.trim(), Number(days.value)], btn, 'Sending...').then(function (u) { replaceItem('fullAccess', u); toast('Access sent to ' + r.email + '.'); render(); });
+        });
+      } }));
+    }
+    var statusText = r.status === 'PENDING' ? 'Waiting' : r.status === 'SENT' ? 'Sent ' + r.decidedAt + (r.expires ? ' \u00b7 link valid until ' + r.expires : '') : 'Declined ' + r.decidedAt;
+    set(card, [
+      h('h3', { text: r.title }),
+      h('div', { class: 'meta' }, [
+        h('span', { class: 'badge' + (r.type === 'study' ? ' study' : ' article'), text: KIND[r.type] || r.type }),
+        h('span', { class: 'badge' + (r.status === 'PENDING' ? '' : r.status === 'SENT' ? ' html' : ' err'), text: statusText }),
+        h('span', { text: r.submitted }),
+        h('a', { href: r.url, target: '_blank', rel: 'noopener', text: 'View page' })
+      ]),
+      h('p', { class: 'reason', text: r.name + ' \u00b7 ' + r.email + (r.organization ? ' \u00b7 ' + r.organization : '') + ' \u00b7 ' + r.language.toUpperCase() + (r.purpose ? '\n' + r.purpose : '') }),
+      r.note ? h('p', { class: 'meta', text: 'Note: ' + r.note }) : null,
+      actions.length ? h('div', { class: 'row' }, [h('div', { class: 'push' }, actions)]) : null
+    ]);
+    return card;
   }
 
   function topicsView(t) {

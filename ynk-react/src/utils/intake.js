@@ -22,6 +22,22 @@ export function submitTopicRequest(data) {
   return post({ action: 'topic', ...data })
 }
 
+export function submitFullAccessRequest(data) {
+  return post({ action: 'fullAccess', ...data })
+}
+
+// Resolves to { expires } for a valid personal link, false for an invalid or expired one, null if unreachable.
+export async function verifyUnlock(item, token) {
+  if (!intakeEnabled) return null
+  try {
+    const res = await post({ action: 'unlock', item, token })
+    if (res && res.valid) return { expires: res.expires }
+    return res && res.ok ? false : null
+  } catch {
+    return null
+  }
+}
+
 // Resolves to { industry } for an approved, unexpired code, otherwise null.
 export async function verifyAccessCode(code) {
   if (!intakeEnabled) return null

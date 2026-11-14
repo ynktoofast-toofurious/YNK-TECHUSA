@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "gas:status": "cd ../integrations/google-apps-script && clasp show-file-status",
     "gas:push": "node -e \"require('fs').accessSync('../integrations/google-apps-script/Private.gs')\" && cd ../integrations/google-apps-script && clasp push --force",
-    "gas:pull": "cd ../integrations/google-apps-script && clasp pull"
+    "gas:pull": "cd ../integrations/google-apps-script && clasp pull",
+    "gas:deploy": "npm run gas:push && cd ../integrations/google-apps-script && clasp update-deployment AKfycby0N2pE9CuP45h_yXgRbFBV7jQU0EKYjKptdiA5M2CL39laLRTtd7L89jtDBwtJaNxHkQ --description \"Public intake\""
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

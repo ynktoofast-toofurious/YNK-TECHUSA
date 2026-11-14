@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import { ArrowLeft, ArrowRight } from '../components/Icons'
 import useReveal from '../hooks/useReveal'
-import { getMember } from '../content/vault'
+import RequestAccess from '../components/RequestAccess'
+import { useFullAccess } from '../utils/fullAccess'
 
 const DIM_POS = [[200, 40], [370, 120], [320, 290], [80, 290], [30, 120]]
 
@@ -30,8 +31,10 @@ function StarSchema({ s }) {
 export default function DrcStudy() {
   const { t, language } = useLanguage()
   const s = t('study')
-  const member = getMember()
-  const revealRef = useReveal([language, !!member])
+  const a = t('accessUi')
+  const access = useFullAccess('drc-government')
+  const member = access.unlocked
+  const revealRef = useReveal([language, member])
   const max = Math.max(...s.values)
   const total = s.values.reduce((a, b) => a + b, 0)
 
@@ -58,6 +61,7 @@ export default function DrcStudy() {
             ))}
           </div>
 
+          {access.checking && <p className="ar-status" role="status">{a.checking}</p>}
           {!member ? (
             <div className="st-locked hx-in" style={{ '--d': 5 }}>
               <div className="st-locked-fade" aria-hidden="true">
@@ -65,12 +69,11 @@ export default function DrcStudy() {
                 <p>{s.s1}</p>
               </div>
               <div className="st-locked-card">
-                <span className="vault-lock" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
-                </span>
+                {access.invalid && <p className="sp-error" role="alert">{a.invalid}</p>}
+                <span className="section-tag">{a.tag}</span>
                 <h2>{s.locked.title}</h2>
                 <p>{s.locked.text}</p>
-                <Link to="/vault#enroll" className="btn btn-primary hub-btn-round">{s.locked.cta} <ArrowRight /></Link>
+                <RequestAccess item={{ type: 'study', id: 'drc-government', title: s.title, path: '/vault/drc-government' }} />
               </div>
             </div>
           ) : (
@@ -122,12 +125,9 @@ export default function DrcStudy() {
               </section>
 
               <aside className="st-founding" data-reveal>
-                <span className="vp-access vp-access--founding">
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
-                  {t('vaultUi.access.founding')}
-                </span>
+                <span className="vp-access vp-access--dataset">{t('vaultUi.kinds.dataset')}</span>
                 <p>{s.founding}</p>
-                <Link to="/vault#enroll" className="hub-link">{t('vaultUi.tiers.founding.cta')} <ArrowRight /></Link>
+                <Link to="/vault?request=drc-dataset#request" className="hub-link">{s.foundingCta} <ArrowRight /></Link>
               </aside>
             </>
           )}

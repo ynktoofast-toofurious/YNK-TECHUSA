@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import { INTELLIGENCE, INTELLIGENCE_ASSETS, formatDate, tagLabel } from '../content/latest'
-import { getMember } from '../content/vault'
+import { useFullAccess } from '../utils/fullAccess'
+import RequestAccess from '../components/RequestAccess'
 import { ArrowLeft, ArrowRight } from '../components/Icons'
 
 const blockText = (b) => {
@@ -12,7 +13,7 @@ const blockText = (b) => {
   return b.text || ''
 }
 
-// Non-members read about 10 percent of the piece (by text length), never more than 15.
+// Readers without full access see about 10 percent of the piece (by text length), never more than 15.
 const PREVIEW_SHARE = 0.1
 const PREVIEW_MAX = 0.15
 
@@ -147,6 +148,7 @@ export default function Article() {
   const { slug } = useParams()
   const { t, language } = useLanguage()
   const meta = INTELLIGENCE.find((a) => a.slug === slug)
+  const access = useFullAccess(slug)
   const [reload, setReload] = useState(0)
   const key = `${slug}:${language}:${reload}`
   const [result, setResult] = useState({ key: null, doc: null, error: false })
@@ -166,10 +168,10 @@ export default function Article() {
   const doc = loading ? null : result.doc
   const title = doc?.title || meta.title[language] || meta.title.en
   const sources = meta.source_references.map(safeHttps).filter(Boolean)
-  const isMember = Boolean(getMember())
+  const isMember = access.unlocked
   const visible = doc ? (isMember ? doc.blocks : doc.blocks.slice(0, previewCount(doc.blocks))) : []
   const gated = doc && !isMember
-  const g = t('latestUi.article.gate')
+  const g = t('accessUi')
 
   return (
     <div className="hub ar-page">
@@ -207,15 +209,14 @@ export default function Article() {
           </div>
         )}
 
+        {access.checking && <p className="ar-status" role="status">{g.checking}</p>}
         {gated && (
           <section className="ar-gate" aria-labelledby="ar-gate-title">
+            {access.invalid && <p className="sp-error" role="alert">{g.invalid}</p>}
             <span className="section-tag">{g.tag}</span>
             <h2 id="ar-gate-title">{g.title}</h2>
             <p>{g.text}</p>
-            <Link to={`/vault?next=${encodeURIComponent(`/latest/${meta.slug}`)}#enroll`} className="btn btn-primary hub-btn-round">
-              {g.cta} <ArrowRight />
-            </Link>
-            <small>{g.note}</small>
+            <RequestAccess item={{ type: meta.type === 'study' ? 'study' : 'article', id: meta.slug, title, path: `/latest/${meta.slug}` }} />
           </section>
         )}
 

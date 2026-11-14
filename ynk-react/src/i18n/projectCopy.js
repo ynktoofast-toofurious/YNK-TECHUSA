@@ -15,7 +15,7 @@ const projectCopy = {
       empty: 'Nothing matches that yet. Try another word or filter.',
       newBadge: 'New',
       open: 'Open',
-      vault: 'In the Vault',
+      vault: 'Free preview',
       announce: 'New',
       article: {
         back: 'Back to The Latest',
@@ -26,14 +26,6 @@ const projectCopy = {
         loading: 'Loading article',
         unavailable: 'This article could not be loaded. Please try again shortly.',
         retry: 'Try again',
-        gate: {
-          tag: 'Members only',
-          title: 'Keep reading with a free YNK Insider membership',
-          text: 'You have read the opening of this piece. Enroll in the YNK Insider Vault to unlock the full analysis, the data behind it, and every future release.',
-          cta: 'Enroll free to keep reading',
-          note: 'Takes less than a minute. No payment required.',
-          continue: 'Continue reading',
-        },
       },
     },
     project: {
@@ -143,7 +135,7 @@ const projectCopy = {
       empty: 'Rien ne correspond pour l’instant. Essayez un autre mot ou filtre.',
       newBadge: 'Nouveau',
       open: 'Ouvrir',
-      vault: 'Dans le Coffre',
+      vault: 'Aperçu gratuit',
       announce: 'Nouveau',
       article: {
         back: 'Retour aux Nouveautés',
@@ -154,14 +146,6 @@ const projectCopy = {
         loading: 'Chargement de l’article',
         unavailable: 'Impossible de charger cet article. Veuillez réessayer dans un instant.',
         retry: 'Réessayer',
-        gate: {
-          tag: 'Réservé aux membres',
-          title: 'Poursuivez la lecture avec l’adhésion gratuite YNK Insider',
-          text: 'Vous avez lu le début de cette publication. Inscrivez-vous au YNK Insider Vault pour débloquer l’analyse complète, les données qui la soutiennent et toutes les prochaines publications.',
-          cta: 'Inscription gratuite pour continuer',
-          note: 'Moins d’une minute. Aucun paiement requis.',
-          continue: 'Continuer la lecture',
-        },
       },
     },
     project: {
@@ -271,7 +255,7 @@ const projectCopy = {
       empty: 'Nada coincide todavía. Prueba otra palabra o filtro.',
       newBadge: 'Nuevo',
       open: 'Abrir',
-      vault: 'En la Bóveda',
+      vault: 'Vista previa gratuita',
       announce: 'Nuevo',
       article: {
         back: 'Volver a Novedades',
@@ -282,14 +266,6 @@ const projectCopy = {
         loading: 'Cargando artículo',
         unavailable: 'No se pudo cargar este artículo. Inténtelo de nuevo en un momento.',
         retry: 'Reintentar',
-        gate: {
-          tag: 'Solo para miembros',
-          title: 'Siga leyendo con la membresía gratuita YNK Insider',
-          text: 'Ha leído el comienzo de esta publicación. Inscríbase en el YNK Insider Vault para desbloquear el análisis completo, los datos que lo respaldan y todas las próximas publicaciones.',
-          cta: 'Inscríbase gratis para seguir leyendo',
-          note: 'Toma menos de un minuto. Sin pago.',
-          continue: 'Seguir leyendo',
-        },
       },
     },
     project: {
