@@ -141,8 +141,8 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var TABS = [['review', 'To review'], ['published', 'Published'], ['full', 'Full access'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
-  var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null, ops: null, opsTab: 'Opportunity_Registry', opsShowDone: false, opsOpen: {} };
+  var TABS = [['review', 'To review'], ['published', 'Published'], ['full', 'Full access'], ['tickets', 'Idea tickets'], ['questions', 'Questions'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
+  var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null, ops: null, opsTab: 'Opportunity_Registry', opsShowDone: false, opsOpen: {}, questions: null, qOnlyOpen: false, tickets: null };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
 
@@ -204,6 +204,8 @@
     state.live = null;
     state.liveError = false;
     state.ops = null;
+    state.questions = null;
+    state.tickets = null;
     state.opsError = '';
     set(bar, []);
     set(main, [h('p', { class: 'loading', text: 'Loading...' })]);
@@ -265,6 +267,14 @@
       set(main, [tabs].concat(liveView()));
       return;
     }
+    if (state.tab === 'questions') {
+      set(main, [tabs].concat(lazyView('questions', 'adminQuestions', 'Loading visitor questions...', questionsView)));
+      return;
+    }
+    if (state.tab === 'tickets') {
+      set(main, [tabs].concat(lazyView('tickets', 'adminTickets', 'Loading idea tickets...', ticketsView)));
+      return;
+    }
     if (state.tab === 'ops') {
       set(main, [tabs].concat(opsView()));
       return;
@@ -283,6 +293,7 @@
     if (state.tab === 'review' && state.scanning) notices.push(h('div', { class: 'note', text: 'Checking Google Drive for new or updated files...' }));
     if (state.tab === 'review') notices.push(autoPublishNote(d));
     if (state.tab === 'review') notices.push(aiNote(d));
+    if (state.tab === 'review') notices.push(openAiNote(d));
     if (state.tab === 'review' && d.drive) {
       if (d.drive.added.length) notices.push(h('div', { class: 'note', text: d.drive.added.length + ' new item(s) found in Google Drive and added for review: ' + d.drive.added.map(function (x) { return x.title; }).join(', ') }));
       if (d.drive.upgraded && d.drive.upgraded.length) notices.push(h('div', { class: 'note', text: 'Switched to the HTML files found in Drive: ' + d.drive.upgraded.map(function (x) { return x.title; }).join(', ') }));
@@ -417,6 +428,90 @@
       toast(f.label + ' saved.');
       render();
     }).catch(function () { render(); });
+  }
+
+  /* ---------- Questions and idea tickets ---------- */
+  function lazyView(key, fn, loadingText, view) {
+    if (state[key] && state[key].error) return [h('div', { class: 'note err', text: 'Could not load: ' + state[key].error + ' Use Refresh to try again.' })];
+    if (!state[key]) {
+      state[key] = 'loading';
+      call(fn).then(function (d) { state[key] = d; }).catch(function (err) { state[key] = { error: err && err.message ? err.message : String(err) }; })
+        .then(function () { if (!state.preview && state.tab === key) render(); });
+    }
+    if (state[key] === 'loading') return [h('p', { class: 'loading', text: loadingText })];
+    return view(state[key]);
+  }
+
+  function questionsView(q) {
+    var toggle = h('input', { type: 'checkbox', onchange: function (e) { state.qOnlyOpen = e.target.checked; render(); } });
+    toggle.checked = state.qOnlyOpen;
+    var items = q.items.filter(function (it) { return !state.qOnlyOpen || it.answered === 'no'; });
+    var head = [
+      h('p', { class: 'meta', text: q.total + ' question(s) asked to the YNK assistant and Ask the Hub. ' + q.unanswered + ' were not covered by the Hub: those are content ideas.' }),
+      h('div', { class: 'meta ops-bar' }, [h('label', { class: 'inline' }, [toggle, 'Only questions the Hub could not answer']), h('span', { text: 'Newest first (last 300)' })])
+    ];
+    var badge = function (it) {
+      if (it.answered === 'yes') return h('span', { class: 'badge html', text: 'Answered' });
+      if (it.answered === 'sources only') return h('span', { class: 'badge', text: 'Sources only' });
+      return h('span', { class: 'badge err', text: 'Not covered' });
+    };
+    return head.concat(items.length ? items.map(function (it) {
+      return h('div', { class: 'card req' }, [
+        h('h3', { text: it.question }),
+        h('div', { class: 'meta' }, [badge(it), it.action ? h('span', { class: 'badge study', text: it.action === 'request' ? 'Wanted full access' : 'Project idea' }) : null,
+          it.followUp ? h('span', { text: 'Follow-up' }) : null, h('span', { text: it.language.toUpperCase() }), h('span', { text: it.at })]),
+        it.sources.length ? h('p', { class: 'meta', text: 'Sources: ' + it.sources.join(', ') }) : null
+      ]);
+    }) : [h('div', { class: 'empty', text: 'No questions yet.' })]);
+  }
+
+  var TICKET_STATUS = ['NEW', 'CONTACTED', 'IN PROGRESS', 'CLOSED'];
+
+  function ticketsView(list) {
+    var head = [h('p', { class: 'meta', text: 'Prototypes visitors created in the Idea Studio (Start a Project) and saved with their email. Each one received its ticket number by email with the prototype attached.' })];
+    return head.concat(list.length ? list.map(function (t) {
+      var sel = h('select', { style: 'width:auto', onchange: function () {
+        call('adminSetTicketStatus', [t.id, sel.value]).then(function (l) { state.tickets = l; toast('Status saved.'); render(); });
+      } }, TICKET_STATUS.map(function (s) { return h('option', { value: s, text: s }); }));
+      sel.value = t.status;
+      var view = h('button', { class: 'btn', type: 'button', text: 'View prototype', onclick: function (e) {
+        call('adminTicketHtml', [t.id], e.currentTarget, 'Loading...').then(function (html) {
+          var frame = h('iframe', { sandbox: '', title: 'Prototype', style: 'width:100%;height:70vh;border:1px solid var(--line);border-radius:10px;background:#fff' });
+          frame.srcdoc = html;
+          var dlg = document.getElementById('dlg');
+          dlg.style.maxWidth = '1000px';
+          dlg.style.width = '92vw';
+          ask(t.id + ' \u00b7 ' + t.title, [frame], 'Close').then(function () { dlg.style.maxWidth = ''; dlg.style.width = ''; });
+        });
+      } });
+      return h('div', { class: 'card req' }, [
+        h('h3', { text: t.title }),
+        h('div', { class: 'meta' }, [h('span', { class: 'badge' + (t.status === 'NEW' ? ' err' : t.status === 'CLOSED' ? '' : ' html'), text: t.status }), h('span', { text: t.id }), h('span', { text: t.created }), h('span', { text: t.language.toUpperCase() })]),
+        h('p', { class: 'reason', text: t.name + ' \u00b7 ' + t.email + '\n' + t.idea }),
+        h('div', { class: 'row' }, [h('a', { class: 'btn ghost', href: 'mailto:' + t.email + '?subject=' + encodeURIComponent('Your YNK idea ticket ' + t.id), text: 'Email' }), h('div', { class: 'push' }, [sel, view])])
+      ]);
+    }) : [h('div', { class: 'empty', text: 'No idea tickets yet.' })]);
+  }
+
+  function openAiNote(d) {
+    if (d.openai) {
+      return h('div', { class: 'note src' }, [
+        h('span', { text: 'Idea Studio is on: visitors on Start a Project can turn an idea into an instant HTML prototype (OpenAI).' }),
+        h('button', { class: 'btn ghost', type: 'button', text: 'Turn off', onclick: function (e) {
+          call('adminSetOpenAiKey', [''], e.currentTarget).then(function (r) { d.openai = r.openai; toast('Idea Studio is off.'); render(); });
+        } })
+      ]);
+    }
+    var input = h('input', { type: 'password', placeholder: 'OpenAI API key (sk-...)', autocomplete: 'off', maxlength: '300',
+      style: 'padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:13px;width:200px' });
+    return h('div', { class: 'note src' }, [
+      h('span', { text: 'Idea Studio is off. Paste your OpenAI API key to let visitors prototype their idea on Start a Project.' }),
+      input,
+      h('button', { class: 'btn', type: 'button', text: 'Turn on', onclick: function (e) {
+        if (!input.value.trim()) { toast('Paste the key first.', true); return; }
+        call('adminSetOpenAiKey', [input.value.trim()], e.currentTarget, 'Checking...').then(function (r) { d.openai = r.openai; toast('Idea Studio is on (' + r.model + ').'); render(); });
+      } })
+    ]);
   }
 
   function aiNote(d) {

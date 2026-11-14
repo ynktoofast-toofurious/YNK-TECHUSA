@@ -22,7 +22,7 @@ export function useHubChat(language, { onReply } = {}) {
     askHub(text, language, history)
       .then((res) => {
         if (!res || !res.ok) done({ status: res && res.error === 'rate_limited' ? 'busy' : 'error' })
-        else done({ mode: res.mode, text: res.answer || '', sources: res.sources || [] })
+        else done({ mode: res.mode, text: res.answer || '', sources: res.sources || [], action: res.action || null, question: text })
       })
       .catch(() => done({ status: 'error' }))
   }

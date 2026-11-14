@@ -1,4 +1,6 @@
-// One assistant turn from Ask the Hub: answer with clickable [n] citations and its sources.
+import RequestAccess from './RequestAccess'
+
+// One assistant turn from Ask the Hub: answer with clickable [n] citations, its sources, and any action (request or project).
 export default function HubAnswer({ turn, s, onOpen, compact = false }) {
   if (turn.status === 'busy') return <p className="ss-answer-wait">{s.askBusy}</p>
   if (turn.status) return <p className="ss-answer-wait">{s.askError}</p>
@@ -22,6 +24,19 @@ export default function HubAnswer({ turn, s, onOpen, compact = false }) {
           {s.noAnswer}{' '}
           <button type="button" className="ss-inline-link" onClick={() => onOpen({ href: '/#suggest' })}>{s.suggest}</button>
         </p>
+      )}
+      {turn.action && turn.action.type === 'request' && (
+        <div className="ss-action">
+          <p className="ss-action-title">{s.requestHere.replace('{title}', turn.action.item.title)}</p>
+          <RequestAccess item={turn.action.item} compact />
+        </div>
+      )}
+      {turn.action && turn.action.type === 'project' && (
+        <div className="ss-action">
+          <button type="button" className="btn btn-primary hub-btn-round ss-action-btn" onClick={() => onOpen({ href: `/start-project?idea=${encodeURIComponent(turn.question || '')}#studio` })}>
+            {s.projectCta}
+          </button>
+        </div>
       )}
       {turn.sources.length > 0 && (
         <ol className={`ss-sources${compact ? ' ss-sources--compact' : ''}`}>

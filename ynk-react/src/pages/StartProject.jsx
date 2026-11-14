@@ -4,6 +4,7 @@ import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
 import projectCopy from '../i18n/projectCopy'
 import { ArrowLeft, ArrowRight } from '../components/Icons'
+import IdeaStudio from '../components/IdeaStudio'
 import { escapeHtml } from '../utils/escapeHtml'
 
 const EMAILJS_SERVICE_ID = 'service_sw3zais'
@@ -248,6 +249,18 @@ export default function StartProject() {
           <span className="section-tag hx-in" style={{ '--d': 0 }}>{p.tag}</span>
           <h1 className="hub-title hx-in" style={{ '--d': 1 }}>{p.title1} <span className="text-gradient">{p.title2}</span></h1>
           <p className="hub-sub hx-in" style={{ '--d': 2 }}>{p.sub}</p>
+        </div>
+      </section>
+
+      <section className="sp-studio">
+        <div className="container">
+          <IdeaStudio
+            initialIdea={searchParams.get('idea') || ''}
+            onBrief={(idea) => {
+              if (idea) setData((d) => (d.outcome ? d : { ...d, outcome: idea.slice(0, 1000) }))
+              wizardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }}
+          />
         </div>
       </section>
 

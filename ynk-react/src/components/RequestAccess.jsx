@@ -12,8 +12,8 @@ const COOLDOWN_MS = 60 * 1000
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const EMPTY = { name: '', email: '', organization: '', purpose: '' }
 
-// item: { type: 'article' | 'study' | 'dataset' | 'prototype', id, title, path }
-export default function RequestAccess({ item }) {
+// item: { type: 'article' | 'study' | 'dataset' | 'prototype', id, title, path }. compact: name and email only (chat).
+export default function RequestAccess({ item, compact = false }) {
   const { t, language } = useLanguage()
   const a = t('accessUi')
   const [form, setForm] = useState(EMPTY)
@@ -81,7 +81,7 @@ export default function RequestAccess({ item }) {
   }
 
   return (
-    <form className="ra-form" onSubmit={submit} noValidate>
+    <form className={`ra-form${compact ? ' ra-form--compact' : ''}`} onSubmit={submit} noValidate>
       <div className="ra-row">
         <label className="sp-field">
           <span className="sp-label">{a.name}</span>
@@ -92,14 +92,18 @@ export default function RequestAccess({ item }) {
           <input className="sp-input" type="email" autoComplete="email" maxLength={200} value={form.email} onChange={(e) => set('email', e.target.value)} />
         </label>
       </div>
-      <label className="sp-field">
-        <span className="sp-label">{a.organization}</span>
-        <input className="sp-input" type="text" autoComplete="organization" maxLength={120} value={form.organization} onChange={(e) => set('organization', e.target.value)} />
-      </label>
-      <label className="sp-field">
-        <span className="sp-label">{a.purpose}</span>
-        <textarea className="sp-input ra-purpose" rows={3} maxLength={500} placeholder={a.purposePlaceholder} value={form.purpose} onChange={(e) => set('purpose', e.target.value)} />
-      </label>
+      {!compact && (
+        <>
+          <label className="sp-field">
+            <span className="sp-label">{a.organization}</span>
+            <input className="sp-input" type="text" autoComplete="organization" maxLength={120} value={form.organization} onChange={(e) => set('organization', e.target.value)} />
+          </label>
+          <label className="sp-field">
+            <span className="sp-label">{a.purpose}</span>
+            <textarea className="sp-input ra-purpose" rows={3} maxLength={500} placeholder={a.purposePlaceholder} value={form.purpose} onChange={(e) => set('purpose', e.target.value)} />
+          </label>
+        </>
+      )}
       <input ref={honeypotRef} className="sp-hp" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       {error && <p className="sp-error" role="alert">{a.errors[error]}</p>}
       <button type="submit" className="btn btn-primary hub-btn-round ra-submit" disabled={sending}>

@@ -27,8 +27,18 @@ export function submitFullAccessRequest(data) {
 }
 
 // { mode: 'ai' | 'search' | 'none', answer, sources: [{ n, title, href, kind }] }
-export function askHub(q, language) {
-  return post({ action: 'ask', q, language })
+export function askHub(q, language, history = []) {
+  return post({ action: 'ask', q, language, history })
+}
+
+// { ok, html, title } ; refine + html update the previous prototype.
+export function generatePrototype(data) {
+  return post({ action: 'prototype', ...data })
+}
+
+// { ok, id } ; the ticket number is also emailed with the prototype attached.
+export function submitIdeaTicket(data) {
+  return post({ action: 'ticket', ...data })
 }
 
 // Resolves to { expires } for a valid personal link, false for an invalid or expired one, null if unreachable.

@@ -3158,6 +3158,209 @@ img {
     font-size: 0.74rem;
 }
 
+.ss-action {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px dashed rgba(41, 181, 232, 0.35);
+    border-radius: 12px;
+}
+
+.ss-action-title {
+    margin: 0 0 8px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.ss-action-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+.ra-form--compact {
+    max-width: none;
+}
+
+.ra-form--compact .ra-row {
+    grid-template-columns: 1fr;
+}
+
+.ra-form--compact .sp-privacy {
+    font-size: 0.7rem;
+}
+
+/* ── Idea Studio (Start a Project) ── */
+.sp-studio {
+    position: relative;
+    z-index: 1;
+    padding: 0 0 40px;
+}
+
+.is-wrap {
+    padding: 32px;
+    border: 1px solid rgba(41, 181, 232, 0.3);
+    border-radius: 24px;
+    background: linear-gradient(160deg, rgba(41, 181, 232, 0.09), rgba(255, 255, 255, 0.02));
+    scroll-margin-top: calc(var(--nav-height) + 20px);
+}
+
+.is-head .hub-title {
+    margin: 10px 0 8px;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.is-head .hub-sub {
+    margin: 0 0 20px;
+}
+
+.is-idea {
+    width: 100%;
+    min-height: 110px;
+    resize: vertical;
+    font-family: var(--font-body);
+}
+
+.is-input-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.is-session,
+.is-note {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.is-working {
+    margin: 18px 0 0;
+    color: var(--color-accent);
+}
+
+.is-result {
+    margin-top: 24px;
+    scroll-margin-top: calc(var(--nav-height) + 20px);
+}
+
+.is-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--color-text-primary);
+}
+
+.is-version {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(41, 181, 232, 0.15);
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.is-toggle {
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-accent);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.is-frame {
+    display: block;
+    width: 100%;
+    height: 520px;
+    border: 1px solid var(--hub-border, rgba(255, 255, 255, 0.1));
+    border-radius: 14px;
+    background: #fff;
+}
+
+.is-frame--full {
+    height: 85vh;
+}
+
+.is-refine {
+    display: flex;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.is-refine .sp-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.is-ticket,
+.is-next {
+    margin-top: 16px;
+    padding: 22px;
+    border: 1px solid var(--hub-border, rgba(255, 255, 255, 0.08));
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.is-ticket h3,
+.is-next h3 {
+    margin: 0 0 6px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+}
+
+.is-ticket p,
+.is-next p {
+    margin: 0 0 14px;
+    color: var(--color-text-secondary);
+}
+
+.is-ticket-done {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.is-ticket-done p {
+    margin: 0;
+}
+
+.is-next {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.is-next p {
+    margin: 0;
+}
+
+.is-next-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+@media (max-width: 640px) {
+    .is-wrap {
+        padding: 20px;
+    }
+
+    .is-frame {
+        height: 440px;
+    }
+
+    .is-refine {
+        flex-direction: column;
+    }
+}
+
 .ss-item {
     display: flex;
     align-items: center;

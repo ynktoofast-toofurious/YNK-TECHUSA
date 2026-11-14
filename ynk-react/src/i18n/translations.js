@@ -297,13 +297,13 @@ const translations = {
       'Content Positioning & Visual Storytelling',
     ],
     demoChat: {
-      placeholder: 'Ask about the Desk, the Library, or a project…',
+      placeholder: 'Ask a question, or describe the website or brand you need…',
       script: [
-        "Hi! I'm the YNK assistant. Ask me anything.",
-        'What will I find here?',
-        'Data-driven insight on technology, business, and the economy, plus full studies, datasets, and prototype briefings on request.',
-        'Can you build with us too?',
-        'Yes! Start a two-minute project brief and we reply personally within 24 hours.',
+        "Hi! I'm the YNK assistant. Ask me about our research, or tell me what you want to build.",
+        'I need a website and a logo for my new restaurant.',
+        'We can help with both, starting right here. Describe your idea and I will point you to the Idea Studio, which sketches it as a visual prototype in seconds.',
+        'Can I also read your studies?',
+        'Yes, and full access is free. Ask me about any topic, or type your project idea to get started.',
       ],
       canned: [
         { keys: ['vault', 'library', 'member', 'subscri', 'join', 'full', 'access', 'price', 'cost'], reply: 'Every article and study opens with a free preview, and full access is free too. Use "Request free access" (it helps us build the YNK community) and we email you a private link.' },
@@ -696,13 +696,13 @@ const translations = {
       'Positionnement de contenu & Narration visuelle',
     ],
     demoChat: {
-      placeholder: 'Le Bureau, la Bibliothèque, un projet…',
+      placeholder: 'Posez une question ou décrivez le site ou la marque qu’il vous faut…',
       script: [
-        "Bonjour ! Je suis l'assistant YNK. Posez-moi vos questions.",
-        'Que vais-je trouver ici ?',
-        "Des analyses fondées sur les données sur la technologie, les affaires et l'économie, et sur demande les études complètes, les jeux de données et les notes de prototype.",
-        'Pouvez-vous aussi construire avec nous ?',
-        'Oui, remplissez un brief de projet en deux minutes et nous vous répondons personnellement sous 24 heures.',
+        "Bonjour ! Je suis l'assistant YNK. Interrogez-moi sur nos recherches, ou dites-moi ce que vous voulez créer.",
+        'Il me faut un site web et un logo pour mon nouveau restaurant.',
+        "Nous pouvons vous aider pour les deux, dès maintenant. Décrivez votre idée et je vous orienterai vers le Studio d'idées, qui l'esquisse en prototype visuel en quelques secondes.",
+        'Puis-je aussi lire vos études ?',
+        "Oui, et l'accès complet est gratuit. Posez-moi une question sur un sujet, ou décrivez votre projet pour commencer.",
       ],
       canned: [
         { keys: ['coffre', 'biblioth', 'membre', 'abonn', 'complet', 'accès', 'prix', 'tarif'], reply: "Chaque article et chaque étude s'ouvrent sur un aperçu gratuit, et l'accès complet est gratuit lui aussi. Utilisez « Demander l'accès gratuit » (cela nous aide à bâtir la communauté YNK) et nous vous envoyons un lien privé par e-mail." },
@@ -1091,13 +1091,13 @@ const translations = {
       'Posicionamiento de contenido y Narrativa visual',
     ],
     demoChat: {
-      placeholder: 'La Mesa, la Biblioteca, un proyecto…',
+      placeholder: 'Haga una pregunta o describa el sitio web o la marca que necesita…',
       script: [
-        '¡Hola! Soy el asistente de YNK. Pregúntame lo que quieras.',
-        '¿Qué voy a encontrar aquí?',
-        'Análisis basados en datos sobre tecnología, negocios y economía, y bajo solicitud estudios completos, conjuntos de datos e informes de prototipo.',
-        '¿También pueden construir con nosotros?',
-        '¡Sí! Completa un brief de proyecto en dos minutos y te respondemos personalmente en 24 horas.',
+        '¡Hola! Soy el asistente de YNK. Pregúntame sobre nuestras investigaciones, o dime qué quieres crear.',
+        'Necesito un sitio web y un logo para mi nuevo restaurante.',
+        'Podemos ayudarte con ambos, desde aquí mismo. Describe tu idea y te llevaré al Estudio de ideas, que la esboza como un prototipo visual en segundos.',
+        '¿También puedo leer sus estudios?',
+        'Sí, y el acceso completo es gratuito. Pregúntame sobre cualquier tema, o escribe la idea de tu proyecto para empezar.',
       ],
       canned: [
         { keys: ['bóveda', 'boveda', 'biblioteca', 'miembro', 'suscri', 'completo', 'acceso', 'precio', 'costo'], reply: 'Cada artículo y estudio se abre con una vista previa gratuita, y el acceso completo también es gratuito. Use "Solicitar acceso gratuito" (nos ayuda a construir la comunidad YNK) y le enviaremos un enlace privado por correo.' },
