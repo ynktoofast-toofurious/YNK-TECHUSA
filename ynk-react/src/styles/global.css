@@ -3444,7 +3444,7 @@ img {
     min-width: 0;
 }
 
-.bk-sub {
+.bk-main .bk-sub {
     margin: 0 0 16px;
     max-width: 620px;
 }
