@@ -1,118 +1,552 @@
 {
-  "title": "Congo Forest Intelligence: Turning the DRC’s Climate Ambition into Measurable Development",
-  "summary": "YNK TECH INTELLIGENCE | PROPOSED SOLUTION | TEST RELEASE | 13 NOVEMBER 2026",
+  "title": "Congo Forest Intelligence: Connecting Forest Evidence to Finance and Community Results",
+  "summary": "The Democratic Republic of Congo already has forest monitoring and environmental-finance systems. Congo Forest Intelligence (CFI) is a proposed, unbuilt integration pilot to test whether linking existing observations, public commitments, financing and locally verified results can improve traceability without duplicating these systems.",
   "blocks": [
     {
-      "type": "p",
-      "text": "The Democratic Republic of Congo is essential to the global climate conversation. Its forests protect biodiversity and provide ecological benefits, while its communities need jobs, affordable energy, stronger infrastructure and economic opportunity. The Presidency’s November 2026 COP31 communications highlight the Kivu–Kinshasa Green Corridor and call for durable, fair climate financing. But there is a practical question beneath the ambition: how can the country demonstrate that investments are producing verifiable environmental and social results?"
+      "type": "h2",
+      "text": "Key findings"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "In the Congo Basin, annual humid tropical primary forest loss increased from 0.38% of baseline area in 2023 to 0.44% in 2024, a rise of 0.06 percentage points. This is a regional measure, not a CFI effect. WRI analysis.",
+          "runs": [
+            {
+              "text": "In the Congo Basin, annual humid tropical primary forest loss increased from 0.38% of baseline area in 2023 to 0.44% in 2024, a rise of 0.06 percentage points. This is a regional measure, not a CFI effect. "
+            },
+            {
+              "text": "WRI analysis",
+              "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        {
+          "text": "WRI reports the DRC lost about 0.5% of its tropical primary forest area in 2025 and that its loss declined by 5% from 2024, while non-fire-related loss remained concerning. These rates are not directly interchangeable with the six-country Congo Basin series. WRI 2025 findings.",
+          "runs": [
+            {
+              "text": "WRI reports the DRC lost about 0.5% of its tropical primary forest area in 2025 and that its loss declined by 5% from 2024, while non-fire-related loss remained concerning. These rates are not directly interchangeable with the six-country Congo Basin series. "
+            },
+            {
+              "text": "WRI 2025 findings",
+              "href": "https://africa.wri.org/insights/tropical-rainforest-loss-slowed-2025-fire-growing-threat-forests-worldwide"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        {
+          "text": "Existing coverage is substantial: Global Nature Watch already offers satellite monitoring and an AI preview; DRC has a functioning national forest-monitoring foundation; and CAFI already operates funding oversight and performance-oriented tools. WRI; FAO; CAFI.",
+          "runs": [
+            {
+              "text": "Existing coverage is substantial: Global Nature Watch already offers satellite monitoring and an AI preview; DRC has a functioning national forest-monitoring foundation; and CAFI already operates funding oversight and performance-oriented tools. "
+            },
+            {
+              "text": "WRI",
+              "href": "https://www.wri.org/news/release-global-forest-watch-becomes-global-nature-watch-expanding-cover-more-land-ecosystems"
+            },
+            {
+              "text": "; "
+            },
+            {
+              "text": "FAO",
+              "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+            },
+            {
+              "text": "; "
+            },
+            {
+              "text": "CAFI",
+              "href": "https://cafi.org/press_releases/a-strong-focus-on-performance-the-2025-cafi-annual-report-is-out/"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        "CFI should be tested only as an interoperable evidence-to-outcome reconciliation layer. No reduction in forest loss, financing gain, verification speed or return on investment can yet be attributed to it."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Context"
     },
     {
       "type": "p",
-      "text": "YNK Tech Intelligence proposes an answer worth testing: Congo Forest Intelligence (CFI), an independent, AI-assisted platform connecting existing forest observations, project commitments, financing disclosures and locally validated outcomes. This is a YNK Tech concept, not an announced government project or a deployed product."
+      "text": "At COP31 in Antalya, the Presidency advocated stronger payment for tropical-forest ecosystem services and highlighted the proposed Kivu-Kinshasa Green Corridor. The Presidency described the corridor as covering more than 540,000 km². That is a policy-reported initiative footprint, not an independently audited number of hectares already protected or a measured outcome. Presidency, 11 November; Presidency, 10 November.",
+      "runs": [
+        {
+          "text": "At COP31 in Antalya, the Presidency advocated stronger payment for tropical-forest ecosystem services and highlighted the proposed Kivu-Kinshasa Green Corridor. The Presidency described the corridor as covering more than 540,000 km². That is a policy-reported initiative footprint, not an independently audited number of hectares already protected or a measured outcome. "
+        },
+        {
+          "text": "Presidency, 11 November",
+          "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_tshisekedi_plaide_pour_une_juste_remuneration_des_forets"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "Presidency, 10 November",
+          "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_antoine_tshisekedi_a_antalya_pour_porter_la_voix_de_la_rdc_au_sommet_des_chefs_detat_et_de_gouvernement"
+        },
+        {
+          "text": "."
+        }
+      ]
     },
     {
       "type": "p",
-      "text": "THE PROBLEM IS FRAGMENTATION"
+      "text": "The Antalya leaders summit took place on 11-12 November 2026. A public statement and an international forum create an opportunity to scrutinize delivery, but neither proves that project funds reached communities or that forest outcomes improved. UNFCCC programme.",
+      "runs": [
+        {
+          "text": "The Antalya leaders summit took place on 11-12 November 2026. A public statement and an international forum create an opportunity to scrutinize delivery, but neither proves that project funds reached communities or that forest outcomes improved. "
+        },
+        {
+          "text": "UNFCCC programme",
+          "href": "https://unfccc.int/cop31/high-level"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Analysis"
+    },
+    {
+      "type": "h3",
+      "text": "What the measurable evidence says"
     },
     {
       "type": "p",
-      "text": "Satellite-monitoring organizations observe forest changes. Research institutions publish studies. Government agencies announce policy and infrastructure priorities. Donors report project financing. Local organizations see conditions on the ground. These sources may use different geographic boundaries, dates, indicators and reporting rules. Reading them separately makes it difficult to establish which outcomes can be verified and which questions remain unanswered."
+      "text": "WRI estimates indicate continued forest pressure. Its 2024 Congo Basin comparison provides an internally consistent two-year series. The DRC-specific 2025 rate is separate and should not be placed on the same trend line. Regional methods; DRC 2025 context.",
+      "runs": [
+        {
+          "text": "WRI estimates indicate continued forest pressure. Its 2024 Congo Basin comparison provides an internally consistent two-year series. The DRC-specific 2025 rate is separate and should not be placed on the same trend line. "
+        },
+        {
+          "text": "Regional methods",
+          "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "DRC 2025 context",
+          "href": "https://africa.wri.org/insights/tropical-rainforest-loss-slowed-2025-fire-growing-threat-forests-worldwide"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Indicator",
+          "Value",
+          "Coverage",
+          "Evidence and meaning"
+        ],
+        [
+          "Primary forest loss rate, 2023",
+          "0.38%",
+          "Six-country Congo Basin",
+          "Observed estimate; WRI, 2026"
+        ],
+        [
+          "Primary forest loss rate, 2024",
+          "0.44%",
+          "Six-country Congo Basin",
+          "Observed estimate; WRI, 2026"
+        ],
+        [
+          "Change, 2023 to 2024",
+          "+0.06 percentage points (+15.8% relative)",
+          "Same regional series",
+          "Calculated: (0.44 - 0.38) / 0.38; not a forecast"
+        ],
+        [
+          "Primary forest loss, 2024",
+          "780,000 hectares",
+          "Six-country Congo Basin",
+          "WRI regional estimate; WRI, 2026"
+        ],
+        [
+          "DRC primary forest loss rate, 2025",
+          "about 0.5%",
+          "DRC only",
+          "WRI country-specific estimate; WRI, 2026"
+        ],
+        [
+          "Green Corridor footprint",
+          "over 540,000 km²",
+          "DRC project description",
+          "Official stated scope, not verified protected area; Presidency, 2026"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-rdc-2026-11-13-cfi-test-14e6e5f80e08.png",
+      "alt": "Bar chart: Congo Basin primary forest loss rate rose from 0.38 percent in 2023 to 0.44 percent in 2024; these figures cover six countries.",
+      "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action",
+      "caption": "Chart: YNK Tech, based on WRI data published February 2026. Percentage of humid tropical primary forest lost in the six-country Congo Basin in each year; not cumulative loss. Original analysis."
+    },
+    {
+      "type": "h3",
+      "text": "Existing solutions and what they accomplish"
     },
     {
       "type": "p",
-      "text": "THE PROPOSED SOLUTION"
+      "text": "A fair solution assessment must begin with the systems already operating. CFI cannot claim to invent forest alerts, national inventories, donor reporting, payment verification or accessible nature data."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Existing solution",
+          "Verified current capability",
+          "What cannot yet be presumed",
+          "Possible CFI relationship"
+        ],
+        [
+          "Global Nature Watch (formerly Global Forest Watch), WRI source",
+          "Satellite-based forest maps, alerts, downloadable data, existing user workflows; Horizon AI experience in preview",
+          "That GNW lacks every project-finance or field-validation workflow in a selected pilot geography",
+          "Reuse data and alerts with applicable permissions; do not rebuild forest-change detection"
+        ],
+        [
+          "DRC national forest monitoring system, DIAF / FAO-GFOI source",
+          "Forest-cover change, inventories and carbon information; ongoing institutional coordination",
+          "That all program, funding and community outcome records are absent from national systems",
+          "Seek authority-led partnership, compatible methods and local scientific review"
+        ],
+        [
+          "CAFI reporting and PES tools source",
+          "Performance-based payments and digital PES tools; published monitoring and fund-flow accountability (finance)",
+          "That CAFI cannot reconcile its own awards, milestones or verified payment records",
+          "Test external cross-source provenance only where CAFI data allow it; avoid duplicating its PES management system"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Remaining gaps or unmet needs"
     },
     {
       "type": "p",
-      "text": "CFI would integrate, not replace, established scientific and institutional systems. A pilot would combine: (1) appropriately licensed satellite and AI-derived forest-disturbance observations; (2) mapped project areas and publicly available government commitments; (3) documented project financing and delivery milestones; and (4) field observations from consenting local research and community partners. An intelligence interface would record source, date, confidence, methodology and verification status for every claim."
+      "text": "The candidate gap is not missing satellite data. It is whether analysts can consistently connect a named commitment to its geographic scope, a dated funding record, an implementation milestone and an independently checked environmental or community outcome. Public evidence of a general, nationwide failure to do this has not been established. The proposed gap must be validated for a specific program and user workflow before committing to software."
     },
     {
       "type": "p",
-      "text": "AI would serve three distinct functions. Geospatial analytics would identify patterns in existing environmental data. Predictive models, introduced only after testing, could prioritize areas for further investigation. A source-grounded language assistant could draft comparisons and explain evidence gaps for human review. None of these systems should automatically label land use illegal or make decisions about community rights."
+      "text": "FAO documented continuing work on standardizing methods, coordinating institutions and strengthening sustainable management of DRC forest data in November 2026. This supports further investigation of integration needs, but does not prove the CFI design is superior. FAO findings.",
+      "runs": [
+        {
+          "text": "FAO documented continuing work on standardizing methods, coordinating institutions and strengthening sustainable management of DRC forest data in November 2026. This supports further investigation of integration needs, but does not prove the CFI design is superior. "
+        },
+        {
+          "text": "FAO findings",
+          "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "What YNK Tech adds"
     },
     {
       "type": "p",
-      "text": "WHY THIS COULD MATTER ECONOMICALLY"
+      "text": "Proposed CFI minimum viable scope: (1) a source-linked register of 20 to 40 publicly documented commitments in one selected geography, (2) permitted references to forest change and relevant project boundaries, (3) a dated financing and milestone ledger, and (4) a reviewable outcome record with uncertainty and local-consent controls. The pilot would surface missing records, conflicting dates and unverifiable claims instead of filling gaps with AI-generated certainty."
     },
     {
       "type": "p",
-      "text": "The purpose is not to put a price tag on every tree. It is to reduce the distance between policy promises and demonstrable results. A credible platform could help project teams identify delivery delays, researchers compare changes over time, and potential financing partners assess the quality of evidence. Better information may improve investment diligence and project management; it does not guarantee new funds or carbon-credit revenue."
+      "text": "Every record should distinguish announcement, contract, disbursement, activity and observed outcome. Geospatial data should be used to trigger inquiry, not to infer illegality, ownership, additionality or community consent. AI assistance could support document matching and draft explanations only under human review."
+    },
+    {
+      "type": "h3",
+      "text": "Build, partner or integrate?"
     },
     {
       "type": "p",
-      "text": "A useful pilot should report observable measures: forest-disturbance trends with clear baselines; proportion of published projects with identifiable funding and milestones; share of claims independently verified; average time from alert to review; and locally documented benefits such as employment or improved livelihoods. Where data are incomplete, the dashboard must say so."
+      "text": "Integration-first is the recommended path. Use GNW/GFW observations under appropriate licenses; align with DIAF and the national system; reference CAFI or other official finance records instead of scraping or claiming ownership; and invite Congolese researchers and community representatives to validate indicators and consent rules. A custom product is justified only if a comparative pilot demonstrates decision value beyond these incumbents."
     },
     {
       "type": "p",
-      "text": "LOCAL PARTNERSHIPS ARE NONNEGOTIABLE"
+      "text": "A no-build result is acceptable. If the sampled users already obtain complete, timely and trustworthy evidence from current tools, YNK Tech should document that finding and propose training, integration guidance or independent evaluation rather than another platform."
+    },
+    {
+      "type": "h3",
+      "text": "How incremental value will be measured"
     },
     {
       "type": "p",
-      "text": "Satellite imagery alone cannot explain every forest change. Congolese universities, environmental specialists and community representatives are essential for understanding land use, validating anomalies and protecting local knowledge. Partnerships must include appropriate consent, attribution, data governance and a fair role for Congolese technical talent. The platform should complement the DRC’s existing national forest-monitoring efforts rather than duplicate them."
+      "text": "The current-solution baseline is not verified. Pilot metrics below are proposed test specifications, not performance claims. Use the same 40-case sample, same reviewers and documented inclusion rules for the incumbent workflow and the CFI-assisted workflow."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "KPI",
+          "Current-solution baseline",
+          "CFI pilot measurement",
+          "Pass criterion (pilot target, not achieved)"
+        ],
+        [
+          "Evidence completeness",
+          "Measure share of 40 cases with linked dated commitment, funding, milestone and outcome evidence",
+          "Repeat identical checklist after assisted reconciliation",
+          "Improvement of at least 10 percentage points without more false links"
+        ],
+        [
+          "Median review time",
+          "Time 40 case reviews in existing process",
+          "Time the same matched-complexity cases in proposed interface",
+          "At least 15% reduction; count correction time"
+        ],
+        [
+          "False linkage rate",
+          "Blind manual adjudication of incorrect record connections",
+          "Independent audit of CFI record links",
+          "No increase versus incumbent; discrepancies published"
+        ],
+        [
+          "Incremental cost",
+          "Document incumbent analyst hours and tools",
+          "Add CFI setup, annual operations and local review cost",
+          "Net benefit must be demonstrable before claiming ROI"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Illustrative sensitivity, not a validated forecast"
     },
     {
       "type": "p",
-      "text": "A MODEST START"
+      "text": "Purely illustrative planning math: with 40 cases, an assumed 5, 15 or 25 minutes saved per case would produce the following gross analyst-hours differences. These are not observed reductions, are not predictions, and exclude QA, software and operating costs. No current actual time baseline is available."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Hypothetical scenario",
+          "Assumed net minutes saved per case",
+          "40-case gross time difference",
+          "Calculation"
+        ],
+        [
+          "Low",
+          "5",
+          "3.3 hours",
+          "40 × 5 / 60"
+        ],
+        [
+          "Middle",
+          "15",
+          "10.0 hours",
+          "40 × 15 / 60"
+        ],
+        [
+          "High",
+          "25",
+          "16.7 hours",
+          "40 × 25 / 60"
+        ]
+      ],
+      "head": true
     },
     {
       "type": "p",
-      "text": "YNK proposes beginning with one selected Green Corridor pilot area. First, inventory available data, verify geographic boundaries and licensing, and define baseline indicators. Next, build an interactive map and a public evidence register. Then invite independent local reviewers to test sample findings. Only after that should YNK evaluate predictive models or wider institutional deployment. A public prototype must clearly separate observed data from AI inference and unverified reports."
+      "text": "A real pilot must first measure incumbent cycle time and all additional costs. Any positive environmental outcome or new financing would require independent attribution, not merely a better dashboard. Benefit-cost and ROI remain not estimable."
+    },
+    {
+      "type": "h3",
+      "text": "Proposed implementation roadmap and safeguards"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Days 1-30: select one legally appropriate pilot area and two incumbent workflows; inventory accessible source datasets, coverage, licenses, boundaries, and consent needs; define the same 40-case sample and independent reviewers.",
+        "Days 31-60: build only a read-only, versioned evidence register and comparison interface; reconcile identities, dates, funding milestones and source citations; conduct privacy, data quality and security review.",
+        "Days 61-90: run blinded side-by-side evaluations, verify errors with Congolese subject-matter experts, publish both favorable and unfavorable pilot findings, and decide to partner, refine or stop."
+      ]
     },
     {
       "type": "p",
-      "text": "THE GOVERNANCE TEST"
+      "text": "Safeguards must include source provenance and corrections, separate observed/estimated/official statuses, access restrictions for sensitive community details, non-discriminatory interpretation, independent methodological review, licensing checks, clear institutional roles and transparent cost reporting. Do not create a public list of sensitive community locations or infer legal responsibility from a satellite alert."
+    },
+    {
+      "type": "h2",
+      "text": "What to watch next"
     },
     {
       "type": "p",
-      "text": "Transparent dashboards do not substitute for transparent institutions. CFI would need independent methodological review, secure records, conflict-of-interest disclosures, clear correction procedures and protections for sensitive community information. Unfavorable or incomplete findings should be reported as faithfully as positive results."
+      "text": "Next evidence checkpoints, independent of whether CFI proceeds:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Within 30 days: verify Green Corridor legal boundaries and available project-level financing disclosures, rather than reusing broad political area figures as implementation progress.",
+        "Within 60 days: seek documentation of existing national and CAFI reporting coverage, retention rules and publicly available outcome verification.",
+        "Within 90 days: if authorized, perform the side-by-side pilot and publish comparator metrics, errors, costs and a go/no-go decision."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Methodology and limitations"
     },
     {
       "type": "p",
-      "text": "THE YNK TECH PROPOSITION"
+      "text": "This study uses official DRC communications as evidence of announced priorities, WRI as a source of published forest-loss estimates, FAO/GFOI as evidence about existing national monitoring and CAFI as evidence about its operating finance and PES tools. No source establishes that CFI is developed, endorsed, funded or operational. Presidency; WRI; FAO; CAFI.",
+      "runs": [
+        {
+          "text": "This study uses official DRC communications as evidence of announced priorities, WRI as a source of published forest-loss estimates, FAO/GFOI as evidence about existing national monitoring and CAFI as evidence about its operating finance and PES tools. No source establishes that CFI is developed, endorsed, funded or operational. "
+        },
+        {
+          "text": "Presidency",
+          "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_tshisekedi_plaide_pour_une_juste_remuneration_des_forets"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "WRI",
+          "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "FAO",
+          "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "CAFI",
+          "href": "https://cafi.org/press_releases/a-strong-focus-on-performance-the-2025-cafi-annual-report-is-out/"
+        },
+        {
+          "text": "."
+        }
+      ]
     },
     {
       "type": "p",
-      "text": "The DRC does not need another attractive map that simply repeats existing deforestation alerts. It could benefit from an evidence layer that asks whether environmental commitments, investments and community outcomes are aligned. If a pilot can produce a reliable insight unavailable from any single source, the technology would demonstrate its practical value."
+      "text": "Forest-loss rates are definitions-specific and cannot be equated with permanent deforestation, avoided emissions, project impact, protected hectares or financing results. WRI year-to-year comparisons may change with updated classifications or methods. The 2024 six-country rates are not interchangeable with DRC-only 2025 figures. Pilot scenarios illustrate arithmetic only; no causal or financial effect is claimed."
     },
     {
-      "type": "p",
-      "text": "This is an invitation to research and collaborate, not a claim of official endorsement or an assertion that the proposed platform has already been implemented."
+      "type": "h2",
+      "text": "Sources"
     },
     {
-      "type": "p",
-      "text": "EDITORIAL EVIDENCE AND IMAGE REFERENCES"
-    },
-    {
-      "type": "p",
-      "text": "Primary policy context: RDC Presidency Instagram, forest roundtable, 11 November 2026: https://www.instagram.com/p/DfnjF3oCkaC/"
-    },
-    {
-      "type": "p",
-      "text": "Presidency COP31 climate and peace communication, 11 November 2026: https://www.instagram.com/p/DfnVsgzioFL/"
-    },
-    {
-      "type": "p",
-      "text": "Presidency COP31 recap: https://www.instagram.com/reel/DfoPCeoKEXJ/"
-    },
-    {
-      "type": "p",
-      "text": "Institutional context: https://kivukinshasagreencorridor.org/"
-    },
-    {
-      "type": "p",
-      "text": "Forest monitoring: https://www.globalforestwatch.org/"
-    },
-    {
-      "type": "p",
-      "text": "WRI Congo Basin forest-road AI research: https://africa.wri.org/insights/mapping-forest-roads-congo-basin-unprecedented-detail-ai"
-    },
-    {
-      "type": "p",
-      "text": "SOURCE AND METHODOLOGY NOTE"
-    },
-    {
-      "type": "p",
-      "text": "The Presidency’s statements are cited as policy communications, not independent verification of delivery. The source Gmail test report covered 6–12 November 2026 and included eight posts; only a small nonrepresentative subset of comments was available. No survey or quantified public-sentiment conclusion is inferred from those comments. All future financing, impact and AI-performance claims require independent evidence."
+      "type": "ol",
+      "items": [
+        {
+          "text": "WRI Africa, Congo Basin forest loss, 25 February 2026",
+          "runs": [
+            {
+              "text": "WRI Africa, Congo Basin forest loss, 25 February 2026",
+              "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+            }
+          ]
+        },
+        {
+          "text": "WRI Africa, 2025 tropical rainforest change, 29 April 2026",
+          "runs": [
+            {
+              "text": "WRI Africa, 2025 tropical rainforest change, 29 April 2026",
+              "href": "https://africa.wri.org/insights/tropical-rainforest-loss-slowed-2025-fire-growing-threat-forests-worldwide"
+            }
+          ]
+        },
+        {
+          "text": "WRI, Global Forest Watch becomes Global Nature Watch, 21 September 2026",
+          "runs": [
+            {
+              "text": "WRI, Global Forest Watch becomes Global Nature Watch, 21 September 2026",
+              "href": "https://www.wri.org/news/release-global-forest-watch-becomes-global-nature-watch-expanding-cover-more-land-ecosystems"
+            }
+          ]
+        },
+        {
+          "text": "FAO/GFOI, DRC national forest monitoring dialogue, 12 November 2026",
+          "runs": [
+            {
+              "text": "FAO/GFOI, DRC national forest monitoring dialogue, 12 November 2026",
+              "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+            }
+          ]
+        },
+        {
+          "text": "CAFI, Investments and fiduciary oversight",
+          "runs": [
+            {
+              "text": "CAFI, Investments and fiduciary oversight",
+              "href": "https://cafi.org/what-we-do/how-we-work/investments/"
+            }
+          ]
+        },
+        {
+          "text": "CAFI, 2025 annual report press release, 6 August 2026",
+          "runs": [
+            {
+              "text": "CAFI, 2025 annual report press release, 6 August 2026",
+              "href": "https://cafi.org/press_releases/a-strong-focus-on-performance-the-2025-cafi-annual-report-is-out/"
+            }
+          ]
+        },
+        {
+          "text": "CAFI, Payments for Environmental Services",
+          "runs": [
+            {
+              "text": "CAFI, Payments for Environmental Services",
+              "href": "https://cafi.org/what-we-do/payments-for-environment-services/"
+            }
+          ]
+        },
+        {
+          "text": "DRC Presidency, COP31 arrival and Green Corridor, 10 November 2026",
+          "runs": [
+            {
+              "text": "DRC Presidency, COP31 arrival and Green Corridor, 10 November 2026",
+              "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_antoine_tshisekedi_a_antalya_pour_porter_la_voix_de_la_rdc_au_sommet_des_chefs_detat_et_de_gouvernement"
+            }
+          ]
+        },
+        {
+          "text": "DRC Presidency, forest-service remuneration, 11 November 2026",
+          "runs": [
+            {
+              "text": "DRC Presidency, forest-service remuneration, 11 November 2026",
+              "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_tshisekedi_plaide_pour_une_juste_remuneration_des_forets"
+            }
+          ]
+        },
+        {
+          "text": "UNFCCC, COP31 Antalya Leaders Summit, 11-12 November 2026",
+          "runs": [
+            {
+              "text": "UNFCCC, COP31 Antalya Leaders Summit, 11-12 November 2026",
+              "href": "https://unfccc.int/cop31/high-level"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,118 +1,552 @@
 {
-  "title": "Intelligence forestière du Congo : transformer l’ambition climatique de la RDC en résultats mesurables",
-  "summary": "YNK TECH INTELLIGENCE | SOLUTION PROPOSÉE | PUBLICATION TEST | 13 NOVEMBRE 2026",
+  "title": "Intelligence forestière du Congo : relier les preuves, les financements et les résultats communautaires",
+  "summary": "La RDC dispose déjà de systèmes de surveillance forestière et de financement environnemental. Congo Forest Intelligence (CFI) est un projet pilote proposé, non construit, destiné à vérifier si le rapprochement des observations, engagements, financements et résultats validés localement apporte une meilleure traçabilité sans dupliquer les outils existants.",
   "blocks": [
     {
-      "type": "p",
-      "text": "La République démocratique du Congo occupe une place essentielle dans le débat climatique mondial. Ses forêts protègent la biodiversité et rendent des services écologiques majeurs, tandis que les communautés ont besoin d’emplois, d’énergie abordable, d’infrastructures et de débouchés économiques. Lors de la COP31, les communications de la Présidence en novembre 2026 ont mis en avant le Couloir vert Kivu–Kinshasa et la nécessité de financements climatiques équitables et durables. Une question demeure : comment démontrer que les investissements produisent des résultats environnementaux et sociaux vérifiables ?"
+      "type": "h2",
+      "text": "Principales conclusions"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Dans le bassin du Congo, le taux annuel de perte de forêt primaire tropicale humide est passé de 0,38 % en 2023 à 0,44 % en 2024, soit +0,06 point de pourcentage. Il s’agit d’une mesure régionale, sans lien causal avec CFI. Analyse du WRI.",
+          "runs": [
+            {
+              "text": "Dans le bassin du Congo, le taux annuel de perte de forêt primaire tropicale humide est passé de 0,38 % en 2023 à 0,44 % en 2024, soit +0,06 point de pourcentage. Il s’agit d’une mesure régionale, sans lien causal avec CFI. "
+            },
+            {
+              "text": "Analyse du WRI",
+              "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        {
+          "text": "Selon le WRI, la RDC a perdu environ 0,5 % de sa forêt primaire tropicale en 2025 et la perte a reculé de 5 % par rapport à 2024, malgré des pressions persistantes hors incendies. Ces chiffres nationaux ne constituent pas la même série que les données régionales. Résultats du WRI.",
+          "runs": [
+            {
+              "text": "Selon le WRI, la RDC a perdu environ 0,5 % de sa forêt primaire tropicale en 2025 et la perte a reculé de 5 % par rapport à 2024, malgré des pressions persistantes hors incendies. Ces chiffres nationaux ne constituent pas la même série que les données régionales. "
+            },
+            {
+              "text": "Résultats du WRI",
+              "href": "https://africa.wri.org/insights/tropical-rainforest-loss-slowed-2025-fire-growing-threat-forests-worldwide"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        {
+          "text": "Les solutions existantes sont substantielles : Global Nature Watch dispose d’outils satellitaires et d’une interface d’IA en préversion ; la RDC possède un socle national de surveillance ; CAFI assure déjà le suivi financier et certaines fonctions de pilotage par les résultats. WRI; FAO; CAFI.",
+          "runs": [
+            {
+              "text": "Les solutions existantes sont substantielles : Global Nature Watch dispose d’outils satellitaires et d’une interface d’IA en préversion ; la RDC possède un socle national de surveillance ; CAFI assure déjà le suivi financier et certaines fonctions de pilotage par les résultats. "
+            },
+            {
+              "text": "WRI",
+              "href": "https://www.wri.org/news/release-global-forest-watch-becomes-global-nature-watch-expanding-cover-more-land-ecosystems"
+            },
+            {
+              "text": "; "
+            },
+            {
+              "text": "FAO",
+              "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+            },
+            {
+              "text": "; "
+            },
+            {
+              "text": "CAFI",
+              "href": "https://cafi.org/press_releases/a-strong-focus-on-performance-the-2025-cafi-annual-report-is-out/"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        "CFI ne devrait être testé que comme une couche interopérable reliant preuves et résultats. Aucune baisse de la perte forestière, hausse des financements, accélération des vérifications ou rentabilité ne peut actuellement lui être attribuée."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Contexte"
     },
     {
       "type": "p",
-      "text": "YNK Tech Intelligence propose une piste à tester : Congo Forest Intelligence (CFI), une plateforme indépendante d’intelligence assistée par l’IA reliant les observations forestières existantes, les engagements publics, les données de financement et les résultats validés localement. Il s’agit d’une proposition de YNK Tech, et non d’un projet gouvernemental annoncé ou d’un produit déjà déployé."
+      "text": "À la COP31 à Antalya, la Présidence a plaidé pour une rémunération accrue des services écosystémiques et présenté le Couloir vert Kivu-Kinshasa. Elle lui attribue une superficie de plus de 540 000 km². Il s’agit de la superficie annoncée pour une initiative, non d’une mesure indépendante des hectares effectivement protégés ou des résultats constatés. Présidence, 11 novembre; Présidence, 10 novembre.",
+      "runs": [
+        {
+          "text": "À la COP31 à Antalya, la Présidence a plaidé pour une rémunération accrue des services écosystémiques et présenté le Couloir vert Kivu-Kinshasa. Elle lui attribue une superficie de plus de 540 000 km². Il s’agit de la superficie annoncée pour une initiative, non d’une mesure indépendante des hectares effectivement protégés ou des résultats constatés. "
+        },
+        {
+          "text": "Présidence, 11 novembre",
+          "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_tshisekedi_plaide_pour_une_juste_remuneration_des_forets"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "Présidence, 10 novembre",
+          "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_antoine_tshisekedi_a_antalya_pour_porter_la_voix_de_la_rdc_au_sommet_des_chefs_detat_et_de_gouvernement"
+        },
+        {
+          "text": "."
+        }
+      ]
     },
     {
       "type": "p",
-      "text": "LE PROBLÈME : DES INFORMATIONS FRAGMENTÉES"
+      "text": "Le sommet des dirigeants à Antalya s’est tenu les 11 et 12 novembre 2026. Une prise de parole officielle offre un point de départ pour examiner la mise en œuvre, mais ne prouve ni le versement de fonds aux communautés ni l’amélioration des forêts. Programme de la CCNUCC.",
+      "runs": [
+        {
+          "text": "Le sommet des dirigeants à Antalya s’est tenu les 11 et 12 novembre 2026. Une prise de parole officielle offre un point de départ pour examiner la mise en œuvre, mais ne prouve ni le versement de fonds aux communautés ni l’amélioration des forêts. "
+        },
+        {
+          "text": "Programme de la CCNUCC",
+          "href": "https://unfccc.int/cop31/high-level"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Analyse"
+    },
+    {
+      "type": "h3",
+      "text": "Ce que montrent les données mesurées"
     },
     {
       "type": "p",
-      "text": "Les organismes de télédétection suivent l’évolution des forêts. Les instituts de recherche publient des études. Les autorités annoncent des politiques et des projets. Les bailleurs communiquent sur leurs financements. Les acteurs locaux observent les réalités du terrain. Ces sources n’utilisent pas toujours les mêmes limites géographiques, périodes, indicateurs ou méthodes. Les consulter séparément rend difficile l’identification des résultats vérifiés et des zones d’incertitude."
+      "text": "Les estimations du WRI signalent une pression continue sur les forêts. Sa comparaison pour le bassin du Congo en 2024 constitue une série régionale cohérente sur deux ans. Le taux national pour 2025 doit rester séparé. Méthode régionale; Contexte 2025.",
+      "runs": [
+        {
+          "text": "Les estimations du WRI signalent une pression continue sur les forêts. Sa comparaison pour le bassin du Congo en 2024 constitue une série régionale cohérente sur deux ans. Le taux national pour 2025 doit rester séparé. "
+        },
+        {
+          "text": "Méthode régionale",
+          "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "Contexte 2025",
+          "href": "https://africa.wri.org/insights/tropical-rainforest-loss-slowed-2025-fire-growing-threat-forests-worldwide"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Indicateur",
+          "Valeur",
+          "Périmètre",
+          "Statut et source"
+        ],
+        [
+          "Taux de perte de forêt primaire, 2023",
+          "0,38 %",
+          "Bassin du Congo, six pays",
+          "Estimation observée ; WRI, 2026"
+        ],
+        [
+          "Taux de perte de forêt primaire, 2024",
+          "0,44 %",
+          "Bassin du Congo, six pays",
+          "Estimation observée ; WRI, 2026"
+        ],
+        [
+          "Évolution 2023-2024",
+          "+0,06 point (+15,8 % en relatif)",
+          "Même série régionale",
+          "Calcul : (0,44 - 0,38) / 0,38 ; pas une prévision"
+        ],
+        [
+          "Perte de forêt primaire, 2024",
+          "780 000 hectares",
+          "Bassin du Congo, six pays",
+          "Estimation du WRI ; WRI, 2026"
+        ],
+        [
+          "Taux de perte de forêt primaire, RDC, 2025",
+          "environ 0,5 %",
+          "RDC uniquement",
+          "Estimation nationale ; WRI, 2026"
+        ],
+        [
+          "Périmètre annoncé du Couloir vert",
+          "plus de 540 000 km²",
+          "Description officielle du projet en RDC",
+          "Annonce, non surface protégée vérifiée ; Présidence, 2026"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-rdc-2026-11-13-cfi-test-14e6e5f80e08.png",
+      "alt": "Graphique en barres : dans les six pays du bassin du Congo, le taux annuel de perte de forêt primaire passe de 0,38 pour cent en 2023 à 0,44 pour cent en 2024.",
+      "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action",
+      "caption": "Graphique : YNK Tech, d’après les données WRI publiées en février 2026. Part annuelle de la forêt primaire humide tropicale perdue dans six pays du bassin du Congo, non cumulée. Analyse originale."
+    },
+    {
+      "type": "h3",
+      "text": "Solutions existantes et réalisations actuelles"
     },
     {
       "type": "p",
-      "text": "LA SOLUTION PROPOSÉE"
+      "text": "Une comparaison équitable commence par les dispositifs déjà opérationnels. CFI ne peut prétendre inventer les alertes forestières, les inventaires nationaux, la transparence des bailleurs, la vérification des paiements ou la vulgarisation des données environnementales."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Dispositif existant",
+          "Capacité démontrée",
+          "Limite qui reste à vérifier",
+          "Lien éventuel avec CFI"
+        ],
+        [
+          "Global Nature Watch (ex-Global Forest Watch), WRI source",
+          "Cartes et alertes satellitaires, données téléchargeables et outils existants ; Horizon, interface d’IA en préversion",
+          "L’absence éventuelle d’outils de suivi financier ou de validation terrain pour le territoire pilote",
+          "Réutiliser observations et alertes sous licence ; ne pas recréer la détection des changements forestiers"
+        ],
+        [
+          "Système national de surveillance des forêts de la RDC, DIAF / FAO-GFOI source",
+          "Suivi des changements, inventaires et carbone ; coordination institutionnelle en cours",
+          "L’indisponibilité supposée de tous les dossiers de financement ou de résultats communautaires",
+          "Rechercher des partenariats sous conduite nationale et harmoniser les méthodes"
+        ],
+        [
+          "Rapports et outils de paiements environnementaux de CAFI source",
+          "Paiements fondés sur des résultats et outils numériques ; suivi financier publié (financement)",
+          "Une incapacité présumée de CAFI à rapprocher ses propres paiements et jalons",
+          "Tester seulement une traçabilité intersources autorisée ; ne pas répliquer la gestion des paiements CAFI"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Lacunes ou besoins non couverts"
     },
     {
       "type": "p",
-      "text": "CFI rassemblerait ces informations sans remplacer les dispositifs scientifiques ou institutionnels existants. Un projet pilote intégrerait : (1) des données satellitaires et des alertes forestières dérivées de l’IA, utilisées dans le respect des licences ; (2) la localisation des projets et les engagements publics ; (3) les financements et étapes de mise en œuvre documentés ; et (4) des observations de terrain apportées par des partenaires congolais avec les consentements requis. Chaque indicateur serait accompagné de sa source, de sa date, de sa méthode, de son niveau de confiance et de son statut de vérification."
+      "text": "La lacune envisagée ne concerne pas l’absence de données satellitaires. La question est de savoir si un analyste peut relier un engagement nommé, sa zone géographique, un décaissement daté, une étape de mise en œuvre et un résultat environnemental ou communautaire vérifié de manière indépendante. L’existence d’un échec généralisé à l’échelle nationale n’est pas établie. Ce besoin doit être testé dans un programme précis avant de construire un logiciel."
     },
     {
       "type": "p",
-      "text": "L’IA aurait trois rôles précis. L’analyse géospatiale faciliterait l’identification de tendances environnementales. Des modèles prédictifs, après validation, pourraient aider à cibler les zones nécessitant une enquête. Un assistant linguistique fondé sur des sources identifiables pourrait préparer des synthèses soumises à un contrôle humain. Aucun algorithme ne devrait déterminer automatiquement qu’une utilisation des terres est illégale ou trancher des droits communautaires."
+      "text": "En novembre 2026, la FAO a décrit les travaux en cours pour harmoniser les méthodes, coordonner les institutions et pérenniser la gestion des données forestières congolaises. C’est une raison d’examiner l’interopérabilité, non une preuve que CFI serait supérieur. Constats de la FAO.",
+      "runs": [
+        {
+          "text": "En novembre 2026, la FAO a décrit les travaux en cours pour harmoniser les méthodes, coordonner les institutions et pérenniser la gestion des données forestières congolaises. C’est une raison d’examiner l’interopérabilité, non une preuve que CFI serait supérieur. "
+        },
+        {
+          "text": "Constats de la FAO",
+          "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Apport proposé par YNK Tech"
     },
     {
       "type": "p",
-      "text": "L’ENJEU ÉCONOMIQUE"
+      "text": "Périmètre minimal proposé : (1) registre documenté de 20 à 40 engagements publics dans une zone choisie, (2) liens autorisés vers les observations forestières et périmètres de projets, (3) registre de financement et d’étapes horodatées, (4) fiches de résultats contrôlables avec indication de l’incertitude et consentement local. Le pilote doit montrer les pièces manquantes, dates contradictoires et affirmations invérifiables, sans les combler artificiellement par l’IA."
     },
     {
       "type": "p",
-      "text": "Le but n’est pas de fixer un prix à chaque arbre, mais de rapprocher les engagements politiques des résultats démontrables. Une plateforme crédible pourrait aider les équipes à identifier les retards, les chercheurs à comparer les évolutions et les partenaires financiers à apprécier la qualité des preuves. Une meilleure information peut faciliter l’évaluation des projets ; elle ne garantit ni financements supplémentaires ni revenus carbone."
+      "text": "Chaque fiche distinguerait annonce, contrat, décaissement, activité et résultat observé. Une alerte géospatiale doit déclencher une vérification, non décider de l’illégalité, de la propriété foncière, de l’additionnalité ou du consentement communautaire. L’IA ne pourrait qu’aider au rapprochement documentaire sous supervision humaine."
+    },
+    {
+      "type": "h3",
+      "text": "Développer, s’associer ou intégrer ?"
     },
     {
       "type": "p",
-      "text": "Le pilote devrait publier des indicateurs concrets : évolution des perturbations forestières par rapport à un état de référence ; part des projets disposant de financements et d’étapes documentés ; proportion des résultats vérifiés indépendamment ; délai moyen de traitement des alertes ; et bénéfices constatés localement, notamment en matière d’emploi ou de revenus. Lorsque les données sont insuffisantes, la plateforme doit le signaler."
+      "text": "La priorité est à l’intégration. Exploiter les observations GNW/GFW selon leurs licences ; travailler avec la DIAF et les organismes nationaux ; référencer les registres financiers officiels et CAFI sans s’approprier leurs contenus ; associer les chercheurs et communautés congolaises pour les méthodes et le consentement. Un développement sur mesure ne serait justifié que si le pilote comparatif apporte une valeur réelle au-delà des solutions existantes."
     },
     {
       "type": "p",
-      "text": "DES PARTENARIATS LOCAUX INDISPENSABLES"
+      "text": "Une conclusion « ne pas construire » est acceptable. Si les utilisateurs disposent déjà de preuves complètes, fiables et rapides, YNK Tech devrait proposer un accompagnement ou une évaluation indépendante plutôt qu’une plateforme redondante."
+    },
+    {
+      "type": "h3",
+      "text": "Comment mesurer la valeur ajoutée"
     },
     {
       "type": "p",
-      "text": "Une image satellite ne suffit pas pour expliquer toutes les transformations d’un territoire. Les universités congolaises, les spécialistes de l’environnement et les représentants communautaires sont indispensables pour contextualiser les observations et valider les anomalies. La collaboration doit respecter les consentements, les droits sur les données, l’attribution des travaux et la participation équitable des compétences congolaises. CFI devrait compléter le système national de surveillance des forêts, et non le dédoubler."
+      "text": "La ligne de base des solutions actuelles n’est pas encore mesurée. Les critères qui suivent constituent un protocole de test, non des gains acquis. Comparer les mêmes 40 dossiers, avec règles de sélection et contrôleurs documentés, dans le processus existant puis dans le pilote CFI."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Indicateur",
+          "Référence actuelle",
+          "Mesure du pilote CFI",
+          "Critère de réussite proposé, non atteint"
+        ],
+        [
+          "Complétude des preuves",
+          "Part de 40 dossiers comportant engagement, financement, étape et résultat sourcés",
+          "Même grille après rapprochement assisté",
+          "Gain d’au moins 10 points sans hausse des faux rapprochements"
+        ],
+        [
+          "Temps médian de revue",
+          "Chronométrer 40 revues dans le processus actuel",
+          "Mesurer des cas de complexité comparable dans CFI",
+          "Réduction d’au moins 15 %, corrections comprises"
+        ],
+        [
+          "Taux de liens erronés",
+          "Vérification manuelle indépendante des correspondances fausses",
+          "Audit indépendant des liens CFI",
+          "Aucune hausse par rapport au processus actuel"
+        ],
+        [
+          "Coût additionnel",
+          "Noter temps analyste et outils existants",
+          "Ajouter mise en place, maintenance et validation locale",
+          "Bénéfice net exigé avant toute affirmation de rentabilité"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Sensibilité illustrative, non prévision validée"
     },
     {
       "type": "p",
-      "text": "COMMENCER À PETITE ÉCHELLE"
+      "text": "Simple hypothèse de planification : pour 40 dossiers, un gain supposé de 5, 15 ou 25 minutes par dossier donnerait les différences d’heures brutes ci-dessous. Il ne s’agit ni de gains observés ni de prévisions. Ces calculs excluent contrôle qualité, logiciel et exploitation. Le temps de référence réel n’est pas connu."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Scénario hypothétique",
+          "Minutes supposées économisées par dossier",
+          "Différence brute sur 40 dossiers",
+          "Calcul"
+        ],
+        [
+          "Faible",
+          "5",
+          "3,3 heures",
+          "40 × 5 / 60"
+        ],
+        [
+          "Central",
+          "15",
+          "10,0 heures",
+          "40 × 15 / 60"
+        ],
+        [
+          "Élevé",
+          "25",
+          "16,7 heures",
+          "40 × 25 / 60"
+        ]
+      ],
+      "head": true
     },
     {
       "type": "p",
-      "text": "YNK propose de choisir une zone pilote du Couloir vert. Première étape : inventorier les données disponibles, vérifier les limites géographiques et les licences, puis établir les indicateurs de référence. Deuxième étape : développer une carte interactive et un registre public des preuves. Troisième étape : faire examiner un échantillon de résultats par des partenaires locaux indépendants. Les modèles prédictifs et un éventuel déploiement plus large viendraient ensuite, sous réserve d’une validation rigoureuse."
+      "text": "Le pilote devra d’abord mesurer le processus de référence et tous les coûts ajoutés. Un résultat environnemental ou un financement supplémentaire devrait être attribué indépendamment, et non déduit d’un tableau de bord. Le rapport coût-bénéfice reste non estimable."
+    },
+    {
+      "type": "h3",
+      "text": "Feuille de route et garde-fous proposés"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Jours 1-30 : choisir un territoire pilote approprié et deux méthodes existantes ; inventorier sources, périmètres, licences et besoins de consentement ; fixer un échantillon identique de 40 dossiers et des réviseurs indépendants.",
+        "Jours 31-60 : créer seulement un registre de preuves en lecture seule et une interface comparative ; rapprocher identités, dates, jalons et citations ; vérifier qualité, sécurité et confidentialité.",
+        "Jours 61-90 : procéder aux essais comparatifs en aveugle, contrôler les erreurs avec des experts congolais, publier les résultats favorables et défavorables et décider de poursuivre, collaborer ou arrêter."
+      ]
     },
     {
       "type": "p",
-      "text": "L’ÉPREUVE DE LA GOUVERNANCE"
+      "text": "Les garde-fous comprennent traçabilité, corrections, séparation des faits et estimations, protection des données sensibles des communautés, interprétation non discriminatoire, revue méthodologique indépendante, licences, rôles institutionnels et coûts transparents. Il ne faut pas publier de localisations communautaires sensibles ni inférer la responsabilité juridique d’une simple alerte satellite."
+    },
+    {
+      "type": "h2",
+      "text": "Points à suivre"
     },
     {
       "type": "p",
-      "text": "Un tableau de bord transparent ne remplace pas des institutions responsables. CFI devrait prévoir une évaluation méthodologique indépendante, la sécurisation des données, la publication des conflits d’intérêts, des procédures de correction et la protection des informations communautaires sensibles. Les résultats défavorables ou incomplets doivent être présentés avec la même rigueur que les succès."
+      "text": "Prochaines vérifications, indépendantes de la décision de construire CFI :"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Sous 30 jours : confirmer les périmètres juridiques du Couloir vert et les détails de financement disponibles, sans assimiler la superficie annoncée aux résultats acquis.",
+        "Sous 60 jours : documenter les fonctions actuelles du système national, de CAFI, leurs règles de conservation et leurs méthodes de vérification.",
+        "Sous 90 jours : en cas d’autorisation, comparer les deux processus et publier temps, complétude, erreurs, coûts et décision de poursuite."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Méthodologie et limites"
     },
     {
       "type": "p",
-      "text": "LA PROPOSITION DE YNK TECH"
+      "text": "Cette étude emploie les communications de la Présidence comme preuve de priorités annoncées, le WRI pour les estimations forestières, la FAO/GFOI pour le système national et CAFI pour les dispositifs financiers et les paiements environnementaux. Aucune source n’établit que CFI est construit, financé, approuvé ou opérationnel. Présidence; WRI; FAO; CAFI.",
+      "runs": [
+        {
+          "text": "Cette étude emploie les communications de la Présidence comme preuve de priorités annoncées, le WRI pour les estimations forestières, la FAO/GFOI pour le système national et CAFI pour les dispositifs financiers et les paiements environnementaux. Aucune source n’établit que CFI est construit, financé, approuvé ou opérationnel. "
+        },
+        {
+          "text": "Présidence",
+          "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_tshisekedi_plaide_pour_une_juste_remuneration_des_forets"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "WRI",
+          "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "FAO",
+          "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+        },
+        {
+          "text": "; "
+        },
+        {
+          "text": "CAFI",
+          "href": "https://cafi.org/press_releases/a-strong-focus-on-performance-the-2025-cafi-annual-report-is-out/"
+        },
+        {
+          "text": "."
+        }
+      ]
     },
     {
       "type": "p",
-      "text": "La RDC n’a pas simplement besoin d’une carte supplémentaire répétant les alertes de déforestation existantes. Elle pourrait tirer profit d’une couche d’intelligence capable de vérifier la cohérence entre engagements environnementaux, investissements et bénéfices pour les communautés. Si un pilote produit des analyses fiables qu’aucune source isolée ne permet d’obtenir, il démontrera une valeur ajoutée réelle."
+      "text": "Les taux de perte forestière sont sensibles aux définitions : ils ne sont pas équivalents à la déforestation permanente, aux émissions évitées, aux effets d’un projet, aux hectares protégés ou aux versements de fonds. Les méthodologies peuvent évoluer. La série régionale 2023-2024 ne se compare pas directement à la RDC seule en 2025. Les scénarios sont arithmétiques, pas des preuves de causalité."
     },
     {
-      "type": "p",
-      "text": "Cette publication constitue une invitation à la recherche et à la collaboration. Elle ne représente ni une approbation officielle ni l’annonce d’un déploiement existant."
+      "type": "h2",
+      "text": "Sources"
     },
     {
-      "type": "p",
-      "text": "SOURCES ET RÉFÉRENCES VISUELLES"
-    },
-    {
-      "type": "p",
-      "text": "Présidence, table ronde sur les forêts à la COP31, 11 novembre 2026 : https://www.instagram.com/p/DfnjF3oCkaC/"
-    },
-    {
-      "type": "p",
-      "text": "Présidence, climat et paix, 11 novembre 2026 : https://www.instagram.com/p/DfnVsgzioFL/"
-    },
-    {
-      "type": "p",
-      "text": "Présidence, résumé de la COP31 : https://www.instagram.com/reel/DfoPCeoKEXJ/"
-    },
-    {
-      "type": "p",
-      "text": "Couloir vert : https://kivukinshasagreencorridor.org/"
-    },
-    {
-      "type": "p",
-      "text": "Suivi des forêts : https://www.globalforestwatch.org/"
-    },
-    {
-      "type": "p",
-      "text": "Recherche WRI sur les routes forestières et l’IA : https://africa.wri.org/insights/mapping-forest-roads-congo-basin-unprecedented-detail-ai"
-    },
-    {
-      "type": "p",
-      "text": "NOTE MÉTHODOLOGIQUE"
-    },
-    {
-      "type": "p",
-      "text": "Les déclarations de la Présidence sont des communications politiques, et non des preuves indépendantes de mise en œuvre. Le rapport Gmail test couvrait les 6–12 novembre 2026, avec huit publications et un nombre limité de commentaires non représentatifs. Aucune conclusion statistique sur l’opinion publique n’en est tirée. Les prévisions et résultats futurs doivent être étayés par des sources indépendantes."
+      "type": "ol",
+      "items": [
+        {
+          "text": "WRI Africa, Congo Basin forest loss, 25 February 2026",
+          "runs": [
+            {
+              "text": "WRI Africa, Congo Basin forest loss, 25 February 2026",
+              "href": "https://africa.wri.org/insights/why-forest-loss-congo-basin-requires-immediate-action"
+            }
+          ]
+        },
+        {
+          "text": "WRI Africa, 2025 tropical rainforest change, 29 April 2026",
+          "runs": [
+            {
+              "text": "WRI Africa, 2025 tropical rainforest change, 29 April 2026",
+              "href": "https://africa.wri.org/insights/tropical-rainforest-loss-slowed-2025-fire-growing-threat-forests-worldwide"
+            }
+          ]
+        },
+        {
+          "text": "WRI, Global Forest Watch becomes Global Nature Watch, 21 September 2026",
+          "runs": [
+            {
+              "text": "WRI, Global Forest Watch becomes Global Nature Watch, 21 September 2026",
+              "href": "https://www.wri.org/news/release-global-forest-watch-becomes-global-nature-watch-expanding-cover-more-land-ecosystems"
+            }
+          ]
+        },
+        {
+          "text": "FAO/GFOI, DRC national forest monitoring dialogue, 12 November 2026",
+          "runs": [
+            {
+              "text": "FAO/GFOI, DRC national forest monitoring dialogue, 12 November 2026",
+              "href": "https://www.fao.org/gfoi/news-and-events/news/news-detail/democratic-republic-of-the-congo-progresses-institutionalization-of-forest-monitoring-system-through-country-led-dialogue/en"
+            }
+          ]
+        },
+        {
+          "text": "CAFI, Investments and fiduciary oversight",
+          "runs": [
+            {
+              "text": "CAFI, Investments and fiduciary oversight",
+              "href": "https://cafi.org/what-we-do/how-we-work/investments/"
+            }
+          ]
+        },
+        {
+          "text": "CAFI, 2025 annual report press release, 6 August 2026",
+          "runs": [
+            {
+              "text": "CAFI, 2025 annual report press release, 6 August 2026",
+              "href": "https://cafi.org/press_releases/a-strong-focus-on-performance-the-2025-cafi-annual-report-is-out/"
+            }
+          ]
+        },
+        {
+          "text": "CAFI, Payments for Environmental Services",
+          "runs": [
+            {
+              "text": "CAFI, Payments for Environmental Services",
+              "href": "https://cafi.org/what-we-do/payments-for-environment-services/"
+            }
+          ]
+        },
+        {
+          "text": "DRC Presidency, COP31 arrival and Green Corridor, 10 November 2026",
+          "runs": [
+            {
+              "text": "DRC Presidency, COP31 arrival and Green Corridor, 10 November 2026",
+              "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_antoine_tshisekedi_a_antalya_pour_porter_la_voix_de_la_rdc_au_sommet_des_chefs_detat_et_de_gouvernement"
+            }
+          ]
+        },
+        {
+          "text": "DRC Presidency, forest-service remuneration, 11 November 2026",
+          "runs": [
+            {
+              "text": "DRC Presidency, forest-service remuneration, 11 November 2026",
+              "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_tshisekedi_plaide_pour_une_juste_remuneration_des_forets"
+            }
+          ]
+        },
+        {
+          "text": "UNFCCC, COP31 Antalya Leaders Summit, 11-12 November 2026",
+          "runs": [
+            {
+              "text": "UNFCCC, COP31 Antalya Leaders Summit, 11-12 November 2026",
+              "href": "https://unfccc.int/cop31/high-level"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
