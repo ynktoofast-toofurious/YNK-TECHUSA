@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import { checkBuildPass, generatePrototype, intakeEnabled, isBusy, prototypeStatus, requestBuildPass, serviceStatus, submitIdeaTicket } from '../utils/intake'
 import { ArrowRight } from './Icons'
@@ -7,7 +8,9 @@ const SESSION_KEY = 'ynk-idea-studio'
 const TRIAL_KEY = 'ynk-studio-trial'
 const PASS_KEY = 'ynk-build-pass'
 const FREE_RUNS = 3
-const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
+const BOOK = '/book?topic=studio'
+// Links in a srcdoc frame resolve against this page's URL, so clicking one would load the site inside the frame (blank).
+const inertLinks = (html) => html.replace(/<(a|area)\b([^>]*)>/gi, (m, tag, attrs) => `<${tag}${attrs.replace(/\s(?:xlink:)?href\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')}>`)
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const PASS_RE = /^YNK-PASS-[A-Z0-9]{4}-[A-Z0-9]{4}$/
 const PASS_ERRORS = ['pass_invalid', 'pass_expired', 'pass_spent']
@@ -268,7 +271,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
         <button type="submit" className="btn btn-ghost hub-btn-round" disabled={passForm.checking || !passForm.code.trim()}>{passForm.checking ? c.pay.checking : c.pay.apply}</button>
       </form>
       {passForm.error && <p className="sp-error" role="alert">{passForm.error}</p>}
-      <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="hub-link">{c.pay.talk} <ArrowRight /></a>
+      <Link to={BOOK} className="hub-link">{c.pay.talk} <ArrowRight /></Link>
     </div>
   )
 
@@ -288,7 +291,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
             <p>{c.paused.text}</p>
             <div className="is-next-actions">
               {onBrief && <button type="button" className="btn btn-primary hub-btn-round" onClick={() => onBrief(idea.trim())}>{c.paused.brief} <ArrowRight /></button>}
-              <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn-ghost hub-btn-round">{c.book}</a>
+              <Link to={BOOK} className="btn btn-ghost hub-btn-round">{c.book}</Link>
             </div>
           </div>
         </div>
@@ -325,7 +328,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
             <span className="is-version">v{proto.version}</span>
             <button type="button" className="is-toggle" onClick={() => setFull((f) => !f)}>{full ? c.smaller : c.larger}</button>
           </div>
-          <iframe className={`is-frame${full ? ' is-frame--full' : ''}`} sandbox="" srcDoc={proto.html} title={proto.title || c.untitled} />
+          <iframe className={`is-frame${full ? ' is-frame--full' : ''}`} sandbox="" srcDoc={inertLinks(proto.html)} title={proto.title || c.untitled} />
           <p className="is-note">{c.disclaimer}</p>
 
           {locked ? (
@@ -377,7 +380,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
               <p>{c.nextText}</p>
             </div>
             <div className="is-next-actions">
-              <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn-primary hub-btn-round">{c.book} <ArrowRight /></a>
+              <Link to={BOOK} className="btn btn-primary hub-btn-round">{c.book} <ArrowRight /></Link>
               {onBrief && <button type="button" className="btn btn-ghost hub-btn-round" onClick={() => onBrief(idea.trim())}>{c.brief}</button>}
             </div>
           </div>

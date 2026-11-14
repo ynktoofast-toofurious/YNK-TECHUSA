@@ -3,6 +3,7 @@ import projectCopy from './projectCopy'
 import vaultCopy from './vaultCopy'
 import communityCopy from './communityCopy'
 import aboutCopy from './aboutCopy'
+import bookCopy from './bookCopy'
 
 const translations = {
   en: {
@@ -11,6 +12,7 @@ const translations = {
     ...vaultCopy.en,
     ...communityCopy.en,
     ...aboutCopy.en,
+    ...bookCopy.en,
     // Disclaimer banner
     disclaimer: {
       text: 'This website is currently under development. Some features and service samples may not be available yet.',
@@ -459,6 +461,7 @@ const translations = {
     ...vaultCopy.fr,
     ...communityCopy.fr,
     ...aboutCopy.fr,
+    ...bookCopy.fr,
     disclaimer: {
       text: 'Ce site est actuellement en cours de développement. Certaines fonctionnalités et exemples de services ne sont pas encore disponibles.',
       dismiss: 'Compris',
@@ -858,6 +861,7 @@ const translations = {
     ...vaultCopy.es,
     ...communityCopy.es,
     ...aboutCopy.es,
+    ...bookCopy.es,
     disclaimer: {
       text: 'Este sitio web está actualmente en desarrollo. Algunas funciones y muestras de servicios pueden no estar disponibles todavía.',
       dismiss: 'Entendido',

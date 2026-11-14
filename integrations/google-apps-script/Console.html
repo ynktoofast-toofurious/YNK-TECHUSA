@@ -141,8 +141,8 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var TABS = [['review', 'To review'], ['published', 'Published'], ['full', 'Full access'], ['tickets', 'Idea tickets'], ['questions', 'Questions'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
-  var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null, ops: null, opsTab: 'Opportunity_Registry', opsShowDone: false, opsOpen: {}, questions: null, qOnlyOpen: false, tickets: null };
+  var TABS = [['review', 'To review'], ['published', 'Published'], ['bookings', 'Bookings'], ['full', 'Full access'], ['tickets', 'Idea tickets'], ['questions', 'Questions'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
+  var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null, ops: null, opsTab: 'Opportunity_Registry', opsShowDone: false, opsOpen: {}, questions: null, qOnlyOpen: false, tickets: null, bookings: null };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
 
@@ -206,6 +206,7 @@
     state.ops = null;
     state.questions = null;
     state.tickets = null;
+    state.bookings = null;
     state.opsError = '';
     set(bar, []);
     set(main, [h('p', { class: 'loading', text: 'Loading...' })]);
@@ -273,6 +274,10 @@
     }
     if (state.tab === 'tickets') {
       set(main, [tabs].concat(lazyView('tickets', 'adminTickets', 'Loading idea tickets...', ticketsView)));
+      return;
+    }
+    if (state.tab === 'bookings') {
+      set(main, [tabs].concat(lazyView('bookings', 'adminBookings', 'Loading bookings...', bookingsView)));
       return;
     }
     if (state.tab === 'ops') {
@@ -471,6 +476,49 @@
     }) : [h('div', { class: 'empty', text: 'No questions yet.' })]);
   }
 
+  function bookingsView(d) {
+    var dateInput = h('input', { type: 'date', style: 'width:auto' });
+    var head = [
+      h('p', { class: 'meta', text: 'Consultations booked on ynk-techusa.com/book. Hours: ' + d.hours + ' (' + d.tz + '). Both inboxes get each booking with a calendar invite.' }),
+      h('div', { class: 'note src' }, [
+        h('span', { text: d.blocked.length ? 'Blocked days: ' + d.blocked.join(', ') : 'No blocked days. Block a day off so nobody can book it:' }),
+        dateInput,
+        h('button', { class: 'btn', type: 'button', text: 'Block day', onclick: function (e) {
+          if (!dateInput.value) { toast('Pick a date first.', true); return; }
+          call('adminBlockDate', [dateInput.value, true], e.currentTarget).then(function (n) { state.bookings = n; toast('Day blocked.'); render(); });
+        } })
+      ].concat(d.blocked.map(function (day) {
+        return h('button', { class: 'btn ghost', type: 'button', text: 'Unblock ' + day, onclick: function (e) {
+          call('adminBlockDate', [day, false], e.currentTarget).then(function (n) { state.bookings = n; toast('Day open again.'); render(); });
+        } });
+      })))
+    ];
+    var card = function (b) {
+      var actions = b.status === 'CONFIRMED' ? [
+        h('button', { class: 'btn ghost', type: 'button', text: 'Cancel', onclick: function (e) {
+          var note = h('textarea', { rows: '3', placeholder: 'Optional note to the visitor' });
+          ask('Cancel the booking with ' + b.name + '?', [h('p', { text: 'They get an email with a cancelled calendar invite and a link to pick a new time.' }), note], 'Cancel booking').then(function (yes) {
+            if (yes) call('adminSetBookingStatus', [b.id, 'CANCELLED', note.value.trim()]).then(function (n) { state.bookings = n; toast('Booking cancelled.'); render(); });
+          });
+        } }),
+        h('button', { class: 'btn', type: 'button', text: 'Mark done', onclick: function (e) {
+          call('adminSetBookingStatus', [b.id, 'DONE', ''], e.currentTarget).then(function (n) { state.bookings = n; toast('Marked done.'); render(); });
+        } })
+      ] : [];
+      return h('div', { class: 'card req' }, [
+        h('h3', { text: b.when + ' \u00b7 ' + b.name }),
+        h('div', { class: 'meta' }, [h('span', { class: 'badge' + (b.status === 'CONFIRMED' ? ' html' : b.status === 'CANCELLED' ? ' err' : ''), text: b.status }),
+          h('span', { class: 'badge study', text: b.topic }), h('span', { text: b.id }), h('span', { text: 'Visitor time zone: ' + b.visitorTz }), h('span', { text: b.language.toUpperCase() })]),
+        h('p', { class: 'reason', text: b.email + (b.company ? ' \u00b7 ' + b.company : '') + (b.notes ? '\n' + b.notes : '') }),
+        h('div', { class: 'row' }, [h('a', { class: 'btn ghost', href: 'mailto:' + encodeURIComponent(b.email) + '?subject=' + encodeURIComponent('Your YNK consultation ' + b.id), text: 'Email' })].concat(actions))
+      ]);
+    };
+    return head
+      .concat([h('h3', { text: 'Upcoming (' + d.upcoming.length + ')' })])
+      .concat(d.upcoming.length ? d.upcoming.map(card) : [h('div', { class: 'empty', text: 'No upcoming bookings yet.' })])
+      .concat(d.past.length ? [h('h3', { text: 'Past and cancelled' })].concat(d.past.map(card)) : []);
+  }
+
   var TICKET_STATUS = ['NEW', 'CONTACTED', 'IN PROGRESS', 'CLOSED'];
 
   function ticketsView(data) {
@@ -499,7 +547,7 @@
       var view = h('button', { class: 'btn', type: 'button', text: 'View prototype', onclick: function (e) {
         call('adminTicketHtml', [t.id], e.currentTarget, 'Loading...').then(function (html) {
           var frame = h('iframe', { sandbox: '', title: 'Prototype', style: 'width:100%;height:70vh;border:1px solid var(--line);border-radius:10px;background:#fff' });
-          frame.srcdoc = html;
+          frame.srcdoc = html.replace(/<(a|area)\b([^>]*)>/gi, function (m, tag, attrs) { return '<' + tag + attrs.replace(/\s(?:xlink:)?href\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '') + '>'; });
           var dlg = document.getElementById('dlg');
           dlg.style.maxWidth = '1000px';
           dlg.style.width = '92vw';

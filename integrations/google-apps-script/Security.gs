@@ -15,7 +15,7 @@ const SECURITY = {
   // Fields that hold machine values; they are validated by strict patterns where they are used.
   skip: { action: true, html: true, token: true, trial: true, pass: true, code: true, website: true, job: true },
   // Free text that may span lines (newlines are expected there). Values never reach a mail header unflattened.
-  multiline: { idea: true, reason: true, purpose: true, custom: true, refine: true, text: true, title: true, outcome: true, message: true },
+  multiline: { idea: true, reason: true, purpose: true, custom: true, refine: true, text: true, title: true, outcome: true, message: true, notes: true },
   // Text that only goes to the AI as data and is shown back as plain text: a match is logged, not refused,
   // so visitors can still ask about these attacks. Prompt attacks on these fields are handled by aiGuard_.
   aiText: { q: true, history: true, idea: true, refine: true },

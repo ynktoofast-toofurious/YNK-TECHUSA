@@ -16,6 +16,8 @@ export const PAGES = [
     about: 'About YNK Tech USA: the story, the founder Yannick Nkongolo, the mission, vision and promise.' },
   { href: '/start-project', titleKey: 'hubNav.startProject', kw: 'start project quote brief hire build contact website site web logo brand app idea prototype studio projet proyecto devis presupuesto marque marca sitio idee idea',
     about: 'Start a Project opens with the Idea Studio: describe a website, brand, app or dashboard idea and see it instantly as a visual prototype, then save it as a ticket or send a two-minute guided brief; YNK replies personally within 24 hours.' },
+  { href: '/book', titleKey: 'hubFooter.links.book', kw: 'book consultation call meeting schedule appointment talk session calendar reserver rendez-vous appel reunion reservar cita llamada consulta',
+    about: 'Book a free 30-minute online consultation with founder Yannick Nkongolo: pick an open day and time, and get a confirmation email with a calendar invite.' },
   { href: '/it-services', titleKey: 'hubFooter.links.it', kw: 'it services consulting data engineering power bi cloud services informatiques servicios',
     about: 'IT Services covers data engineering, Power BI, cloud and consulting engagements (access code required).' },
   { href: '/branding', titleKey: 'hubFooter.links.branding', kw: 'branding brand design events stage lighting printing marque marca evenements eventos',

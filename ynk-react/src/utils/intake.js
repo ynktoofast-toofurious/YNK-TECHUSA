@@ -88,6 +88,16 @@ export function submitQuote(data) {
   return post({ action: 'quote', ...data })
 }
 
+// { ok, tz, minutes, slots: [ISO start times] } of open consultation slots.
+export function bookingSlots() {
+  return post({ action: 'slots' })
+}
+
+// { ok, id } or error 'taken' when someone booked the slot first.
+export function bookMeeting(data) {
+  return post({ action: 'book', ...data })
+}
+
 // { ok, valid, left, expires, reason }
 export function checkBuildPass(pass) {
   return post({ action: 'pass', pass })

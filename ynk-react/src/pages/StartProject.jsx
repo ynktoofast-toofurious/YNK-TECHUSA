@@ -6,7 +6,6 @@ import { ArrowLeft, ArrowRight } from '../components/Icons'
 import IdeaStudio from '../components/IdeaStudio'
 import { isBusy, submitBrief } from '../utils/intake'
 
-const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
 const DRAFT_KEY = 'ynk-project-brief'
 const SENT_KEY = 'ynk-project-brief-sent'
 const COOLDOWN_MS = 60 * 1000
@@ -191,7 +190,7 @@ export default function StartProject() {
                 ))}
               </ol>
               <div className="hx-ctas sp-success-ctas">
-                <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn-primary hub-btn-round">{p.success.book} <ArrowRight /></a>
+                <Link to="/book" className="btn btn-primary hub-btn-round">{p.success.book} <ArrowRight /></Link>
                 <Link to="/latest" className="btn btn-ghost hub-btn-round">{p.success.explore}</Link>
                 <button type="button" className="btn btn-ghost hub-btn-round" onClick={() => { setDone(null); reset() }}>{p.success.another}</button>
               </div>
@@ -411,7 +410,7 @@ export default function StartProject() {
             <div className="sp-talk">
               <strong>{p.talk.title}</strong>
               <p>{p.talk.text}</p>
-              <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="hub-link">{p.talk.cta} <ArrowRight /></a>
+              <Link to="/book" className="hub-link">{p.talk.cta} <ArrowRight /></Link>
             </div>
           </aside>
         </div>

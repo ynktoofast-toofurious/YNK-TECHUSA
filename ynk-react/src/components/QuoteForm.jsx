@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import { isBusy, submitQuote } from '../utils/intake'
 
@@ -38,7 +39,7 @@ export default function QuoteForm({ serviceOptions }) {
         <p>{t('quoteForm.successText')}</p>
         <div className="cta-buttons" style={{ marginTop: '24px' }}>
           <button className="btn btn-primary" onClick={() => setSent(false)}>{t('quoteForm.sendAnother')}</button>
-          <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('quoteForm.bookConsult')}</a>
+          <Link to="/book" className="btn btn-secondary">{t('quoteForm.bookConsult')}</Link>
         </div>
       </div>
     )
@@ -143,9 +144,9 @@ export default function QuoteForm({ serviceOptions }) {
         <div className="quote-info-card">
           <h3>Prefer to Talk?</h3>
           <p>Book a free 30-minute consultation call to discuss your project directly.</p>
-          <a href="https://calendly.com/yannicknkongolo7/30min" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', marginTop: '16px' }}>
+          <Link to="/book" className="btn btn-secondary" style={{ width: '100%', marginTop: '16px' }}>
             Book a Consultation
-          </a>
+          </Link>
         </div>
 
         <div className="quote-info-card">

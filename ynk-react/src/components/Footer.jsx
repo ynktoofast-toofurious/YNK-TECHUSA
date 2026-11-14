@@ -3,8 +3,6 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { LANGUAGES } from '../i18n/languages'
 import { ArrowRight, ArrowUp } from './Icons'
 
-const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
-
 export default function Footer() {
   const { t, language, setLanguage } = useLanguage()
   const f = t('hubFooter')
@@ -20,10 +18,10 @@ export default function Footer() {
             </Link>
             <p className="ft-tagline">{f.tagline}</p>
             <p className="ft-about">{f.about}</p>
-            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn-primary hub-btn-round ft-cta">
+            <Link to="/book" className="btn btn-primary hub-btn-round ft-cta">
               {f.links.book}
               <ArrowRight />
-            </a>
+            </Link>
           </div>
 
           <nav className="ft-col" aria-label={f.explore}>
@@ -45,7 +43,7 @@ export default function Footer() {
 
           <nav className="ft-col" aria-label={f.connect}>
             <h4>{f.connect}</h4>
-            <a href={CALENDLY} target="_blank" rel="noopener noreferrer">{f.links.book}</a>
+            <Link to="/book">{f.links.book}</Link>
             <Link to="/consultants">{f.links.access}</Link>
           </nav>
         </div>

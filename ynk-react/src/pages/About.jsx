@@ -3,7 +3,6 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { ArrowRight } from '../components/Icons'
 import useReveal from '../hooks/useReveal'
 
-const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
 const FOUNDER_PHOTO = '/assets/team/yannick-nkongolo.jpg'
 
 export default function About() {
@@ -63,9 +62,9 @@ export default function About() {
               <blockquote className="ab-belief">{a.founder.belief}</blockquote>
               {a.founder.closing.map((p, i) => <p key={i}>{p}</p>)}
             </div>
-            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn-primary hub-btn-round">
+            <Link to="/book" className="btn btn-primary hub-btn-round">
               {t('hubFooter.links.book')} <ArrowRight />
-            </a>
+            </Link>
           </div>
         </div>
       </section>

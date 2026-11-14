@@ -83,6 +83,8 @@ function doPost(e) {
     if (body.action === 'prototypeStatus') return json_(studioStatus_(body))
     if (body.action === 'brief') return json_(intakeBrief_(body))
     if (body.action === 'quote') return json_(intakeQuote_(body))
+    if (body.action === 'slots') return json_(bookingSlotsAction_())
+    if (body.action === 'book') return json_(bookingBook_(body))
     if (body.action === 'ticket') return json_(studioTicket_(body))
     if (body.action === 'pass') return json_(studioPassCheck_(body))
     if (body.action === 'passRequest') return json_(studioPassRequest_(body))
@@ -102,9 +104,9 @@ const CAPACITY = {
   perMinute: 120,
   perHour: 3000,
   mailReserve: 15,
-  mails: { request: 2, fullAccess: 1, ticket: 2, brief: 2, quote: 1, passRequest: 1 },
+  mails: { request: 2, fullAccess: 1, ticket: 2, brief: 2, quote: 1, passRequest: 1, book: 3 },
   features: { ask: 'ask', prototype: 'studio', ticket: 'studio', pass: 'studio', passRequest: 'studio',
-    request: 'forms', verify: 'forms', topic: 'forms', fullAccess: 'forms', unlock: 'forms', brief: 'forms', quote: 'forms' },
+    request: 'forms', verify: 'forms', topic: 'forms', fullAccess: 'forms', unlock: 'forms', brief: 'forms', quote: 'forms', slots: 'forms', book: 'forms' },
   // Polling a design already started is cheap and has its own limit, so it is not counted or paused.
   uncounted: { prototypeStatus: true },
 }

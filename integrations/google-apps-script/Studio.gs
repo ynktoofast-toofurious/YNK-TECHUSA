@@ -39,7 +39,7 @@ const STUDIO_KIT = `
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--font-b);background:#0b1120;color:#f1f5f9;line-height:1.65;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
+a{color:inherit;text-decoration:none;cursor:pointer}
 .page{position:relative;isolation:isolate;min-height:100vh;background:var(--bg);color:var(--text);overflow-x:clip}
 .light{--bg:#f8fafc;--bg2:#eef2f7;--surface:#ffffff;--text:#0f172a;--muted:#475569;--line:rgba(15,23,42,.1);--glass:rgba(255,255,255,.75)}
 .wrap{width:min(1160px,100% - 48px);margin-inline:auto}
@@ -138,7 +138,7 @@ const TICKET_MAIL = {
   es: { subject: 'Su ticket de idea YNK {id}', hello: 'Hola {name}:', body: 'Gracias por compartir su idea con YNK Tech. Su n\u00famero de ticket es <strong>{id}</strong>; cons\u00e9rvelo. El prototipo que cre\u00f3 va adjunto.',
     next: '\u00bfListo para hacerla realidad? Responda a este correo o reserve una sesi\u00f3n gratuita con nuestro equipo:', cta: 'Reservar una sesi\u00f3n' },
 }
-const CALENDLY_URL = 'https://calendly.com/yannicknkongolo7/30min'
+const BOOK_URL = 'https://ynk-techusa.com/book'
 
 const PASS_MAIL = {
   en: { subject: 'Your YNK Build Pass for {ticket}', hello: 'Hello {name},', body: 'Thank you. Your Build Pass for idea ticket <strong>{ticket}</strong> is active until {date}.',
@@ -647,7 +647,7 @@ function studioTicket_(b) {
       `<p>${fill(L.body)}</p>`,
       `<blockquote style="margin:12px 0;padding:10px 14px;border-left:3px solid #29B5E8;color:#334155">${esc_(idea)}</blockquote>`,
       `<p>${L.next}</p>`,
-      `<p><a href="${CALENDLY_URL}" style="display:inline-block;background:#29B5E8;color:#04121c;text-decoration:none;padding:10px 20px;border-radius:999px;font-weight:700">${L.cta}</a></p>`,
+      `<p><a href="${BOOK_URL}" style="display:inline-block;background:#29B5E8;color:#04121c;text-decoration:none;padding:10px 20px;border-radius:999px;font-weight:700">${L.cta}</a></p>`,
       '<p>YNK Tech USA</p>',
     ].join(''),
     attachments: [attachment],
