@@ -3,7 +3,8 @@ import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import { buildIndex, searchIndex } from '../content/search'
-import { askHub, intakeEnabled } from '../utils/intake'
+import { useHubChat } from '../utils/hubChat'
+import HubAnswer from './HubAnswer'
 import { ArrowRight, CloseIcon } from './Icons'
 
 const SearchIcon = ({ size = 16 }) => (
@@ -23,16 +24,6 @@ const SparkIcon = () => (
 // A question (or three words or more) offers an AI answer drawn from YNK content.
 const isQuestion = (q) => /\?\s*$/.test(q) || q.split(/\s+/).filter(Boolean).length >= 3
 
-function AnswerText({ text, sources, onOpen }) {
-  const byN = Object.fromEntries(sources.map((src) => [src.n, src]))
-  return text.split(/(\[\d+\])/).map((part, i) => {
-    const m = part.match(/^\[(\d+)\]$/)
-    const src = m && byN[Number(m[1])]
-    return src
-      ? <button key={i} type="button" className="ss-cite" onClick={() => onOpen(src)} title={src.title}>{m[1]}</button>
-      : <span key={i}>{part}</span>
-  })
-}
 
 export default function SiteSearch() {
   const { t, language } = useLanguage()
@@ -41,7 +32,8 @@ export default function SiteSearch() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
-  const [answer, setAnswer] = useState(null)
+  const [followUp, setFollowUp] = useState('')
+  const chat = useHubChat(language)
   const inputRef = useRef(null)
 
   const index = useMemo(() => buildIndex(language, t), [language, t])
@@ -66,7 +58,7 @@ export default function SiteSearch() {
     return () => { document.body.style.overflow = ''; clearTimeout(timer) }
   }, [open])
 
-  const close = () => { setOpen(false); setQuery(''); setActive(0); setAnswer(null) }
+  const close = () => { setOpen(false); setQuery(''); setActive(0); setFollowUp(''); chat.reset() }
 
   const go = (entry) => {
     close()
@@ -74,13 +66,12 @@ export default function SiteSearch() {
     else navigate(entry.href)
   }
 
-  const ask = (q) => {
-    if (!q || answer?.status === 'loading') return
-    if (!intakeEnabled) { setAnswer({ q, status: 'error' }); return }
-    setAnswer({ q, status: 'loading' })
-    askHub(q, language)
-      .then((res) => setAnswer(res && res.ok ? { q, status: 'done', data: res } : { q, status: res && res.error === 'rate_limited' ? 'busy' : 'error' }))
-      .catch(() => setAnswer({ q, status: 'error' }))
+  const ask = (q) => chat.send(q, true)
+
+  const sendFollowUp = (e) => {
+    e.preventDefault()
+    chat.send(followUp)
+    setFollowUp('')
   }
 
   const choose = (option) => (option.ask ? ask(trimmed) : go(option))
@@ -124,36 +115,28 @@ export default function SiteSearch() {
               <button type="button" className="ss-close" onClick={close} aria-label={s.close}><CloseIcon size={16} /></button>
             </div>
 
-            {answer && (
+            {chat.turns.length > 0 && (
               <section className="ss-answer" aria-live="polite">
-                <p className="ss-answer-q"><SparkIcon /> {answer.q}</p>
-                {answer.status === 'loading' && <p className="ss-answer-wait">{s.thinking}</p>}
-                {answer.status === 'error' && <p className="ss-answer-wait">{s.askError}</p>}
-                {answer.status === 'busy' && <p className="ss-answer-wait">{s.askBusy}</p>}
-                {answer.status === 'done' && answer.data.mode === 'ai' && (
-                  <p className="ss-answer-text"><AnswerText text={answer.data.answer} sources={answer.data.sources} onOpen={go} /></p>
+                {chat.turns.map((turn) => (turn.role === 'user'
+                  ? <p key={turn.id} className="ss-answer-q"><SparkIcon /> {turn.text}</p>
+                  : <HubAnswer key={turn.id} turn={turn} s={s} onOpen={go} />
+                ))}
+                {chat.pending && <p className="ss-answer-wait">{s.thinking}</p>}
+                {!chat.pending && chat.turns.some((t) => t.mode === 'ai') && <p className="ss-answer-note">{s.aiNote}</p>}
+                {!chat.pending && (
+                  <form className="ss-follow" onSubmit={sendFollowUp}>
+                    <input
+                      type="text"
+                      value={followUp}
+                      onChange={(e) => setFollowUp(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === 'Escape') close() }}
+                      placeholder={s.followUp}
+                      maxLength={300}
+                      aria-label={s.followUp}
+                    />
+                    <button type="submit" className="btn btn-primary" disabled={!followUp.trim()}>{s.send}</button>
+                  </form>
                 )}
-                {answer.status === 'done' && answer.data.mode === 'search' && <p className="ss-answer-wait">{s.closest}</p>}
-                {answer.status === 'done' && answer.data.mode === 'none' && (
-                  <p className="ss-answer-wait">
-                    {s.noAnswer}{' '}
-                    <button type="button" className="ss-inline-link" onClick={() => go({ href: '/#suggest' })}>{s.suggest}</button>
-                  </p>
-                )}
-                {answer.status === 'done' && answer.data.sources.length > 0 && (
-                  <ol className="ss-sources">
-                    {answer.data.sources.map((src) => (
-                      <li key={src.href}>
-                        <button type="button" onClick={() => go(src)}>
-                          {answer.data.mode === 'ai' && <span className="ss-cite">{src.n}</span>}
-                          <span className={`ss-kind ss-kind--${src.kind}`}>{s.kinds[src.kind] || src.kind}</span>
-                          <span className="ss-source-title">{src.title}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ol>
-                )}
-                {answer.status === 'done' && answer.data.mode === 'ai' && <p className="ss-answer-note">{s.aiNote}</p>}
               </section>
             )}
 

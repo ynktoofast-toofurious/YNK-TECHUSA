@@ -306,7 +306,7 @@ const translations = {
         'Yes! Start a two-minute project brief and we reply personally within 24 hours.',
       ],
       canned: [
-        { keys: ['vault', 'library', 'member', 'subscri', 'join', 'full', 'access', 'price', 'cost'], reply: 'Every article and study opens with a free preview. For the full version, a dataset, or a prototype briefing, use "Request full access" and we email you a private link.' },
+        { keys: ['vault', 'library', 'member', 'subscri', 'join', 'full', 'access', 'price', 'cost'], reply: 'Every article and study opens with a free preview, and full access is free too. Use "Request free access" (it helps us build the YNK community) and we email you a private link.' },
         { keys: ['economy', 'inflation', 'job', 'market', 'cost of living'],       reply: 'The Intelligence Desk looks at the forces behind costs, jobs, and opportunity. New studies land in The Latest first.' },
         { keys: ['ai', 'tech', 'hype', 'llm', 'chatgpt'],                          reply: "We separate what's real from what's hype in AI, and the YNK Studio builds practical AI experiences with it." },
         { keys: ['data', 'dashboard', 'power bi', 'model', 'drc', 'congo'],         reply: 'Our first Library study maps the DRC government as a Power BI–ready star-schema model: 55 named office holders across 73 institutions.' },
@@ -705,7 +705,7 @@ const translations = {
         'Oui, remplissez un brief de projet en deux minutes et nous vous répondons personnellement sous 24 heures.',
       ],
       canned: [
-        { keys: ['coffre', 'biblioth', 'membre', 'abonn', 'complet', 'accès', 'prix', 'tarif'], reply: "Chaque article et chaque étude s'ouvrent sur un aperçu gratuit. Pour la version complète, un jeu de données ou une note de prototype, utilisez « Demander l'accès complet » et nous vous envoyons un lien privé par e-mail." },
+        { keys: ['coffre', 'biblioth', 'membre', 'abonn', 'complet', 'accès', 'prix', 'tarif'], reply: "Chaque article et chaque étude s'ouvrent sur un aperçu gratuit, et l'accès complet est gratuit lui aussi. Utilisez « Demander l'accès gratuit » (cela nous aide à bâtir la communauté YNK) et nous vous envoyons un lien privé par e-mail." },
         { keys: ['économie', 'inflation', 'emploi', 'marché', 'coût'],         reply: "Le Bureau de l'Intelligence examine les forces derrière les coûts, l'emploi et les opportunités. Les nouvelles études paraissent d'abord dans Nouveautés." },
         { keys: ['ia', 'tech', 'llm', 'chatgpt'],                              reply: "Nous distinguons le réel du battage autour de l'IA, et le Studio YNK en tire des expériences IA concrètes." },
         { keys: ['données', 'tableau', 'power bi', 'modèle', 'rdc', 'congo'],   reply: 'Notre première étude de la Bibliothèque modélise le gouvernement de la RDC en schéma en étoile prêt pour Power BI : 55 titulaires nommés dans 73 institutions.' },
@@ -1100,7 +1100,7 @@ const translations = {
         '¡Sí! Completa un brief de proyecto en dos minutos y te respondemos personalmente en 24 horas.',
       ],
       canned: [
-        { keys: ['bóveda', 'boveda', 'biblioteca', 'miembro', 'suscri', 'completo', 'acceso', 'precio', 'costo'], reply: 'Cada artículo y estudio se abre con una vista previa gratuita. Para la versión completa, un conjunto de datos o un informe de prototipo, use "Solicitar acceso completo" y le enviaremos un enlace privado por correo.' },
+        { keys: ['bóveda', 'boveda', 'biblioteca', 'miembro', 'suscri', 'completo', 'acceso', 'precio', 'costo'], reply: 'Cada artículo y estudio se abre con una vista previa gratuita, y el acceso completo también es gratuito. Use "Solicitar acceso gratuito" (nos ayuda a construir la comunidad YNK) y le enviaremos un enlace privado por correo.' },
         { keys: ['economía', 'inflación', 'empleo', 'mercado', 'costo de vida'],       reply: 'La Mesa de Inteligencia analiza las fuerzas detrás de los costos, el empleo y las oportunidades. Los nuevos estudios aparecen primero en Novedades.' },
         { keys: ['ia', 'tecnología', 'llm', 'chatgpt'],                                 reply: 'Separamos lo real de la exageración en la IA, y el Estudio YNK crea experiencias de IA prácticas con ello.' },
         { keys: ['datos', 'dashboard', 'power bi', 'modelo', 'rdc', 'congo'],            reply: 'Nuestro primer estudio de la Biblioteca modela el gobierno de la RDC en un esquema estrella listo para Power BI: 55 titulares nombrados en 73 instituciones.' },

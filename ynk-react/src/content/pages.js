@@ -3,7 +3,7 @@ export const PAGES = [
   { href: '/latest', titleKey: 'hubNav.latest', kw: 'latest news articles releases updates nouveautes novedades actualites',
     about: 'The Latest lists every YNK analysis, study, release and engineering note, newest first, with filters and search.' },
   { href: '/vault', titleKey: 'hubFooter.links.vault', kw: 'library vault studies datasets prototypes full access request complete demander demande etude complete solicitar acceso completo estudio bibliotheque biblioteca coffre boveda',
-    about: 'The Research Library lists articles, studies, datasets and prototype briefings. Every piece opens with a free preview; visitors request full access and receive a private link by email, usually within 24 hours.' },
+    about: 'The Research Library lists articles, studies, datasets and prototype briefings. Every piece opens with a free preview, and full access is free too: visitors request it, which helps YNK build its community, and receive a private link by email, usually within 24 hours.' },
   { href: '/#intelligence', titleKey: 'hubFooter.links.desk', kw: 'intelligence desk economy technology business ai bureau mesa economie economia',
     about: 'The Intelligence Desk explores the forces shaping the economy, technology and AI, and business, using data and context.' },
   { href: '/#method', titleKey: 'hubFooter.links.method', kw: 'method discover decode connect empower methode metodo',

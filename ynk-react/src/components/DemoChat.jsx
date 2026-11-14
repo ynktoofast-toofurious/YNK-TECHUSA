@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
+import { intakeEnabled } from '../utils/intake'
+import { useHubChat } from '../utils/hubChat'
+import HubAnswer from './HubAnswer'
 import { CloseIcon } from './Icons'
 
 // Static metadata: who speaks and when. Text comes from translations.
@@ -39,6 +42,9 @@ export default function DemoChat() {
   const inputRef = useRef()
   const navigate = useNavigate()
   const { t, language } = useLanguage()
+  // The scripted demo plays until the visitor types; then replies come from Ask the Hub.
+  const chat = useHubChat(language, { onReply: (n) => { if (n === 3) setTimeout(() => setShowQuote(true), 1500) } })
+  const live = intakeEnabled && chat.turns.length > 0
 
   // Build SCRIPT and CANNED from translations whenever language changes
   const SCRIPT = useMemo(() => {
@@ -58,7 +64,7 @@ export default function DemoChat() {
     }
   }
 
-  useEffect(() => { scrollToBottom() }, [messages, typing])
+  useEffect(() => { scrollToBottom() }, [messages, typing, chat.turns, chat.pending])
 
   // Reset demo when language changes (unless user already typed)
   useEffect(() => {
@@ -97,6 +103,10 @@ export default function DemoChat() {
     if (!val) return
     setInputActive(true)
     setInput('')
+    if (intakeEnabled) {
+      chat.send(val)
+      return
+    }
     setMessages(prev => [...prev, { from: 'user', text: val, id: Date.now() }])
     setTyping('bot')
     setTimeout(() => {
@@ -124,13 +134,25 @@ export default function DemoChat() {
 
         {/* messages */}
         <div className="dc-messages" ref={msgsRef}>
-          {messages.map(m => (
+          {!live && messages.map(m => (
             <div key={m.id} className={`dc-msg dc-msg--${m.from}`}>
               <span className="dc-bubble">{m.text}</span>
             </div>
           ))}
-          {typing && (
+          {!live && typing && (
             <div className={`dc-msg dc-msg--${typing}`}>
+              <span className="dc-bubble dc-bubble--typing"><TypingDots /></span>
+            </div>
+          )}
+          {live && chat.turns.map((turn) => (
+            <div key={turn.id} className={`dc-msg dc-msg--${turn.role === 'user' ? 'user' : 'bot'}`}>
+              {turn.role === 'user'
+                ? <span className="dc-bubble">{turn.text}</span>
+                : <div className="dc-bubble dc-bubble--answer"><HubAnswer turn={turn} s={t('hubSearch')} onOpen={(src) => navigate(src.href)} compact /></div>}
+            </div>
+          ))}
+          {live && chat.pending && (
+            <div className="dc-msg dc-msg--bot">
               <span className="dc-bubble dc-bubble--typing"><TypingDots /></span>
             </div>
           )}
