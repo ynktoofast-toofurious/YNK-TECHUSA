@@ -371,9 +371,37 @@ function adminOpsUpdate(tabName, rowNumber, col, value, rowKey) {
   if (!row || row.cells.join('\u0001') !== str_(rowKey)) throw new Error('This item changed in the sheet. Refresh and try again.')
   const text = field.edit === 'select' ? cleanInput_(value, 120) : cleanInput_(value, 2000)
   if (field.edit === 'select' && field.options.length && field.options.indexOf(text) < 0) throw new Error('Pick one of the listed values.')
+  if (field.status) opsGate_(tab[0], view, row, text)
   ss.getSheetByName(tab[0]).getRange(rowNumber, col + 1).setValue(safeCell_(text))
   SpreadsheetApp.flush()
   return opsTab_(ss, tab[0], tab[1])
+}
+
+// Opportunities and prototypes only advance with evidence that YNK adds value beyond existing solutions.
+const OPS_GATES = {
+  Opportunity_Registry: [
+    [/incumbent|existing.?solution|current.?solution|alternative|competitor|comparison/i, 'comparison with existing solutions'],
+    [/measur|metric|kpi|acceptance|success.?criteria|baseline/i, 'measurement plan'],
+  ],
+  Prototype_Tasks: [
+    [/incumbent|existing.?solution|current.?solution|alternative|competitor|comparison/i, 'comparison with existing solutions'],
+    [/measur|metric|kpi|acceptance|success.?criteria|baseline/i, 'measurement plan'],
+  ],
+}
+const OPS_ADVANCE_RE = /approv|qualif|authori|\bgo\b|build|in.?progress|active|accept|select|green.?lit|start/i
+const OPS_NOT_ADVANCE_RE = /pending|propos|candidate|need|await|draft|hold|reject|declin|block|\bnot\b|\bun/i
+const OPS_EMPTY_RE = /^(|-|n\/?a|tbd|tbc|todo|pending|none|\?)$/i
+
+function opsGate_(tabName, view, row, next) {
+  const gates = OPS_GATES[tabName]
+  if (!gates || !OPS_ADVANCE_RE.test(next) || OPS_NOT_ADVANCE_RE.test(next) || OPS_DONE_RE.test(next)) return
+  const missing = []
+  gates.forEach(([re, label]) => {
+    const cols = view.fields.filter((f) => !f.status && re.test(f.name))
+    if (!cols.length) missing.push(`${label} (add a column for it in ${tabName})`)
+    else if (!cols.some((f) => !OPS_EMPTY_RE.test(row.cells[f.col]))) missing.push(label)
+  })
+  if (missing.length) throw new Error(`Before moving this to "${next}", fill in: ${missing.join('; ')}.`)
 }
 
 function opsTab_(ss, name, label) {
@@ -423,6 +451,12 @@ function stripPublishKey_(html) {
   return key ? html.split(key).join('') : html
 }
 
+// Only <meta name="ynk-publish" content="KEY"> counts as authorization, never the key in body text.
+function hasPublishMeta_(html, key) {
+  const head = (html.match(/<head[^>]*>([\s\S]*?)<\/head>/i) || [])[1] || ''
+  return (head.match(/<meta\b[^>]*>/gi) || []).some((tag) => attr_(tag, 'name').toLowerCase() === 'ynk-publish' && attr_(tag, 'content') === key)
+}
+
 // Empty key turns auto-publish off.
 function adminSetPublishKey(key) {
   assertAdmin_()
@@ -469,7 +503,7 @@ function autoPublish() {
       }
     })
     if (texts.some((t) => t == null)) return
-    if (!texts.some((t) => t.indexOf(key) >= 0) && str_(row.get('notes')).indexOf(key) < 0) return
+    if (!texts.every((t) => hasPublishMeta_(t, key))) return
     flagged[str_(row.get('articleId'))] = true
     const sync = str_(row.get('syncState')).toUpperCase()
     if (sync === SYNC.published || sync === SYNC.prOpen) return

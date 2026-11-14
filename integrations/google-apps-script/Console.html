@@ -424,7 +424,7 @@
     };
     if (d.autoPublish) {
       return h('div', { class: 'note src' }, [
-        h('span', { text: 'Auto-publish is on: HTML items carrying the keyword go live within 15 minutes (max 3 a day) and you get an email.' }),
+        h('span', { text: 'Auto-publish is on: HTML trios whose EN, FR and ES files all carry the ynk-publish meta tag go live within 15 minutes (max 3 a day) and you get an email.' }),
         h('button', { class: 'btn ghost', type: 'button', text: 'Turn off', onclick: function (e) { setKey('', e.currentTarget); } })
       ]);
     }
