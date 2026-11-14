@@ -92,7 +92,7 @@ function askActions_(text, sources) {
   }
   if (!action && /ACTION:\s*PROJECT/i.test(text)) action = { type: 'project' }
   const covered = !/\[NC\]/i.test(text)
-  const clean = text.replace(/^\s*ACTION:.*$/gim, '').replace(/\[NC\]\s*/gi, '').trim()
+  const clean = text.replace(/\s*ACTION:\s*(REQUEST\s*\[?\d+\]?|PROJECT)\.?/gi, '').replace(/\[NC\]\s*/gi, '').trim()
   return { text: clean, action, covered }
 }
 
