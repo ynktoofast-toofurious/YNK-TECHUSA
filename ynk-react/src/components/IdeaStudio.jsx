@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { checkBuildPass, generatePrototype, intakeEnabled, requestBuildPass, submitIdeaTicket } from '../utils/intake'
+import { checkBuildPass, generatePrototype, intakeEnabled, prototypeStatus, requestBuildPass, submitIdeaTicket } from '../utils/intake'
 import { ArrowRight } from './Icons'
 
 const SESSION_KEY = 'ynk-idea-studio'
@@ -11,6 +11,52 @@ const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const PASS_RE = /^YNK-PASS-[A-Z0-9]{4}-[A-Z0-9]{4}$/
 const PASS_ERRORS = ['pass_invalid', 'pass_expired', 'pass_spent']
+const POLL_MS = 4000
+const MAX_WAIT_MS = 4 * 60 * 1000
+const STAGE_AT = [0, 8, 25, 55, 95]
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+function initialsOf(text) {
+  const words = text.split(/\s+/).map((w) => w.replace(/[^\p{L}\p{N}]/gu, '')).filter((w) => w.length > 2)
+  return (words.slice(0, 2).map((w) => w[0]).join('') || 'YNK').toUpperCase()
+}
+
+// Progress is an estimate (the model reports none); it eases toward the end and never claims to be done.
+function StudioLoader({ c, initials }) {
+  const [secs, setSecs] = useState(0)
+  useEffect(() => {
+    const start = Date.now()
+    const id = setInterval(() => setSecs((Date.now() - start) / 1000), 250)
+    return () => clearInterval(id)
+  }, [])
+  const pct = Math.min(96, 100 * (1 - Math.exp(-secs / 40)))
+  const stage = c.loader.stages[Math.max(0, STAGE_AT.filter((s) => secs >= s).length - 1)]
+  const tipIndex = Math.floor(secs / 7) % c.loader.tips.length
+  return (
+    <div className="is-loader" role="status" aria-live="polite">
+      <div className="is-loader-head">
+        <span className="is-loader-dot" aria-hidden="true" />
+        <strong key={stage} className="is-loader-stage">{stage}</strong>
+        <span className="is-loader-time">{Math.floor(secs)}s</span>
+      </div>
+      <div className="is-loader-bar" aria-hidden="true"><span style={{ width: `${pct}%` }} /></div>
+      <p className="is-loader-note">{c.loader.note}</p>
+      <div className="is-sketch" aria-hidden="true">
+        <div className="is-sk-nav"><b>{initials}</b><i /><i /><i /></div>
+        <div className="is-sk-hero">
+          <div className="is-sk-copy"><i className="w40" /><i className="w90 h" /><i className="w70 h" /><i className="w80" /><span><i /><i /></span></div>
+          <div className="is-sk-art">{initials}</div>
+        </div>
+        <div className="is-sk-cards"><i /><i /><i /></div>
+        <span className="is-sk-scan" />
+      </div>
+      <div key={tipIndex} className="is-tip">
+        <span className="is-tip-tag">{c.loader.tipTag}</span>
+        <p>{c.loader.tips[tipIndex]}</p>
+      </div>
+    </div>
+  )
+}
 
 // The idea and prototype live only in this browser session unless the visitor saves a ticket.
 function readSession() {
@@ -58,6 +104,8 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
   const honeypotRef = useRef(null)
   const frameRef = useRef(null)
   const wrapRef = useRef(null)
+  const aliveRef = useRef(true)
+  useEffect(() => () => { aliveRef.current = false }, [])
 
   const freeLeft = trial ? trial.left : FREE_RUNS
   const locked = !pass && freeLeft <= 0
@@ -93,6 +141,18 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
 
   if (!intakeEnabled) return null
 
+  // The server answers with a job for long designs; poll until the prototype is ready.
+  const awaitJob = async (job) => {
+    const started = Date.now()
+    while (Date.now() - started < MAX_WAIT_MS) {
+      await wait(POLL_MS)
+      if (!aliveRef.current) return null
+      const res = await prototypeStatus(job).catch(() => ({ ok: true, pending: true }))
+      if (!res.pending) return res
+    }
+    return { ok: false, error: 'timeout' }
+  }
+
   const generate = async (change) => {
     if (status === 'working') return
     if (idea.trim().length < 10) { setError(c.errors.short); return }
@@ -100,12 +160,17 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
     setError('')
     setStatus('working')
     try {
-      const res = await generatePrototype({
+      let res = await generatePrototype({
         idea: idea.trim(),
         language,
         ...(pass ? { pass: pass.code } : { trial: trial?.token || '' }),
         ...(change && proto ? { refine: change, html: proto.html } : {}),
       })
+      if (res.ok && res.pending) {
+        if (res.trial) saveTrial(res.trial)
+        res = await awaitJob(res.job)
+        if (!res) return
+      }
       if (res.trial) saveTrial(res.trial)
       if (res.pass) savePass({ ...pass, ...res.pass })
       if (!res.ok) {
@@ -227,7 +292,7 @@ export default function IdeaStudio({ initialIdea = '', onBrief }) {
         {error && <p className="sp-error" role="alert">{error}</p>}
       </div>
 
-      {status === 'working' && <p className="is-working" role="status">{c.workingLong}</p>}
+      {status === 'working' && <StudioLoader c={c} initials={initialsOf(idea)} />}
 
       {paywall && !pass && paywallCard}
 

@@ -1,19 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import emailjs from '@emailjs/browser'
 import { trackAccessCodeUsage, trackLoginAttempt } from '../utils/tracking'
 import { submitAccessRequest, verifyAccessCode, intakeEnabled } from '../utils/intake'
 import { useLanguage } from '../i18n/LanguageContext'
 import ResumeCard from '../components/ResumeCard'
 import { ArrowLeft } from '../components/Icons'
 import { showServiceNotice } from '../config/services'
-import { escapeAll } from '../utils/escapeHtml'
-
-const EMAILJS_SERVICE_ID = 'service_sw3zais'
-const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
-const EMAILJS_PUBLIC_KEY = 'zG_jERVPbUUfiZ6IL'
-
-emailjs.init(EMAILJS_PUBLIC_KEY)
 
 const INDUSTRY_ICONS = {
   Healthcare: <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg>,
@@ -138,65 +130,20 @@ export default function ConsultantsPortal() {
       reason: formData.get('req_reason'),
     }
     const honeypot = formData.get('website') || ''
-    const r = escapeAll(requestData)
 
     try {
-      if (intakeEnabled) {
-        const res = await submitAccessRequest({ ...requestData, website: honeypot })
-        if (!res.ok) {
-          throw new Error(res.error === 'rate_limited'
-            ? 'Too many requests. Please try again in an hour.'
-            : 'Please check the form fields and try again.')
-        }
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: requestData.email,
-          heading: 'We received your access request',
-          content_html: `<p>Thanks ${r.name || 'there'}.</p>
-<p>We received your access request for the <strong>${r.industry}</strong> section and will review it shortly.</p>
-<p>We will follow up at ${r.email} as soon as possible.</p>`,
-          footer_note: 'This is an automated confirmation from YNK-Tech USA.',
-        }).catch(() => {})
-        setRequestSent(true)
-        return
+      if (!intakeEnabled) throw new Error('The request service is unavailable right now.')
+      const res = await submitAccessRequest({ ...requestData, website: honeypot })
+      if (!res.ok) {
+        throw new Error(res.error === 'rate_limited'
+          ? 'Too many requests. Please try again in an hour.'
+          : 'Please check the form fields and try again.')
       }
-
-      const requestHtml = `<p>A visitor has requested access to the <strong>Consultants Portal</strong>.</p>
-<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-<strong>Name:</strong> ${r.name}<br/>
-<strong>Email:</strong> ${r.email}<br/>
-<strong>Company:</strong> ${r.company}<br/>
-<strong>Industry:</strong> ${r.industry}<br/>
-<strong>Reason:</strong> ${r.reason}
-</div>
-<p><a href="https://ynk-techusa.com/Admin/" style="display:inline-block;background-color:#29B5E8;color:#fff;text-decoration:none;padding:10px 24px;border-radius:4px;font-weight:600">Review Request</a></p>`
-
-      await Promise.all([
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: 'yannicknkongolo7@gmail.com',
-          heading: 'New Access Code Request',
-          content_html: requestHtml,
-          footer_note: 'You received this email because you are an administrator of YNK-Tech USA',
-        }),
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: requestData.email,
-          heading: 'We received your access request',
-          content_html: `<p>Thanks ${r.name || 'there'}.</p>
-<p>We received your access request for the <strong>${r.industry}</strong> section and will review it shortly.</p>
-<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-<strong>Company:</strong> ${r.company}<br/>
-<strong>Industry:</strong> ${r.industry}<br/>
-<strong>Reason:</strong> ${r.reason}
-</div>
-<p>We will follow up at ${r.email} as soon as possible.</p>`,
-          footer_note: 'This is an automated confirmation from YNK-Tech USA.',
-        }),
-      ])
-
       setRequestSent(true)
     } catch (err) {
-      console.error('EmailJS error:', err)
+      console.error('Access request error:', err)
       setRequestError(
-        `Failed to send: ${err?.text || err?.message || 'Unknown error'}. Please email yannicknkongolo7@gmail.com directly.`
+        `Failed to send: ${err?.message || 'Unknown error'}. Please email yannicknkongolo7@gmail.com directly.`
       )
     } finally {
       setRequestSending(false)

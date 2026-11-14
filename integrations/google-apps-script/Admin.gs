@@ -57,8 +57,13 @@ function doPost(e) {
   if (!flatBody_(body)) return json_({ ok: false, error: 'bad_request' })
   const threat = scanBody_(body)
   if (threat) {
-    securityLog_(body.action, threat.field, threat.category, body[threat.field] && typeof body[threat.field] === 'string' ? body[threat.field] : '')
-    return json_({ ok: false, error: 'blocked' })
+    const sample = body[threat.field] && typeof body[threat.field] === 'string' ? body[threat.field] : ''
+    if (SECURITY.aiText[threat.field]) {
+      securityLog_(`${body.action} (allowed)`, threat.field, threat.category, sample)
+    } else {
+      securityLog_(body.action, threat.field, threat.category, sample)
+      return json_({ ok: false, error: 'blocked' })
+    }
   }
   try {
     if (body.action === 'request') return json_(intakeRequest_(body))
@@ -68,6 +73,9 @@ function doPost(e) {
     if (body.action === 'unlock') return json_(verifyUnlock_(body))
     if (body.action === 'ask') return json_(askHub_(body))
     if (body.action === 'prototype') return json_(studioPrototype_(body))
+    if (body.action === 'prototypeStatus') return json_(studioStatus_(body))
+    if (body.action === 'brief') return json_(intakeBrief_(body))
+    if (body.action === 'quote') return json_(intakeQuote_(body))
     if (body.action === 'ticket') return json_(studioTicket_(body))
     if (body.action === 'pass') return json_(studioPassCheck_(body))
     if (body.action === 'passRequest') return json_(studioPassRequest_(body))
@@ -675,6 +683,72 @@ function intakeRequest_(b) {
     `<p><strong>${esc_(name)}</strong> &lt;${esc_(email)}&gt;<br>${esc_(company)} &middot; ${esc_(industry)}</p>`,
     `<p>${esc_(reason)}</p>`,
   ].join(''))
+  sendMail_(email, 'We received your access request', [
+    `<p>Thanks ${esc_(name)}.</p>`,
+    `<p>We received your access request for the <strong>${esc_(industry)}</strong> section and will review it shortly.</p>`,
+    '<p>YNK Tech USA</p>',
+  ].join(''))
+  return { ok: true }
+}
+
+/* ---------------- Project briefs and quotes (sent from the server, not from the browser) ---------------- */
+
+const BRIEF_MAIL = {
+  en: { subject: 'We received your project brief {ref}', title: 'Thank you, {name}.', text: 'Your brief is in. We will review it and reply personally, usually within 24 hours.', ref: 'Reference' },
+  fr: { subject: 'Nous avons bien re\u00e7u votre brief {ref}', title: 'Merci, {name}.', text: 'Votre brief est bien arriv\u00e9. Nous l\u2019\u00e9tudions et vous r\u00e9pondons personnellement, g\u00e9n\u00e9ralement sous 24\u00a0heures.', ref: 'R\u00e9f\u00e9rence' },
+  es: { subject: 'Recibimos su brief de proyecto {ref}', title: 'Gracias, {name}.', text: 'Recibimos su brief. Lo revisaremos y le responderemos personalmente, normalmente en 24 horas.', ref: 'Referencia' },
+}
+
+function mailRows_(rows) {
+  return `<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">${
+    rows.map(([k, v]) => `<strong>${esc_(k)}:</strong> ${esc_(v)}<br>`).join('')}</div>`
+}
+
+function intakeBrief_(b) {
+  const ref = `YNK-${Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd')}-${Utilities.getUuid().slice(0, 6).toUpperCase()}`
+  if (str_(b.website)) return { ok: true, ref }
+  const name = cleanInput_(b.name, 100)
+  const email = cleanInput_(b.email, 200).toLowerCase()
+  const tracks = (Array.isArray(b.tracks) ? b.tracks : []).slice(0, 7).map((t) => cleanInput_(t, 60)).filter(Boolean)
+  const outcome = str_(b.outcome).replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g, ' ').slice(0, 3000)
+  const lang = BRIEF_MAIL[b.language] ? b.language : 'en'
+  if (!name || !validEmail_(email) || !tracks.length || outcome.trim().length < 20) return { ok: false, error: 'invalid' }
+  if (!rateLimit_('br:all', 40, 3600) || !rateLimit_(`br:${sha256_(email).slice(0, 20)}`, 3, 3600)) return { ok: false, error: 'rate_limited' }
+  sendMail_(ADMIN.notifyEmail, `New Project Brief ${ref}: ${tracks.join(', ')}`, [
+    '<p>A new project brief was submitted on the YNK Tech USA website.</p>',
+    mailRows_([['Reference', ref], ['Name', name], ['Email', email], ['Company', cleanInput_(b.company, 120) || 'N/A'],
+      ['Follow-up', cleanInput_(b.contact, 60)], ['Focus', tracks.join(', ')], ['Stage', cleanInput_(b.stage, 60)],
+      ['Timeline', cleanInput_(b.timeline, 60)], ['Budget', cleanInput_(b.budget, 60)], ['Language', lang]]),
+    `<p><strong>Desired outcome:</strong><br>${esc_(outcome).replace(/\n/g, '<br>')}</p>`,
+  ].join(''))
+  const L = BRIEF_MAIL[lang]
+  sendMail_(email, L.subject.replace('{ref}', ref), [
+    `<p>${esc_(L.title.replace('{name}', name))}</p>`, `<p>${esc_(L.text)}</p>`,
+    `<p><strong>${esc_(L.ref)}:</strong> ${ref}</p>`, '<p>YNK Tech USA</p>',
+  ].join(''))
+  return { ok: true, ref }
+}
+
+function intakeQuote_(b) {
+  if (str_(b.website)) return { ok: true }
+  const name = cleanInput_(b.from_name, 100)
+  const email = cleanInput_(b.from_email, 200).toLowerCase()
+  const service = cleanInput_(b.service, 120)
+  const message = str_(b.message).replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g, ' ').slice(0, 4000)
+  if (!name || !validEmail_(email) || !service || message.trim().length < 5) return { ok: false, error: 'invalid' }
+  if (!rateLimit_('qt:all', 40, 3600) || !rateLimit_(`qt:${sha256_(email).slice(0, 20)}`, 3, 3600)) return { ok: false, error: 'rate_limited' }
+  MailApp.sendEmail({
+    to: ADMIN.notifyEmail,
+    replyTo: email,
+    name: 'YNK Tech USA',
+    subject: oneLine_(`Quote request: ${service} from ${name}`),
+    htmlBody: [
+      '<p>A visitor requested a quote on the YNK Tech USA website. Reply to this email to answer them.</p>',
+      mailRows_([['Name', name], ['Email', email], ['Phone', cleanInput_(b.phone, 40) || 'N/A'], ['Company', cleanInput_(b.company, 120) || 'N/A'],
+        ['Service', service], ['Budget', cleanInput_(b.budget, 60) || 'N/A'], ['Timeline', cleanInput_(b.timeline, 60) || 'N/A']]),
+      `<p><strong>Project details:</strong><br>${esc_(message).replace(/\n/g, '<br>')}</p>`,
+    ].join(''),
+  })
   return { ok: true }
 }
 

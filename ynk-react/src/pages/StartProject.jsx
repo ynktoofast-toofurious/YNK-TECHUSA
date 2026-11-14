@@ -1,15 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
 import projectCopy from '../i18n/projectCopy'
 import { ArrowLeft, ArrowRight } from '../components/Icons'
 import IdeaStudio from '../components/IdeaStudio'
-import { escapeHtml } from '../utils/escapeHtml'
+import { submitBrief } from '../utils/intake'
 
-const EMAILJS_SERVICE_ID = 'service_sw3zais'
-const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
-const EMAILJS_PUBLIC_KEY = 'zG_jERVPbUUfiZ6IL'
 const CALENDLY = 'https://calendly.com/yannicknkongolo7/30min'
 const DRAFT_KEY = 'ynk-project-brief'
 const SENT_KEY = 'ynk-project-brief-sent'
@@ -49,28 +45,25 @@ function stepError(step, d) {
   return ''
 }
 
-function buildAdminHtml(d, ref) {
+// Labels go to the team in English whatever language the visitor uses.
+function briefPayload(d, language) {
   const en = projectCopy.en.project
-  const rows = [
-    ['Reference', ref],
-    ['Name', d.name],
-    ['Email', d.email],
-    ['Company', d.company || 'N/A'],
-    ['Follow-up', en.contacts[d.contact]],
-    ['Focus', d.tracks.map((k) => en.tracks[k].t).join(', ')],
-    ['Stage', en.stages[d.stage]],
-    ['Timeline', en.timelines[d.timeline]],
-    ['Budget', en.budgets[d.budget]],
-  ]
-  return `<p>A new project brief was submitted on the YNK Tech USA website.</p>
-<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-${rows.map(([k, v]) => `<strong>${k}:</strong> ${escapeHtml(v)}<br/>`).join('\n')}
-</div>
-<p><strong>Desired outcome:</strong><br/>${escapeHtml(d.outcome).replace(/\n/g, '<br/>')}</p>`
+  return {
+    name: d.name.trim(),
+    email: d.email.trim(),
+    company: d.company.trim(),
+    contact: en.contacts[d.contact] || '',
+    tracks: d.tracks.map((k) => en.tracks[k]?.t).filter(Boolean),
+    stage: en.stages[d.stage] || '',
+    timeline: en.timelines[d.timeline] || '',
+    budget: en.budgets[d.budget] || '',
+    outcome: d.outcome.trim(),
+    language,
+  }
 }
 
 export default function StartProject() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const p = t('project')
   const [searchParams] = useSearchParams()
 
@@ -154,29 +147,14 @@ export default function StartProject() {
     setSending(true)
     setError('')
     try {
-      emailjs.init(EMAILJS_PUBLIC_KEY)
-      await Promise.all([
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: 'yannicknkongolo7@gmail.com',
-          heading: `New Project Brief ${ref}: ${data.tracks.map((k) => projectCopy.en.project.tracks[k].t).join(', ')}`,
-          content_html: buildAdminHtml(data, ref),
-          footer_note: 'You received this email because a project brief was submitted on the YNK Tech USA website.',
-        }),
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: data.email.trim(),
-          heading: p.success.tag,
-          content_html: `<p>${escapeHtml(p.success.title.replace('{name}', data.name.trim()))}</p>
-<p>${escapeHtml(p.success.text)}</p>
-<p><strong>${escapeHtml(p.success.ref)}:</strong> ${ref}</p>`,
-          footer_note: 'YNK Tech USA',
-        }),
-      ])
+      const res = await submitBrief(briefPayload(data, language))
+      if (!res.ok) throw new Error(res.error || 'send')
       localStorage.setItem(SENT_KEY, String(Date.now()))
       localStorage.removeItem(DRAFT_KEY)
-      setDone({ ref, name: data.name.trim() })
+      setDone({ ref: res.ref || ref, name: data.name.trim() })
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err2) {
-      console.error('EmailJS error:', err2)
+      console.error('Brief error:', err2)
       setError('send')
     } finally {
       setSending(false)

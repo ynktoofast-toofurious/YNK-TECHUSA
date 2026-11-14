@@ -1,14 +1,9 @@
 import { useRef, useState } from 'react'
-import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
 import communityCopy from '../i18n/communityCopy'
-import { escapeHtml } from '../utils/escapeHtml'
 import { intakeEnabled, submitTopicRequest } from '../utils/intake'
 import { ArrowRight } from './Icons'
 
-const EMAILJS_SERVICE_ID = 'service_sw3zais'
-const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
-const EMAILJS_PUBLIC_KEY = 'zG_jERVPbUUfiZ6IL'
 const SENT_KEY = 'ynk-topic-request-sent'
 const COOLDOWN_MS = 60 * 1000
 const MAX_TOPICS = 3
@@ -45,44 +40,22 @@ export default function TopicRequest() {
 
     const en = communityCopy.en.topicRequest
     const picks = form.topics.map((i) => en.topics[i])
-    const rows = [
-      ['Selected topics', picks.join(', ') || 'None'],
-      ['Custom topic', form.custom.trim() || 'None'],
-      ['Audience', form.role !== null ? en.roles[form.role] : 'Not specified'],
-      ['Notify email', form.email.trim() || 'Not provided'],
-      ['Language', language],
-      ['Page', window.location.pathname],
-    ]
 
     setSending(true)
     try {
-      if (intakeEnabled) {
-        const res = await submitTopicRequest({
-          topics: picks,
-          custom: form.custom.trim(),
-          role: form.role !== null ? en.roles[form.role] : '',
-          email: form.email.trim(),
-          language,
-        })
-        if (!res.ok) throw new Error(res.error || 'send')
-        localStorage.setItem(SENT_KEY, String(Date.now()))
-        setDone(true)
-        return
-      }
-      emailjs.init(EMAILJS_PUBLIC_KEY)
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_email: 'yannicknkongolo7@gmail.com',
-        heading: `Topic request: ${picks[0] || form.custom.trim().slice(0, 60)}`,
-        content_html: `<p>A visitor requested a topic for an upcoming study.</p>
-<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-${rows.map(([k, v]) => `<strong>${k}:</strong> ${escapeHtml(v)}<br/>`).join('\n')}
-</div>`,
-        footer_note: 'You received this email because a topic was requested on the YNK Tech USA website.',
+      if (!intakeEnabled) throw new Error('send')
+      const res = await submitTopicRequest({
+        topics: picks,
+        custom: form.custom.trim(),
+        role: form.role !== null ? en.roles[form.role] : '',
+        email: form.email.trim(),
+        language,
       })
+      if (!res.ok) throw new Error(res.error || 'send')
       localStorage.setItem(SENT_KEY, String(Date.now()))
       setDone(true)
     } catch (err) {
-      console.error('EmailJS error:', err)
+      console.error('Topic request error:', err)
       setError('send')
     } finally {
       setSending(false)

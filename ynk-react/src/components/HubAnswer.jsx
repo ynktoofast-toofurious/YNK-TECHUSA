@@ -18,6 +18,7 @@ export default function HubAnswer({ turn, s, onOpen, compact = false }) {
           })}
         </p>
       )}
+      {turn.mode === 'guard' && <p className="ss-answer-text">{turn.text}</p>}
       {turn.mode === 'search' && <p className="ss-answer-wait">{s.closest}</p>}
       {turn.mode === 'none' && (
         <p className="ss-answer-wait">

@@ -17,7 +17,6 @@
     "gas:deploy": "npm run gas:push && cd ../integrations/google-apps-script && clasp update-deployment AKfycby0N2pE9CuP45h_yXgRbFBV7jQU0EKYjKptdiA5M2CL39laLRTtd7L89jtDBwtJaNxHkQ --description \"Public intake\""
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.14.1",

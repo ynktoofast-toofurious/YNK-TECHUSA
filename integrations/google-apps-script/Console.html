@@ -457,6 +457,7 @@
     var badge = function (it) {
       if (it.answered === 'yes') return h('span', { class: 'badge html', text: 'Answered' });
       if (it.answered === 'sources only') return h('span', { class: 'badge', text: 'Sources only' });
+      if (it.answered === 'blocked') return h('span', { class: 'badge err', text: 'Blocked (prompt attack)' });
       return h('span', { class: 'badge err', text: 'Not covered' });
     };
     return head.concat(items.length ? items.map(function (it) {

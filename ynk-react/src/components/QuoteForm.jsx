@@ -1,8 +1,6 @@
 import { useState, useRef } from 'react'
-import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
-
-emailjs.init('zG_jERVPbUUfiZ6IL')
+import { submitQuote } from '../utils/intake'
 
 export default function QuoteForm({ serviceOptions }) {
   const formRef = useRef()
@@ -16,15 +14,12 @@ export default function QuoteForm({ serviceOptions }) {
     setSending(true)
     setFormError('')
     try {
-      await emailjs.sendForm(
-        'service_sw3zais',
-        'template_8yj65yj',
-        formRef.current
-      )
+      const res = await submitQuote(Object.fromEntries(new FormData(formRef.current)))
+      if (!res.ok) throw new Error(res.error === 'rate_limited' ? 'Too many requests, please try again later' : 'Please check the form fields')
       setSent(true)
     } catch (err) {
-      console.error('EmailJS error:', err)
-      setFormError(`Failed to send: ${err?.text || err?.message || 'Unknown error'}. Please email us directly at yannicknkongolo7@gmail.com`)
+      console.error('Quote error:', err)
+      setFormError(`Failed to send: ${err?.message || 'Unknown error'}. Please email us directly at yannicknkongolo7@gmail.com`)
     } finally {
       setSending(false)
     }

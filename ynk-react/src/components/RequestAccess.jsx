@@ -1,13 +1,8 @@
 import { useRef, useState } from 'react'
-import emailjs from '@emailjs/browser'
 import { useLanguage } from '../i18n/LanguageContext'
-import { escapeHtml } from '../utils/escapeHtml'
 import { intakeEnabled, submitFullAccessRequest } from '../utils/intake'
 import { ArrowRight } from './Icons'
 
-const EMAILJS_SERVICE_ID = 'service_sw3zais'
-const EMAILJS_TEMPLATE_ID = 'template_99cacr8'
-const EMAILJS_PUBLIC_KEY = 'zG_jERVPbUUfiZ6IL'
 const COOLDOWN_MS = 60 * 1000
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const EMPTY = { name: '', email: '', organization: '', purpose: '' }
@@ -38,26 +33,9 @@ export default function RequestAccess({ item, compact = false }) {
 
     setSending(true)
     try {
-      if (intakeEnabled) {
-        const res = await submitFullAccessRequest({ type: item.type, item: item.id, title: item.title, path: item.path, language, ...data })
-        if (!res.ok) throw new Error(res.error || 'send')
-      } else {
-        emailjs.init(EMAILJS_PUBLIC_KEY)
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: 'yannicknkongolo7@gmail.com',
-          heading: `Full access request: ${item.title}`,
-          content_html: `<p>A visitor requested the full ${escapeHtml(item.type)}.</p>
-<div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:14px;margin:16px 0">
-<strong>Item:</strong> ${escapeHtml(item.title)} (${escapeHtml(item.path)})<br/>
-<strong>Name:</strong> ${escapeHtml(data.name)}<br/>
-<strong>Email:</strong> ${escapeHtml(data.email)}<br/>
-<strong>Organization:</strong> ${escapeHtml(data.organization || 'Not provided')}<br/>
-<strong>Purpose:</strong> ${escapeHtml(data.purpose || 'Not provided')}<br/>
-<strong>Language:</strong> ${escapeHtml(language)}
-</div>`,
-          footer_note: 'You received this email because someone requested full access on the YNK Tech USA website.',
-        })
-      }
+      if (!intakeEnabled) throw new Error('send')
+      const res = await submitFullAccessRequest({ type: item.type, item: item.id, title: item.title, path: item.path, language, ...data })
+      if (!res.ok) throw new Error(res.error || 'send')
       localStorage.setItem(sentKey, String(Date.now()))
       setDone(true)
     } catch (err) {

@@ -19,6 +19,8 @@ const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const ID_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{2,80}$/
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/u
+// Published text feeds the Ask the Hub assistant, so it must not carry instructions aimed at an AI (RAG poisoning).
+const AI_INSTRUCTION_RE = /<\|[^|>]{0,30}\|>|\[\/?INST\]|<<\/?SYS>>|\b(ignore|disregard|forget|override)\b[^.\n]{0,40}\b(previous|prior|above|all|your|system)\b[^.\n]{0,30}\binstructions?\b|\b(you are now|from now on,? you are|as an ai (assistant|model),? you must)\b|\b(system prompt|developer mode)\s*:/i
 
 const errors = []
 const fail = (where, msg) => errors.push(`${where}: ${msg}`)
@@ -40,6 +42,7 @@ function checkStrings(value, where) {
   if (typeof value === 'string') {
     if (value.includes('\u2014')) fail(where, 'contains an em dash; use a comma, colon, period, or parentheses')
     if (EMOJI_RE.test(value)) fail(where, 'contains an emoji')
+    if (AI_INSTRUCTION_RE.test(value)) fail(where, 'contains text that gives instructions to an AI assistant; rephrase or remove it')
   } else if (Array.isArray(value)) {
     value.forEach((v, i) => checkStrings(v, `${where}[${i}]`))
   } else if (value && typeof value === 'object') {

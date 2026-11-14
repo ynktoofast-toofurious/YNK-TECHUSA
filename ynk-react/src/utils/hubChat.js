@@ -10,7 +10,7 @@ export function useHubChat(language, { onReply } = {}) {
     const text = question.trim()
     if (!text || pending) return
     const base = restart ? [] : turns
-    const history = base.filter((t) => t.text && !t.status).map((t) => ({ role: t.role, text: t.text })).slice(-6)
+    const history = base.filter((t) => t.text && !t.status).map((t) => (t.sig ? { role: t.role, text: t.text, sig: t.sig } : { role: t.role, text: t.text })).slice(-6)
     setTurns([...base, { id: Date.now(), role: 'user', text }])
     setPending(true)
     const done = (reply) => {
@@ -22,7 +22,7 @@ export function useHubChat(language, { onReply } = {}) {
     askHub(text, language, history)
       .then((res) => {
         if (!res || !res.ok) done({ status: res && res.error === 'rate_limited' ? 'busy' : 'error' })
-        else done({ mode: res.mode, text: res.answer || '', sources: res.sources || [], action: res.action || null, question: text })
+        else done({ mode: res.mode, text: res.answer || '', sig: res.sig || '', sources: res.sources || [], action: res.action || null, question: text })
       })
       .catch(() => done({ status: 'error' }))
   }

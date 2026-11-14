@@ -32,9 +32,23 @@ export function askHub(q, language, history = []) {
 }
 
 // { ok, html, title, trial: { token, left } | pass: { left, expires } } ; refine + html update the previous prototype.
-// Errors include trial_used, trial_busy and pass_invalid | pass_expired | pass_spent.
+// Long designs come back as { ok, pending, job }: poll prototypeStatus(job) until it returns the html.
+// Errors include trial_used, trial_busy, blocked and pass_invalid | pass_expired | pass_spent.
 export function generatePrototype(data) {
   return post({ action: 'prototype', ...data })
+}
+
+export function prototypeStatus(job) {
+  return post({ action: 'prototypeStatus', job })
+}
+
+// { ok, ref } ; the server emails the team and the visitor.
+export function submitBrief(data) {
+  return post({ action: 'brief', ...data })
+}
+
+export function submitQuote(data) {
+  return post({ action: 'quote', ...data })
 }
 
 // { ok, valid, left, expires, reason }
