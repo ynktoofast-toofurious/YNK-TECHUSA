@@ -3440,8 +3440,13 @@ img {
     font-size: clamp(1.9rem, 3.6vw, 2.8rem);
 }
 
+.bk-main {
+    min-width: 0;
+}
+
 .bk-sub {
     margin: 0 0 16px;
+    max-width: 620px;
 }
 
 .bk-meta {
