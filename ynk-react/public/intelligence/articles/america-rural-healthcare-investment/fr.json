@@ -1,0 +1,878 @@
+{
+  "title": "Le test américain de 50 milliards de dollars pour la santé rurale : des dotations aux résultats vérifiables",
+  "summary": "Les États-Unis ont attribué 20 milliards de dollars dans le cadre de leur programme quinquennal de transformation de la santé rurale, mais une dotation ne prouve ni l'engagement des fonds, ni leur versement, ni de meilleurs soins. Le Texas offre un cas concret de suivi, d'achats publics et d'investissement technologique.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Principaux constats"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Financement vérifié : CMS a annoncé 10 milliards de dollars pour 2027 après 10 milliards pour 2026, dans un programme de 50 milliards de 2026 à 2030. Les 30 milliards restants sont prévus pour les trois exercices suivants, sous réserve des règles du programme. [1]",
+          "runs": [
+            {
+              "text": "Financement vérifié :",
+              "bold": true
+            },
+            {
+              "text": " CMS a annoncé 10 milliards de dollars pour 2027 après 10 milliards pour 2026, dans un programme de 50 milliards de 2026 à 2030. Les 30 milliards restants sont prévus pour les trois exercices suivants, sous réserve des règles du programme. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            }
+          ]
+        },
+        {
+          "text": "Premier niveau d’engagement mesuré : au 31 juillet 2026, environ 4 milliards de dollars, soit 40 %, des dotations 2026 étaient engagés au niveau national. Un engagement juridique n’est ni une dépense ni un résultat clinique constaté. [2] [6]",
+          "runs": [
+            {
+              "text": "Premier niveau d’engagement mesuré :",
+              "bold": true
+            },
+            {
+              "text": " au 31 juillet 2026, environ 4 milliards de dollars, soit 40 %, des dotations 2026 étaient engagés au niveau national. Un engagement juridique n’est ni une dépense ni un résultat clinique constaté. "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[6]",
+              "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Contraste texan : 53 288 872,67 dollars sur 281 319 360,67 dollars alloués en première année étaient engagés à cette date, soit 18,94 % selon notre calcul. La dotation 2027 annoncée ensuite atteint 281 976 026 dollars. [1] [2]",
+          "runs": [
+            {
+              "text": "Contraste texan :",
+              "bold": true
+            },
+            {
+              "text": " 53 288 872,67 dollars sur 281 319 360,67 dollars alloués en première année étaient engagés à cette date, soit 18,94 % selon notre calcul. La dotation 2027 annoncée ensuite atteint 281 976 026 dollars. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Technologie et personnel : le projet budgétaire texan du 31 août réservait 106,94 millions de dollars au personnel, 37,5 millions à l’IA et à la télésanté, 37,5 millions aux portails patients et 25 millions à la cybersécurité. Ce sont des prévisions budgétaires, pas des paiements confirmés. [4]",
+          "runs": [
+            {
+              "text": "Technologie et personnel :",
+              "bold": true
+            },
+            {
+              "text": " le projet budgétaire texan du 31 août réservait 106,94 millions de dollars au personnel, 37,5 millions à l’IA et à la télésanté, 37,5 millions aux portails patients et 25 millions à la cybersécurité. Ce sont des prévisions budgétaires, pas des paiements confirmés. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Question pour YNK Tech : une couche de rapprochement et de traçabilité des données peut-elle améliorer la vérification au-delà des outils existants de CMS, du Texas et des autres États ? Ni le besoin supplémentaire ni le retour sur investissement ne sont établis.",
+          "runs": [
+            {
+              "text": "Question pour YNK Tech :",
+              "bold": true
+            },
+            {
+              "text": " une couche de rapprochement et de traçabilité des données peut-elle améliorer la vérification au-delà des outils existants de CMS, du Texas et des autres États ? Ni le besoin supplémentaire ni le retour sur investissement ne sont établis."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Contexte"
+    },
+    {
+      "type": "p",
+      "text": "Le Rural Health Transformation Program est un dispositif fédéral de coopération avec les États, et non une subvention ouverte directement à chaque hôpital rural ou éditeur de logiciel. Les États élaborent des initiatives autorisées, attribuent des sous-subventions et marchés, rendent compte des progrès et coopèrent avec CMS. La moitié des 10 milliards annuels est répartie à parts égales, soit 100 millions par État; l’autre moitié suit une méthode tenant compte des besoins ruraux, des projets et de critères publics. Toutes les ressources doivent être dépensées avant le 30 septembre 2032. [1]",
+      "runs": [
+        {
+          "text": "Le Rural Health Transformation Program est un dispositif fédéral de coopération avec les États, et non une subvention ouverte directement à chaque hôpital rural ou éditeur de logiciel. Les États élaborent des initiatives autorisées, attribuent des sous-subventions et marchés, rendent compte des progrès et coopèrent avec CMS. La moitié des 10 milliards annuels est répartie à parts égales, soit 100 millions par État; l’autre moitié suit une méthode tenant compte des besoins ruraux, des projets et de critères publics. Toutes les ressources doivent être dépensées avant le 30 septembre 2032. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Les besoins sont importants : une analyse KFF de 2025 évaluait à environ 66 millions la population rurale américaine et estimait que Medicaid couvrait un adulte rural sur quatre. La loi budgétaire de 2025 devrait aussi réduire, selon les projections, les dépenses fédérales Medicaid de 911 milliards sur dix ans, dont 137 milliards en zones rurales selon KFF. Les périodes et mécanismes diffèrent de ceux de la subvention quinquennale; soustraire mécaniquement 50 milliards de 137 milliards ne constitue pas une estimation valable de l’effet sur un État ou ses patients. [8] [9]",
+      "runs": [
+        {
+          "text": "Les besoins sont importants : une analyse KFF de 2025 évaluait à environ 66 millions la population rurale américaine et estimait que Medicaid couvrait un adulte rural sur quatre. La loi budgétaire de 2025 devrait aussi réduire, selon les projections, les dépenses fédérales Medicaid de 911 milliards sur dix ans, dont 137 milliards en zones rurales selon KFF. Les périodes et mécanismes diffèrent de ceux de la subvention quinquennale; soustraire mécaniquement 50 milliards de 137 milliards "
+        },
+        {
+          "text": "ne constitue pas",
+          "bold": true
+        },
+        {
+          "text": " une estimation valable de l’effet sur un État ou ses patients. "
+        },
+        {
+          "text": "[8]",
+          "href": "https://www.kff.org/medicaid/comparing-states-rural-health-fund-allotments-to-medicaid-spending-cuts-can-be-misleading/"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[9]",
+          "href": "https://www.kff.org/medicaid/how-might-federal-medicaid-cuts-in-the-enacted-reconciliation-package-affect-rural-areas/"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Une dotation élevée n’est pas un bénéfice individuel. KFF constate que le Texas reçoit le montant total le plus élevé mais figure parmi les États les moins dotés par habitant rural, les critères ne dépendant pas uniquement de la population. Une évaluation équitable doit harmoniser définitions rurales, dénominateurs, état de santé et accès aux soins. [5]",
+      "runs": [
+        {
+          "text": "Une dotation élevée n’est pas un bénéfice individuel. KFF constate que le Texas reçoit le montant total le plus élevé mais figure parmi les États les moins dotés par habitant rural, les critères ne dépendant pas uniquement de la population. Une évaluation équitable doit harmoniser définitions rurales, dénominateurs, état de santé et accès aux soins. "
+        },
+        {
+          "text": "[5]",
+          "href": "https://www.kff.org/medicaid/second-year-rural-health-fund-awards-per-rural-resident-continue-to-vary-widely/"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Analyse"
+    },
+    {
+      "type": "h3",
+      "text": "Suivre cinq étapes distinctes entre financement et résultats"
+    },
+    {
+      "type": "p",
+      "text": "L’écart entre dotation et engagement constitue un indicateur précoce, pas une preuve d’échec. Le Texas était à 18,94 % au 31 juillet, contre environ 40 % pour l’ensemble du pays et 78,74 % pour la Caroline du Nord. Ces États utilisent des modalités de déploiement différentes; les appels d’offres et les contrats conclus après juillet limitent la comparabilité. En octobre, le Texas a ainsi annoncé 87,25 millions de dollars de nouvelles intentions de subventions, dont la disponibilité dépend de la finalisation des accords. [2] [6] [11]",
+      "runs": [
+        {
+          "text": "L’écart entre dotation et engagement constitue un indicateur précoce, pas une preuve d’échec. Le Texas était à 18,94 % au 31 juillet, contre environ 40 % pour l’ensemble du pays et 78,74 % pour la Caroline du Nord. Ces États utilisent des modalités de déploiement différentes; les appels d’offres et les contrats conclus après juillet limitent la comparabilité. En octobre, le Texas a ainsi annoncé 87,25 millions de dollars de nouvelles intentions de subventions, dont la disponibilité dépend de la finalisation des accords. "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[6]",
+          "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[11]",
+          "href": "https://gov.texas.gov/news/post/governor-abbott-announces-87-million-in-rural-healthcare-grants"
+        }
+      ]
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261114-eexrhq-ed99f01113d3.png",
+      "alt": "Diagramme à barres : Texas 18,94 %, États-Unis environ 40 %, Caroline du Nord 78,74 % engagés au 31 juillet 2026.",
+      "caption": "Figure 1. Part des dotations 2026 engagée au 31 juillet 2026. Le total national est arrondi; les taux du Texas et de la Caroline du Nord sont calculés sur les montants CMS. Il ne s’agit ni de paiements ni de gains sanitaires."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Comparaison",
+          "Dotation 2026",
+          "Engagé au 31 juillet 2026",
+          "Taux"
+        ],
+        [
+          "Texas",
+          "281 319 360,67 USD",
+          "53 288 872,67 USD",
+          "18,94 %"
+        ],
+        [
+          "Ensemble des États",
+          "10,0 Md USD",
+          "Environ 4,0 Md USD",
+          "Environ 40 %"
+        ],
+        [
+          "Caroline du Nord",
+          "213 008 356,47 USD",
+          "167 718 439,45 USD",
+          "78,74 %"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Étape",
+          "Preuves disponibles au 14 novembre",
+          "À vérifier"
+        ],
+        [
+          "Dotation fédérale",
+          "2026 : 10,0 Md USD au niveau national; Texas 281,319 M USD",
+          "Ne démontre ni usage effectif ni bénéfice pour les patients"
+        ],
+        [
+          "Engagement de l’État",
+          "Texas 53,289 M USD; environ 18,94 % au 31 juillet",
+          "Contrats et avenants ultérieurs, révisions des données déclarées"
+        ],
+        [
+          "Versement / dépense",
+          "Pas de série homogène de versements aux acteurs de terrain validée ici",
+          "Dates de paiement, destinataires, factures, piste d’audit"
+        ],
+        [
+          "Services fournis",
+          "Des initiatives et annonces de bénéficiaires existent",
+          "Patients servis, visites, délais, couverture géographique"
+        ],
+        [
+          "Résultats sanitaires",
+          "Aucun effet causal validé du programme dans cette étude",
+          "Ajustement des risques, groupe témoin, délais de mesure"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Comment le Texas prévoit de répartir sa deuxième période"
+    },
+    {
+      "type": "p",
+      "text": "Le projet texan du 31 août pour la deuxième période reposait sur une enveloppe antérieure de 281 319 361 dollars. CMS a ensuite annoncé 281 976 026 dollars pour 2027, soit 656 665 dollars de plus que le montant budgétaire arrondi. Il s’agit d’un point de rapprochement budgétaire, non de la preuve d’un dépassement ou d’un détournement. Les versions du budget, dotations et contrats doivent être rapprochées par date. [1] [4]",
+      "runs": [
+        {
+          "text": "Le projet texan du 31 août pour la deuxième période reposait sur une enveloppe antérieure de 281 319 361 dollars. CMS a ensuite annoncé 281 976 026 dollars pour 2027, soit 656 665 dollars de plus que le montant budgétaire arrondi. Il s’agit d’un "
+        },
+        {
+          "text": "point de rapprochement budgétaire",
+          "bold": true
+        },
+        {
+          "text": ", non de la preuve d’un dépassement ou d’un détournement. Les versions du budget, dotations et contrats doivent être rapprochées par date. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+        }
+      ]
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261114-eexrhq-c9ab0ad5194d.png",
+      "alt": "Répartition budgétaire du Texas : personnel 106,94 millions, IA et télésanté 37,5, portails 37,5, infrastructures 34,17, prévention 29,4, cybersécurité 25, gestion 10,81.",
+      "caption": "Figure 2. Répartition proposée par HHSC pour la deuxième période, 31 août 2026, en millions USD. Il s’agit de montants budgétés, non de dépenses. Le document présente de légers écarts de rapprochement ou d’arrondi."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Poste prévu au Texas",
+          "Millions USD",
+          "Part de la base de 281,319 M USD"
+        ],
+        [
+          "Développement du personnel",
+          "106,940",
+          "38,0 %"
+        ],
+        [
+          "IA et télésanté",
+          "37,500",
+          "13,3 %"
+        ],
+        [
+          "Portails patients",
+          "37,500",
+          "13,3 %"
+        ],
+        [
+          "Infrastructures et capitaux",
+          "34,168",
+          "12,1 %"
+        ],
+        [
+          "Prévention et mode de vie sain",
+          "29,400",
+          "10,5 %"
+        ],
+        [
+          "Soins intégrés et cybersécurité",
+          "25,000",
+          "8,9 %"
+        ],
+        [
+          "Gestion et suivi du programme",
+          "10,811",
+          "3,8 %"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Leviers économiques et opérationnels : une dotation ne représente pas un marché accessible"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Personnel : premier poste proposé au Texas, destiné au recrutement et à la fidélisation. Mesurer postes pourvus, maintien à 12 mois, coûts ajustés des vacances, ratio patients/professionnels et continuité; une place de formation financée n’est pas encore un soignant supplémentaire. [4]",
+          "runs": [
+            {
+              "text": "Personnel :",
+              "bold": true
+            },
+            {
+              "text": " premier poste proposé au Texas, destiné au recrutement et à la fidélisation. Mesurer postes pourvus, maintien à 12 mois, coûts ajustés des vacances, ratio patients/professionnels et continuité; une place de formation financée n’est pas encore un soignant supplémentaire. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Santé numérique : l’IA, la télésanté et les portails pourraient générer des besoins d’interfaces sécurisées, de rendez-vous, d’interopérabilité et d’intégration clinique. Le Texas réserve la candidature principale à des ensembles admissibles de réseaux cliniquement intégrés, ACO ou coopératives similaires : un éditeur isolé ne peut présumer être directement éligible. [3]",
+          "runs": [
+            {
+              "text": "Santé numérique :",
+              "bold": true
+            },
+            {
+              "text": " l’IA, la télésanté et les portails pourraient générer des besoins d’interfaces sécurisées, de rendez-vous, d’interopérabilité et d’intégration clinique. Le Texas réserve la candidature principale à des ensembles admissibles de réseaux cliniquement intégrés, ACO ou coopératives similaires : un éditeur isolé ne peut présumer être directement éligible. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Cybersécurité et contrôle : 25,0 M USD sont prévus pour la cybersécurité, 3,265 M USD pour l’appui à la gestion des subventions et 1,9 M USD pour un contrôle externe. Ces lignes ne forment pas une prévision du marché adressable pour YNK; contrats existants, concurrence, éligibilité et dépenses autorisées doivent être vérifiés. [4]",
+          "runs": [
+            {
+              "text": "Cybersécurité et contrôle :",
+              "bold": true
+            },
+            {
+              "text": " 25,0 M USD sont prévus pour la cybersécurité, 3,265 M USD pour l’appui à la gestion des subventions et 1,9 M USD pour un contrôle externe. Ces lignes ne forment pas une prévision du marché adressable pour YNK; contrats existants, concurrence, éligibilité et dépenses autorisées doivent être vérifiés. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Impact patient : suivre les urgences évitables, délai d’accès aux spécialistes, rendez-vous honorés, déplacements, accès à Internet, suivi des maladies chroniques et viabilité des prestataires ruraux. L’installation d’une technologie ne démontre pas son efficacité. [3]",
+          "runs": [
+            {
+              "text": "Impact patient :",
+              "bold": true
+            },
+            {
+              "text": " suivre les urgences évitables, délai d’accès aux spécialistes, rendez-vous honorés, déplacements, accès à Internet, suivi des maladies chroniques et viabilité des prestataires ruraux. L’installation d’une technologie ne démontre pas son efficacité. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Solutions existantes et ce qu’elles accomplissent"
+    },
+    {
+      "type": "p",
+      "text": "Le domaine dispose déjà d’outils. CMS publie les dotations et le suivi des initiatives; HHSC maintient les informations officielles texanes; la Caroline du Nord a lancé un tableau de bord public des projets, territoires et montants engagés. Le Texas prévoit également des contrats de gestion des subventions et de contrôle. Recréer un tableau de bord générique risquerait de doubler des systèmes financés. [10] [3] [4] [7]",
+      "runs": [
+        {
+          "text": "Le domaine dispose déjà d’outils. CMS publie les dotations et le suivi des initiatives; HHSC maintient les informations officielles texanes; la Caroline du Nord a lancé un tableau de bord public des projets, territoires et montants engagés. Le Texas prévoit également des contrats de gestion des subventions et de contrôle. Recréer un tableau de bord générique risquerait de doubler des systèmes financés. "
+        },
+        {
+          "text": "[10]",
+          "href": "https://www.medicaid.gov/resources-for-states/rural-health/state-data-maps"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[3]",
+          "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[7]",
+          "href": "https://www.ncdhhs.gov/news/press-releases/2026/11/02/state-launches-new-rural-health-transformation-program-dashboard"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Solution / responsable",
+          "Capacité vérifiée",
+          "Lacune non démontrée et complément possible"
+        ],
+        [
+          "CMS : cartes et rapports d’engagement",
+          "Instantanés des dotations, progrès et engagements",
+          "Chaînage entre versions, bénéficiaires, paiements et résultats non validé ici"
+        ],
+        [
+          "HHSC Texas / gestion des subventions",
+          "Initiatives, conditions, échéances et bénéficiaires publiés",
+          "Compatibilité publique entre propositions, contrats signés et résultats à tester"
+        ],
+        [
+          "Tableau de bord de Caroline du Nord",
+          "Visibilité sur projets, comtés, engagements et descriptions",
+          "Comparer la couverture avant de proposer une autre solution"
+        ],
+        [
+          "Dossiers cliniques / échanges de données / télésanté",
+          "Données cliniques et opérationnelles dans des systèmes agréés",
+          "Droits d’accès, confidentialité, coûts et validité des résultats non établis"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Lacunes ou besoins non satisfaits"
+    },
+    {
+      "type": "p",
+      "text": "Les documents publics ne permettent pas encore de reconstituer intégralement la chaîne dotation, appel d’offres, engagement juridique, paiement, service rural et résultat patient vérifié. Cela ne prouve toutefois pas que cette chaîne n’existe pas dans les systèmes internes de CMS ou HHSC. Il faut valider le besoin auprès des responsables des données et des prestataires existants."
+    },
+    {
+      "type": "h3",
+      "text": "Ce que YNK Tech peut apporter"
+    },
+    {
+      "type": "p",
+      "text": "Proposition non réalisée : une petite couche de preuves et de traçabilité pour une initiative. Elle rapprocherait les versions des dotations et contrats, relierait les documents primaires, signalerait les exceptions, afficherait les dénominateurs et l’incertitude, et proposerait un scorecard public. Aucune donnée patient individuelle ne doit entrer dans une démonstration publique.",
+      "runs": [
+        {
+          "text": "Proposition "
+        },
+        {
+          "text": "non réalisée",
+          "bold": true
+        },
+        {
+          "text": " : une petite couche de preuves et de traçabilité pour une initiative. Elle rapprocherait les versions des dotations et contrats, relierait les documents primaires, signalerait les exceptions, afficherait les dénominateurs et l’incertitude, et proposerait un scorecard public. Aucune donnée patient individuelle ne doit entrer dans une démonstration publique."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Développer, nouer un partenariat ou intégrer ?"
+    },
+    {
+      "type": "p",
+      "text": "Priorité à l’intégration. Réutiliser les documents CMS/États, les systèmes de subventions autorisés, les interfaces de dossiers cliniques et les jeux de données ouverts sous licence. S’associer aux réseaux admissibles ou aux prestataires existants lorsque les marchés le permettent. Ne développer du code spécifique que pour une lacune mesurée; ne jamais collecter illégalement des données médicales ni contourner les appels d’offres."
+    },
+    {
+      "type": "h3",
+      "text": "Mesurer la valeur ajoutée réelle"
+    },
+    {
+      "type": "p",
+      "text": "Pilote à ordre randomisé : deux analystes rapprochent les mêmes dossiers avec les outils actuels puis une intégration proposée. Compter configuration, licences, maintenance, contrôle juridique, corrections d’erreurs et accessibilité. Suivre minutes médianes par dossier vérifié, complétude, faux rapprochements, fraîcheur et satisfaction. La ligne de base actuelle et le ROI incrémental ne sont pas vérifiés.",
+      "runs": [
+        {
+          "text": "Pilote à ordre randomisé : deux analystes rapprochent les mêmes dossiers avec les outils actuels puis une intégration proposée. Compter configuration, licences, maintenance, contrôle juridique, corrections d’erreurs et accessibilité. Suivre minutes médianes par dossier vérifié, complétude, faux rapprochements, fraîcheur et satisfaction. La ligne de base actuelle et le ROI incrémental "
+        },
+        {
+          "text": "ne sont pas vérifiés",
+          "bold": true
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Trois scénarios de test, et non des prévisions"
+    },
+    {
+      "type": "p",
+      "text": "ILLUSTRATION UNIQUEMENT, NI DONNÉES OBSERVÉES NI PRÉVISION VALIDÉE. Supposons 2 400 dossiers rapprochés par an à 60 minutes chacun avec les outils actuels et un coût analytique de 75 USD/heure. Hypothèse : 25 000 USD de coûts annuels plus 20 000 USD d’installation amortis sur deux ans, soit 35 000 USD annuels additionnels. Ce sont des paramètres de sensibilité, ni des devis ni des coûts texans mesurés.",
+      "runs": [
+        {
+          "text": "ILLUSTRATION UNIQUEMENT, NI DONNÉES OBSERVÉES NI PRÉVISION VALIDÉE.",
+          "bold": true
+        },
+        {
+          "text": " Supposons 2 400 dossiers rapprochés par an à 60 minutes chacun avec les outils actuels et un coût analytique de 75 USD/heure. Hypothèse : 25 000 USD de coûts annuels plus 20 000 USD d’installation amortis sur deux ans, soit 35 000 USD annuels additionnels. Ce sont des paramètres de sensibilité, ni des devis ni des coûts texans mesurés."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Scénario",
+          "Baisse du temps",
+          "Heures gagnées/an",
+          "Valeur brute du temps",
+          "Net après 35 000 USD/an"
+        ],
+        [
+          "Prudent",
+          "10 %",
+          "240 h",
+          "18 000 USD",
+          "-17 000 USD"
+        ],
+        [
+          "Central",
+          "25 %",
+          "600 h",
+          "45 000 USD",
+          "+10 000 USD"
+        ],
+        [
+          "Favorable",
+          "40 %",
+          "960 h",
+          "72 000 USD",
+          "+37 000 USD"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Le seuil de rentabilité illustratif requiert une diminution de 19,44 % du temps de traitement, avant les risques et coûts de données supplémentaires. Aucun montant ne correspond à un gain sanitaire. Un pilote doit remplacer toutes les hypothèses par des mesures actuelles et des factures auditées."
+    },
+    {
+      "type": "h3",
+      "text": "Garde-fous et feuille de route d’évaluation"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Jours 0 à 30 : choisir une initiative publique du Texas, inventorier les outils existants et les règles, confirmer droits de données, évaluateurs, impartialité des achats; fixer référence et comparateur.",
+          "runs": [
+            {
+              "text": "Jours 0 à 30 :",
+              "bold": true
+            },
+            {
+              "text": " choisir une initiative publique du Texas, inventorier les outils existants et les règles, confirmer droits de données, évaluateurs, impartialité des achats; fixer référence et comparateur."
+            }
+          ]
+        },
+        {
+          "text": "Jours 31 à 60 : intégrer les versions publiques des dotations, appels d’offres, contrats signés et indicateurs agrégés; tester les liens, journaux d’audit, accessibilité et confidentialité.",
+          "runs": [
+            {
+              "text": "Jours 31 à 60 :",
+              "bold": true
+            },
+            {
+              "text": " intégrer les versions publiques des dotations, appels d’offres, contrats signés et indicateurs agrégés; tester les liens, journaux d’audit, accessibilité et confidentialité."
+            }
+          ]
+        },
+        {
+          "text": "Jours 61 à 90 : comparer au moins 20 dossiers, publier temps, erreurs, coût par dossier, couverture des sources et inconnues; demander une validation aux responsables, sans mise en production automatique.",
+          "runs": [
+            {
+              "text": "Jours 61 à 90 :",
+              "bold": true
+            },
+            {
+              "text": " comparer au moins 20 dossiers, publier temps, erreurs, coût par dossier, couverture des sources et inconnues; demander une validation aux responsables, sans mise en production automatique."
+            }
+          ]
+        },
+        {
+          "text": "Critère de décision : 100 % des affirmations visibles liées à des sources datées, aucun résultat patient non fondé, pas davantage de faux liens et tester au moins 20 % de réduction du temps médian par rapport à l’existant. Les 20 % sont une cible d’essai, pas une prévision.",
+          "runs": [
+            {
+              "text": "Critère de décision :",
+              "bold": true
+            },
+            {
+              "text": " 100 % des affirmations visibles liées à des sources datées, aucun résultat patient non fondé, pas davantage de faux liens et tester au moins 20 % de réduction du temps médian par rapport à l’existant. Les 20 % sont une cible d’essai, pas une prévision."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Points à suivre"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Novembre 2026 : surveiller les premiers rapports trimestriels détaillés de CMS et les mises à jour texanes; CMS annonce une actualisation après les déclarations du 30 novembre. Vérifier la mise en conformité du budget d’août avec la dotation définitive 2027. [1] [2]",
+          "runs": [
+            {
+              "text": "Novembre 2026 :",
+              "bold": true
+            },
+            {
+              "text": " surveiller les premiers rapports trimestriels détaillés de CMS et les mises à jour texanes; CMS annonce une actualisation après les déclarations du 30 novembre. Vérifier la mise en conformité du budget d’août avec la dotation définitive 2027. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "12 janvier 2027 : date limite estimée au Texas pour les projets portails et IA/télésanté; 19 janvier pour la cybersécurité. Les documents des appels d’offres font autorité. [3]",
+          "runs": [
+            {
+              "text": "12 janvier 2027 :",
+              "bold": true
+            },
+            {
+              "text": " date limite estimée au Texas pour les projets portails et IA/télésanté; 19 janvier pour la cybersécurité. Les documents des appels d’offres font autorité. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Mars à juillet 2027 : décisions et contractualisations technologiques envisagées; suivre prestataires, montants, comtés, conditions d’éligibilité et adoption réelle. [3]",
+          "runs": [
+            {
+              "text": "Mars à juillet 2027 :",
+              "bold": true
+            },
+            {
+              "text": " décisions et contractualisations technologiques envisagées; suivre prestataires, montants, comtés, conditions d’éligibilité et adoption réelle. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Indicateurs trimestriels : taux d’engagement = engagements valides/dotation; taux de versement = paiements attestés/engagements; accès aux soins = visites achevées/personnes rurales admissibles; jours médians d’orientation; fidélisation en ETP; chaînes prouvées/projets échantillonnés.",
+          "runs": [
+            {
+              "text": "Indicateurs trimestriels :",
+              "bold": true
+            },
+            {
+              "text": " taux d’engagement = engagements valides/dotation; taux de versement = paiements attestés/engagements; accès aux soins = visites achevées/personnes rurales admissibles; jours médians d’orientation; fidélisation en ETP; chaînes prouvées/projets échantillonnés."
+            }
+          ]
+        },
+        {
+          "text": "Rigueur des mises à jour : ne mesurer l’écart réel-cible qu’après publication des cibles et dénominateurs, en indiquant données manquantes, révisions et groupes de comparaison.",
+          "runs": [
+            {
+              "text": "Rigueur des mises à jour :",
+              "bold": true
+            },
+            {
+              "text": " ne mesurer l’écart réel-cible qu’après publication des cibles et dénominateurs, en indiquant données manquantes, révisions et groupes de comparaison."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Méthodologie et limites"
+    },
+    {
+      "type": "p",
+      "text": "Date d’arrêt : 14 novembre 2026. Sources : CMS, documents texans, travaux indépendants de KFF et NRHA, publication officielle de Caroline du Nord. Les réseaux sociaux n’ont servi qu’à découvrir le sujet. Séparer dotations 2026 et engagements au 31 juillet des nouvelles dotations 2027 du 9 novembre."
+    },
+    {
+      "type": "p",
+      "text": "Calculs : Texas = 53 288 872,67 / 281 319 360,67 = 18,94 %. Caroline du Nord = 167 718 439,45 / 213 008 356,47 = 78,74 %. Différence entre dotation texane 2027 et prévision arrondie d’août = 281 976 026 - 281 319 361 = 656 665 USD. Les arrondis peuvent légèrement modifier les pourcentages."
+    },
+    {
+      "type": "p",
+      "text": "La proposition budgétaire texane d’août n’est pas un marché exécuté. Un engagement n’est ni une facture ni une amélioration clinique. Les 40 % nationaux sont une reconstruction arrondie par NRHA des déclarations CMS, non une série de dépenses courantes. Les scénarios de ROI sont fictifs. Une inférence causale nécessite ajustement des risques, délais, comparateurs et gouvernance."
+    },
+    {
+      "type": "p",
+      "text": "Les rapports trimestriels et contrats texans peuvent changer les constats. Les coûts de confidentialité, accessibilité, achats publics et intégration ne sont pas validés pour une solution YNK. Ce projet doit passer une revue éditoriale, des sources et juridique avant publication."
+    },
+    {
+      "type": "h2",
+      "text": "Sources"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "CMS, Rural Health Transformation Program: Year 2 Awards, November 9, 2026",
+          "runs": [
+            {
+              "text": "CMS, Rural Health Transformation Program: Year 2 Awards, November 9, 2026",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            }
+          ]
+        },
+        {
+          "text": "CMS, RHTP Obligated Funds Report, state submissions through July 31, 2026, published October 2026",
+          "runs": [
+            {
+              "text": "CMS, RHTP Obligated Funds Report, state submissions through July 31, 2026, published October 2026",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Texas HHSC, Rural Texas Strong program and estimated initiative dates, accessed November 14, 2026",
+          "runs": [
+            {
+              "text": "Texas HHSC, Rural Texas Strong program and estimated initiative dates, accessed November 14, 2026",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Texas HHSC, Rural Texas Strong Budget Period 2 Revised Budget Narrative, submitted August 31, 2026",
+          "runs": [
+            {
+              "text": "Texas HHSC, Rural Texas Strong Budget Period 2 Revised Budget Narrative, submitted August 31, 2026",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "KFF, Second-Year Rural Health Fund Awards Per Rural Resident Continue to Vary Widely, November 13, 2026",
+          "runs": [
+            {
+              "text": "KFF, Second-Year Rural Health Fund Awards Per Rural Resident Continue to Vary Widely, November 13, 2026",
+              "href": "https://www.kff.org/medicaid/second-year-rural-health-fund-awards-per-rural-resident-continue-to-vary-widely/"
+            }
+          ]
+        },
+        {
+          "text": "National Rural Health Association, Review of RHTP Year 1 Obligated Funds, 2026",
+          "runs": [
+            {
+              "text": "National Rural Health Association, Review of RHTP Year 1 Obligated Funds, 2026",
+              "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+            }
+          ]
+        },
+        {
+          "text": "NCDHHS, State Launches New Rural Health Transformation Program Dashboard, November 2, 2026",
+          "runs": [
+            {
+              "text": "NCDHHS, State Launches New Rural Health Transformation Program Dashboard, November 2, 2026",
+              "href": "https://www.ncdhhs.gov/news/press-releases/2026/11/02/state-launches-new-rural-health-transformation-program-dashboard"
+            }
+          ]
+        },
+        {
+          "text": "KFF, Comparing States’ Rural Health Fund Allotments to Medicaid Spending Cuts Can be Misleading, February 6, 2026",
+          "runs": [
+            {
+              "text": "KFF, Comparing States’ Rural Health Fund Allotments to Medicaid Spending Cuts Can be Misleading, February 6, 2026",
+              "href": "https://www.kff.org/medicaid/comparing-states-rural-health-fund-allotments-to-medicaid-spending-cuts-can-be-misleading/"
+            }
+          ]
+        },
+        {
+          "text": "KFF, How Might Federal Medicaid Cuts Affect Rural Areas?, July 24, 2025",
+          "runs": [
+            {
+              "text": "KFF, How Might Federal Medicaid Cuts Affect Rural Areas?, July 24, 2025",
+              "href": "https://www.kff.org/medicaid/how-might-federal-medicaid-cuts-in-the-enacted-reconciliation-package-affect-rural-areas/"
+            }
+          ]
+        },
+        {
+          "text": "CMS / Medicaid.gov, State Data Maps, accessed November 14, 2026",
+          "runs": [
+            {
+              "text": "CMS / Medicaid.gov, State Data Maps, accessed November 14, 2026",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/state-data-maps"
+            }
+          ]
+        },
+        {
+          "text": "Texas Governor, $87 Million in Rural Healthcare Grants, October 29, 2026",
+          "runs": [
+            {
+              "text": "Texas Governor, $87 Million in Rural Healthcare Grants, October 29, 2026",
+              "href": "https://gov.texas.gov/news/post/governor-abbott-announces-87-million-in-rural-healthcare-grants"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
