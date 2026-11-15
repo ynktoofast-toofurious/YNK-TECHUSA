@@ -1,0 +1,878 @@
+{
+  "title": "America's $50 Billion Rural Healthcare Test: From State Awards to Verifiable Patient Outcomes",
+  "summary": "The United States has awarded $20 billion through its five-year rural health transformation initiative, but awards are not the same as obligations, cash received, or better care. Texas provides an urgent case study in procurement, accountability, and the economics of technology investment.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Key findings"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Verified funding: CMS announced $10 billion for FY2027 after $10 billion for FY2026, within a $50 billion FY2026-2030 program. Another $30 billion is scheduled for the final three fiscal years, subject to program requirements. [1]",
+          "runs": [
+            {
+              "text": "Verified funding:",
+              "bold": true
+            },
+            {
+              "text": " CMS announced $10 billion for FY2027 after $10 billion for FY2026, within a $50 billion FY2026-2030 program. Another $30 billion is scheduled for the final three fiscal years, subject to program requirements. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            }
+          ]
+        },
+        {
+          "text": "Measured early commitment: Approximately $4.0 billion, or 40%, of FY2026 awards had been obligated nationally by July 31, 2026. Obligation is a legal commitment, not an expenditure or measured clinical result. [2] [6]",
+          "runs": [
+            {
+              "text": "Measured early commitment:",
+              "bold": true
+            },
+            {
+              "text": " Approximately $4.0 billion, or 40%, of FY2026 awards had been obligated nationally by July 31, 2026. Obligation is a legal commitment, not an expenditure or measured clinical result. "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[6]",
+              "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Texas contrast: $53,288,872.67 of its $281,319,360.67 first-year award was obligated by that July cutoff, 18.94% by calculation. The subsequent FY2027 award is $281,976,026. [1] [2]",
+          "runs": [
+            {
+              "text": "Texas contrast:",
+              "bold": true
+            },
+            {
+              "text": " $53,288,872.67 of its $281,319,360.67 first-year award was obligated by that July cutoff, 18.94% by calculation. The subsequent FY2027 award is $281,976,026. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Technology and workforce: Texas's August 31 draft period-two budget earmarked $106.94 million for workforce, $37.5 million for AI/telehealth, $37.5 million for patient portals, and $25 million for cybersecurity. These are planned budget lines, not verified downstream payments. [4]",
+          "runs": [
+            {
+              "text": "Technology and workforce:",
+              "bold": true
+            },
+            {
+              "text": " Texas's August 31 draft period-two budget earmarked $106.94 million for workforce, $37.5 million for AI/telehealth, $37.5 million for patient portals, and $25 million for cybersecurity. These are planned budget lines, not verified downstream payments. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Question for YNK Tech: Can a narrowly scoped, auditable data-reconciliation layer improve verification beyond existing CMS, HHSC and state dashboards? The unmet need and incremental ROI remain unproven.",
+          "runs": [
+            {
+              "text": "Question for YNK Tech:",
+              "bold": true
+            },
+            {
+              "text": " Can a narrowly scoped, auditable data-reconciliation layer improve verification beyond existing CMS, HHSC and state dashboards? The unmet need and incremental ROI remain unproven."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Context"
+    },
+    {
+      "type": "p",
+      "text": "The Rural Health Transformation Program is a federal cooperative agreement program, not a direct open grant to every rural hospital or software company. States formulate approved initiatives, award subgrants and contracts, report progress and work with CMS. Half of the annual $10 billion is split evenly, $100 million per state, while the other half follows a CMS methodology incorporating rural needs, plans and policy factors. All funds must be spent by September 30, 2032. [1]",
+      "runs": [
+        {
+          "text": "The Rural Health Transformation Program is a federal cooperative agreement program, not a direct open grant to every rural hospital or software company. States formulate approved initiatives, award subgrants and contracts, report progress and work with CMS. Half of the annual $10 billion is split evenly, $100 million per state, while the other half follows a CMS methodology incorporating rural needs, plans and policy factors. All funds must be spent by September 30, 2032. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "The need is substantial: a 2025 KFF analysis estimated about 66 million Americans lived in rural areas and that Medicaid covered one in four rural adults. The 2025 reconciliation law was also projected to reduce federal Medicaid spending by $911 billion over a decade, including a KFF-estimated $137 billion in rural areas. These projections have a different time horizon and economic mechanism from the five-year grants; subtracting $50 billion from $137 billion is not a valid state-level or patient-level impact estimate. [8] [9]",
+      "runs": [
+        {
+          "text": "The need is substantial: a 2025 KFF analysis estimated about 66 million Americans lived in rural areas and that Medicaid covered one in four rural adults. The 2025 reconciliation law was also projected to reduce federal Medicaid spending by $911 billion over a decade, including a KFF-estimated $137 billion in rural areas. These projections have a different time horizon and economic mechanism from the five-year grants; subtracting $50 billion from $137 billion is "
+        },
+        {
+          "text": "not",
+          "bold": true
+        },
+        {
+          "text": " a valid state-level or patient-level impact estimate. "
+        },
+        {
+          "text": "[8]",
+          "href": "https://www.kff.org/medicaid/comparing-states-rural-health-fund-allotments-to-medicaid-spending-cuts-can-be-misleading/"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[9]",
+          "href": "https://www.kff.org/medicaid/how-might-federal-medicaid-cuts-in-the-enacted-reconciliation-package-affect-rural-areas/"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Allocation size is not a per-patient benefit. KFF found the Texas award was the largest in absolute dollars yet among the lowest per rural resident, because allocation criteria do not closely follow population alone. Fairness analysis requires consistent rural definitions, denominators, disease burden and service access, not just rankings by total dollars. [5]",
+      "runs": [
+        {
+          "text": "Allocation size is not a per-patient benefit. KFF found the Texas award was the largest in absolute dollars yet among the lowest per rural resident, because allocation criteria do not closely follow population alone. Fairness analysis requires consistent rural definitions, denominators, disease burden and service access, not just rankings by total dollars. "
+        },
+        {
+          "text": "[5]",
+          "href": "https://www.kff.org/medicaid/second-year-rural-health-fund-awards-per-rural-resident-continue-to-vary-widely/"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Analysis"
+    },
+    {
+      "type": "h3",
+      "text": "Follow the funding through five separate checkpoints"
+    },
+    {
+      "type": "p",
+      "text": "The most informative early benchmark is the award-to-obligation gap, not an assertion of failure. Texas's 18.94% as of July 31 trails the approximately 40% national aggregate, while North Carolina reported 78.74%. These are different implementation pathways and only one historical reporting cutoff; procurement timelines and post-July awards complicate comparisons. For example, Texas announced an additional $87.25 million in grant intentions in October, with money becoming available after agreements are finalized. [2] [6] [11]",
+      "runs": [
+        {
+          "text": "The most informative early benchmark is the award-to-obligation gap, not an assertion of failure. Texas's 18.94% as of July 31 trails the approximately 40% national aggregate, while North Carolina reported 78.74%. These are different implementation pathways and only one historical reporting cutoff; procurement timelines and post-July awards complicate comparisons. For example, Texas announced an additional $87.25 million in grant intentions in October, with money becoming available after agreements are finalized. "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[6]",
+          "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[11]",
+          "href": "https://gov.texas.gov/news/post/governor-abbott-announces-87-million-in-rural-healthcare-grants"
+        }
+      ]
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261114-eexrhq-9cc4f097ccb0.png",
+      "alt": "Bar chart: Texas 18.94%, all states approximately 40%, North Carolina 78.74% obligated as of July 31 2026.",
+      "caption": "Figure 1. Reported first-year obligation shares through July 31, 2026. National figure is approximate; Texas and North Carolina computed from CMS award and obligation amounts. Commitments, not payments or health gains."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Comparator",
+          "FY2026 awarded",
+          "Obligated by July 31, 2026",
+          "Obligation share"
+        ],
+        [
+          "Texas",
+          "$281,319,360.67",
+          "$53,288,872.67",
+          "18.94%"
+        ],
+        [
+          "All states",
+          "$10.0 billion",
+          "About $4.0 billion",
+          "About 40%"
+        ],
+        [
+          "North Carolina",
+          "$213,008,356.47",
+          "$167,718,439.45",
+          "78.74%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Checkpoint",
+          "Evidence available as of November 14",
+          "What must still be verified"
+        ],
+        [
+          "Federal award",
+          "FY2026: $10.0B nationwide; Texas $281.319M",
+          "Actual use and patient benefit cannot be inferred from award"
+        ],
+        [
+          "State obligation",
+          "Texas $53.289M; roughly 18.94% by July 31, 2026",
+          "Later contracts and amendments; state-reported changes"
+        ],
+        [
+          "Disbursement / expenditure",
+          "No validated comparable statewide cash-to-frontline series in this review",
+          "Payment dates, recipients, invoice and audit trail"
+        ],
+        [
+          "Service delivery",
+          "Some initiatives and recipient announcements exist",
+          "Rural patients served, visit counts, wait times, geographic coverage"
+        ],
+        [
+          "Health outcome",
+          "No validated causal program effect in this review",
+          "Risk-adjusted outcomes, controls, counterfactual and time lag"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Where Texas proposes to direct its second-period funding"
+    },
+    {
+      "type": "p",
+      "text": "Texas's August 31 proposed Budget Period 2 allocation used the prior $281,319,361 planning envelope. CMS later announced a $281,976,026 FY2027 award, a $656,665 higher figure based on rounded Texas planning dollars. This is a budget-reconciliation question, not proof of an overrun or diversion. The plan may be revised; approved awards, proposal amounts and actual contracts must be reconciled by version and date. [1] [4]",
+      "runs": [
+        {
+          "text": "Texas's August 31 proposed Budget Period 2 allocation used the prior $281,319,361 planning envelope. CMS later announced a $281,976,026 FY2027 award, a $656,665 higher figure based on rounded Texas planning dollars. This is a "
+        },
+        {
+          "text": "budget-reconciliation question",
+          "bold": true
+        },
+        {
+          "text": ", not proof of an overrun or diversion. The plan may be revised; approved awards, proposal amounts and actual contracts must be reconciled by version and date. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+        }
+      ]
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261114-eexrhq-a2e7c9bdc365.png",
+      "alt": "Horizontal chart of Texas proposed budget: workforce 106.94 million, AI telehealth 37.5, portals 37.5, infrastructure 34.17, prevention 29.4, cybersecurity 25, operations 10.81.",
+      "caption": "Figure 2. Texas HHSC proposed Budget Period 2 distribution, August 31, 2026. Amounts in USD millions; nominal allocations, not actual expenditure. Small rounding/reconciliation differences exist in the source budget."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Texas proposed line",
+          "USD millions",
+          "Share of $281.319M planning envelope"
+        ],
+        [
+          "Workforce development",
+          "$106.940M",
+          "38.0%"
+        ],
+        [
+          "AI and telehealth",
+          "$37.500M",
+          "13.3%"
+        ],
+        [
+          "Patient portals",
+          "$37.500M",
+          "13.3%"
+        ],
+        [
+          "Infrastructure and capital",
+          "$34.168M",
+          "12.1%"
+        ],
+        [
+          "Prevention / healthy living",
+          "$29.400M",
+          "10.5%"
+        ],
+        [
+          "Unified care / cybersecurity",
+          "$25.000M",
+          "8.9%"
+        ],
+        [
+          "Program operations and monitoring",
+          "$10.811M",
+          "3.8%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Economic and operational leverage, without confusing appropriations with a vendor market"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Workforce: the largest proposed Texas line targets clinician recruitment and retention. Assess fill rates, 12-month retention, vacancy-adjusted cost, patient-to-provider ratios and service continuity; a funded training slot is not itself an added clinician. [4]",
+          "runs": [
+            {
+              "text": "Workforce:",
+              "bold": true
+            },
+            {
+              "text": " the largest proposed Texas line targets clinician recruitment and retention. Assess fill rates, 12-month retention, vacancy-adjusted cost, patient-to-provider ratios and service continuity; a funded training slot is not itself an added clinician. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Digital health: the AI/telehealth and portal lines may create demand for secure interfaces, scheduling, remote visits, interoperability and clinical workflow integration. Texas limits lead eligibility for these initiatives to qualified combinations of clinically integrated networks, ACOs or similar cooperatives; a standalone analytics vendor should not assume direct grant eligibility. [3]",
+          "runs": [
+            {
+              "text": "Digital health:",
+              "bold": true
+            },
+            {
+              "text": " the AI/telehealth and portal lines may create demand for secure interfaces, scheduling, remote visits, interoperability and clinical workflow integration. Texas limits lead eligibility for these initiatives to qualified combinations of clinically integrated networks, ACOs or similar cooperatives; a standalone analytics vendor should not assume direct grant eligibility. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Cybersecurity and oversight: budgeted cybersecurity ($25.0M), grant management support ($3.265M) and external monitoring ($1.9M) point to existing capabilities and procurement activity. Those budget lines are not a YNK addressable-market forecast; competition, incumbent contracts, eligibility and allowable costs must be checked. [4]",
+          "runs": [
+            {
+              "text": "Cybersecurity and oversight:",
+              "bold": true
+            },
+            {
+              "text": " budgeted cybersecurity ($25.0M), grant management support ($3.265M) and external monitoring ($1.9M) point to existing capabilities and procurement activity. Those budget lines are not a YNK addressable-market forecast; competition, incumbent contracts, eligibility and allowable costs must be checked. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Patient impact: track avoidable emergency visits, time to a specialist, appointment completion, travel burden, broadband/access barriers, chronic-disease follow-up and rural provider solvency. The effect of AI or telehealth must be compared with current care, not assumed from installation counts. [3]",
+          "runs": [
+            {
+              "text": "Patient impact:",
+              "bold": true
+            },
+            {
+              "text": " track avoidable emergency visits, time to a specialist, appointment completion, travel burden, broadband/access barriers, chronic-disease follow-up and rural provider solvency. The effect of AI or telehealth must be compared with current care, not assumed from installation counts. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Existing solutions and what they accomplish"
+    },
+    {
+      "type": "p",
+      "text": "This is not an empty market. CMS already publishes state award and initiative data, Texas HHSC maintains official program and recipient information, and North Carolina launched a project-level dashboard showing awards, counties and brief descriptions. Texas also proposes grant-management and monitoring contracts. A second generic dashboard could duplicate funded work. [10] [3] [4] [7]",
+      "runs": [
+        {
+          "text": "This is not an empty market. CMS already publishes state award and initiative data, Texas HHSC maintains official program and recipient information, and North Carolina launched a project-level dashboard showing awards, counties and brief descriptions. Texas also proposes grant-management and monitoring contracts. A second generic dashboard could duplicate funded work. "
+        },
+        {
+          "text": "[10]",
+          "href": "https://www.medicaid.gov/resources-for-states/rural-health/state-data-maps"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[3]",
+          "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[7]",
+          "href": "https://www.ncdhhs.gov/news/press-releases/2026/11/02/state-launches-new-rural-health-transformation-program-dashboard"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Current solution / operator",
+          "Verified capability",
+          "Unverified gap; YNK complement"
+        ],
+        [
+          "CMS state maps / obligation reports",
+          "Federal award, progress and obligation snapshots",
+          "Cross-version, recipient-level payment-to-outcome lineage not validated here"
+        ],
+        [
+          "Texas HHSC / grant management",
+          "State initiative, eligibility, timelines and recipient publications",
+          "Public joinability between proposal versions, executed contracts and results needs testing"
+        ],
+        [
+          "North Carolina public project dashboard",
+          "Project, county, committed amount and project description visibility",
+          "Benchmark only; compare technical and update coverage before proposing anything new"
+        ],
+        [
+          "Provider EHR/HIE/telehealth systems",
+          "Operational and clinical data already exist in licensed systems",
+          "Privacy-preserving integration access, costs and outcome validity not established"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Remaining gaps or unmet needs"
+    },
+    {
+      "type": "p",
+      "text": "A public reviewer cannot yet infer from the documents alone the complete chain from award to procurement, binding obligation, payment, rural service delivery and independent patient results. However, limited public visibility does not prove the chain is absent inside CMS or HHSC systems. Validate the need with data owners and existing contractors before developing a replacement."
+    },
+    {
+      "type": "h3",
+      "text": "What YNK Tech adds"
+    },
+    {
+      "type": "p",
+      "text": "Proposed, not built: a small evidence and provenance layer for one state initiative. Features would include versioned award-to-contract reconciliations, links to primary records, exception queues, denominator-aware metrics, uncertainty labels and a public-safe outcome scorecard. No patient-level data should enter a public prototype.",
+      "runs": [
+        {
+          "text": "Proposed, "
+        },
+        {
+          "text": "not built",
+          "bold": true
+        },
+        {
+          "text": ": a small evidence and provenance layer for one state initiative. Features would include versioned award-to-contract reconciliations, links to primary records, exception queues, denominator-aware metrics, uncertainty labels and a public-safe outcome scorecard. No patient-level data should enter a public prototype."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Build, partner or integrate?"
+    },
+    {
+      "type": "p",
+      "text": "Integrate first. Reuse CMS and state records, state-approved grants systems, incumbent HIE/EHR interfaces and open, licensed datasets. Partner with eligible rural networks or existing providers where procurement allows. Build custom logic only for a measured reconciliation gap; do not scrape protected health information or bypass competitive solicitation rules."
+    },
+    {
+      "type": "h3",
+      "text": "How incremental value will be measured"
+    },
+    {
+      "type": "p",
+      "text": "Design a blinded, randomized-order pilot in which two reviewers reconcile identical sampled records first with incumbent tools and then with the proposed integration. Include startup, licenses, maintenance, legal review, error correction and accessibility in total cost. Track median minutes per verified record, completeness, false match rates, source freshness and user satisfaction. Current-solution baseline and incremental ROI are not verified.",
+      "runs": [
+        {
+          "text": "Design a blinded, randomized-order pilot in which two reviewers reconcile identical sampled records first with incumbent tools and then with the proposed integration. Include startup, licenses, maintenance, legal review, error correction and accessibility in total cost. Track median minutes per verified record, completeness, false match rates, source freshness and user satisfaction. Current-solution baseline and incremental ROI are "
+        },
+        {
+          "text": "not verified",
+          "bold": true
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Three explicit test scenarios, not a forecast"
+    },
+    {
+      "type": "p",
+      "text": "ILLUSTRATIVE ONLY, NOT OBSERVED DATA OR A VALIDATED FORECAST. Suppose 2,400 reconciliations per year require 60 analyst minutes each with the incumbent workflow, valued at $75 per hour. Assume $25,000 annual operating cost plus $20,000 setup amortized over two years, or $35,000 added annual cost. These are design inputs selected for sensitivity testing, not vendor quotes or measured Texas costs.",
+      "runs": [
+        {
+          "text": "ILLUSTRATIVE ONLY, NOT OBSERVED DATA OR A VALIDATED FORECAST.",
+          "bold": true
+        },
+        {
+          "text": " Suppose 2,400 reconciliations per year require 60 analyst minutes each with the incumbent workflow, valued at $75 per hour. Assume $25,000 annual operating cost plus $20,000 setup amortized over two years, or $35,000 added annual cost. These are design inputs selected for sensitivity testing, not vendor quotes or measured Texas costs."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Scenario",
+          "Time reduction vs incumbent",
+          "Hours saved / year",
+          "Gross labor value",
+          "Net after $35,000 annualized costs"
+        ],
+        [
+          "Conservative",
+          "10%",
+          "240 h",
+          "$18,000",
+          "-$17,000"
+        ],
+        [
+          "Base case",
+          "25%",
+          "600 h",
+          "$45,000",
+          "+$10,000"
+        ],
+        [
+          "Upside",
+          "40%",
+          "960 h",
+          "$72,000",
+          "+$37,000"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Break-even in this illustrative model requires a 19.44% reduction in handling time before counting other risks or data costs. None of these figures measures improved patient health. A pilot must replace every assumption with observed baseline values and audited invoices before any ROI claim."
+    },
+    {
+      "type": "h3",
+      "text": "Implementation safeguards and evaluation roadmap"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Days 0-30: select one publicly auditable Texas initiative, inventory agency and incumbent reporting, confirm award conditions, data rights, human reviewers and procurement neutrality; establish baseline and matched comparator.",
+          "runs": [
+            {
+              "text": "Days 0-30:",
+              "bold": true
+            },
+            {
+              "text": " select one publicly auditable Texas initiative, inventory agency and incumbent reporting, confirm award conditions, data rights, human reviewers and procurement neutrality; establish baseline and matched comparator."
+            }
+          ]
+        },
+        {
+          "text": "Days 31-60: ingest published award versions, solicitations, executed contracts where public, and available service-level aggregates; implement source-link tests, audit logs, accessibility and privacy screening.",
+          "runs": [
+            {
+              "text": "Days 31-60:",
+              "bold": true
+            },
+            {
+              "text": " ingest published award versions, solicitations, executed contracts where public, and available service-level aggregates; implement source-link tests, audit logs, accessibility and privacy screening."
+            }
+          ]
+        },
+        {
+          "text": "Days 61-90: run a 20-record minimum comparative pilot; publish mismatch and timing distributions, unit-cost analysis, source coverage and evidence gaps; escalate to an authorized data-owner review, not automatic deployment.",
+          "runs": [
+            {
+              "text": "Days 61-90:",
+              "bold": true
+            },
+            {
+              "text": " run a 20-record minimum comparative pilot; publish mismatch and timing distributions, unit-cost analysis, source coverage and evidence gaps; escalate to an authorized data-owner review, not automatic deployment."
+            }
+          ]
+        },
+        {
+          "text": "Gate: 100% of displayed factual claims have dated primary links, zero unsupported patient-level claims, no higher false-linkage rate, and test at least 20% shorter median verification time versus incumbent tools. The 20% is a proposed target, not a forecast.",
+          "runs": [
+            {
+              "text": "Gate:",
+              "bold": true
+            },
+            {
+              "text": " 100% of displayed factual claims have dated primary links, zero unsupported patient-level claims, no higher false-linkage rate, and test at least 20% shorter median verification time versus incumbent tools. The 20% is a proposed target, not a forecast."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "What to watch next"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "November 2026: watch CMS's first more detailed quarterly reporting cycle and Texas updates; CMS says the next obligation refresh follows state submissions due November 30. Verify whether the August budget narrative is revised to match the final FY2027 award. [1] [2]",
+          "runs": [
+            {
+              "text": "November 2026:",
+              "bold": true
+            },
+            {
+              "text": " watch CMS's first more detailed quarterly reporting cycle and Texas updates; CMS says the next obligation refresh follows state submissions due November 30. Verify whether the August budget narrative is revised to match the final FY2027 award. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "January 12, 2027: Texas currently estimates the application deadline for both patient-portal and AI/telehealth initiatives; January 19 for cybersecurity. These are estimates, and binding solicitation documents control. [3]",
+          "runs": [
+            {
+              "text": "January 12, 2027:",
+              "bold": true
+            },
+            {
+              "text": " Texas currently estimates the application deadline for both patient-portal and AI/telehealth initiatives; January 19 for cybersecurity. These are estimates, and binding solicitation documents control. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "March-July 2027: Texas estimates decisions and contract routing for the new technology initiatives. Track actual recipient, contract amount, covered counties, vendor eligibility and later service adoption. [3]",
+          "runs": [
+            {
+              "text": "March-July 2027:",
+              "bold": true
+            },
+            {
+              "text": " Texas estimates decisions and contract routing for the new technology initiatives. Track actual recipient, contract amount, covered counties, vendor eligibility and later service adoption. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Quarterly KPI register: award-to-obligation rate = valid obligations / award; payment-to-obligation rate = documented payments / obligations; clinical access = completed visits / eligible rural residents; median referral-to-appointment days; staffed clinician FTE retention; source-to-outcome coverage = verified chains / sampled projects.",
+          "runs": [
+            {
+              "text": "Quarterly KPI register:",
+              "bold": true
+            },
+            {
+              "text": " award-to-obligation rate = valid obligations / award; payment-to-obligation rate = documented payments / obligations; clinical access = completed visits / eligible rural residents; median referral-to-appointment days; staffed clinician FTE retention; source-to-outcome coverage = verified chains / sampled projects."
+            }
+          ]
+        },
+        {
+          "text": "Update discipline: compare actuals with funded program targets only after those targets and denominators are published; show missing data, revisions and controlled comparison groups instead of claiming causal improvement from correlation.",
+          "runs": [
+            {
+              "text": "Update discipline:",
+              "bold": true
+            },
+            {
+              "text": " compare actuals with funded program targets only after those targets and denominators are published; show missing data, revisions and controlled comparison groups instead of claiming causal improvement from correlation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Methodology and limitations"
+    },
+    {
+      "type": "p",
+      "text": "Research cutoff: November 14, 2026. Sources are CMS, official Texas budget/portal material, independent KFF and NRHA research, and North Carolina reporting. Social posts were discovery signals, not evidence. Distinguish FY2026 awards and July 31 obligations from FY2027 awards announced November 9."
+    },
+    {
+      "type": "p",
+      "text": "Arithmetic: Texas obligation share = $53,288,872.67 / $281,319,360.67 = 18.94%. North Carolina = $167,718,439.45 / $213,008,356.47 = 78.74%. FY2027 Texas award change compared with rounded August planning figure = $281,976,026 - $281,319,361 = $656,665. Percentages may differ slightly with unrounded inputs."
+    },
+    {
+      "type": "p",
+      "text": "Texas August draft budget is a planned allocation, not an executed procurement. Reported obligations do not equal invoices, actual spending or clinical outcomes. The national 40% is NRHA's rounded reconstruction of CMS state reports, not a current-day expenditure series. All modeled ROI scenarios are hypothetical sensitivity exercises. Attribution requires risk adjustment, timelines, nonparticipating comparators and data governance."
+    },
+    {
+      "type": "p",
+      "text": "The CMS quarterly refresh and Texas executed awards may materially change the article. Privacy, accessibility, contracting and interoperability costs are not verified for any proposed YNK product. This draft requires editorial source and legal review before publication."
+    },
+    {
+      "type": "h2",
+      "text": "Sources"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "CMS, Rural Health Transformation Program: Year 2 Awards, November 9, 2026",
+          "runs": [
+            {
+              "text": "CMS, Rural Health Transformation Program: Year 2 Awards, November 9, 2026",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            }
+          ]
+        },
+        {
+          "text": "CMS, RHTP Obligated Funds Report, state submissions through July 31, 2026, published October 2026",
+          "runs": [
+            {
+              "text": "CMS, RHTP Obligated Funds Report, state submissions through July 31, 2026, published October 2026",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Texas HHSC, Rural Texas Strong program and estimated initiative dates, accessed November 14, 2026",
+          "runs": [
+            {
+              "text": "Texas HHSC, Rural Texas Strong program and estimated initiative dates, accessed November 14, 2026",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Texas HHSC, Rural Texas Strong Budget Period 2 Revised Budget Narrative, submitted August 31, 2026",
+          "runs": [
+            {
+              "text": "Texas HHSC, Rural Texas Strong Budget Period 2 Revised Budget Narrative, submitted August 31, 2026",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "KFF, Second-Year Rural Health Fund Awards Per Rural Resident Continue to Vary Widely, November 13, 2026",
+          "runs": [
+            {
+              "text": "KFF, Second-Year Rural Health Fund Awards Per Rural Resident Continue to Vary Widely, November 13, 2026",
+              "href": "https://www.kff.org/medicaid/second-year-rural-health-fund-awards-per-rural-resident-continue-to-vary-widely/"
+            }
+          ]
+        },
+        {
+          "text": "National Rural Health Association, Review of RHTP Year 1 Obligated Funds, 2026",
+          "runs": [
+            {
+              "text": "National Rural Health Association, Review of RHTP Year 1 Obligated Funds, 2026",
+              "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+            }
+          ]
+        },
+        {
+          "text": "NCDHHS, State Launches New Rural Health Transformation Program Dashboard, November 2, 2026",
+          "runs": [
+            {
+              "text": "NCDHHS, State Launches New Rural Health Transformation Program Dashboard, November 2, 2026",
+              "href": "https://www.ncdhhs.gov/news/press-releases/2026/11/02/state-launches-new-rural-health-transformation-program-dashboard"
+            }
+          ]
+        },
+        {
+          "text": "KFF, Comparing States’ Rural Health Fund Allotments to Medicaid Spending Cuts Can be Misleading, February 6, 2026",
+          "runs": [
+            {
+              "text": "KFF, Comparing States’ Rural Health Fund Allotments to Medicaid Spending Cuts Can be Misleading, February 6, 2026",
+              "href": "https://www.kff.org/medicaid/comparing-states-rural-health-fund-allotments-to-medicaid-spending-cuts-can-be-misleading/"
+            }
+          ]
+        },
+        {
+          "text": "KFF, How Might Federal Medicaid Cuts Affect Rural Areas?, July 24, 2025",
+          "runs": [
+            {
+              "text": "KFF, How Might Federal Medicaid Cuts Affect Rural Areas?, July 24, 2025",
+              "href": "https://www.kff.org/medicaid/how-might-federal-medicaid-cuts-in-the-enacted-reconciliation-package-affect-rural-areas/"
+            }
+          ]
+        },
+        {
+          "text": "CMS / Medicaid.gov, State Data Maps, accessed November 14, 2026",
+          "runs": [
+            {
+              "text": "CMS / Medicaid.gov, State Data Maps, accessed November 14, 2026",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/state-data-maps"
+            }
+          ]
+        },
+        {
+          "text": "Texas Governor, $87 Million in Rural Healthcare Grants, October 29, 2026",
+          "runs": [
+            {
+              "text": "Texas Governor, $87 Million in Rural Healthcare Grants, October 29, 2026",
+              "href": "https://gov.texas.gov/news/post/governor-abbott-announces-87-million-in-rural-healthcare-grants"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

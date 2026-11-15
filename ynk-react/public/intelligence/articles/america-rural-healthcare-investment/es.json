@@ -1,0 +1,878 @@
+{
+  "title": "La prueba estadounidense de 50.000 millones de dólares para la salud rural: de las asignaciones a resultados verificables",
+  "summary": "Estados Unidos ha asignado 20.000 millones de dólares dentro de un programa quinquenal de transformación de la salud rural, pero asignar fondos no equivale a comprometerlos, desembolsarlos ni mejorar la atención. Texas permite estudiar compras públicas, rendición de cuentas y valor de la tecnología.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Hallazgos principales"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Financiación verificada: CMS anunció 10.000 millones de dólares para el ejercicio 2027 tras otros 10.000 millones de 2026, dentro de un programa de 50.000 millones para 2026-2030. Los 30.000 millones restantes corresponden a los tres ejercicios finales, sujetos a las reglas del programa. [1]",
+          "runs": [
+            {
+              "text": "Financiación verificada:",
+              "bold": true
+            },
+            {
+              "text": " CMS anunció 10.000 millones de dólares para el ejercicio 2027 tras otros 10.000 millones de 2026, dentro de un programa de 50.000 millones para 2026-2030. Los 30.000 millones restantes corresponden a los tres ejercicios finales, sujetos a las reglas del programa. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            }
+          ]
+        },
+        {
+          "text": "Compromiso inicial medido: al 31 de julio de 2026, unos 4.000 millones de dólares, el 40 % de las asignaciones de 2026, estaban comprometidos en todo el país. Un compromiso legal no es un gasto ni un resultado clínico observado. [2] [6]",
+          "runs": [
+            {
+              "text": "Compromiso inicial medido:",
+              "bold": true
+            },
+            {
+              "text": " al 31 de julio de 2026, unos 4.000 millones de dólares, el 40 % de las asignaciones de 2026, estaban comprometidos en todo el país. Un compromiso legal no es un gasto ni un resultado clínico observado. "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[6]",
+              "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Contraste de Texas: había comprometido 53.288.872,67 dólares de su asignación inicial de 281.319.360,67 dólares, un 18,94 % calculado. La posterior asignación para 2027 es de 281.976.026 dólares. [1] [2]",
+          "runs": [
+            {
+              "text": "Contraste de Texas:",
+              "bold": true
+            },
+            {
+              "text": " había comprometido 53.288.872,67 dólares de su asignación inicial de 281.319.360,67 dólares, un 18,94 % calculado. La posterior asignación para 2027 es de 281.976.026 dólares. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Tecnología y personal: la propuesta presupuestaria texana del 31 de agosto reservaba 106,94 millones de dólares para personal, 37,5 millones para IA/telesalud, 37,5 millones para portales de pacientes y 25 millones para ciberseguridad. Son importes previstos, no desembolsos confirmados. [4]",
+          "runs": [
+            {
+              "text": "Tecnología y personal:",
+              "bold": true
+            },
+            {
+              "text": " la propuesta presupuestaria texana del 31 de agosto reservaba 106,94 millones de dólares para personal, 37,5 millones para IA/telesalud, 37,5 millones para portales de pacientes y 25 millones para ciberseguridad. Son importes previstos, no desembolsos confirmados. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Pregunta para YNK Tech: ¿puede una capa de conciliación y trazabilidad mejorar la verificación frente a las herramientas existentes de CMS, Texas y otros estados? La necesidad incremental y el retorno aún no están demostrados.",
+          "runs": [
+            {
+              "text": "Pregunta para YNK Tech:",
+              "bold": true
+            },
+            {
+              "text": " ¿puede una capa de conciliación y trazabilidad mejorar la verificación frente a las herramientas existentes de CMS, Texas y otros estados? La necesidad incremental y el retorno aún no están demostrados."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Contexto"
+    },
+    {
+      "type": "p",
+      "text": "El Rural Health Transformation Program opera mediante acuerdos federales con los estados, no como subvención directa abierta a cada hospital rural o empresa de software. Los estados definen iniciativas autorizadas, conceden subvenciones y contratos, informan del avance y coordinan con CMS. La mitad de los 10.000 millones anuales se reparte por igual, 100 millones por estado; la otra mitad se asigna según necesidades rurales, planes y factores de política. Los recursos deben gastarse antes del 30 de septiembre de 2032. [1]",
+      "runs": [
+        {
+          "text": "El Rural Health Transformation Program opera mediante acuerdos federales con los estados, no como subvención directa abierta a cada hospital rural o empresa de software. Los estados definen iniciativas autorizadas, conceden subvenciones y contratos, informan del avance y coordinan con CMS. La mitad de los 10.000 millones anuales se reparte por igual, 100 millones por estado; la otra mitad se asigna según necesidades rurales, planes y factores de política. Los recursos deben gastarse antes del 30 de septiembre de 2032. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Las necesidades son profundas: KFF estimó en 2025 que unos 66 millones de estadounidenses vivían en zonas rurales y que Medicaid cubría a uno de cada cuatro adultos rurales. También se proyectó que la ley presupuestaria de 2025 reduciría el gasto federal de Medicaid en 911.000 millones durante diez años, incluidos 137.000 millones rurales según KFF. Los horizontes y mecanismos difieren de las subvenciones de cinco años; restar directamente 50.000 millones a 137.000 millones no estima de manera válida el efecto sobre estados o pacientes. [8] [9]",
+      "runs": [
+        {
+          "text": "Las necesidades son profundas: KFF estimó en 2025 que unos 66 millones de estadounidenses vivían en zonas rurales y que Medicaid cubría a uno de cada cuatro adultos rurales. También se proyectó que la ley presupuestaria de 2025 reduciría el gasto federal de Medicaid en 911.000 millones durante diez años, incluidos 137.000 millones rurales según KFF. Los horizontes y mecanismos difieren de las subvenciones de cinco años; restar directamente 50.000 millones a 137.000 millones "
+        },
+        {
+          "text": "no",
+          "bold": true
+        },
+        {
+          "text": " estima de manera válida el efecto sobre estados o pacientes. "
+        },
+        {
+          "text": "[8]",
+          "href": "https://www.kff.org/medicaid/comparing-states-rural-health-fund-allotments-to-medicaid-spending-cuts-can-be-misleading/"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[9]",
+          "href": "https://www.kff.org/medicaid/how-might-federal-medicaid-cuts-in-the-enacted-reconciliation-package-affect-rural-areas/"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Una gran asignación no implica gran beneficio por residente. KFF documenta que Texas recibe el mayor importe total, pero está entre los estados con menor financiación por residente rural porque la fórmula no se basa solo en población. La equidad exige definiciones, denominadores, necesidades sanitarias y medidas de acceso comparables. [5]",
+      "runs": [
+        {
+          "text": "Una gran asignación no implica gran beneficio por residente. KFF documenta que Texas recibe el mayor importe total, pero está entre los estados con menor financiación por residente rural porque la fórmula no se basa solo en población. La equidad exige definiciones, denominadores, necesidades sanitarias y medidas de acceso comparables. "
+        },
+        {
+          "text": "[5]",
+          "href": "https://www.kff.org/medicaid/second-year-rural-health-fund-awards-per-rural-resident-continue-to-vary-widely/"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Análisis"
+    },
+    {
+      "type": "h3",
+      "text": "Seguir cinco etapas desde la asignación hasta los resultados"
+    },
+    {
+      "type": "p",
+      "text": "La brecha entre asignación y compromiso es un indicador temprano, no una prueba de fracaso. Texas registraba 18,94 % al 31 de julio frente a cerca de 40 % nacional y 78,74 % de Carolina del Norte. Los estados tienen vías de implementación diferentes y solo se observa un corte histórico; las licitaciones y los contratos posteriores alteran la comparación. Por ejemplo, Texas anunció en octubre 87,25 millones de dólares en intenciones adicionales de subvención, sujetas a acuerdos definitivos. [2] [6] [11]",
+      "runs": [
+        {
+          "text": "La brecha entre asignación y compromiso es un indicador temprano, no una prueba de fracaso. Texas registraba 18,94 % al 31 de julio frente a cerca de 40 % nacional y 78,74 % de Carolina del Norte. Los estados tienen vías de implementación diferentes y solo se observa un corte histórico; las licitaciones y los contratos posteriores alteran la comparación. Por ejemplo, Texas anunció en octubre 87,25 millones de dólares en intenciones adicionales de subvención, sujetas a acuerdos definitivos. "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[6]",
+          "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[11]",
+          "href": "https://gov.texas.gov/news/post/governor-abbott-announces-87-million-in-rural-healthcare-grants"
+        }
+      ]
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261114-eexrhq-9a017d1c92a1.png",
+      "alt": "Gráfico de barras: Texas 18,94 %, conjunto nacional cerca del 40 %, Carolina del Norte 78,74 % comprometido al 31 de julio de 2026.",
+      "caption": "Figura 1. Porcentaje de asignaciones 2026 comprometidas al 31 de julio de 2026. Total nacional redondeado; Texas y Carolina del Norte calculados con cifras CMS. No representa pagos ni resultados de salud."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Comparación",
+          "Asignado en 2026",
+          "Comprometido al 31 de julio",
+          "Porcentaje"
+        ],
+        [
+          "Texas",
+          "281.319.360,67 USD",
+          "53.288.872,67 USD",
+          "18,94 %"
+        ],
+        [
+          "Todos los estados",
+          "10.000 millones USD",
+          "Unos 4.000 millones USD",
+          "Cerca del 40 %"
+        ],
+        [
+          "Carolina del Norte",
+          "213.008.356,47 USD",
+          "167.718.439,45 USD",
+          "78,74 %"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Etapa",
+          "Evidencia al 14 de noviembre",
+          "Pendiente de verificar"
+        ],
+        [
+          "Asignación federal",
+          "2026: 10.000 millones USD nacionales; Texas 281,319 millones",
+          "No demuestra uso efectivo ni beneficio clínico"
+        ],
+        [
+          "Compromiso estatal",
+          "Texas 53,289 millones; 18,94 % al 31 de julio",
+          "Contratos y modificaciones posteriores, revisiones declaradas"
+        ],
+        [
+          "Desembolso / gasto",
+          "No se validó aquí una serie comparable de pagos finales",
+          "Fechas, perceptores, facturas y auditoría"
+        ],
+        [
+          "Prestación de servicios",
+          "Existen iniciativas y anuncios de adjudicatarios",
+          "Pacientes atendidos, consultas, esperas y cobertura territorial"
+        ],
+        [
+          "Resultado sanitario",
+          "No se ha validado efecto causal del programa",
+          "Ajustes de riesgo, controles y rezagos temporales"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Cómo prevé Texas distribuir el segundo período presupuestario"
+    },
+    {
+      "type": "p",
+      "text": "La propuesta de Texas del 31 de agosto para el segundo período utilizaba la base previa de 281.319.361 dólares. Más tarde CMS anunció una asignación para 2027 de 281.976.026 dólares, 656.665 dólares más que aquella cifra redondeada. Es una necesidad de conciliación presupuestaria, no prueba de exceso ni desvío. Deben cruzarse versiones, fechas, asignaciones y contratos. [1] [4]",
+      "runs": [
+        {
+          "text": "La propuesta de Texas del 31 de agosto para el segundo período utilizaba la base previa de 281.319.361 dólares. Más tarde CMS anunció una asignación para 2027 de 281.976.026 dólares, 656.665 dólares más que aquella cifra redondeada. Es una "
+        },
+        {
+          "text": "necesidad de conciliación presupuestaria",
+          "bold": true
+        },
+        {
+          "text": ", no prueba de exceso ni desvío. Deben cruzarse versiones, fechas, asignaciones y contratos. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+        }
+      ]
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261114-eexrhq-e5ce695d07d4.png",
+      "alt": "Distribución propuesta en Texas: personal 106,94 millones, IA y telesalud 37,5, portales 37,5, infraestructura 34,17, prevención 29,4, ciberseguridad 25, gestión 10,81.",
+      "caption": "Figura 2. Distribución presupuestaria propuesta por HHSC para el segundo período, 31 de agosto de 2026, millones de USD. Importes planificados, no gastos. Hay diferencias menores de redondeo y conciliación en el documento."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Partida prevista en Texas",
+          "Millones USD",
+          "Porcentaje de la base de 281,319 millones"
+        ],
+        [
+          "Desarrollo del personal",
+          "106,940",
+          "38,0 %"
+        ],
+        [
+          "IA y telesalud",
+          "37,500",
+          "13,3 %"
+        ],
+        [
+          "Portales de pacientes",
+          "37,500",
+          "13,3 %"
+        ],
+        [
+          "Infraestructura y capital",
+          "34,168",
+          "12,1 %"
+        ],
+        [
+          "Prevención y bienestar",
+          "29,400",
+          "10,5 %"
+        ],
+        [
+          "Atención integrada y ciberseguridad",
+          "25,000",
+          "8,9 %"
+        ],
+        [
+          "Gestión y supervisión",
+          "10,811",
+          "3,8 %"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Palancas económicas y operativas: una partida no equivale a un mercado para proveedores"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Personal sanitario: la mayor partida texana busca contratar y retener profesionales. Medir vacantes cubiertas, retención a 12 meses, coste ajustado por vacantes, ratios de atención y continuidad; financiar una plaza de formación no es sumar automáticamente un profesional. [4]",
+          "runs": [
+            {
+              "text": "Personal sanitario:",
+              "bold": true
+            },
+            {
+              "text": " la mayor partida texana busca contratar y retener profesionales. Medir vacantes cubiertas, retención a 12 meses, coste ajustado por vacantes, ratios de atención y continuidad; financiar una plaza de formación no es sumar automáticamente un profesional. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Salud digital: IA, telesalud y portales pueden demandar interfaces seguras, citas, interoperabilidad e integración de procesos clínicos. Texas limita las candidaturas principales a agrupaciones elegibles de redes clínicamente integradas, ACO o cooperativas equivalentes; un proveedor aislado no debe presumir elegibilidad directa. [3]",
+          "runs": [
+            {
+              "text": "Salud digital:",
+              "bold": true
+            },
+            {
+              "text": " IA, telesalud y portales pueden demandar interfaces seguras, citas, interoperabilidad e integración de procesos clínicos. Texas limita las candidaturas principales a agrupaciones elegibles de redes clínicamente integradas, ACO o cooperativas equivalentes; un proveedor aislado no debe presumir elegibilidad directa. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Ciberseguridad y control: el presupuesto contempla 25,0 millones para ciberseguridad, 3,265 millones para gestión de subvenciones y 1,9 millones para supervisión externa. No equivalen a un pronóstico del mercado disponible para YNK; hay que verificar competencia, contratos existentes, requisitos y gastos autorizados. [4]",
+          "runs": [
+            {
+              "text": "Ciberseguridad y control:",
+              "bold": true
+            },
+            {
+              "text": " el presupuesto contempla 25,0 millones para ciberseguridad, 3,265 millones para gestión de subvenciones y 1,9 millones para supervisión externa. No equivalen a un pronóstico del mercado disponible para YNK; hay que verificar competencia, contratos existentes, requisitos y gastos autorizados. "
+            },
+            {
+              "text": "[4]",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Impacto en pacientes: medir urgencias evitables, tiempo para consulta especializada, citas completadas, viajes, conectividad, seguimiento de enfermedades crónicas y estabilidad del prestador rural. Instalar IA o telesalud no prueba su beneficio. [3]",
+          "runs": [
+            {
+              "text": "Impacto en pacientes:",
+              "bold": true
+            },
+            {
+              "text": " medir urgencias evitables, tiempo para consulta especializada, citas completadas, viajes, conectividad, seguimiento de enfermedades crónicas y estabilidad del prestador rural. Instalar IA o telesalud no prueba su beneficio. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Soluciones existentes y lo que ya consiguen"
+    },
+    {
+      "type": "p",
+      "text": "El mercado no empieza desde cero. CMS publica asignaciones y avance de iniciativas; HHSC mantiene fuentes oficiales texanas; Carolina del Norte lanzó un tablero público de proyectos, condados e importes comprometidos. Texas también prevé contratos de gestión y supervisión. Otro tablero genérico puede duplicar sistemas ya financiados. [10] [3] [4] [7]",
+      "runs": [
+        {
+          "text": "El mercado no empieza desde cero. CMS publica asignaciones y avance de iniciativas; HHSC mantiene fuentes oficiales texanas; Carolina del Norte lanzó un tablero público de proyectos, condados e importes comprometidos. Texas también prevé contratos de gestión y supervisión. Otro tablero genérico puede duplicar sistemas ya financiados. "
+        },
+        {
+          "text": "[10]",
+          "href": "https://www.medicaid.gov/resources-for-states/rural-health/state-data-maps"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[3]",
+          "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[7]",
+          "href": "https://www.ncdhhs.gov/news/press-releases/2026/11/02/state-launches-new-rural-health-transformation-program-dashboard"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Solución actual / responsable",
+          "Capacidad verificada",
+          "Brecha no verificada y complemento posible"
+        ],
+        [
+          "Mapas e informes de CMS",
+          "Asignaciones, avances y compromisos en cortes temporales",
+          "Trazabilidad completa entre versiones, destinatarios, pagos y resultados aún no comprobada"
+        ],
+        [
+          "HHSC Texas / gestión de subvenciones",
+          "Iniciativas, requisitos, calendario y adjudicatarios",
+          "Prueba pendiente sobre cruces públicos de propuestas, contratos y resultados"
+        ],
+        [
+          "Tablero público de Carolina del Norte",
+          "Proyectos, condados, importes comprometidos y descripciones",
+          "Evaluar su cobertura antes de proponer un tablero nuevo"
+        ],
+        [
+          "Sistemas clínicos EHR/HIE y telesalud",
+          "Datos clínicos y operativos en entornos licenciados",
+          "Acceso legal, privacidad, costes y validez de métricas por confirmar"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Brechas o necesidades aún no satisfechas"
+    },
+    {
+      "type": "p",
+      "text": "Los documentos públicos no permiten todavía seguir toda la cadena entre asignación, licitación, obligación legal, pago, servicio rural y resultado independiente. Eso no demuestra que la cadena no exista dentro de CMS o HHSC. Antes de desarrollar algo nuevo, hay que contrastar las necesidades con responsables de datos y contratistas actuales."
+    },
+    {
+      "type": "h3",
+      "text": "Qué valor añadiría YNK Tech"
+    },
+    {
+      "type": "p",
+      "text": "Concepto sin construir: una pequeña capa de evidencia y trazabilidad para una iniciativa. Conciliaría versiones de asignaciones y contratos, enlazaría fuentes primarias, crearía alertas de discrepancias, mostraría denominadores y grado de incertidumbre y permitiría un cuadro de resultados sin datos identificables. Ningún dato individual de pacientes debe entrar en el prototipo público.",
+      "runs": [
+        {
+          "text": "Concepto "
+        },
+        {
+          "text": "sin construir",
+          "bold": true
+        },
+        {
+          "text": ": una pequeña capa de evidencia y trazabilidad para una iniciativa. Conciliaría versiones de asignaciones y contratos, enlazaría fuentes primarias, crearía alertas de discrepancias, mostraría denominadores y grado de incertidumbre y permitiría un cuadro de resultados sin datos identificables. Ningún dato individual de pacientes debe entrar en el prototipo público."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "¿Construir, asociarse o integrar?"
+    },
+    {
+      "type": "p",
+      "text": "Integrar primero. Reutilizar documentos de CMS y estados, gestores autorizados de subvenciones, interfaces existentes de intercambio clínico y conjuntos de datos con licencias adecuadas. Asociarse con redes rurales elegibles o proveedores establecidos cuando lo permita la contratación. Construir código propio solo para brechas medidas; no extraer datos sanitarios protegidos ni eludir licitaciones."
+    },
+    {
+      "type": "h3",
+      "text": "Cómo medir el valor incremental"
+    },
+    {
+      "type": "p",
+      "text": "Ensayo con orden aleatorio y revisión ciega: dos analistas concilian los mismos registros con herramientas existentes y con la integración propuesta. Incluir instalación, licencias, mantenimiento, revisión legal, errores y accesibilidad. Medir minutos medianos por caso, completitud, asociaciones falsas, actualidad de fuentes y satisfacción. La referencia actual y el ROI incremental no se han verificado.",
+      "runs": [
+        {
+          "text": "Ensayo con orden aleatorio y revisión ciega: dos analistas concilian los mismos registros con herramientas existentes y con la integración propuesta. Incluir instalación, licencias, mantenimiento, revisión legal, errores y accesibilidad. Medir minutos medianos por caso, completitud, asociaciones falsas, actualidad de fuentes y satisfacción. La referencia actual y el ROI incremental "
+        },
+        {
+          "text": "no se han verificado",
+          "bold": true
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Tres escenarios de prueba, no pronósticos"
+    },
+    {
+      "type": "p",
+      "text": "EJEMPLO ILUSTRATIVO: NO SON DATOS OBSERVADOS NI UN PRONÓSTICO VALIDADO. Supongamos 2.400 conciliaciones anuales, 60 minutos por registro con herramientas actuales y 75 USD por hora de analista. Supongamos 25.000 USD anuales de operación más 20.000 USD de instalación amortizados en dos años: 35.000 USD de coste anual adicional. Son parámetros hipotéticos, no cotizaciones ni costes observados en Texas.",
+      "runs": [
+        {
+          "text": "EJEMPLO ILUSTRATIVO: NO SON DATOS OBSERVADOS NI UN PRONÓSTICO VALIDADO.",
+          "bold": true
+        },
+        {
+          "text": " Supongamos 2.400 conciliaciones anuales, 60 minutos por registro con herramientas actuales y 75 USD por hora de analista. Supongamos 25.000 USD anuales de operación más 20.000 USD de instalación amortizados en dos años: 35.000 USD de coste anual adicional. Son parámetros hipotéticos, no cotizaciones ni costes observados en Texas."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Escenario",
+          "Menos tiempo frente a actual",
+          "Horas anuales ahorradas",
+          "Valor laboral bruto",
+          "Neto tras 35.000 USD/año"
+        ],
+        [
+          "Conservador",
+          "10 %",
+          "240 h",
+          "18.000 USD",
+          "-17.000 USD"
+        ],
+        [
+          "Central",
+          "25 %",
+          "600 h",
+          "45.000 USD",
+          "+10.000 USD"
+        ],
+        [
+          "Favorable",
+          "40 %",
+          "960 h",
+          "72.000 USD",
+          "+37.000 USD"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "En este modelo ilustrativo, el punto de equilibrio exige una reducción del 19,44 % del tiempo de conciliación antes de añadir otros costes y riesgos. Ninguna cifra mide mejoras de salud. Un piloto debe reemplazar cada hipótesis con mediciones reales y facturas auditadas."
+    },
+    {
+      "type": "h3",
+      "text": "Salvaguardias y hoja de ruta de evaluación"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Días 0-30: seleccionar una iniciativa texana auditable, inventariar sistemas y normas, confirmar derechos de datos, revisores humanos, neutralidad competitiva y línea base con comparador.",
+          "runs": [
+            {
+              "text": "Días 0-30:",
+              "bold": true
+            },
+            {
+              "text": " seleccionar una iniciativa texana auditable, inventariar sistemas y normas, confirmar derechos de datos, revisores humanos, neutralidad competitiva y línea base con comparador."
+            }
+          ]
+        },
+        {
+          "text": "Días 31-60: incorporar versiones públicas de asignaciones, licitaciones, contratos firmados e indicadores agregados; comprobar enlaces, auditoría, accesibilidad y privacidad.",
+          "runs": [
+            {
+              "text": "Días 31-60:",
+              "bold": true
+            },
+            {
+              "text": " incorporar versiones públicas de asignaciones, licitaciones, contratos firmados e indicadores agregados; comprobar enlaces, auditoría, accesibilidad y privacidad."
+            }
+          ]
+        },
+        {
+          "text": "Días 61-90: probar como mínimo 20 registros con comparación, publicar tiempos, discrepancias, coste unitario, cobertura documental y vacíos; solicitar revisión autorizada, sin puesta en producción automática.",
+          "runs": [
+            {
+              "text": "Días 61-90:",
+              "bold": true
+            },
+            {
+              "text": " probar como mínimo 20 registros con comparación, publicar tiempos, discrepancias, coste unitario, cobertura documental y vacíos; solicitar revisión autorizada, sin puesta en producción automática."
+            }
+          ]
+        },
+        {
+          "text": "Condición: el 100 % de afirmaciones con enlaces primarios fechados, ninguna afirmación clínica sin base, ningún aumento de vínculos falsos y evaluar al menos 20 % de reducción del tiempo mediano frente al sistema actual. El 20 % es una meta, no pronóstico.",
+          "runs": [
+            {
+              "text": "Condición:",
+              "bold": true
+            },
+            {
+              "text": " el 100 % de afirmaciones con enlaces primarios fechados, ninguna afirmación clínica sin base, ningún aumento de vínculos falsos y evaluar al menos 20 % de reducción del tiempo mediano frente al sistema actual. El 20 % es una meta, no pronóstico."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Qué observar a continuación"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "Noviembre de 2026: observar los primeros informes trimestrales detallados y actualizaciones de Texas; CMS prevé actualizar obligaciones tras las entregas del 30 de noviembre. Comprobar cómo se ajusta el presupuesto de agosto a la asignación definitiva 2027. [1] [2]",
+          "runs": [
+            {
+              "text": "Noviembre de 2026:",
+              "bold": true
+            },
+            {
+              "text": " observar los primeros informes trimestrales detallados y actualizaciones de Texas; CMS prevé actualizar obligaciones tras las entregas del 30 de noviembre. Comprobar cómo se ajusta el presupuesto de agosto a la asignación definitiva 2027. "
+            },
+            {
+              "text": "[1]",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "[2]",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "12 de enero de 2027: Texas estima el cierre de solicitudes para portales e IA/telesalud; 19 de enero para ciberseguridad. Son fechas aproximadas y mandan las convocatorias oficiales. [3]",
+          "runs": [
+            {
+              "text": "12 de enero de 2027:",
+              "bold": true
+            },
+            {
+              "text": " Texas estima el cierre de solicitudes para portales e IA/telesalud; 19 de enero para ciberseguridad. Son fechas aproximadas y mandan las convocatorias oficiales. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Marzo-julio de 2027: decisiones y contratación tecnológica estimadas; seguir adjudicatarios reales, importes, condados, requisitos y adopción posterior. [3]",
+          "runs": [
+            {
+              "text": "Marzo-julio de 2027:",
+              "bold": true
+            },
+            {
+              "text": " decisiones y contratación tecnológica estimadas; seguir adjudicatarios reales, importes, condados, requisitos y adopción posterior. "
+            },
+            {
+              "text": "[3]",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Indicadores trimestrales: tasa de compromiso = compromisos válidos/asignación; tasa de pago = pagos documentados/compromisos; acceso = visitas completadas/residentes rurales elegibles; días medianos de derivación; retención de profesionales equivalentes a tiempo completo; cadenas verificadas/proyectos muestreados.",
+          "runs": [
+            {
+              "text": "Indicadores trimestrales:",
+              "bold": true
+            },
+            {
+              "text": " tasa de compromiso = compromisos válidos/asignación; tasa de pago = pagos documentados/compromisos; acceso = visitas completadas/residentes rurales elegibles; días medianos de derivación; retención de profesionales equivalentes a tiempo completo; cadenas verificadas/proyectos muestreados."
+            }
+          ]
+        },
+        {
+          "text": "Actualización responsable: calcular brechas real-meta solo cuando existan objetivos y denominadores oficiales; informar datos ausentes, revisiones y grupos de comparación.",
+          "runs": [
+            {
+              "text": "Actualización responsable:",
+              "bold": true
+            },
+            {
+              "text": " calcular brechas real-meta solo cuando existan objetivos y denominadores oficiales; informar datos ausentes, revisiones y grupos de comparación."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Metodología y limitaciones"
+    },
+    {
+      "type": "p",
+      "text": "Fecha de corte: 14 de noviembre de 2026. Fuentes: CMS, documentos de Texas, análisis independientes de KFF y NRHA e información oficial de Carolina del Norte. Las publicaciones sociales sirvieron solo de señales iniciales. Distinguir la asignación 2026 y obligaciones al 31 de julio de la nueva asignación 2027 anunciada el 9 de noviembre."
+    },
+    {
+      "type": "p",
+      "text": "Cálculos: Texas = 53.288.872,67 / 281.319.360,67 = 18,94 %. Carolina del Norte = 167.718.439,45 / 213.008.356,47 = 78,74 %. Diferencia entre la asignación texana 2027 y el presupuesto redondeado de agosto = 281.976.026 - 281.319.361 = 656.665 USD. Los redondeos pueden cambiar décimas."
+    },
+    {
+      "type": "p",
+      "text": "La propuesta de agosto no equivale a contratos ejecutados. Las obligaciones no son facturas ni resultados médicos. El 40 % nacional es una aproximación de NRHA basada en reportes CMS, no una serie de gastos actuales. Los escenarios de retorno son ejercicios hipotéticos. La causalidad requiere ajuste de riesgo, horizontes adecuados, controles y gobernanza."
+    },
+    {
+      "type": "p",
+      "text": "Los nuevos informes trimestrales y contratos pueden cambiar las conclusiones. No están verificados los costes de privacidad, accesibilidad, contratación e interoperabilidad para un producto YNK. Este borrador necesita revisión editorial, jurídica y de fuentes antes de su publicación."
+    },
+    {
+      "type": "h2",
+      "text": "Fuentes"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "CMS, Rural Health Transformation Program: Year 2 Awards, November 9, 2026",
+          "runs": [
+            {
+              "text": "CMS, Rural Health Transformation Program: Year 2 Awards, November 9, 2026",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards"
+            }
+          ]
+        },
+        {
+          "text": "CMS, RHTP Obligated Funds Report, state submissions through July 31, 2026, published October 2026",
+          "runs": [
+            {
+              "text": "CMS, RHTP Obligated Funds Report, state submissions through July 31, 2026, published October 2026",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/rhtp-resources/RHTP-Obligated-Funds-20261014.pdf"
+            }
+          ]
+        },
+        {
+          "text": "Texas HHSC, Rural Texas Strong program and estimated initiative dates, accessed November 14, 2026",
+          "runs": [
+            {
+              "text": "Texas HHSC, Rural Texas Strong program and estimated initiative dates, accessed November 14, 2026",
+              "href": "https://pfd.hhs.texas.gov/rural-health-transformation-program"
+            }
+          ]
+        },
+        {
+          "text": "Texas HHSC, Rural Texas Strong Budget Period 2 Revised Budget Narrative, submitted August 31, 2026",
+          "runs": [
+            {
+              "text": "Texas HHSC, Rural Texas Strong Budget Period 2 Revised Budget Narrative, submitted August 31, 2026",
+              "href": "https://pfd.hhs.texas.gov/sites/default/files/documents/rural-hlth-prgm/aprvd-bdgt-prd-2-rvsd-bdgt-narr.pdf"
+            }
+          ]
+        },
+        {
+          "text": "KFF, Second-Year Rural Health Fund Awards Per Rural Resident Continue to Vary Widely, November 13, 2026",
+          "runs": [
+            {
+              "text": "KFF, Second-Year Rural Health Fund Awards Per Rural Resident Continue to Vary Widely, November 13, 2026",
+              "href": "https://www.kff.org/medicaid/second-year-rural-health-fund-awards-per-rural-resident-continue-to-vary-widely/"
+            }
+          ]
+        },
+        {
+          "text": "National Rural Health Association, Review of RHTP Year 1 Obligated Funds, 2026",
+          "runs": [
+            {
+              "text": "National Rural Health Association, Review of RHTP Year 1 Obligated Funds, 2026",
+              "href": "https://www.ruralhealth.us/nationalruralhealth/media/documents/advocacy/2026/nrha-rhtp-year-1-obligated-fund-analysis-thru-8-1-26.pdf"
+            }
+          ]
+        },
+        {
+          "text": "NCDHHS, State Launches New Rural Health Transformation Program Dashboard, November 2, 2026",
+          "runs": [
+            {
+              "text": "NCDHHS, State Launches New Rural Health Transformation Program Dashboard, November 2, 2026",
+              "href": "https://www.ncdhhs.gov/news/press-releases/2026/11/02/state-launches-new-rural-health-transformation-program-dashboard"
+            }
+          ]
+        },
+        {
+          "text": "KFF, Comparing States’ Rural Health Fund Allotments to Medicaid Spending Cuts Can be Misleading, February 6, 2026",
+          "runs": [
+            {
+              "text": "KFF, Comparing States’ Rural Health Fund Allotments to Medicaid Spending Cuts Can be Misleading, February 6, 2026",
+              "href": "https://www.kff.org/medicaid/comparing-states-rural-health-fund-allotments-to-medicaid-spending-cuts-can-be-misleading/"
+            }
+          ]
+        },
+        {
+          "text": "KFF, How Might Federal Medicaid Cuts Affect Rural Areas?, July 24, 2025",
+          "runs": [
+            {
+              "text": "KFF, How Might Federal Medicaid Cuts Affect Rural Areas?, July 24, 2025",
+              "href": "https://www.kff.org/medicaid/how-might-federal-medicaid-cuts-in-the-enacted-reconciliation-package-affect-rural-areas/"
+            }
+          ]
+        },
+        {
+          "text": "CMS / Medicaid.gov, State Data Maps, accessed November 14, 2026",
+          "runs": [
+            {
+              "text": "CMS / Medicaid.gov, State Data Maps, accessed November 14, 2026",
+              "href": "https://www.medicaid.gov/resources-for-states/rural-health/state-data-maps"
+            }
+          ]
+        },
+        {
+          "text": "Texas Governor, $87 Million in Rural Healthcare Grants, October 29, 2026",
+          "runs": [
+            {
+              "text": "Texas Governor, $87 Million in Rural Healthcare Grants, October 29, 2026",
+              "href": "https://gov.texas.gov/news/post/governor-abbott-announces-87-million-in-rural-healthcare-grants"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
