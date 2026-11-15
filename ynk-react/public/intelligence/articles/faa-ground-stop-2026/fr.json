@@ -1,0 +1,280 @@
+{
+  "title": "FAA 2026 : ce qui a cédé, ce qui a protégé les vols et ce qui reste à prouver",
+  "summary": "Analyse ciblée de la panne télécom du 13 novembre, des précédents dans l’aviation et de la différence entre sécurité et résilience du réseau.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE | AVIATION TECHNOLOGY"
+    },
+    {
+      "type": "p",
+      "text": "Analyse diagnostique | Données consultées au 15 novembre 2026 | Projet à réviser",
+      "runs": [
+        {
+          "text": "Analyse diagnostique | Données consultées au 15 novembre 2026 | Projet à réviser",
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Le 13 novembre 2026, les États-Unis ont suspendu les départs à l’échelle nationale. Il ne s’agissait pas d’une panne totale des radars et des radios, mais d’une instabilité d’un réseau télécom essentiel. Selon la FAA, les contrôleurs et les pilotes ont maintenu la sécurité des avions. C’est la distinction fondamentale : une intervention de sécurité peut réussir alors que l’infrastructure technique n’est pas fiable."
+    },
+    {
+      "type": "quote",
+      "text": "Notre constat : cet incident montre que les procédures de sécurité ont pu protéger les opérations, mais il ne prouve pas encore que le réseau résistera à une nouvelle perturbation. Il faut mesurer la propagation, l’isolement, les réparations permanentes et le rétablissement."
+    },
+    {
+      "type": "h2",
+      "text": "1. Que s’est-il passé, précisément ?"
+    },
+    {
+      "type": "p",
+      "text": "Selon la FAA, le problème a débuté vers 15 h 30 (heure de l’Est) le 13 novembre. Le réseau historique Federal Telecommunications Infrastructure (FTI) a reçu environ 1 000 tentatives de connexion toutes les quatre à cinq secondes. Des communications radio et des données radar sont devenues instables dans 17 des 22 centres de contrôle en route. La FAA annonce un retour à la stabilité et la reprise du trafic vers 20 h 15. [1]"
+    },
+    {
+      "type": "p",
+      "text": "Les communications n’ont pas entièrement disparu. Certaines fréquences et données radar sont restées fiables ; environ 3 500 avions ont atterri sans incident. La suspension nationale des départs constituait une précaution. La FAA n’a pas constaté d’indice de cyberattaque. [1]"
+    },
+    {
+      "type": "p",
+      "text": "La FAA mentionne environ 12 462 annulations le 13 novembre, tout en précisant qu’elles ne sont pas toutes directement causées par l’arrêt national. Ce chiffre n’est donc pas un bilan causal fiable de la panne. [1]"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-5cdb56a0634c.png",
+      "alt": "Les faits constatés ne suffisent pas à établir la cause précise ni les annulations attribuables. [1]",
+      "caption": "Les faits constatés ne suffisent pas à établir la cause précise ni les annulations attribuables. [1]"
+    },
+    {
+      "type": "h2",
+      "text": "2. Pourquoi une anomalie locale peut-elle toucher tant de centres ?"
+    },
+    {
+      "type": "p",
+      "text": "Un centre de contrôle dépend de voies de communication communes. Si ce réseau partagé devient instable, plusieurs sites peuvent recevoir des données incohérentes sans que tous leurs équipements locaux soient en panne. C’est une analogie, pas la topologie technique confirmée de la FAA."
+    },
+    {
+      "type": "p",
+      "text": "L’enquête préliminaire évoque un site radar à Amarillo, au Texas, et une installation radio à El Dorado, dans l’Arkansas. Le prestataire L3Harris avait travaillé sur un routeur du second site. Le blocage du trafic associé à ces deux sites a contribué à stabiliser le réseau. Le défaut précis du matériel ou de sa configuration reste à établir. [1]"
+    },
+    {
+      "type": "p",
+      "text": "La question d’ingénierie est donc celle de l’isolement : pourquoi le réseau n’a-t-il pas contenu ce trafic avant que l’instabilité ne touche plusieurs centres ? Il faut des journaux techniques, la topologie et des tests de reprise pour répondre."
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-ebb5c02b2ed8.png",
+      "alt": "Séquence signalée par la FAA ; le défaut initial est provisoire. Il ne s’agit pas d’une topologie technique publiée. [1]",
+      "caption": "Séquence signalée par la FAA ; le défaut initial est provisoire. Il ne s’agit pas d’une topologie technique publiée. [1]"
+    },
+    {
+      "type": "h2",
+      "text": "3. Qu’est-ce qui a fonctionné ?"
+    },
+    {
+      "type": "p",
+      "text": "La suspension des départs est un dispositif opérationnel de sécurité. Elle évite d’ajouter des vols pendant que les contrôleurs gèrent les avions déjà en l’air avec les moyens restant disponibles. La FAA indique que ces procédures ont permis les atterrissages en sécurité. [1]"
+    },
+    {
+      "type": "p",
+      "text": "Il faut toutefois mesurer séparément la sécurité des vols et la continuité du réseau. Une réponse de sécurité réussie ne signifie pas qu’aucune panne n’a eu lieu. Le rétablissement technique à 20 h 15 ne correspond pas non plus à la fin immédiate des perturbations dans les programmes des compagnies."
+    },
+    {
+      "type": "h2",
+      "text": "4. Ce que les précédents nous apprennent"
+    },
+    {
+      "type": "p",
+      "text": "La panne NOTAM de janvier 2023 concernait un autre système. Des prestataires avaient supprimé involontairement des fichiers lors d’une synchronisation entre la base principale et une sauvegarde. La FAA a ajouté un délai de synchronisation et renforcé la supervision humaine. Ces mesures visaient l’intégrité des données et le contrôle des modifications, et non la panne FTI de 2026. [2][3]"
+    },
+    {
+      "type": "p",
+      "text": "Selon le GAO, une sauvegarde mise en place en 2024 a atténué les pannes NOTAM de février et mars 2025, même si des perturbations ont persisté. Il s’agit d’une preuve ciblée d’efficacité, et non d’une garantie pour l’ensemble de la FAA. [5]"
+    },
+    {
+      "type": "p",
+      "text": "Au Royaume-Uni, NATS a connu une panne de traitement des plans de vol en août 2023. Un examen indépendant a abouti à 34 recommandations, toutes traitées selon le régulateur britannique en juin 2026. En septembre 2026, une autre panne s’est produite, mais NATS l’attribue provisoirement à un défaut logiciel distinct. Cette nouvelle panne ne prouve pas l’échec des corrections de 2023. [6][7][8]"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-bc2df89a8166.png",
+      "alt": "Précédents choisis dans l’aviation ; mécanismes distincts, échantillon non représentatif. [2][3][5][6][7][8]",
+      "caption": "Précédents choisis dans l’aviation ; mécanismes distincts, échantillon non représentatif. [2][3][5][6][7][8]"
+    },
+    {
+      "type": "h2",
+      "text": "5. Quelles corrections sont confirmées ?"
+    },
+    {
+      "type": "p",
+      "text": "Pour novembre 2026, la mesure immédiate est documentée : les sources de trafic suspectées ont été isolées et une fonction a été désactivée par précaution sur environ 60 routeurs similaires. Cela étaye la stabilisation rapide, pas encore une prévention durable testée indépendamment. [1]"
+    },
+    {
+      "type": "p",
+      "text": "La modernisation générale avance : selon le GAO, 2 560 des 5 170 anciennes connexions en cuivre avaient été remplacées par de la fibre en mai 2026, soit environ 49,5 %. Le GAO signale aussi l’absence d’un coût complet de cycle de vie et d’un calendrier directeur intégré, ainsi que 11 389 calendriers de projets séparés. [4]"
+    },
+    {
+      "type": "p",
+      "text": "Dans une évaluation historique, 105 des 138 systèmes de contrôle aérien étaient jugés non durables ou potentiellement non durables. Cela ne signifie pas que 105 systèmes ont été en panne en novembre. La FAA distingue également les anciens équipements touchés des améliorations déjà réalisées. [1][4][5]"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-50674e658d64.png",
+      "alt": "Mesures mises en place et efficacité démontrée sont deux choses différentes. [1][5][7][8]",
+      "caption": "Mesures mises en place et efficacité démontrée sont deux choses différentes. [1][5][7][8]"
+    },
+    {
+      "type": "h2",
+      "text": "6. Quelle conclusion peut-on tirer ?"
+    },
+    {
+      "type": "p",
+      "text": "Deux dimensions de résilience apparaissent. La sécurité opérationnelle a fonctionné selon la FAA : les vols en cours se sont posés en sécurité. La disponibilité du réseau a été moins robuste : l’instabilité a touché de nombreux centres et provoqué un arrêt national des départs."
+    },
+    {
+      "type": "p",
+      "text": "Les précédents montrent qu’une protection ciblée peut être utile : la sauvegarde NOTAM a atténué certains incidents et NATS a traité les recommandations reçues. Pourtant, de nouveaux défauts, différents, restent possibles ailleurs. Ces événements ne prouvent ni une hausse statistique des pannes ni la cause définitive de l’incident actuel."
+    },
+    {
+      "type": "p",
+      "text": "Nous devons attendre les données réseau et les tests de remédiation avant de déclarer qu’une correction permanente a fonctionné."
+    },
+    {
+      "type": "h2",
+      "text": "7. Quel travail de recherche approfondir ?"
+    },
+    {
+      "type": "p",
+      "text": "Une étude liée devrait comparer les retards et annulations observés à une situation de référence, mesurer la récupération opérationnelle après la stabilisation du réseau et vérifier les tests de confinement du trafic."
+    },
+    {
+      "type": "p",
+      "text": "Mesures possibles : part des centres affectés (17/22, soit environ 77 %), délai de détection et d’isolement, délai de stabilisation, annulations supplémentaires par rapport à un scénario de référence et résultats des essais sur les routeurs."
+    },
+    {
+      "type": "p",
+      "text": "Tant que la FAA n’a pas établi la cause définitive et que les données de vols ne permettent pas d’attribuer les pertes, une estimation économique précise serait spéculative."
+    },
+    {
+      "type": "h2",
+      "text": "Preuves et limites"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Area",
+          "Basis",
+          "Interpretation"
+        ],
+        [
+          "Effets opérationnels",
+          "FAA, questions-réponses",
+          "17/22 centres touchés ; quelque 3 500 avions posés sans incident"
+        ],
+        [
+          "Mécanisme technique",
+          "Enquête FAA",
+          "Trafic excessif ; défaut initial encore incertain"
+        ],
+        [
+          "Modernisation",
+          "GAO, sept. 2026",
+          "49,5 % des connexions anciennes remplacées en mai 2026"
+        ],
+        [
+          "Coût et causalité",
+          "Non établis",
+          "12 462 annulations ne sont pas un bilan imputable à la panne"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Illustrations originales de YNK Tech ; les schémas sont conceptuels, sauf chiffres datés signalés. Les sources sont accessibles ci-dessous."
+    },
+    {
+      "type": "h2",
+      "text": "Sources primaires et vérification"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "FAA incident Q&A, Nov 15 2026",
+          "runs": [
+            {
+              "text": "FAA incident Q&A, Nov 15 2026",
+              "href": "https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers"
+            }
+          ]
+        },
+        {
+          "text": "FAA statement on 2023 NOTAM outage",
+          "runs": [
+            {
+              "text": "FAA statement on 2023 NOTAM outage",
+              "href": "https://www.faa.gov/newsroom/faa-notam-statement"
+            }
+          ]
+        },
+        {
+          "text": "FAA testimony on NOTAM corrective steps, Feb 2023",
+          "runs": [
+            {
+              "text": "FAA testimony on NOTAM corrective steps, Feb 2023",
+              "href": "https://www.faa.gov/testimony/written-statement-billy-nolen-acting-administrator-federal-aviation-administration"
+            }
+          ]
+        },
+        {
+          "text": "GAO: ATC Modernization, Sept 2026",
+          "runs": [
+            {
+              "text": "GAO: ATC Modernization, Sept 2026",
+              "href": "https://www.gao.gov/products/gao-26-107992"
+            }
+          ]
+        },
+        {
+          "text": "GAO: ATC systems and subsequent NOTAM backup, 2025",
+          "runs": [
+            {
+              "text": "GAO: ATC systems and subsequent NOTAM backup, 2025",
+              "href": "https://www.gao.gov/products/gao-25-108162"
+            }
+          ]
+        },
+        {
+          "text": "UK CAA: review of NATS 2023 failure",
+          "runs": [
+            {
+              "text": "UK CAA: review of NATS 2023 failure",
+              "href": "https://www.caa.co.uk/commercial-industry/airspace/air-traffic-management-and-air-navigational-services/air-navigation-services/nats-august-2023-failure-review/"
+            }
+          ]
+        },
+        {
+          "text": "CAA: closing 34 recommendations, June 2026",
+          "runs": [
+            {
+              "text": "CAA: closing 34 recommendations, June 2026",
+              "href": "https://www.caa.co.uk/publication/download/29104"
+            }
+          ]
+        },
+        {
+          "text": "NATS: Sept 2026 software incident findings",
+          "runs": [
+            {
+              "text": "NATS: Sept 2026 software incident findings",
+              "href": "https://www.nats.aero/news/nats-publishes-preliminary-report-on-technical-incident-of-8-september/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
