@@ -1,0 +1,270 @@
+{
+  "title": "FAA Ground Stop 2026: What Failed, What Protected Flights, and What Remains Unproven",
+  "summary": "A focused investigation of the November 13 telecommunications disruption, its aviation precedents, and the difference between a safe response and a resilient network.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE | AVIATION TECHNOLOGY"
+    },
+    {
+      "type": "p",
+      "text": "The United States stopped departing flights nationwide on November 13, 2026, not because every radar and radio failed, but because an essential telecommunications network had become unstable. The FAA says pilots and controllers kept aircraft safe while operations were restricted. That is the story’s most important distinction: a safety response can succeed even when the underlying technology does not perform reliably."
+    },
+    {
+      "type": "quote",
+      "text": "Our finding: the incident provides evidence that emergency safety procedures can contain operational danger, but it does not yet establish that the network is resilient against another disturbance. To assess resilience, we must examine propagation, isolation, permanent repairs and measurable recovery."
+    },
+    {
+      "type": "h2",
+      "text": "1. What happened, and what did not happen?"
+    },
+    {
+      "type": "p",
+      "text": "The FAA says a telecommunications issue began around 3:30 p.m. Eastern on November 13. Data flooded the legacy Federal Telecommunications Infrastructure (FTI) network at roughly 1,000 connection attempts every four to five seconds. Radar feeds and radio communications became inconsistent, with instability reported at 17 of 22 Air Route Traffic Control Centers and some terminal facilities. The FAA reports that the system was stable and flights resumed by 8:15 p.m. Eastern. [1]"
+    },
+    {
+      "type": "p",
+      "text": "Crucially, this was not a complete loss of communication with aircraft. Some frequencies and radar feeds remained reliable. About 3,500 aircraft already in the air landed safely, and the FAA implemented the nationwide departure stop as a precaution. It also reports no indication of a cyberattack. [1]"
+    },
+    {
+      "type": "p",
+      "text": "The FAA reported about 12,462 canceled flights on November 13, but explicitly warned that not every cancellation was directly caused by the ground stop. It would be misleading to label 12,462 the outage’s attributable flight toll. [1]"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-a74c44292f7f.png",
+      "alt": "The FAA distinguishes an observed operational impact from unresolved root cause and cancellation attribution. [1]",
+      "caption": "The FAA distinguishes an observed operational impact from unresolved root cause and cancellation attribution. [1]"
+    },
+    {
+      "type": "h2",
+      "text": "2. How could a local network problem reach so many centers?"
+    },
+    {
+      "type": "p",
+      "text": "Think of the air traffic system as a set of control centers that need dependable communication paths. If a shared transport network becomes unstable, many centers can experience inconsistent data even though their local equipment is not all broken. This is a conceptual explanation of a shared dependency, not a map of the FAA’s network topology."
+    },
+    {
+      "type": "p",
+      "text": "The FAA identified two possible locations associated with excessive data traffic: a radar site in Amarillo, Texas, and a radio communications site in El Dorado, Arkansas. Its network provider, L3Harris, had worked on a router at El Dorado. Blocking traffic associated with the two locations helped stabilize the system. The precise equipment or configuration fault had not been finally established as of this review. [1]"
+    },
+    {
+      "type": "p",
+      "text": "The key engineering question is not whether the connection-attempt rate sounds large. It is why the affected legacy equipment could not absorb or isolate that pattern before instability reached multiple facilities. Answering it will require router logs, network architecture, the event sequence and tested isolation boundaries."
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-0767682deb59.png",
+      "alt": "Reported progression based on the FAA statement. The initial fault is preliminary and the sequence is not a published FAA topology. [1]",
+      "caption": "Reported progression based on the FAA statement. The initial fault is preliminary and the sequence is not a published FAA topology. [1]"
+    },
+    {
+      "type": "h2",
+      "text": "3. What held together when the network did not?"
+    },
+    {
+      "type": "p",
+      "text": "A nationwide ground stop is an operational safety mechanism. It limits new departures while controllers and pilots use remaining reliable capabilities to manage aircraft already airborne. According to the FAA, its established safety protocols and available frequencies supported safe landings. [1]"
+    },
+    {
+      "type": "p",
+      "text": "This should count as an important successful response, but it is not proof that the underlying telecom infrastructure avoided failure. We should score two outcomes separately: aviation safety during the event and network service continuity. We should also distinguish the technical restoration at 8:15 p.m. from the additional time airlines needed to return their schedules to normal."
+    },
+    {
+      "type": "h2",
+      "text": "4. What earlier aviation failures taught us"
+    },
+    {
+      "type": "p",
+      "text": "The FAA’s January 2023 NOTAM failure involved a different system. Contractors unintentionally deleted files while correcting synchronization between a primary database and a backup. The FAA then introduced a synchronization delay and additional human oversight for database work. Those measures addressed a data-integrity and change-control problem, not the November 2026 FTI telecommunications fault. [2][3]"
+    },
+    {
+      "type": "p",
+      "text": "GAO later documented that a NOTAM backup implemented in 2024 helped mitigate outages in February and March 2025, although disruptions still occurred. That is meaningful evidence of limited effectiveness: the backup reduced impacts in its intended domain, not every possible FAA failure. [5]"
+    },
+    {
+      "type": "p",
+      "text": "In Britain, UK NATS experienced a flight-planning system failure in August 2023. Its independent review produced 34 recommendations, all actioned by June 2026 according to the UK regulator. In September 2026, NATS had another disruption, but its preliminary report attributes that event to a different software defect. The second incident does not by itself prove that the 2023 fixes failed. [6][7][8]"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-8996176cdbb6.png",
+      "alt": "Selected aviation-specific precedents, not identical mechanisms or an unbiased frequency sample. [2][3][5][6][7][8]",
+      "caption": "Selected aviation-specific precedents, not identical mechanisms or an unbiased frequency sample. [2][3][5][6][7][8]"
+    },
+    {
+      "type": "h2",
+      "text": "5. What has actually been fixed, and what remains unfinished?"
+    },
+    {
+      "type": "p",
+      "text": "For the November FAA incident, the immediate operational intervention was concrete: the suspected traffic sources were isolated, and the relevant functionality was disabled on approximately 60 similar routers as a precaution. This is evidence of short-term stabilization, not a completed independent test of permanent prevention. [1]"
+    },
+    {
+      "type": "p",
+      "text": "The broader modernization program is also moving, but its reported progress measures do not map directly onto the November root cause. GAO said 2,560 of 5,170 older copper connections had been replaced with fiber by May 2026, approximately 49.5 percent. It also found that a comprehensive life-cycle cost estimate and integrated master schedule were absent from the newer modernization initiative, with 11,389 separate project schedules not integrated at that point. [4]"
+    },
+    {
+      "type": "p",
+      "text": "Earlier FAA assessments rated 105 of 138 air traffic control systems as unsustainable or potentially unsustainable. That is a measure of maintenance and modernization risk, not a statement that 105 systems failed in November. Nor does it prove that a broader modernization project caused this incident; the FAA specifically differentiated the legacy system problem from upgrades already completed. [1][4][5]"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261115-vm4rsb-60046d5170a9.png",
+      "alt": "Implementation evidence must be separated from proof that a fix prevents recurrence. [1][5][7][8]",
+      "caption": "Implementation evidence must be separated from proof that a fix prevents recurrence. [1][5][7][8]"
+    },
+    {
+      "type": "h2",
+      "text": "6. What can we conclude now?"
+    },
+    {
+      "type": "p",
+      "text": "The incident reveals a real gap between two forms of resilience. Safety resilience worked in the FAA’s reported account: flights already airborne were managed safely. Availability resilience was weaker: instability affected a large share of control centers and required a nationwide departure stop. Both findings can be true at the same time."
+    },
+    {
+      "type": "p",
+      "text": "Historical evidence suggests that narrow safeguards can work. The NOTAM backup mitigated later failures, and NATS completed a substantial corrective-action process. Yet different failure mechanisms can still appear elsewhere. This does not prove that aviation incidents are becoming more frequent, nor that the FAA’s November disruption was preventable using a specific completed upgrade."
+    },
+    {
+      "type": "p",
+      "text": "The unanswered engineering question is how excessive connection traffic crossed or overwhelmed the network’s containment boundaries. Without detailed technical records and follow-up tests, declaring the system permanently fixed would be premature."
+    },
+    {
+      "type": "h2",
+      "text": "7. What should the follow-up study test?"
+    },
+    {
+      "type": "p",
+      "text": "The analysis supports a narrower research study rather than another broad comparison of technology companies. We would test the FAA event’s attributable delays and cancellations against comparable flight schedules, measure recovery beyond technical restoration, and examine which network safeguards were implemented and independently validated."
+    },
+    {
+      "type": "p",
+      "text": "Suggested measures are: percentage of centers affected (17/22, approximately 77 percent), time from initial anomaly to isolation, time to stable service, additional canceled and delayed flights after adjustment for baseline conditions, and test results for router configuration and traffic-containment controls. Some of these inputs are not yet public."
+    },
+    {
+      "type": "p",
+      "text": "Until flight-level attribution and the definitive technical investigation are available, our correct research outcome is an evidence-backed explanation with explicitly open questions, not an invented financial loss figure or a promised solution."
+    },
+    {
+      "type": "h2",
+      "text": "Evidence and limitations"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Area",
+          "Basis",
+          "Interpretation"
+        ],
+        [
+          "Observed operational impact",
+          "FAA incident Q&A",
+          "17/22 centers unstable; about 3,500 aircraft landed safely"
+        ],
+        [
+          "Preliminary network mechanism",
+          "FAA investigation",
+          "Excess traffic; precise initiating fault unresolved"
+        ],
+        [
+          "Modernization context",
+          "GAO, Sept 2026",
+          "49.5% of legacy copper connections replaced by May 2026"
+        ],
+        [
+          "Attributable economic impact",
+          "Not yet established",
+          "12,462 cancellations is not a verified causal total"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Illustrations: original YNK Tech editorial diagrams. Graphics are qualitative except where specific dated counts are labeled. Source material remains linked below."
+    },
+    {
+      "type": "h2",
+      "text": "Primary sources and verification record"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "FAA incident Q&A, Nov 15 2026",
+          "runs": [
+            {
+              "text": "FAA incident Q&A, Nov 15 2026",
+              "href": "https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers"
+            }
+          ]
+        },
+        {
+          "text": "FAA statement on 2023 NOTAM outage",
+          "runs": [
+            {
+              "text": "FAA statement on 2023 NOTAM outage",
+              "href": "https://www.faa.gov/newsroom/faa-notam-statement"
+            }
+          ]
+        },
+        {
+          "text": "FAA testimony on NOTAM corrective steps, Feb 2023",
+          "runs": [
+            {
+              "text": "FAA testimony on NOTAM corrective steps, Feb 2023",
+              "href": "https://www.faa.gov/testimony/written-statement-billy-nolen-acting-administrator-federal-aviation-administration"
+            }
+          ]
+        },
+        {
+          "text": "GAO: ATC Modernization, Sept 2026",
+          "runs": [
+            {
+              "text": "GAO: ATC Modernization, Sept 2026",
+              "href": "https://www.gao.gov/products/gao-26-107992"
+            }
+          ]
+        },
+        {
+          "text": "GAO: ATC systems and subsequent NOTAM backup, 2025",
+          "runs": [
+            {
+              "text": "GAO: ATC systems and subsequent NOTAM backup, 2025",
+              "href": "https://www.gao.gov/products/gao-25-108162"
+            }
+          ]
+        },
+        {
+          "text": "UK CAA: review of NATS 2023 failure",
+          "runs": [
+            {
+              "text": "UK CAA: review of NATS 2023 failure",
+              "href": "https://www.caa.co.uk/commercial-industry/airspace/air-traffic-management-and-air-navigational-services/air-navigation-services/nats-august-2023-failure-review/"
+            }
+          ]
+        },
+        {
+          "text": "CAA: closing 34 recommendations, June 2026",
+          "runs": [
+            {
+              "text": "CAA: closing 34 recommendations, June 2026",
+              "href": "https://www.caa.co.uk/publication/download/29104"
+            }
+          ]
+        },
+        {
+          "text": "NATS: Sept 2026 software incident findings",
+          "runs": [
+            {
+              "text": "NATS: Sept 2026 software incident findings",
+              "href": "https://www.nats.aero/news/nats-publishes-preliminary-report-on-technical-incident-of-8-september/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
