@@ -1,0 +1,246 @@
+{
+  "title": "Why Technical Work Still Matters in the Age of AI",
+  "summary": "An AI system may draft a pipeline, summarize a security alert or generate an initial chart. That does not mean it can reliably own the production system, verify its assumptions or bear responsibility when it fails. The distinction between task automation and occupation elimination explains much of the apparent employment paradox.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE",
+      "runs": [
+        {
+          "text": "YNK TECH INTELLIGENCE",
+          "href": "https://ynk-techusa.com/latest"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "RESEARCH & DATA INTELLIGENCE"
+    },
+    {
+      "type": "p",
+      "text": "ExplainerInsights & Perspectives · 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "A task-based view of automation, accountability and the jobs employers continue to advertise"
+    },
+    {
+      "type": "p",
+      "text": "English edition · ENFRES",
+      "runs": [
+        {
+          "text": "English edition · "
+        },
+        {
+          "text": "ENFRES",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Workers with some global GenAI exposure",
+          "~25%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Measure",
+          "Value"
+        ],
+        [
+          "High-income",
+          "31.0"
+        ],
+        [
+          "Low-income",
+          "12.5"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "Exposure is not displacement"
+    },
+    {
+      "type": "p",
+      "text": "The ILO finds that roughly one in four workers worldwide has some degree of occupational exposure to generative AI. Its analysis is based on detailed tasks, not a simple count of jobs that disappear. Exposure ranges around 30 to 32 percent of employment in high-income economies and 10 to 15 percent in low-income ones. The gap describes the composition of work and the digital divide, not immunity from automation."
+    },
+    {
+      "type": "p",
+      "text": "[R02] [R03]"
+    },
+    {
+      "type": "h2",
+      "text": "Why companies still need technical teams"
+    },
+    {
+      "type": "p",
+      "text": "Data pipelines have to ingest inconsistent source systems, handle privacy, recover from failures and produce trusted outputs. Cybersecurity requires incident judgment and security ownership. Industrial systems need field maintenance and safety sign-off. AI can accelerate some steps while increasing the amount of integration, validation and oversight needed elsewhere. The balance is empirical and can change rapidly."
+    },
+    {
+      "type": "p",
+      "text": "[R04]"
+    },
+    {
+      "type": "h2",
+      "text": "What would prove a real employment shift?"
+    },
+    {
+      "type": "p",
+      "text": "Monitor the percentage of job advertisements asking for systems integration, governance, testing, incident response and domain expertise. Compare those trends with AI-assisted coding and reporting tasks, while controlling for sector and seniority. A decline in routine vacancies together with growth in verification-heavy responsibilities would support a shift in work composition. It would not by itself prove that AI caused it."
+    },
+    {
+      "type": "p",
+      "text": "[R02] [R03]"
+    },
+    {
+      "type": "h2",
+      "text": "A critical warning for developing economies"
+    },
+    {
+      "type": "p",
+      "text": "The ILO warns that AI-related disruption may reach digitally connected jobs in poorer economies before much of the population can access the infrastructure needed to benefit from AI augmentation. Skills policies therefore cannot be evaluated without also measuring reliable connectivity, employer adoption and opportunities for formal employment."
+    },
+    {
+      "type": "p",
+      "text": "[R03]"
+    },
+    {
+      "type": "p",
+      "text": "Research questions",
+      "runs": [
+        {
+          "text": "Research questions",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Exposure is not displacement",
+        "Why companies still need technical teams",
+        "What would prove a real employment shift?",
+        "A critical warning for developing economies"
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Explore this research collection",
+      "runs": [
+        {
+          "text": "Explore this research collection",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Where Global Tech Hiring Is ShiftingMarket Intelligence20 Technical Positions to Watch Across Three RegionsOpportunity RadarGrowth Without Enough Formal Jobs: The DRC Employment LinkResearch StudyWho Is Hiring in the DRC, and What Is Still Missing?Hiring SignalsFrom Development Announcements to Congolese JobsDevelopment MonitorEngineering a Project-to-Paycheck Tracker for the DRCEngineering Lab",
+      "runs": [
+        {
+          "text": "Where Global Tech Hiring Is Shifting",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting",
+          "bold": true
+        },
+        {
+          "text": "Market Intelligence",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting"
+        },
+        {
+          "text": "20 Technical Positions to Watch Across Three Regions",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch",
+          "bold": true
+        },
+        {
+          "text": "Opportunity Radar",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch"
+        },
+        {
+          "text": "Growth Without Enough Formal Jobs: The DRC Employment Link",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs",
+          "bold": true
+        },
+        {
+          "text": "Research Study",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs"
+        },
+        {
+          "text": "Who Is Hiring in the DRC, and What Is Still Missing?",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc",
+          "bold": true
+        },
+        {
+          "text": "Hiring Signals",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc"
+        },
+        {
+          "text": "From Development Announcements to Congolese Jobs",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs",
+          "bold": true
+        },
+        {
+          "text": "Development Monitor",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs"
+        },
+        {
+          "text": "Engineering a Project-to-Paycheck Tracker for the DRC",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker",
+          "bold": true
+        },
+        {
+          "text": "Engineering Lab",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Sources and verification"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "ILO: Generative AI and jobs, May 2025",
+          "runs": [
+            {
+              "text": "ILO: Generative AI and jobs, May 2025",
+              "href": "https://www.ilo.org/publications/generative-ai-and-jobs-2025-update"
+            }
+          ]
+        },
+        {
+          "text": "ILO: Disruption without dividend?, March 2026",
+          "runs": [
+            {
+              "text": "ILO: Disruption without dividend?, March 2026",
+              "href": "https://www.ilo.org/publications/disruption-without-dividend-how-digital-divide-and-task-differences-split"
+            }
+          ]
+        },
+        {
+          "text": "OECD: Skills in the AI age, 2026",
+          "runs": [
+            {
+              "text": "OECD: Skills in the AI age, 2026",
+              "href": "https://www.oecd.org/en/publications/skills-in-the-ai-age_972bd15e-en/full-report/component-4.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech Intelligence · Research as of November 16, 2026 · Sources and methodological notes accompany each analysis."
+    }
+  ]
+}

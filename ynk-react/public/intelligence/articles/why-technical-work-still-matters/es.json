@@ -1,0 +1,246 @@
+{
+  "title": "Por qué el trabajo técnico sigue siendo importante en la era de la IA",
+  "summary": "Una IA puede redactar una canalización, resumir una alerta de seguridad o producir un gráfico inicial. Eso no significa que pueda operar con fiabilidad un sistema de producción, validar sus supuestos o responder por sus fallas. La diferencia entre automatizar tareas y eliminar ocupaciones explica parte de la paradoja.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE",
+      "runs": [
+        {
+          "text": "YNK TECH INTELLIGENCE",
+          "href": "https://ynk-techusa.com/latest"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "INVESTIGACIÓN Y DATOS"
+    },
+    {
+      "type": "p",
+      "text": "ExplicadorIdeas y perspectivas · 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "Una lectura por tareas de la automatización, la responsabilidad y los puestos que siguen demandándose"
+    },
+    {
+      "type": "p",
+      "text": "Edición española · ENFRES",
+      "runs": [
+        {
+          "text": "Edición española · "
+        },
+        {
+          "text": "ENFRES",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Trabajadores con exposición mundial",
+          "~25%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Measure",
+          "Value"
+        ],
+        [
+          "Renta alta",
+          "31.0"
+        ],
+        [
+          "Renta baja",
+          "12.5"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "Exposición no significa desaparición"
+    },
+    {
+      "type": "p",
+      "text": "La OIT estima que aproximadamente uno de cada cuatro trabajadores tiene algún grado de exposición a la IA generativa. Su análisis examina tareas concretas, no una cifra de empleos que desaparecerán. La exposición se sitúa cerca del 30 al 32 % del empleo en economías de renta alta y del 10 al 15 % en economías de renta baja. La diferencia refleja la estructura laboral y la brecha digital, no inmunidad frente a la automatización."
+    },
+    {
+      "type": "p",
+      "text": "[R02] [R03]"
+    },
+    {
+      "type": "h2",
+      "text": "Por qué las empresas siguen necesitando equipos técnicos"
+    },
+    {
+      "type": "p",
+      "text": "Las canalizaciones de datos deben integrar fuentes inconsistentes, proteger información, recuperarse de fallas y ofrecer resultados confiables. La ciberseguridad requiere criterio ante incidentes. Los sistemas industriales exigen mantenimiento y validación de seguridad. La IA acelera tareas, pero también puede aumentar la integración y la supervisión. El resultado debe medirse porque puede cambiar con rapidez."
+    },
+    {
+      "type": "p",
+      "text": "[R04]"
+    },
+    {
+      "type": "h2",
+      "text": "¿Cómo demostrar un cambio real del empleo?"
+    },
+    {
+      "type": "p",
+      "text": "Hay que seguir el porcentaje de vacantes que exige integración, gobernanza, pruebas, respuesta a incidentes y conocimiento sectorial. Comparemos estas tendencias con tareas de programación e informes asistidos por IA, controlando industria y experiencia. Menos vacantes rutinarias y más responsabilidades de verificación apoyarían una recomposición, sin demostrar por sí solas que la IA la causó."
+    },
+    {
+      "type": "p",
+      "text": "[R02] [R03]"
+    },
+    {
+      "type": "h2",
+      "text": "Una advertencia para las economías en desarrollo"
+    },
+    {
+      "type": "p",
+      "text": "La OIT advierte que la disrupción vinculada a la IA puede llegar a los empleos conectados de los países más pobres antes de que gran parte de la población disponga de infraestructura para aprovecharla. La capacitación debe evaluarse junto con la conectividad, la adopción empresarial y el acceso al empleo formal."
+    },
+    {
+      "type": "p",
+      "text": "[R03]"
+    },
+    {
+      "type": "p",
+      "text": "Preguntas de investigación",
+      "runs": [
+        {
+          "text": "Preguntas de investigación",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Exposición no significa desaparición",
+        "Por qué las empresas siguen necesitando equipos técnicos",
+        "¿Cómo demostrar un cambio real del empleo?",
+        "Una advertencia para las economías en desarrollo"
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Explorar esta colección de investigación",
+      "runs": [
+        {
+          "text": "Explorar esta colección de investigación",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Hacia dónde se desplaza la contratación tecnológica mundialInteligencia de mercado20 puestos técnicos para seguir en tres regionesRadar de oportunidadesCrecimiento sin suficientes empleos formales: el caso de la RDCEstudio de investigación¿Quién contrata en la RDC y qué funciones siguen siendo poco visibles?Señales de contrataciónDe anuncios de desarrollo a empleos congoleñosMonitor de desarrolloDiseñar un seguimiento de proyectos hasta empleos en la RDCLaboratorio de ingeniería",
+      "runs": [
+        {
+          "text": "Hacia dónde se desplaza la contratación tecnológica mundial",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting",
+          "bold": true
+        },
+        {
+          "text": "Inteligencia de mercado",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting"
+        },
+        {
+          "text": "20 puestos técnicos para seguir en tres regiones",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch",
+          "bold": true
+        },
+        {
+          "text": "Radar de oportunidades",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch"
+        },
+        {
+          "text": "Crecimiento sin suficientes empleos formales: el caso de la RDC",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs",
+          "bold": true
+        },
+        {
+          "text": "Estudio de investigación",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs"
+        },
+        {
+          "text": "¿Quién contrata en la RDC y qué funciones siguen siendo poco visibles?",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc",
+          "bold": true
+        },
+        {
+          "text": "Señales de contratación",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc"
+        },
+        {
+          "text": "De anuncios de desarrollo a empleos congoleños",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs",
+          "bold": true
+        },
+        {
+          "text": "Monitor de desarrollo",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs"
+        },
+        {
+          "text": "Diseñar un seguimiento de proyectos hasta empleos en la RDC",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker",
+          "bold": true
+        },
+        {
+          "text": "Laboratorio de ingeniería",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Fuentes y verificación"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "ILO: Generative AI and jobs, May 2025",
+          "runs": [
+            {
+              "text": "ILO: Generative AI and jobs, May 2025",
+              "href": "https://www.ilo.org/publications/generative-ai-and-jobs-2025-update"
+            }
+          ]
+        },
+        {
+          "text": "ILO: Disruption without dividend?, March 2026",
+          "runs": [
+            {
+              "text": "ILO: Disruption without dividend?, March 2026",
+              "href": "https://www.ilo.org/publications/disruption-without-dividend-how-digital-divide-and-task-differences-split"
+            }
+          ]
+        },
+        {
+          "text": "OECD: Skills in the AI age, 2026",
+          "runs": [
+            {
+              "text": "OECD: Skills in the AI age, 2026",
+              "href": "https://www.oecd.org/en/publications/skills-in-the-ai-age_972bd15e-en/full-report/component-4.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech Intelligence · Investigación al 16 de noviembre de 2026 · Fuentes y metodología incluidas."
+    }
+  ]
+}
