@@ -1,0 +1,237 @@
+{
+  "title": "Growth Without Enough Formal Jobs: The DRC Employment Link",
+  "summary": "The mining sector accounts for a substantial share of Congolese output but a small share of total employment. That mismatch does not itself prove policy failure. It does raise a specific economic question: through which mechanisms can investment in highly capital-intensive sectors generate wider, formal and sustainable employment?",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE",
+      "runs": [
+        {
+          "text": "YNK TECH INTELLIGENCE",
+          "href": "https://ynk-techusa.com/latest"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "RESEARCH & DATA INTELLIGENCE"
+    },
+    {
+      "type": "p",
+      "text": "Research StudyResearch & Studies · 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "An evidence-led diagnostic study of output, employment and structural constraints"
+    },
+    {
+      "type": "p",
+      "text": "English edition · ENFRES",
+      "runs": [
+        {
+          "text": "English edition · "
+        },
+        {
+          "text": "ENFRES",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Estimated informal employment",
+          "~90%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Measure",
+          "Value"
+        ],
+        [
+          "GDP",
+          "36.6"
+        ],
+        [
+          "Employment",
+          "2.5"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "Research question and observational design"
+    },
+    {
+      "type": "p",
+      "text": "Question: does expansion in capital-intensive production translate into domestic formal employment, and which enabling conditions explain differences across projects? Unit of analysis: a funded project in a specified year and province, with separately counted direct technical workers, construction jobs, supplier jobs and retained roles. Baseline: World Bank economic update and administrative employment sources. Distinguish observed associations from verified causal effects."
+    },
+    {
+      "type": "p",
+      "text": "[R01]"
+    },
+    {
+      "type": "h2",
+      "text": "Measured imbalance"
+    },
+    {
+      "type": "p",
+      "text": "The October 2026 World Bank DRC Economic Update places mining at approximately 36.6 percent of GDP but 2.5 percent of total employment; informal employment is around 90 percent economy-wide. GDP composition, employment composition and informality have different denominators, so they must not be treated as directly interchangeable. They still indicate that high output alone is insufficient evidence of broad paid job creation."
+    },
+    {
+      "type": "p",
+      "text": "[R01]"
+    },
+    {
+      "type": "h2",
+      "text": "Three mechanisms to investigate"
+    },
+    {
+      "type": "p",
+      "text": "First, value-chain depth: are equipment maintenance, software, logistics and data services purchased locally or imported? Second, firm growth: can domestic suppliers access finance, infrastructure, procurement and skilled staff? Third, project maturity: are construction positions confused with permanent operations roles? Testing these mechanisms requires procurement files, contractor payroll, supplier registration and retention data, ideally compared against similar projects."
+    },
+    {
+      "type": "p",
+      "text": "[R01] [R09]"
+    },
+    {
+      "type": "h2",
+      "text": "Findings, uncertainty and the next test"
+    },
+    {
+      "type": "p",
+      "text": "Current evidence supports a structural output-employment gap, not a quantified attribution to any one reform or actor. A future panel can test whether projects with verified local supplier commitments generate more domestic technical FTE-years per $1 million disbursed than otherwise comparable projects. The model needs pre-intervention trends, funding delays and security conditions to avoid treating correlation as causation."
+    },
+    {
+      "type": "p",
+      "text": "[R01] [R09]"
+    },
+    {
+      "type": "p",
+      "text": "Research questions",
+      "runs": [
+        {
+          "text": "Research questions",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Research question and observational design",
+        "Measured imbalance",
+        "Three mechanisms to investigate",
+        "Findings, uncertainty and the next test"
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Explore this research collection",
+      "runs": [
+        {
+          "text": "Explore this research collection",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Why Technical Work Still Matters in the Age of AIExplainerWhere Global Tech Hiring Is ShiftingMarket Intelligence20 Technical Positions to Watch Across Three RegionsOpportunity RadarWho Is Hiring in the DRC, and What Is Still Missing?Hiring SignalsFrom Development Announcements to Congolese JobsDevelopment MonitorEngineering a Project-to-Paycheck Tracker for the DRCEngineering Lab",
+      "runs": [
+        {
+          "text": "Why Technical Work Still Matters in the Age of AI",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters",
+          "bold": true
+        },
+        {
+          "text": "Explainer",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters"
+        },
+        {
+          "text": "Where Global Tech Hiring Is Shifting",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting",
+          "bold": true
+        },
+        {
+          "text": "Market Intelligence",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting"
+        },
+        {
+          "text": "20 Technical Positions to Watch Across Three Regions",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch",
+          "bold": true
+        },
+        {
+          "text": "Opportunity Radar",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch"
+        },
+        {
+          "text": "Who Is Hiring in the DRC, and What Is Still Missing?",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc",
+          "bold": true
+        },
+        {
+          "text": "Hiring Signals",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc"
+        },
+        {
+          "text": "From Development Announcements to Congolese Jobs",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs",
+          "bold": true
+        },
+        {
+          "text": "Development Monitor",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs"
+        },
+        {
+          "text": "Engineering a Project-to-Paycheck Tracker for the DRC",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker",
+          "bold": true
+        },
+        {
+          "text": "Engineering Lab",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Sources and verification"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "World Bank: DRC Economic Update, October 2026",
+          "runs": [
+            {
+              "text": "World Bank: DRC Economic Update, October 2026",
+              "href": "https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099102826135511180"
+            }
+          ]
+        },
+        {
+          "text": "World Bank DRC country programs and project portfolio, 2026",
+          "runs": [
+            {
+              "text": "World Bank DRC country programs and project portfolio, 2026",
+              "href": "https://www.worldbank.org/ext/en/country/drc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech Intelligence · Research as of November 16, 2026 · Sources and methodological notes accompany each analysis."
+    }
+  ]
+}
