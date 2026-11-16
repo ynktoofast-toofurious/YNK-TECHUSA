@@ -141,7 +141,7 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  var TABS = [['review', 'To review'], ['published', 'Published'], ['bookings', 'Bookings'], ['full', 'Full access'], ['tickets', 'Idea tickets'], ['questions', 'Questions'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
+  var TABS = [['schedule', 'Publication Schedule'], ['review', 'To review'], ['published', 'Published'], ['bookings', 'Bookings'], ['full', 'Full access'], ['tickets', 'Idea tickets'], ['questions', 'Questions'], ['rejected', 'Backlog'], ['ops', 'Operations'], ['topics', 'Topic ideas'], ['requests', 'Access requests']];
   var state = { tab: 'review', data: null, preview: null, lang: 'en', live: null, ops: null, opsTab: 'Opportunity_Registry', opsShowDone: false, opsOpen: {}, questions: null, qOnlyOpen: false, tickets: null, bookings: null };
   var main = document.getElementById('main');
   var bar = document.getElementById('bar');
@@ -207,6 +207,7 @@
     state.questions = null;
     state.tickets = null;
     state.bookings = null;
+    state.schedule = null;
     state.opsError = '';
     set(bar, []);
     set(main, [h('p', { class: 'loading', text: 'Loading...' })]);
@@ -260,6 +261,10 @@
     }));
 
     var items;
+    if (state.tab === 'schedule') {
+      set(main, [tabs].concat(lazyView('schedule', 'adminPublicationSchedule', 'Loading publication schedule...', scheduleView)));
+      return;
+    }
     if (state.tab === 'topics') {
       set(main, [tabs].concat(topicsView(d.topics)));
       return;
@@ -801,7 +806,7 @@
     window.scrollTo(0, 0);
     set(bar, []);
     set(main, [backButton(), h('h2', { text: a.title }), h('p', { class: 'loading', text: 'Preparing preview from Google Drive...' })]);
-    call('adminPreview', [a.id]).then(function (p) {
+    call(a.scheduled ? 'adminSchedulePreview' : 'adminPreview', [a.id]).then(function (p) {
       if (!state.preview || state.preview.article.id !== a.id) return;
       state.preview.data = p;
       renderPreview();
@@ -812,6 +817,48 @@
 
   function backButton() {
     return h('button', { class: 'btn ghost back', type: 'button', text: 'Back to list', onclick: function () { state.preview = null; render(); } });
+  }
+
+  function scheduleView(d) {
+    function save(fn, args, button) {
+      call(fn, args, button).then(function (next) { state.schedule = next; render(); }).catch(function () {});
+    }
+    var nodes = [h('p', { class: 'note', text: d.registered + '/7 registered in Editorial Queue. Times use America/Chicago. Releases run on the existing 15-minute trigger, after readiness checks and at least three hours after the previous release. Semantic translations, citations and original image ownership require editorial approval in the queue.' }),
+      h('button', { class: 'btn', type: 'button', text: d.paused ? 'Resume scheduled publishing' : 'Pause scheduled publishing', onclick: function (e) { save('adminPausePublicationSchedule', [!d.paused], e.currentTarget); } })];
+    var selections = [];
+    d.slots.forEach(function (slot) {
+      var a = slot.article;
+      var card = h('article', { class: 'card req' }, [h('h3', { text: a ? a.title : 'Slot ' + slot.slot + ': unregistered' }),
+        h('p', { text: slot.central + ' | ' + slot.status }),
+        h('p', { class: 'meta', text: a ? 'Category: ' + (slot.category || 'analysis') + ' | ' + ['en', 'fr', 'es'].map(function (l) { return l.toUpperCase() + ': ' + (a.docs[l] ? 'source present' : 'missing'); }).join(' | ') : 'Article sources and illustrations missing' })]);
+      if (a) {
+        var preview = h('div', {});
+        card.appendChild(preview);
+        card.appendChild(h('p', { class: 'meta', text: slot.illustrationStatus }));
+        var check = h('button', { class: 'btn', text: 'Preview and check illustrations', onclick: function (e) {
+          call('adminSchedulePreview', [a.id], e.currentTarget).then(function (p) {
+            set(preview, [p.hero && p.hero.src ? h('img', { src: p.hero.src, alt: p.hero.alt.en, style: 'max-width:220px;border-radius:10px' }) : h('p', { text: 'Cover image missing' }), h('p', { class: p.readinessError ? 'note err' : 'note', text: p.readinessError || 'EN/FR/ES, citations and three original illustrations passed structural checks.' })]);
+          }).catch(function () {});
+        } });
+        card.appendChild(check);
+        check.click();
+        card.appendChild(h('button', { class: 'btn', text: 'Read article', onclick: function () { openPreview(a); } }));
+        card.appendChild(h('button', { class: 'btn', text: 'Reschedule', onclick: function (e) {
+          var button = e.currentTarget;
+          var input = h('input', { type: 'text', value: slot.scheduledAt, 'aria-label': 'Publication time with UTC offset', style: 'width:100%;padding:10px' });
+          ask('Reschedule publication', [h('p', { text: 'Enter ISO 8601 with UTC offset. Example: 2026-11-17T12:00:00-06:00. Minimum gap: three hours.' }), input], 'Save').then(function (ok) { if (ok) save('adminReschedulePublication', [a.id, input.value], button); });
+        } }));
+        card.appendChild(h('button', { class: 'btn', text: 'Review errors', onclick: function () {
+          ask('Publishing errors', [h('p', { text: a.error || 'No saved bridge error. Preview and check illustrations to run current readiness checks.' }), a.prUrl ? h('a', { href: a.prUrl, target: '_blank', rel: 'noopener', text: 'Review publishing pull request' }) : null], 'Close');
+        } }));
+      } else {
+        var select = h('select', { 'aria-label': 'Article for slot ' + slot.slot }, [h('option', { value: '', text: 'Select an existing queue article' })].concat(d.candidates.map(function (c) { return h('option', { value: c.id, text: c.title || c.id }); })));
+        selections.push(select); card.appendChild(select);
+      }
+      nodes.push(card);
+    });
+    if (!d.registered) nodes.push(h('button', { class: 'btn primary', text: 'Register seven articles (paused)', onclick: function (e) { save('adminRegisterPublicationSchedule', [selections.map(function (s) { return s.value; })], e.currentTarget); } }));
+    return nodes;
   }
 
   function renderPreview() {

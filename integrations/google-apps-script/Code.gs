@@ -62,6 +62,9 @@ const QUEUE_COLS = {
   prUrl: ['pr_url'],
   syncHash: ['last_sync_hash'],
   error: ['last_error'],
+  scheduledAt: ['scheduled_publication_at'],
+  scheduleSlot: ['publication_schedule_slot'],
+  publishedAt: ['published_at'],
 }
 
 const ASSET_COLS = {
@@ -119,6 +122,7 @@ function syncApprovedArticles() {
     queue.rows.forEach((row) => {
       const id = str_(row.get('articleId'))
       const approval = str_(row.get('approval'))
+      if (scheduleGate_(row, Date.now())) return
       if (approval.toUpperCase() !== APPROVED) { Logger.log('%s: skipped (approval_status = %s)', id, approval || 'empty'); return }
       if (str_(row.get('syncState')).toUpperCase() === SYNC.prOpen) { Logger.log('%s: skipped (pull request already open)', id); return }
       try {
@@ -133,6 +137,15 @@ function syncApprovedArticles() {
         }
         const built = buildArticle_(row, assets, linksTable.rows)
         if (built.hash === str_(row.get('syncHash'))) { Logger.log('%s: unchanged since last sync', id); return }
+        // A scheduled release gets its own PR so merging cannot release another slot early.
+        if (row.get('scheduledAt') || row.get('scheduleSlot')) {
+          const pr = openPullRequest_(token, built.files, [{ row, built }])
+          queue.set(row, 'syncState', SYNC.prOpen)
+          queue.set(row, 'prUrl', pr.html_url)
+          queue.set(row, 'syncHash', built.hash)
+          queue.set(row, 'error', '')
+          return
+        }
         Object.assign(files, built.files)
         batch.push({ row, built })
       } catch (e) {
@@ -228,9 +241,9 @@ function buildArticle_(row, assets, imageLinks, opts) {
 
   const rawType = str_(row.get('type')).toLowerCase()
   const type = TYPES.indexOf(rawType) >= 0 ? rawType : 'analysis'
-  const rawDate = row.get('date')
+  const rawDate = row.get('scheduledAt') || row.get('date')
   const parsedDate = rawDate instanceof Date ? rawDate : (str_(rawDate) ? new Date(str_(rawDate)) : new Date())
-  const date = Utilities.formatDate(isNaN(parsedDate) ? new Date() : parsedDate, sheetTz_(), 'yyyy-MM-dd')
+  const date = Utilities.formatDate(isNaN(parsedDate) ? new Date() : parsedDate, row.get('scheduledAt') ? 'America/Chicago' : sheetTz_(), 'yyyy-MM-dd')
   const tags = str_(row.get('tags')).split(',').map((t) => clean_(t, counter)).filter(Boolean).slice(0, 6)
   const sources = str_(row.get('sources')).split(/[\s,]+/).filter((u) => /^https:\/\/\S+$/i.test(u))
 
@@ -264,7 +277,9 @@ function buildArticle_(row, assets, imageLinks, opts) {
   LANGS.forEach(([lang]) => { files[`articles/${slug}/${lang}.json`] = json64_(editions[lang]) })
 
   const hash = sha256_(Object.keys(files).sort().map((k) => k + files[k]).join('|'))
-  return { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(hero), editions, meta, hero, imageError, images: ctx.images, warnings: ctx.warnings }
+  const built = { slug, articleId, files, hash, fixes: counter.fixes, hasImage: Boolean(hero), editions, meta, hero, imageError, images: ctx.images, warnings: ctx.warnings }
+  if ((row.get('scheduledAt') || row.get('scheduleSlot')) && !(opts && opts.preview)) scheduledReadiness_(row, built, assets, imageLinks)
+  return built
 }
 
 // Google Docs can still be previewed (to switch them), but only HTML files are published.
@@ -666,7 +681,7 @@ function openPullRequest_(token, files, batch) {
   const slugs = batch.map((b) => b.built.slug)
   const message = `Intelligence: publish ${slugs.join(', ')}`
   const commitSha = gh_(token, 'POST', '/git/commits', { message, tree: treeSha, parents: [baseSha] }).sha
-  const branch = `intelligence/sync-${Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd-HHmmss')}`
+  const branch = `intelligence/sync-${Utilities.formatDate(new Date(), 'UTC', 'yyyyMMdd-HHmmss')}-${Utilities.getUuid().slice(0, 8)}`
   gh_(token, 'POST', '/git/refs', { ref: `refs/heads/${branch}`, sha: commitSha })
 
   const lines = batch.map(({ built }) =>
