@@ -1,0 +1,562 @@
+{
+  "title": "L’équation budgétaire des GLP-1",
+  "summary": "Un employeur peut négocier un prix inférieur tout en dépensant davantage au total. Le budget dépend du nombre de bénéficiaires traités et des mois de traitement remboursés. Cette analyse distingue observations du marché, preuves cliniques et modèle reproductible des dépenses pharmaceutiques.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Pourquoi une baisse des prix peut accroître les dépenses pharmaceutiques des employeurs"
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech · Research & StudiesSources vérifiées le 17 novembre 2026"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Nature",
+          "Valeur",
+          "Signification"
+        ],
+        [
+          "Observé",
+          "18%",
+          "des entreprises de 200 salariés ou plus proposant une assurance santé couvrent cet usage"
+        ],
+        [
+          "Modèle illustratif",
+          "33,3%",
+          "de mois supplémentaires à budget constant après une baisse du prix de 25 %"
+        ],
+        [
+          "Modèle illustratif",
+          "+25%",
+          "de dépenses pharmaceutiques dans le scénario d’expansion ; illustration"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "1. Ce que montrent les données"
+    },
+    {
+      "type": "p",
+      "text": "Les remboursements des régimes d’employeurs montrent un usage croissant. Ces groupes comprennent toutes les indications des GLP-1 ; leurs écarts ne démontrent pas un effet causal de la couverture pour la perte de poids."
+    },
+    {
+      "type": "p",
+      "text": "Observé"
+    },
+    {
+      "type": "h3",
+      "text": "Jours de GLP-1 délivrés pour 1 000 bénéficiaires"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-c19bcb5d1041.png",
+      "alt": "Jours de GLP-1 délivrés pour 1 000 bénéficiaires",
+      "caption": "Deux dates mensuelles. Source : JAMA Health Forum. [2] Graphique original : YNK Tech ; produit à partir des données citées.",
+      "href": "https://jamanetwork.com/journals/jama-health-forum/fullarticle/2850470"
+    },
+    {
+      "type": "p",
+      "text": "Voir les données"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "",
+          "2021-01",
+          "2024-12"
+        ],
+        [
+          "Couverture perte de poids",
+          "128,2",
+          "1 260,0"
+        ],
+        [
+          "Sans cette couverture",
+          "121,5",
+          "766,8"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "La couverture pour la perte de poids varie selon la taille de l’employeur. Les pourcentages portent sur les entreprises proposant une assurance santé, selon leur principal régime, pas sur les bénéficiaires. [1]",
+      "runs": [
+        {
+          "text": "La couverture pour la perte de poids varie selon la taille de l’employeur. Les pourcentages portent sur les entreprises proposant une assurance santé, selon leur principal régime, pas sur les bénéficiaires. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Observé"
+    },
+    {
+      "type": "h3",
+      "text": "Entreprises couvrant les GLP-1 pour la perte de poids"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-3f35d45826f8.png",
+      "alt": "Entreprises couvrant les GLP-1 pour la perte de poids",
+      "caption": "KFF, 2026. Taille de l’entreprise exprimée en salariés. [1] Graphique original : YNK Tech ; produit à partir des données citées.",
+      "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Taille de l’employeur",
+          "Couverture"
+        ],
+        [
+          "200–999 salariés",
+          "16%"
+        ],
+        [
+          "1 000–4 999 salariés",
+          "29%"
+        ],
+        [
+          "5 000+ salariés",
+          "33%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "2. Trois facteurs déterminent la facture pharmaceutique"
+    },
+    {
+      "type": "p",
+      "text": "Coût pharmaceutique annuel = bénéficiaires traités × mois remboursés par bénéficiaire traité × coût net du régime par mois remboursé"
+    },
+    {
+      "type": "p",
+      "text": "Les bénéficiaires traités sont les personnes distinctes ayant un traitement remboursé durant l’année budgétaire. Les mois remboursés reflètent l’exposition durant cette année, y compris les dates de début et les interruptions. Ils ne mesurent pas l’observance clinique.",
+      "runs": [
+        {
+          "text": "Les "
+        },
+        {
+          "text": "bénéficiaires traités",
+          "bold": true
+        },
+        {
+          "text": " sont les personnes distinctes ayant un traitement remboursé durant l’année budgétaire. Les "
+        },
+        {
+          "text": "mois remboursés",
+          "bold": true
+        },
+        {
+          "text": " reflètent l’exposition durant cette année, y compris les dates de début et les interruptions. Ils ne mesurent pas l’observance clinique."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Le coût net du régime est le coût des médicaments payé après remises attribuables, hors participation du patient. Prix catalogue, offres de paiement direct et coût net du régime correspondent à des transactions différentes. Une méthode d’affectation cohérente est nécessaire.",
+      "runs": [
+        {
+          "text": "Le "
+        },
+        {
+          "text": "coût net du régime",
+          "bold": true
+        },
+        {
+          "text": " est le coût des médicaments payé après remises attribuables, hors participation du patient. Prix catalogue, offres de paiement direct et coût net du régime correspondent à des transactions différentes. Une méthode d’affectation cohérente est nécessaire."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Ce modèle fixe les effectifs couverts, la répartition des produits et les garanties. Frais de programme, économies médicales et productivité sont des composantes distinctes d’un budget complet."
+    },
+    {
+      "type": "h2",
+      "text": "3. Une baisse du prix, trois résultats budgétaires"
+    },
+    {
+      "type": "p",
+      "text": "Chaque paramètre est une hypothèse, pas un résultat observé ni une offre tarifaire. Les effectifs couverts restent à 10 000 bénéficiaires sur 12 mois."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Scénario",
+          "Bénéficiaires traités",
+          "Mois par bénéficiaire traité",
+          "Coût mensuel net",
+          "Coût pharmaceutique annuel",
+          "PMPM",
+          "Variation"
+        ],
+        [
+          "Référence",
+          "200",
+          "9",
+          "600 $",
+          "1 080 000 $",
+          "9,00 $",
+          "0%"
+        ],
+        [
+          "Prix seul",
+          "200",
+          "9",
+          "450 $",
+          "810 000 $",
+          "6,75 $",
+          "-25%"
+        ],
+        [
+          "Plus de bénéficiaires",
+          "300",
+          "9",
+          "450 $",
+          "1 215 000 $",
+          "10,12 $",
+          "+12,5%"
+        ],
+        [
+          "Bénéficiaires + mois",
+          "300",
+          "10",
+          "450 $",
+          "1 350 000 $",
+          "11,25 $",
+          "+25%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Modèle illustratif"
+    },
+    {
+      "type": "h3",
+      "text": "Une baisse du prix de 25 % peut devenir une hausse des dépenses de 25 %"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-879f0ae2be69.png",
+      "alt": "Une baisse du prix de 25 % peut devenir une hausse des dépenses de 25 %",
+      "caption": "Décomposition séquentielle : prix, puis bénéficiaires traités, puis mois. La répartition dépend de cet ordre ; le total reste identique. Graphique original : YNK Tech ; produit à partir des données citées."
+    },
+    {
+      "type": "p",
+      "text": "À utilisation constante, la baisse du prix réduit la dépense annuelle de 1,08 million à 810 000 dollars. Si le nombre de bénéficiaires traités augmente de 50 %, elle atteint 1,215 million, soit 12,5 % au-dessus de la référence. Passer de neuf à dix mois remboursés en moyenne la porte à 1,35 million, soit 25 % de plus.",
+      "runs": [
+        {
+          "text": "À utilisation constante, la baisse du prix réduit la dépense annuelle de "
+        },
+        {
+          "text": "1,08 million à 810 000 dollars",
+          "bold": true
+        },
+        {
+          "text": ". Si le nombre de bénéficiaires traités augmente de 50 %, elle atteint "
+        },
+        {
+          "text": "1,215 million",
+          "bold": true
+        },
+        {
+          "text": ", soit "
+        },
+        {
+          "text": "12,5 % au-dessus de la référence",
+          "bold": true
+        },
+        {
+          "text": ". Passer de neuf à dix mois remboursés en moyenne la porte à "
+        },
+        {
+          "text": "1,35 million",
+          "bold": true
+        },
+        {
+          "text": ", soit "
+        },
+        {
+          "text": "25 % de plus",
+          "bold": true
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Un traitement prolongé peut favoriser les bénéfices cliniques. Son effet budgétaire doit être mesuré avec les résultats de santé. Ces scénarios ne prédisent pas la réaction de l’utilisation à un prix inférieur."
+    },
+    {
+      "type": "h2",
+      "text": "4. La limite de la négociation tarifaire"
+    },
+    {
+      "type": "p",
+      "text": "Une baisse du prix de 25 % finance 33,3 % de mois de traitement supplémentaires à budget pharmaceutique constant : 1 ÷ 0,75 − 1. Le scénario d’expansion fait passer ces mois de 1 800 à 3 000, soit une hausse de 66,7 %.",
+      "runs": [
+        {
+          "text": "Une "
+        },
+        {
+          "text": "baisse du prix de 25 %",
+          "bold": true
+        },
+        {
+          "text": " finance "
+        },
+        {
+          "text": "33,3 % de mois de traitement supplémentaires",
+          "bold": true
+        },
+        {
+          "text": " à budget pharmaceutique constant : 1 ÷ 0,75 − 1. Le scénario d’expansion fait passer ces mois de 1 800 à 3 000, soit une hausse de 66,7 %."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Pour 300 bénéficiaires traités pendant dix mois, un prix net mensuel de 360 dollars préserve le budget initial de 1,08 million. C’est une baisse de 40 % par rapport aux 600 dollars supposés. Ce seuil est calculé ; ce n’est ni une référence de marché ni un objectif contractuel.",
+      "runs": [
+        {
+          "text": "Pour 300 bénéficiaires traités pendant dix mois, un "
+        },
+        {
+          "text": "prix net mensuel de 360 dollars",
+          "bold": true
+        },
+        {
+          "text": " préserve le budget initial de 1,08 million. C’est une "
+        },
+        {
+          "text": "baisse de 40 %",
+          "bold": true
+        },
+        {
+          "text": " par rapport aux 600 dollars supposés. Ce seuil est calculé ; ce n’est ni une référence de marché ni un objectif contractuel."
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "5. Bénéfice clinique et équilibre financier sont des résultats distincts"
+    },
+    {
+      "type": "p",
+      "text": "SELECT observe 6,5 % contre 8,0 % d’événements cardiovasculaires sur 39,8 mois moyens. Les participants présentaient une maladie cardiovasculaire et un surpoids ou une obésité, sans diabète. Novo Nordisk finançait l’essai randomisé. [5]",
+      "runs": [
+        {
+          "text": "SELECT observe 6,5 % contre 8,0 % d’événements cardiovasculaires sur 39,8 mois moyens. Les participants présentaient une maladie cardiovasculaire et un surpoids ou une obésité, sans diabète. Novo Nordisk finançait l’essai randomisé. "
+        },
+        {
+          "text": "[5]",
+          "href": "https://www.nejm.org/doi/full/10.1056/NEJMoa2307563"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "CVS rapporte moins de dépenses médicales mais des coûts totaux supérieurs chez des assurés Aetna appariés. Son seuil proche de 350 dollars mensuels dépend du modèle. Échantillons distincts et confusion résiduelle limitent l’interprétation. Livre blanc sectoriel. [3]",
+      "runs": [
+        {
+          "text": "CVS rapporte moins de dépenses médicales mais des coûts totaux supérieurs chez des assurés Aetna appariés. Son seuil proche de 350 dollars mensuels dépend du modèle. Échantillons distincts et confusion résiduelle limitent l’interprétation. Livre blanc sectoriel. "
+        },
+        {
+          "text": "[3]",
+          "href": "https://www.cvshealth.com/content/dam/enterprise/cvs-enterprise/pdfs/2026/GLP1_Whitepaper.pdf"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Le résumé d’un document de travail NBER ne trouve pas de compensation médicale globale sur cinq ans ; les estimations du sémaglutide diffèrent. Résumé d’octobre 2026 consulté ; méthodes complètes indisponibles. [4]",
+      "runs": [
+        {
+          "text": "Le résumé d’un document de travail NBER ne trouve pas de compensation médicale globale sur cinq ans ; les estimations du sémaglutide diffèrent. Résumé d’octobre 2026 consulté ; méthodes complètes indisponibles. "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.nber.org/papers/w34678"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Ces travaux utilisent des populations et méthodes différentes. Ils ne fournissent pas une hypothèse universelle d’économies médicales. L’efficacité clinique ne suffit pas à établir le rapport coût-efficacité ou les économies de l’employeur."
+    },
+    {
+      "type": "p",
+      "text": "L’expansion ajoute 270 000 dollars de dépenses pharmaceutiques, soit 2,25 dollars par bénéficiaire et par mois. À autres coûts constants, une réduction médicale supplémentaire équivalente serait nécessaire pour maintenir le coût total au niveau de référence. Il s’agit d’un seuil d’équilibre, pas d’une économie estimée.",
+      "runs": [
+        {
+          "text": "L’expansion ajoute "
+        },
+        {
+          "text": "270 000 dollars de dépenses pharmaceutiques",
+          "bold": true
+        },
+        {
+          "text": ", soit "
+        },
+        {
+          "text": "2,25 dollars par bénéficiaire et par mois",
+          "bold": true
+        },
+        {
+          "text": ". À autres coûts constants, une réduction médicale supplémentaire équivalente serait nécessaire pour maintenir le coût total au niveau de référence. Il s’agit d’un seuil d’équilibre, pas d’une économie estimée."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Les compensations médicales sont exclues pour rendre visible le mécanisme pharmaceutique. Cela ne signifie pas que les bénéfices médicaux sont absents. Productivité, qualité de vie et valeur sociale dépassent ce modèle."
+    },
+    {
+      "type": "h2",
+      "text": "6. Tester le mécanisme avec les remboursements réels"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Quand",
+          "Mesure",
+          "Objectif"
+        ],
+        [
+          "30 premiers jours",
+          "Référence des 12 mois précédents ; effectifs, indications, produits et remises à recevoir",
+          "Établir un point de départ cohérent ; 30 jours constituent un délai de préparation proposé"
+        ],
+        [
+          "Chaque mois",
+          "Coût net par mois standardisé ; utilisateurs distincts ; mois par utilisateur ; PMPM pharmaceutique",
+          "Séparer prix, participation et durée ; comparer aux hypothèses budgétaires approuvées"
+        ],
+        [
+          "Chaque trimestre",
+          "Remises estimées et reçues ; annulations ; frais de programme ; changements de garanties",
+          "Réconcilier trésorerie et affectation des coûts ; expliquer les écarts restants"
+        ],
+        [
+          "12 à 36 mois",
+          "Dépenses médicales ajustées du risque et résultats cliniques face à un comparateur apparié",
+          "Évaluer les compensations émergentes ; la durée seule ne démontre pas la causalité"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Normaliser les délivrances de 28 et 30 jours. Retirer les annulations et les jours remboursés qui se chevauchent ; respecter l’affiliation. Séparer indications et produits. Compter chaque remise une fois. Les jours remboursés ne prouvent pas la prise. Calendrier proposé, pas une prévision."
+    },
+    {
+      "type": "p",
+      "text": "Le constat diagnostique : des prix unitaires inférieurs améliorent l’accessibilité financière, tandis que la dépense totale dépend du volume de traitement. L’évaluation doit distinguer prix, mois remboursés, coût total et résultats cliniques."
+    },
+    {
+      "type": "p",
+      "text": "Méthodes et limites"
+    },
+    {
+      "type": "p",
+      "text": "Synthèse diagnostique avec un modèle déterministe de sensibilité sur un an, sans probabilités attribuées aux scénarios. Aucune donnée individuelle de patient ou de client utilisée. Effectifs maintenus à 10 000 sur 12 mois. Les coûts exclus ne sont pas supposés nuls dans la réalité. Enquêtes, associations observationnelles, essais et seuils modélisés restent distincts. Sources et limites d’accès sont documentées dans le dossier."
+    },
+    {
+      "type": "h2",
+      "text": "Sources"
+    },
+    {
+      "type": "p",
+      "text": "Sources primaires vérifiées le 17 novembre 2026. Populations et dates de publication différentes."
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "2026 Employer Health Benefits Survey2026 · Primary employer survey · GLP-1 coverage; Figures 12.12-12.13",
+          "runs": [
+            {
+              "text": "2026 Employer Health Benefits Survey",
+              "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+            },
+            {
+              "text": "2026 · Primary employer survey · GLP-1 coverage; Figures 12.12-12.13"
+            }
+          ]
+        },
+        {
+          "text": "GLP-1 Prescriptions for Weight Loss by Differences in Insurance Plan Coverage2026-06-26 · Peer-reviewed observational claims study · Results; January 2021 and December 2024 endpoints",
+          "runs": [
+            {
+              "text": "GLP-1 Prescriptions for Weight Loss by Differences in Insurance Plan Coverage",
+              "href": "https://jamanetwork.com/journals/jama-health-forum/fullarticle/2850470"
+            },
+            {
+              "text": "2026-06-26 · Peer-reviewed observational claims study · Results; January 2021 and December 2024 endpoints"
+            }
+          ]
+        },
+        {
+          "text": "GLP-1s: Good Drugs, High Prices2026-11 · Industry white paper; observational comparison and internal model · Printed pages 6, 8 and 9",
+          "runs": [
+            {
+              "text": "GLP-1s: Good Drugs, High Prices",
+              "href": "https://www.cvshealth.com/content/dam/enterprise/cvs-enterprise/pdfs/2026/GLP1_Whitepaper.pdf"
+            },
+            {
+              "text": "2026-11 · Industry white paper; observational comparison and internal model · Printed pages 6, 8 and 9"
+            }
+          ]
+        },
+        {
+          "text": "Do GLP-1 Medications Pay for Themselves?2026-10 revision · NBER working paper 34678; abstract only · Abstract and revision metadata",
+          "runs": [
+            {
+              "text": "Do GLP-1 Medications Pay for Themselves?",
+              "href": "https://www.nber.org/papers/w34678"
+            },
+            {
+              "text": "2026-10 revision · NBER working paper 34678; abstract only · Abstract and revision metadata"
+            }
+          ]
+        },
+        {
+          "text": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes2023 · SELECT randomized trial; abstract only · Primary-source abstract",
+          "runs": [
+            {
+              "text": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
+              "href": "https://www.nejm.org/doi/full/10.1056/NEJMoa2307563"
+            },
+            {
+              "text": "2023 · SELECT randomized trial; abstract only · Primary-source abstract"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK TECH · RESEARCH & STUDIES · 2026-11-17"
+    }
+  ]
+}
