@@ -1,0 +1,556 @@
+{
+  "title": "The GLP-1 budget equation",
+  "summary": "An employer can negotiate a lower price and still spend more overall. The budget depends on how many members receive treatment and how many paid treatment months accumulate. This analysis separates market observations, clinical evidence and a reproducible model of pharmacy spending.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Why lower prices can still raise employer pharmacy spending"
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech · Research & StudiesEvidence checked November 17, 2026"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Evidence",
+          "Value",
+          "Meaning"
+        ],
+        [
+          "Observed",
+          "18%",
+          "weight-loss coverage among benefit-offering firms with 200+ workers"
+        ],
+        [
+          "Illustrative model",
+          "33.3%",
+          "more treatment months fit within the same budget after a 25% price cut"
+        ],
+        [
+          "Illustrative model",
+          "+25%",
+          "pharmacy spending in the expansion scenario; illustrative"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "1. What the evidence shows"
+    },
+    {
+      "type": "p",
+      "text": "Employer-plan claims show rising GLP-1 use. These coverage groups include all GLP-1 indications; their differences do not establish a causal effect of weight-loss coverage."
+    },
+    {
+      "type": "p",
+      "text": "Observed"
+    },
+    {
+      "type": "h3",
+      "text": "GLP-1 days supplied per 1,000 enrollees"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-60e5093d2300.png",
+      "alt": "GLP-1 days supplied per 1,000 enrollees",
+      "caption": "Two monthly endpoints. Source: JAMA Health Forum. [2] Original chart: YNK Tech; generated from the cited data.",
+      "href": "https://jamanetwork.com/journals/jama-health-forum/fullarticle/2850470"
+    },
+    {
+      "type": "p",
+      "text": "View chart data"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "",
+          "2021-01",
+          "2024-12"
+        ],
+        [
+          "Weight-loss coverage",
+          "128.2",
+          "1,260.0"
+        ],
+        [
+          "No weight-loss coverage",
+          "121.5",
+          "766.8"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Weight-loss coverage varies by employer size. These percentages describe firms offering health benefits and their largest plan, not the share of covered members. [1]",
+      "runs": [
+        {
+          "text": "Weight-loss coverage varies by employer size. These percentages describe firms offering health benefits and their largest plan, not the share of covered members. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Observed"
+    },
+    {
+      "type": "h3",
+      "text": "Firms covering GLP-1s for weight loss"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-a72f74f334a0.png",
+      "alt": "Firms covering GLP-1s for weight loss",
+      "caption": "KFF, 2026. Employer size is measured in workers. [1] Original chart: YNK Tech; generated from the cited data.",
+      "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Employer size",
+          "Coverage"
+        ],
+        [
+          "200–999 workers",
+          "16%"
+        ],
+        [
+          "1,000–4,999 workers",
+          "29%"
+        ],
+        [
+          "5,000+ workers",
+          "33%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "2. Three quantities drive the pharmacy bill"
+    },
+    {
+      "type": "p",
+      "text": "Annual pharmacy cost = treated members × paid months per treated member × net plan cost per paid month"
+    },
+    {
+      "type": "p",
+      "text": "Treated members means unique members with paid treatment during the budget year. Paid months captures exposure within that year, including start timing and interruptions. It is not a clinical adherence measure.",
+      "runs": [
+        {
+          "text": "Treated members",
+          "bold": true
+        },
+        {
+          "text": " means unique members with paid treatment during the budget year. "
+        },
+        {
+          "text": "Paid months",
+          "bold": true
+        },
+        {
+          "text": " captures exposure within that year, including start timing and interruptions. It is not a clinical adherence measure."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Net plan cost is plan-paid drug cost after attributable rebates and discounts, excluding member cost sharing. List prices, self-pay offers and a plan’s net cost measure different transactions. Use a consistent allocation method.",
+      "runs": [
+        {
+          "text": "Net plan cost",
+          "bold": true
+        },
+        {
+          "text": " is plan-paid drug cost after attributable rebates and discounts, excluding member cost sharing. List prices, self-pay offers and a plan’s net cost measure different transactions. Use a consistent allocation method."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "This model fixes enrollment, drug mix and benefit design. Program fees, medical offsets and productivity effects belong in separate components of a full budget."
+    },
+    {
+      "type": "h2",
+      "text": "3. One price cut, three budget outcomes"
+    },
+    {
+      "type": "p",
+      "text": "Every input below is an assumption, not an observed employer result or a price quote. Enrollment is fixed at 10,000 covered members for 12 months."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Scenario",
+          "Treated members",
+          "Months per treated member",
+          "Net monthly cost",
+          "Annual pharmacy cost",
+          "PMPM",
+          "Change"
+        ],
+        [
+          "Baseline",
+          "200",
+          "9",
+          "$600",
+          "$1,080,000",
+          "$9.00",
+          "0%"
+        ],
+        [
+          "Price only",
+          "200",
+          "9",
+          "$450",
+          "$810,000",
+          "$6.75",
+          "-25%"
+        ],
+        [
+          "More members",
+          "300",
+          "9",
+          "$450",
+          "$1,215,000",
+          "$10.12",
+          "+12.5%"
+        ],
+        [
+          "More members + months",
+          "300",
+          "10",
+          "$450",
+          "$1,350,000",
+          "$11.25",
+          "+25%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Illustrative model"
+    },
+    {
+      "type": "h3",
+      "text": "How a 25% price cut becomes a 25% spending increase"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-8be89947b4ae.png",
+      "alt": "How a 25% price cut becomes a 25% spending increase",
+      "caption": "Sequential attribution: change price, then treated-member count, then months. The allocation depends on this order; the total does not. Original chart: YNK Tech; generated from the cited data."
+    },
+    {
+      "type": "p",
+      "text": "At unchanged use, the price cut lowers annual pharmacy spending from $1.08 million to $810,000. Increasing treated-member count by 50% brings spending to $1.215 million, or 12.5% above baseline. Increasing average paid months from nine to ten raises spending to $1.35 million, or 25% above baseline.",
+      "runs": [
+        {
+          "text": "At unchanged use, the price cut lowers annual pharmacy spending from "
+        },
+        {
+          "text": "$1.08 million to $810,000",
+          "bold": true
+        },
+        {
+          "text": ". Increasing treated-member count by 50% brings spending to "
+        },
+        {
+          "text": "$1.215 million",
+          "bold": true
+        },
+        {
+          "text": ", or "
+        },
+        {
+          "text": "12.5% above baseline",
+          "bold": true
+        },
+        {
+          "text": ". Increasing average paid months from nine to ten raises spending to "
+        },
+        {
+          "text": "$1.35 million",
+          "bold": true
+        },
+        {
+          "text": ", or "
+        },
+        {
+          "text": "25% above baseline",
+          "bold": true
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Longer treatment may support health benefits. Its budget effect should be assessed alongside clinical outcomes. These sensitivity cases do not predict how use responds to a lower price."
+    },
+    {
+      "type": "h2",
+      "text": "4. The limit of price negotiation"
+    },
+    {
+      "type": "p",
+      "text": "A 25% price reduction allows 33.3% more paid treatment months at unchanged pharmacy spending: 1 ÷ 0.75 − 1. The expansion scenario increases those months from 1,800 to 3,000, or 66.7%.",
+      "runs": [
+        {
+          "text": "A "
+        },
+        {
+          "text": "25% price reduction",
+          "bold": true
+        },
+        {
+          "text": " allows "
+        },
+        {
+          "text": "33.3% more paid treatment months",
+          "bold": true
+        },
+        {
+          "text": " at unchanged pharmacy spending: 1 ÷ 0.75 − 1. The expansion scenario increases those months from 1,800 to 3,000, or 66.7%."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "With 300 treated members and ten months each, a $360 net monthly price preserves the original $1.08 million budget. That is a 40% reduction from the assumed $600 baseline. This is a derived threshold, not a market benchmark or contract target.",
+      "runs": [
+        {
+          "text": "With 300 treated members and ten months each, a "
+        },
+        {
+          "text": "$360 net monthly price",
+          "bold": true
+        },
+        {
+          "text": " preserves the original $1.08 million budget. That is a "
+        },
+        {
+          "text": "40% reduction",
+          "bold": true
+        },
+        {
+          "text": " from the assumed $600 baseline. This is a derived threshold, not a market benchmark or contract target."
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "5. Clinical benefit and financial break-even are different outcomes"
+    },
+    {
+      "type": "p",
+      "text": "SELECT found cardiovascular events in 6.5% versus 8.0% over a mean 39.8 months. Participants had established cardiovascular disease, overweight or obesity, and no diabetes. Novo Nordisk funded the randomized trial. [5]",
+      "runs": [
+        {
+          "text": "SELECT found cardiovascular events in 6.5% versus 8.0% over a mean 39.8 months. Participants had established cardiovascular disease, overweight or obesity, and no diabetes. Novo Nordisk funded the randomized trial. "
+        },
+        {
+          "text": "[5]",
+          "href": "https://www.nejm.org/doi/full/10.1056/NEJMoa2307563"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "CVS reports lower medical spending but higher total costs in matched Aetna comparisons. Its roughly $350 monthly break-even is model-specific. Separate follow-up samples and residual confounding limit interpretation. This is an industry white paper. [3]",
+      "runs": [
+        {
+          "text": "CVS reports lower medical spending but higher total costs in matched Aetna comparisons. Its roughly $350 monthly break-even is model-specific. Separate follow-up samples and residual confounding limit interpretation. This is an industry white paper. "
+        },
+        {
+          "text": "[3]",
+          "href": "https://www.cvshealth.com/content/dam/enterprise/cvs-enterprise/pdfs/2026/GLP1_Whitepaper.pdf"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "An NBER working-paper abstract reports no overall medical-spending offset over five years; semaglutide estimates differ. The October 2026 abstract was reviewed; full methods were unavailable. [4]",
+      "runs": [
+        {
+          "text": "An NBER working-paper abstract reports no overall medical-spending offset over five years; semaglutide estimates differ. The October 2026 abstract was reviewed; full methods were unavailable. "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.nber.org/papers/w34678"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "These studies use different populations and methods. They cannot supply one universal medical-offset assumption. Clinical effectiveness also does not, by itself, establish cost effectiveness or employer savings."
+    },
+    {
+      "type": "p",
+      "text": "The expansion scenario adds $270,000 in pharmacy spending, or $2.25 PMPM. Holding other costs fixed, an equal additional medical saving would be required to keep total plan costs unchanged relative to baseline. This is a break-even requirement, not an estimated saving.",
+      "runs": [
+        {
+          "text": "The expansion scenario adds "
+        },
+        {
+          "text": "$270,000 in pharmacy spending",
+          "bold": true
+        },
+        {
+          "text": ", or "
+        },
+        {
+          "text": "$2.25 PMPM",
+          "bold": true
+        },
+        {
+          "text": ". Holding other costs fixed, an equal additional medical saving would be required to keep total plan costs unchanged relative to baseline. This is a break-even requirement, not an estimated saving."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Medical offsets are excluded to keep the pharmacy mechanism visible. This does not assert that medical benefits are absent. Productivity, quality of life and wider social value are outside this model."
+    },
+    {
+      "type": "h2",
+      "text": "6. Test the mechanism with actual claims"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "When",
+          "Measure",
+          "Purpose"
+        ],
+        [
+          "First 30 days",
+          "Prior 12-month baseline; enrollment, indications, drug mix and rebate accruals",
+          "Establish a consistent starting point; 30 days is a proposed setup window"
+        ],
+        [
+          "Monthly",
+          "Net cost per standardized paid month; unique users; paid months per user; pharmacy PMPM",
+          "Separate price, participation and duration; compare actuals with approved budget assumptions"
+        ],
+        [
+          "Quarterly",
+          "Estimated and received rebates; reversals; program fees; benefit changes",
+          "Reconcile cash timing and cost attribution; explain remaining variance"
+        ],
+        [
+          "12–36 months",
+          "Risk-adjusted medical spending and clinical outcomes against a matched comparator",
+          "Assess emerging offsets; follow-up duration alone cannot establish causality"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Normalize 28- and 30-day supplies consistently. Remove reversals and overlapping paid days; respect enrollment windows. Stratify indications and products. Count rebates once. Paid days do not prove consumption. This monitoring schedule is a proposed design, not a forecast."
+    },
+    {
+      "type": "p",
+      "text": "The diagnostic finding: lower unit prices improve affordability, while total pharmacy spending depends on treatment volume. Employer evaluation needs separate views of price, paid treatment months, total cost and clinical outcomes."
+    },
+    {
+      "type": "p",
+      "text": "Methods and limits"
+    },
+    {
+      "type": "p",
+      "text": "Diagnostic synthesis with a deterministic one-year sensitivity model. No scenario probabilities are assigned. No client or patient-level data were used. Enrollment stays at 10,000 for 12 months. Excluded costs are not assumed to be zero in reality. Survey estimates, observational associations, trial findings and modeled thresholds remain distinct. Sources and access limitations are recorded in the accompanying package."
+    },
+    {
+      "type": "h2",
+      "text": "Sources"
+    },
+    {
+      "type": "p",
+      "text": "Primary sources checked November 17, 2026. Populations and publication dates differ."
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "2026 Employer Health Benefits Survey2026 · Primary employer survey · GLP-1 coverage; Figures 12.12-12.13",
+          "runs": [
+            {
+              "text": "2026 Employer Health Benefits Survey",
+              "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+            },
+            {
+              "text": "2026 · Primary employer survey · GLP-1 coverage; Figures 12.12-12.13"
+            }
+          ]
+        },
+        {
+          "text": "GLP-1 Prescriptions for Weight Loss by Differences in Insurance Plan Coverage2026-06-26 · Peer-reviewed observational claims study · Results; January 2021 and December 2024 endpoints",
+          "runs": [
+            {
+              "text": "GLP-1 Prescriptions for Weight Loss by Differences in Insurance Plan Coverage",
+              "href": "https://jamanetwork.com/journals/jama-health-forum/fullarticle/2850470"
+            },
+            {
+              "text": "2026-06-26 · Peer-reviewed observational claims study · Results; January 2021 and December 2024 endpoints"
+            }
+          ]
+        },
+        {
+          "text": "GLP-1s: Good Drugs, High Prices2026-11 · Industry white paper; observational comparison and internal model · Printed pages 6, 8 and 9",
+          "runs": [
+            {
+              "text": "GLP-1s: Good Drugs, High Prices",
+              "href": "https://www.cvshealth.com/content/dam/enterprise/cvs-enterprise/pdfs/2026/GLP1_Whitepaper.pdf"
+            },
+            {
+              "text": "2026-11 · Industry white paper; observational comparison and internal model · Printed pages 6, 8 and 9"
+            }
+          ]
+        },
+        {
+          "text": "Do GLP-1 Medications Pay for Themselves?2026-10 revision · NBER working paper 34678; abstract only · Abstract and revision metadata",
+          "runs": [
+            {
+              "text": "Do GLP-1 Medications Pay for Themselves?",
+              "href": "https://www.nber.org/papers/w34678"
+            },
+            {
+              "text": "2026-10 revision · NBER working paper 34678; abstract only · Abstract and revision metadata"
+            }
+          ]
+        },
+        {
+          "text": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes2023 · SELECT randomized trial; abstract only · Primary-source abstract",
+          "runs": [
+            {
+              "text": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
+              "href": "https://www.nejm.org/doi/full/10.1056/NEJMoa2307563"
+            },
+            {
+              "text": "2023 · SELECT randomized trial; abstract only · Primary-source abstract"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK TECH · RESEARCH & STUDIES · 2026-11-17"
+    }
+  ]
+}

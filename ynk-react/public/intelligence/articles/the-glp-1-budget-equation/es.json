@@ -1,0 +1,562 @@
+{
+  "title": "La ecuación presupuestaria de los GLP-1",
+  "summary": "Un empleador puede negociar un precio menor y aun así gastar más en total. El presupuesto depende del número de afiliados tratados y de los meses pagados. Este análisis distingue observaciones del mercado, evidencia clínica y un modelo reproducible del gasto farmacéutico.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Por qué unos precios más bajos pueden aumentar el gasto farmacéutico de los empleadores"
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech · Research & StudiesFuentes verificadas el 17 de noviembre de 2026"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Tipo",
+          "Valor",
+          "Significado"
+        ],
+        [
+          "Observado",
+          "18%",
+          "de las empresas con 200 o más trabajadores que ofrecen seguro médico cubren este uso"
+        ],
+        [
+          "Modelo ilustrativo",
+          "33,3%",
+          "más meses caben en el mismo presupuesto tras una reducción del precio del 25 %"
+        ],
+        [
+          "Modelo ilustrativo",
+          "+25%",
+          "de gasto farmacéutico en el escenario de expansión; ilustrativo"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "1. Qué muestra la evidencia"
+    },
+    {
+      "type": "p",
+      "text": "Las reclamaciones de planes de empleadores muestran un uso creciente. Los grupos incluyen todas las indicaciones de GLP-1; sus diferencias no demuestran un efecto causal de la cobertura para perder peso."
+    },
+    {
+      "type": "p",
+      "text": "Observado"
+    },
+    {
+      "type": "h3",
+      "text": "Días de GLP-1 dispensados por cada 1.000 afiliados"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-93113118da6c.png",
+      "alt": "Días de GLP-1 dispensados por cada 1.000 afiliados",
+      "caption": "Dos meses concretos. Fuente: JAMA Health Forum. [2] Gráfico original: YNK Tech; generado con los datos citados.",
+      "href": "https://jamanetwork.com/journals/jama-health-forum/fullarticle/2850470"
+    },
+    {
+      "type": "p",
+      "text": "Ver los datos"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "",
+          "2021-01",
+          "2024-12"
+        ],
+        [
+          "Cobertura para perder peso",
+          "128,2",
+          "1.260,0"
+        ],
+        [
+          "Sin esa cobertura",
+          "121,5",
+          "766,8"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "La cobertura para perder peso varía según el tamaño del empleador. Los porcentajes describen empresas que ofrecen seguro médico según su plan principal, no la proporción de afiliados cubiertos. [1]",
+      "runs": [
+        {
+          "text": "La cobertura para perder peso varía según el tamaño del empleador. Los porcentajes describen empresas que ofrecen seguro médico según su plan principal, no la proporción de afiliados cubiertos. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Observado"
+    },
+    {
+      "type": "h3",
+      "text": "Empresas que cubren GLP-1 para perder peso"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-1b2079e36bd2.png",
+      "alt": "Empresas que cubren GLP-1 para perder peso",
+      "caption": "KFF, 2026. Tamaño de empresa medido en trabajadores. [1] Gráfico original: YNK Tech; generado con los datos citados.",
+      "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Tamaño del empleador",
+          "Cobertura"
+        ],
+        [
+          "200–999 trabajadores",
+          "16%"
+        ],
+        [
+          "1.000–4.999 trabajadores",
+          "29%"
+        ],
+        [
+          "5.000+ trabajadores",
+          "33%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "2. Tres cantidades determinan la factura farmacéutica"
+    },
+    {
+      "type": "p",
+      "text": "Coste farmacéutico anual = afiliados tratados × meses pagados por afiliado tratado × coste neto del plan por mes pagado"
+    },
+    {
+      "type": "p",
+      "text": "Los afiliados tratados son personas distintas con tratamiento pagado durante el año presupuestario. Los meses pagados reflejan la exposición durante ese año, incluidas fechas de inicio e interrupciones. No miden la adherencia clínica.",
+      "runs": [
+        {
+          "text": "Los "
+        },
+        {
+          "text": "afiliados tratados",
+          "bold": true
+        },
+        {
+          "text": " son personas distintas con tratamiento pagado durante el año presupuestario. Los "
+        },
+        {
+          "text": "meses pagados",
+          "bold": true
+        },
+        {
+          "text": " reflejan la exposición durante ese año, incluidas fechas de inicio e interrupciones. No miden la adherencia clínica."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "El coste neto del plan es el gasto pagado tras descuentos y reembolsos atribuibles, excluyendo la aportación del paciente. Precios de lista, ofertas de pago directo y coste neto miden transacciones diferentes. Se necesita un método de asignación coherente.",
+      "runs": [
+        {
+          "text": "El "
+        },
+        {
+          "text": "coste neto del plan",
+          "bold": true
+        },
+        {
+          "text": " es el gasto pagado tras descuentos y reembolsos atribuibles, excluyendo la aportación del paciente. Precios de lista, ofertas de pago directo y coste neto miden transacciones diferentes. Se necesita un método de asignación coherente."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Este modelo mantiene constantes afiliación, mezcla de productos y prestaciones. Costes del programa, ahorros médicos y productividad son componentes separados de un presupuesto completo."
+    },
+    {
+      "type": "h2",
+      "text": "3. Un precio menor, tres resultados presupuestarios"
+    },
+    {
+      "type": "p",
+      "text": "Cada parámetro es un supuesto, no un resultado observado ni una cotización. La afiliación se mantiene en 10.000 personas cubiertas durante 12 meses."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Escenario",
+          "Afiliados tratados",
+          "Meses por tratado",
+          "Coste mensual neto",
+          "Coste farmacéutico anual",
+          "PMPM",
+          "Cambio"
+        ],
+        [
+          "Referencia",
+          "200",
+          "9",
+          "600 $",
+          "1.080.000 $",
+          "9,00 $",
+          "0%"
+        ],
+        [
+          "Solo precio",
+          "200",
+          "9",
+          "450 $",
+          "810.000 $",
+          "6,75 $",
+          "-25%"
+        ],
+        [
+          "Más afiliados",
+          "300",
+          "9",
+          "450 $",
+          "1.215.000 $",
+          "10,12 $",
+          "+12,5%"
+        ],
+        [
+          "Más afiliados y meses",
+          "300",
+          "10",
+          "450 $",
+          "1.350.000 $",
+          "11,25 $",
+          "+25%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Modelo ilustrativo"
+    },
+    {
+      "type": "h3",
+      "text": "Una bajada de precio del 25 % puede convertirse en un aumento del gasto del 25 %"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261117-5cvgot-d5591557722d.png",
+      "alt": "Una bajada de precio del 25 % puede convertirse en un aumento del gasto del 25 %",
+      "caption": "Atribución secuencial: precio, después afiliados tratados y finalmente meses. La distribución depende del orden; el total no. Gráfico original: YNK Tech; generado con los datos citados."
+    },
+    {
+      "type": "p",
+      "text": "Con uso constante, el precio menor reduce el gasto anual de 1,08 millones a 810.000 dólares. Un aumento del 50 % en afiliados tratados lo eleva a 1,215 millones, un 12,5 % por encima de la referencia. Pasar de nueve a diez meses pagados de media lo lleva a 1,35 millones, un 25 % más.",
+      "runs": [
+        {
+          "text": "Con uso constante, el precio menor reduce el gasto anual de "
+        },
+        {
+          "text": "1,08 millones a 810.000 dólares",
+          "bold": true
+        },
+        {
+          "text": ". Un aumento del 50 % en afiliados tratados lo eleva a "
+        },
+        {
+          "text": "1,215 millones",
+          "bold": true
+        },
+        {
+          "text": ", un "
+        },
+        {
+          "text": "12,5 % por encima de la referencia",
+          "bold": true
+        },
+        {
+          "text": ". Pasar de nueve a diez meses pagados de media lo lleva a "
+        },
+        {
+          "text": "1,35 millones",
+          "bold": true
+        },
+        {
+          "text": ", un "
+        },
+        {
+          "text": "25 % más",
+          "bold": true
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Un tratamiento más prolongado puede favorecer beneficios clínicos. Su efecto presupuestario debe medirse junto a los resultados de salud. Estos escenarios no predicen la respuesta del uso a un precio menor."
+    },
+    {
+      "type": "h2",
+      "text": "4. El límite de negociar el precio"
+    },
+    {
+      "type": "p",
+      "text": "Una reducción de precio del 25 % financia un 33,3 % más de meses de tratamiento con el mismo presupuesto: 1 ÷ 0,75 − 1. La expansión aumenta esos meses de 1.800 a 3.000, un 66,7 %.",
+      "runs": [
+        {
+          "text": "Una "
+        },
+        {
+          "text": "reducción de precio del 25 %",
+          "bold": true
+        },
+        {
+          "text": " financia "
+        },
+        {
+          "text": "un 33,3 % más de meses de tratamiento",
+          "bold": true
+        },
+        {
+          "text": " con el mismo presupuesto: 1 ÷ 0,75 − 1. La expansión aumenta esos meses de 1.800 a 3.000, un 66,7 %."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Con 300 afiliados tratados durante diez meses, un precio neto mensual de 360 dólares conserva el presupuesto inicial de 1,08 millones. Es una reducción del 40 % respecto a los 600 dólares asumidos. Es un umbral calculado, no una referencia del mercado ni un objetivo contractual.",
+      "runs": [
+        {
+          "text": "Con 300 afiliados tratados durante diez meses, un "
+        },
+        {
+          "text": "precio neto mensual de 360 dólares",
+          "bold": true
+        },
+        {
+          "text": " conserva el presupuesto inicial de 1,08 millones. Es una "
+        },
+        {
+          "text": "reducción del 40 %",
+          "bold": true
+        },
+        {
+          "text": " respecto a los 600 dólares asumidos. Es un umbral calculado, no una referencia del mercado ni un objetivo contractual."
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "5. Beneficio clínico y equilibrio financiero son resultados distintos"
+    },
+    {
+      "type": "p",
+      "text": "SELECT registró eventos cardiovasculares en el 6,5 % frente al 8,0 %, durante 39,8 meses medios. Los participantes tenían enfermedad cardiovascular y sobrepeso u obesidad, sin diabetes. Novo Nordisk financió el ensayo aleatorizado. [5]",
+      "runs": [
+        {
+          "text": "SELECT registró eventos cardiovasculares en el 6,5 % frente al 8,0 %, durante 39,8 meses medios. Los participantes tenían enfermedad cardiovascular y sobrepeso u obesidad, sin diabetes. Novo Nordisk financió el ensayo aleatorizado. "
+        },
+        {
+          "text": "[5]",
+          "href": "https://www.nejm.org/doi/full/10.1056/NEJMoa2307563"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "CVS comunica menor gasto médico pero mayor coste total en comparaciones emparejadas de Aetna. Su umbral próximo a 350 dólares mensuales depende del modelo. Muestras separadas y confusión residual limitan la interpretación. Documento de la industria. [3]",
+      "runs": [
+        {
+          "text": "CVS comunica menor gasto médico pero mayor coste total en comparaciones emparejadas de Aetna. Su umbral próximo a 350 dólares mensuales depende del modelo. Muestras separadas y confusión residual limitan la interpretación. Documento de la industria. "
+        },
+        {
+          "text": "[3]",
+          "href": "https://www.cvshealth.com/content/dam/enterprise/cvs-enterprise/pdfs/2026/GLP1_Whitepaper.pdf"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Un resumen de trabajo NBER no encuentra compensación médica global en cinco años; las estimaciones de semaglutida difieren. Se revisó el resumen de octubre de 2026; los métodos completos no estaban disponibles. [4]",
+      "runs": [
+        {
+          "text": "Un resumen de trabajo NBER no encuentra compensación médica global en cinco años; las estimaciones de semaglutida difieren. Se revisó el resumen de octubre de 2026; los métodos completos no estaban disponibles. "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.nber.org/papers/w34678"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Estos trabajos usan poblaciones y métodos distintos. No ofrecen un supuesto universal de ahorro médico. La eficacia clínica tampoco establece por sí sola la relación coste-efectividad o el ahorro del empleador."
+    },
+    {
+      "type": "p",
+      "text": "La expansión añade 270.000 dólares de gasto farmacéutico, o 2,25 dólares por afiliado y mes. Manteniendo otros costes constantes, haría falta una reducción médica adicional equivalente para conservar el gasto total de referencia. Es un requisito de equilibrio, no un ahorro estimado.",
+      "runs": [
+        {
+          "text": "La expansión añade "
+        },
+        {
+          "text": "270.000 dólares de gasto farmacéutico",
+          "bold": true
+        },
+        {
+          "text": ", o "
+        },
+        {
+          "text": "2,25 dólares por afiliado y mes",
+          "bold": true
+        },
+        {
+          "text": ". Manteniendo otros costes constantes, haría falta una reducción médica adicional equivalente para conservar el gasto total de referencia. Es un requisito de equilibrio, no un ahorro estimado."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Se excluyen ahorros médicos para hacer visible el mecanismo farmacéutico. Esto no afirma que no existan beneficios médicos. Productividad, calidad de vida y valor social quedan fuera del modelo."
+    },
+    {
+      "type": "h2",
+      "text": "6. Comprobar el mecanismo con reclamaciones reales"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Cuándo",
+          "Medición",
+          "Objetivo"
+        ],
+        [
+          "Primeros 30 días",
+          "Referencia de 12 meses; afiliación, indicaciones, productos y reembolsos devengados",
+          "Establecer un punto de partida coherente; 30 días es un plazo de preparación propuesto"
+        ],
+        [
+          "Cada mes",
+          "Coste neto por mes normalizado; usuarios únicos; meses por usuario; PMPM farmacéutico",
+          "Separar precio, participación y duración; comparar con los supuestos presupuestarios aprobados"
+        ],
+        [
+          "Cada trimestre",
+          "Reembolsos estimados y recibidos; anulaciones; costes de programa; cambios de prestaciones",
+          "Conciliar pagos y atribución de costes; explicar variaciones restantes"
+        ],
+        [
+          "12–36 meses",
+          "Gasto médico ajustado por riesgo y resultados clínicos frente a un comparador emparejado",
+          "Evaluar posibles compensaciones; la duración sola no establece causalidad"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Normalice suministros de 28 y 30 días. Elimine anulaciones y días pagados superpuestos; respete la afiliación. Separe indicaciones y productos. Cuente cada reembolso una vez. Los días pagados no prueban consumo. Calendario propuesto, no pronóstico."
+    },
+    {
+      "type": "p",
+      "text": "El hallazgo diagnóstico: precios unitarios inferiores mejoran la asequibilidad, mientras que el gasto total depende del volumen de tratamiento. La evaluación debe distinguir precio, meses pagados, coste total y resultados clínicos."
+    },
+    {
+      "type": "p",
+      "text": "Métodos y límites"
+    },
+    {
+      "type": "p",
+      "text": "Síntesis diagnóstica con un modelo determinista de sensibilidad de un año. No se asignan probabilidades a los escenarios. No se usaron datos individuales de pacientes ni clientes. Afiliación constante de 10.000 durante 12 meses. Los costes excluidos no se suponen cero en la realidad. Encuestas, asociaciones, ensayos y umbrales modelados permanecen separados. El paquete documenta fuentes y límites de acceso."
+    },
+    {
+      "type": "h2",
+      "text": "Fuentes"
+    },
+    {
+      "type": "p",
+      "text": "Fuentes primarias verificadas el 17 de noviembre de 2026. Poblaciones y fechas de publicación diferentes."
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "2026 Employer Health Benefits Survey2026 · Primary employer survey · GLP-1 coverage; Figures 12.12-12.13",
+          "runs": [
+            {
+              "text": "2026 Employer Health Benefits Survey",
+              "href": "https://www.kff.org/health-costs/2026-employer-health-benefits-survey/"
+            },
+            {
+              "text": "2026 · Primary employer survey · GLP-1 coverage; Figures 12.12-12.13"
+            }
+          ]
+        },
+        {
+          "text": "GLP-1 Prescriptions for Weight Loss by Differences in Insurance Plan Coverage2026-06-26 · Peer-reviewed observational claims study · Results; January 2021 and December 2024 endpoints",
+          "runs": [
+            {
+              "text": "GLP-1 Prescriptions for Weight Loss by Differences in Insurance Plan Coverage",
+              "href": "https://jamanetwork.com/journals/jama-health-forum/fullarticle/2850470"
+            },
+            {
+              "text": "2026-06-26 · Peer-reviewed observational claims study · Results; January 2021 and December 2024 endpoints"
+            }
+          ]
+        },
+        {
+          "text": "GLP-1s: Good Drugs, High Prices2026-11 · Industry white paper; observational comparison and internal model · Printed pages 6, 8 and 9",
+          "runs": [
+            {
+              "text": "GLP-1s: Good Drugs, High Prices",
+              "href": "https://www.cvshealth.com/content/dam/enterprise/cvs-enterprise/pdfs/2026/GLP1_Whitepaper.pdf"
+            },
+            {
+              "text": "2026-11 · Industry white paper; observational comparison and internal model · Printed pages 6, 8 and 9"
+            }
+          ]
+        },
+        {
+          "text": "Do GLP-1 Medications Pay for Themselves?2026-10 revision · NBER working paper 34678; abstract only · Abstract and revision metadata",
+          "runs": [
+            {
+              "text": "Do GLP-1 Medications Pay for Themselves?",
+              "href": "https://www.nber.org/papers/w34678"
+            },
+            {
+              "text": "2026-10 revision · NBER working paper 34678; abstract only · Abstract and revision metadata"
+            }
+          ]
+        },
+        {
+          "text": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes2023 · SELECT randomized trial; abstract only · Primary-source abstract",
+          "runs": [
+            {
+              "text": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
+              "href": "https://www.nejm.org/doi/full/10.1056/NEJMoa2307563"
+            },
+            {
+              "text": "2023 · SELECT randomized trial; abstract only · Primary-source abstract"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK TECH · RESEARCH & STUDIES · 2026-11-17"
+    }
+  ]
+}
