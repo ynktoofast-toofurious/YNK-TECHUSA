@@ -1,0 +1,573 @@
+{
+  "title": "e-Service en la RDC: ¿puede una puerta de entrada digital mejorar los servicios públicos?",
+  "summary": "Quien solicita un acta de nacimiento necesita saber dónde acudir, qué documentos presentar, cuánto cuesta el trámite y cuándo estará listo. Un portal público puede facilitar esas respuestas. La tarea más exigente consiste en que sigan siendo fiables hasta llegar a la oficina que expide el documento. Esa continuidad será la prueba central de e-Service en la RDC.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH · INVESTIGACIONES Y ESTUDIOSEspañol",
+      "runs": [
+        {
+          "text": "YNK TECH · INVESTIGACIONES Y ESTUDIOS",
+          "bold": true
+        },
+        {
+          "text": "Español"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "GOBIERNO DIGITAL · ANÁLISIS"
+    },
+    {
+      "type": "p",
+      "text": "La nueva iniciativa se incorpora a una reforma ya en marcha. Su valor dependerá de reglas más claras, una coordinación fiable entre organismos y trámites que la ciudadanía pueda completar."
+    },
+    {
+      "type": "p",
+      "text": "Fuentes revisadas el 22 de noviembre de 2026"
+    },
+    {
+      "type": "p",
+      "text": "33,5 %"
+    },
+    {
+      "type": "p",
+      "text": "Registro de nacimientos entre menores de cinco años, 2023–2024"
+    },
+    {
+      "type": "p",
+      "text": "31,1 puntos"
+    },
+    {
+      "type": "p",
+      "text": "Brecha de registro entre zonas urbanas y rurales, 2023–2024"
+    },
+    {
+      "type": "p",
+      "text": "5 fichas"
+    },
+    {
+      "type": "p",
+      "text": "Trámites públicos revisados en noviembre de 2026"
+    },
+    {
+      "type": "h2",
+      "text": "Una nueva iniciativa dentro de una reforma más larga"
+    },
+    {
+      "type": "p",
+      "text": "La República Democrática del Congo (RDC) presentó E-Services RDC el 19 de noviembre de 2026 con la intención de acercar a la ciudadanía los procedimientos, las tarifas oficiales y determinadas gestiones y pagos en línea. Para entender su alcance conviene mirar atrás. La RDC ya contaba con una estrategia digital nacional y un portal de la Función Pública antes de este anuncio.S01, S02, S19, S20"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Paso anterior",
+          "Qué establece",
+          "Qué no demuestra"
+        ],
+        [
+          "2019: Plan Nacional Digital, horizonte 2025",
+          "Un marco para infraestructuras, aplicaciones, contenidos y gobernanza.",
+          "La ejecución de todas las reformas previstas.S19"
+        ],
+        [
+          "Portal existente de la Función Pública",
+          "Una presentación ministerial comunica 167.000 usuarios activos y más de 20 procedimientos desmaterializados.",
+          "Adopción o solicitudes completadas en la nueva iniciativa e-Service.S20"
+        ],
+        [
+          "2024: Proyecto de Transformación Digital",
+          "Un marco financiero más amplio: crédito del Banco Mundial (IDA) de 400 millones USD y cofinanciación de la Agencia Francesa de Desarrollo (AFD) de 100 millones EUR.",
+          "El coste, el gasto o el rendimiento de este portal concreto.S10"
+        ],
+        [
+          "19 de noviembre de 2026: E-Services RDC",
+          "Una ampliación anunciada del acceso a información administrativa y ciertos servicios en línea.",
+          "Una reducción medida del tiempo, los costes o las solicitudes fallidas de la ciudadanía.S01, S02"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Las cifras de la Función Pública proceden de la presentación y no especifican el periodo de medición. Los importes financieros tienen monedas distintas y no se suman."
+    },
+    {
+      "type": "p",
+      "text": "La presentación ministerial anterior describe expedientes en papel dispersos, bases de datos que no se comunican y procedimientos difíciles de rastrear. Estas iniciativas abordan distintas etapas de un mismo recorrido. Un catálogo explica qué hacer. Un canal de solicitud recibe el expediente. El organismo competente lo verifica, decide y entrega el resultado. Una web nacional puede conectar esas etapas aunque las oficinas sigan siendo distintas. La reforma adquiere relevancia cuando la solicitud circula entre ellas sin obligar a la persona solicitante a coordinar todo el proceso.S20"
+    },
+    {
+      "type": "h2",
+      "text": "El punto de partida es una brecha de acceso"
+    },
+    {
+      "type": "p",
+      "text": "La Encuesta Demográfica y de Salud de 2023–2024 encontró que el 33,5 % de los menores de cinco años tenía su nacimiento registrado y el 29,7 % disponía de un acta. El registro alcanzaba el 55,4 % en zonas urbanas y el 24,3 % en zonas rurales: una brecha de 31,1 puntos porcentuales. Son datos de población anteriores al lanzamiento, no resultados del portal.S21"
+    },
+    {
+      "type": "p",
+      "text": "La distinción es fundamental. Una web puede atraer muchas visitas mientras las familias con mayores obstáculos siguen fuera del sistema. La encuesta no demuestra las causas de la brecha geográfica. Sí muestra por qué una reforma nacional debe examinar quién obtiene el documento, además de cuántas personas visitan su web."
+    },
+    {
+      "type": "p",
+      "text": "Registro de nacimientos antes del lanzamiento"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Menores de cinco años, 2023–2024",
+          "Nacimiento registrado",
+          "Disponen de acta de nacimiento"
+        ],
+        [
+          "Nacional",
+          "33,5 %",
+          "29,7 %"
+        ],
+        [
+          "Zonas urbanas",
+          "55,4 %",
+          "50,8 %"
+        ],
+        [
+          "Zonas rurales",
+          "24,3 %",
+          "20,8 %"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Fuente: EDS-RDC III, cuadro 20.2, página impresa 506. Estimaciones ponderadas para residentes habituales. El registro incluye a menores con y sin acta; las dos columnas no se suman. Escala del gráfico: 0–100 %.S21"
+    },
+    {
+      "type": "h2",
+      "text": "Qué revelan cinco fichas de servicios"
+    },
+    {
+      "type": "p",
+      "text": "Para examinar el punto de partida visible, YNK Tech seleccionó una ficha de cada una de las cinco primeras familias de servicios del apartado “más frecuentes” del catálogo ministerial. Las fichas municipales se consultaron en su contexto predeterminado de Gombe. Es una revisión intencional pequeña de información pública y primeros enlaces de solicitud; la etiqueta del apartado no es una estadística de uso verificada de forma independiente.S03"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Trámite seleccionado",
+          "Información publicada",
+          "Siguiente paso observado"
+        ],
+        [
+          "Acta de nacimiento, Gombe",
+          "Tarjeta de 10 USD junto a un texto que describe la gratuidad del registro dentro del plazo.",
+          "Requiere cuenta ciudadana; finalización sin probar.S04"
+        ],
+        [
+          "Certificado de residencia, Gombe",
+          "Tarjeta de 10 USD, documentos exigidos y un formulario que debe obtenerse presencialmente.",
+          "Requiere cuenta ciudadana; finalización sin probar.S05"
+        ],
+        [
+          "Pasaporte biométrico ordinario",
+          "Tarjeta de 75 USD y un proceso con fases digitales y presenciales.",
+          "Enlace al portal separado de pasaportes.S06"
+        ],
+        [
+          "Permiso nacional A/B",
+          "Tarjeta de 20 USD; descripción y documentos requeridos sin especificar.",
+          "Tramitación en línea anunciada para más adelante.S07, S09"
+        ],
+        [
+          "Certificado de antecedentes penales",
+          "Procedimiento y documentos publicados; importe numérico no establecido en la ficha.",
+          "Tramitación en línea anunciada para más adelante.S08, S09"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Los precios son importes mostrados en el catálogo, no pagos verificados ni tarifas vigentes certificadas. No se creó ninguna cuenta ni se presentó solicitud alguna. Una restricción de consulta automatizada del portal de pasaportes no demuestra una interrupción del servicio."
+    },
+    {
+      "type": "p",
+      "text": "Adónde conducían los cinco botones de solicitud"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Ruta pública",
+          "Fichas",
+          "Significado de la observación"
+        ],
+        [
+          "Cuenta requerida",
+          "2 / 5",
+          "Se exige iniciar sesión; no se probó la tramitación posterior."
+        ],
+        [
+          "Próximamente",
+          "2 / 5",
+          "La ruta en línea examinada se presenta como en desarrollo."
+        ],
+        [
+          "Portal externo",
+          "1 / 5",
+          "El trámite continúa en un sistema sectorial distinto."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Las rutas observadas suman cinco fichas. Las dos rutas “próximamente” representan el 40 % de esta muestra, no una tasa nacional de fallos ni una estimación de cobertura."
+    },
+    {
+      "type": "p",
+      "text": "El catálogo ya aporta una utilidad: identificar los trámites y prepararlos desde un mismo lugar. Las distintas rutas muestran diferentes grados de integración. Una pantalla de acceso no demuestra que el trámite termine; un portal externo puede formar parte legítima del servicio. La cuestión es si la persona puede avanzar entre etapas sabiendo quién responde cuando algo se detiene."
+    },
+    {
+      "type": "h2",
+      "text": "La claridad es una condición operativa"
+    },
+    {
+      "type": "p",
+      "text": "La ficha del acta de nacimiento ilustra lo que está en juego. La tarjeta de Gombe muestra 10 USD, mientras el texto describe el registro gratuito dentro de plazo. El artículo 116 del texto legislativo de 2016 establece la gratuidad de la declaración y expedición dentro de los 90 días. El registro inicial, una copia posterior y un extracto no son necesariamente el mismo supuesto. El organismo competente debe aclarar a qué documento y situación corresponde el importe según las reglas actuales. La ficha por sí sola no demuestra un cobro ilegal.S04, S14, S15"
+    },
+    {
+      "type": "p",
+      "text": "Una tarifa ambigua puede provocar un desplazamiento fallido antes de que ocurra un problema técnico. Lo mismo sucede con el certificado de residencia: la ficha ofrece una ruta con cuenta, pero también menciona un formulario presencial. Puede tratarse de un procedimiento híbrido válido. Aun así, debe precisar qué puede hacerse a distancia, qué visita sigue siendo necesaria y qué llevar. En los pasaportes, la verificación física y la biometría pueden estar justificadas; reducir las visitas repetidas evitables es más útil que prometer cero desplazamientos.S05, S06"
+    },
+    {
+      "type": "h2",
+      "text": "De dónde podría proceder el valor económico"
+    },
+    {
+      "type": "p",
+      "text": "La primera ganancia potencial es reducir la búsqueda: preparar documentos e identificar la oficina correcta antes de viajar. La segunda es evitar repetir trabajo: una solicitud completa puede ahorrar una nueva visita. Una mejora más profunda exige que los organismos se transmitan información verificada en lugar de pedirla repetidamente a quien solicita el servicio. Son mecanismos que deben evaluarse, no ahorros ya demostrados por el lanzamiento."
+    },
+    {
+      "type": "p",
+      "text": "Digitalizar la entrada puede dejar intacta la cola de tramitación. También puede trasladar trabajo a las personas si deben gestionar varias cuentas o buscar ayuda. El coste relevante incluye tarifas oficiales, transporte, conexión, asistencia y tiempo dedicado tanto a los intentos exitosos como a los fallidos. Los costes operativos públicos requieren una cuenta separada. Sin volúmenes de solicitudes y cambios medidos en estas cargas, una previsión nacional de ahorros sería especulativa."
+    },
+    {
+      "type": "h2",
+      "text": "La asistencia forma parte del servicio"
+    },
+    {
+      "type": "p",
+      "text": "La experiencia anterior ofrece una lección práctica. En 2022, UNICEF documentó en Katana, Kivu del Sur, una coordinación entre maternidad y registro civil que reducía la necesidad de un viaje específico de los padres. Es un relato de un programa local, no una evaluación nacional de impacto. Su relevancia es organizativa: el acceso puede mejorar cuando las instituciones acercan la transmisión de información a las familias, sin exigir que cada progenitor gestione una cuenta en línea.S16"
+    },
+    {
+      "type": "p",
+      "text": "La Encuesta de Gobierno Electrónico de la ONU de 2024 situó a la RDC en el puesto 179 de 193 Estados miembros, con un Índice de Desarrollo del Gobierno Electrónico (EGDI) de 0,2715. Ese índice compuesto histórico aporta contexto, no un veredicto sobre la plataforma de 2026. Junto con la brecha de registro, justifica una evaluación que incluya acceso asistido, oficinas rurales y personas que no pueden completar el trámite solas. La ayuda en una oficina o maternidad debería incorporarse al mismo proceso trazable que una solicitud autónoma.S13"
+    },
+    {
+      "type": "h2",
+      "text": "De las metas del programa a los resultados del servicio"
+    },
+    {
+      "type": "p",
+      "text": "La unidad de gestión del proyecto de transformación digital, UGPTN, publica un marco de resultados más amplio con una meta aproximada de un millón de usuarios de servicios digitales para 2029. El número de usuarios puede indicar alcance, pero no si las solicitudes terminaron, cuánto tardaron o si el acceso fue más equitativo. Las bases digitales compartidas pueden facilitar la prestación; cada servicio sigue necesitando un responsable identificable y pruebas de lo ocurrido después de la presentación.S12, S17"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Qué medir",
+          "Qué debe revelar el resultado"
+        ],
+        [
+          "Finalización",
+          "Documentos recibidos sobre todos los recorridos elegibles iniciados; separar pendientes, rechazos y abandonos."
+        ],
+        [
+          "Tiempo total",
+          "Desde el primer intento hasta la recepción; mostrar también la antigüedad de los casos pendientes."
+        ],
+        [
+          "Visitas y repetición de trabajo",
+          "Visitas necesarias y evitables, con un motivo registrado para cada regreso."
+        ],
+        [
+          "Carga total para la persona",
+          "Pagos documentados, transporte, conexión, ayuda y tiempo; conservar fechas y monedas."
+        ],
+        [
+          "Acceso y corrección",
+          "Resultados según ubicación y necesidades de ayuda, además de la resolución de quejas y disputas tarifarias."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Estas medidas necesitan una descripción comparable del procedimiento anterior. Una diferencia antes y después puede deberse al tipo de expediente, al lugar o a las personas que eligen el canal digital. Los servicios deberían publicar definiciones y datos faltantes, y comprobar si las mejoras alcanzan los casos difíciles además de los sencillos. La finalización efectiva, los plazos, los costes y los ahorros atribuibles siguen sin medirse en esta revisión."
+    },
+    {
+      "type": "h2",
+      "text": "Una apertura útil, con el resultado aún por establecer"
+    },
+    {
+      "type": "p",
+      "text": "La evidencia permite una conclusión limitada pero relevante: el catálogo hace más visible parte de la administración, mientras los cinco recorridos muestran rutas desiguales y cuestiones que requieren respuestas precisas. El portal anterior de la Función Pública recuerda que la administración digital congoleña ya tiene una trayectoria. Los datos de registro de nacimientos muestran la dimensión del problema de acceso pendiente."
+    },
+    {
+      "type": "p",
+      "text": "La contribución de la nueva iniciativa quedará clara cuando una persona pueda entender las reglas, presentar una sola vez, identificar al responsable y recibir un resultado válido con menos esfuerzo. Ese es el cambio que merece medirse. Un catálogo creciente es un recurso útil; el servicio completado por la ciudadanía es el resultado."
+    },
+    {
+      "type": "h2",
+      "text": "Cómo se realizó este análisis"
+    },
+    {
+      "type": "p",
+      "text": "Revisión documental fechada y anónima de cinco fichas y sus primeros destinos de solicitud, apoyada en documentos oficiales de programas, una encuesta nacional y legislación histórica. No hubo cuentas, pagos, trabajo de campo ni trámites completados. El catálogo se trata como una capa observable de información pública; no se certificó de forma independiente su relación técnica completa con la plataforma anunciada y la aplicación móvil. Los hallazgos no permiten estimar preparación nacional, disponibilidad, corrupción ni efectos causales. Los organismos competentes deben confirmar el alcance de las tarifas y posibles cambios legales posteriores."
+    },
+    {
+      "type": "h2",
+      "text": "Fuentes y fechas de la evidencia"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "S01 · ACP: announcement of E-Services RDC2026-11-19 · Government announcement reported by the national news agency",
+          "runs": [
+            {
+              "text": "S01 · ACP: announcement of E-Services RDC",
+              "href": "https://acp.cd/nation/rdc-le-gouvernement-annonce-la-creation-de-la-plateforme-numerique-e-services-rdc/"
+            },
+            {
+              "text": "2026-11-19 · Government announcement reported by the national news agency"
+            }
+          ]
+        },
+        {
+          "text": "S02 · ACP: public-service reform and citizen outcomes2026-11-19 · Direct reporting of presidential remarks",
+          "runs": [
+            {
+              "text": "S02 · ACP: public-service reform and citizen outcomes",
+              "href": "https://acp.cd/nation/modernisation-de-ladministration-publique-le-president-tshisekedi-demande-de-renforcer-la-relation-etat-administres/"
+            },
+            {
+              "text": "2026-11-19 · Direct reporting of presidential remarks"
+            }
+          ]
+        },
+        {
+          "text": "S03 · Ministry public-service catalogue: homepageAccessed 2026-11-22 · Primary government portal",
+          "runs": [
+            {
+              "text": "S03 · Ministry public-service catalogue: homepage",
+              "href": "https://servicepublic.gouv.cd/"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary government portal"
+            }
+          ]
+        },
+        {
+          "text": "S04 · Catalogue: municipal birth certificate, service 7638Accessed 2026-11-22 · Primary government service listing",
+          "runs": [
+            {
+              "text": "S04 · Catalogue: municipal birth certificate, service 7638",
+              "href": "https://servicepublic.gouv.cd/service/7638"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary government service listing"
+            }
+          ]
+        },
+        {
+          "text": "S05 · Catalogue: residence certificate, service 7705Accessed 2026-11-22 · Primary government service listing",
+          "runs": [
+            {
+              "text": "S05 · Catalogue: residence certificate, service 7705",
+              "href": "https://servicepublic.gouv.cd/service/7705"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary government service listing"
+            }
+          ]
+        },
+        {
+          "text": "S06 · Catalogue: ordinary biometric passport, service 7Accessed 2026-11-22 · Primary government service listing",
+          "runs": [
+            {
+              "text": "S06 · Catalogue: ordinary biometric passport, service 7",
+              "href": "https://servicepublic.gouv.cd/service/7"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary government service listing"
+            }
+          ]
+        },
+        {
+          "text": "S07 · Catalogue: national driving licence A/B, service 3580Accessed 2026-11-22 · Primary government service listing",
+          "runs": [
+            {
+              "text": "S07 · Catalogue: national driving licence A/B, service 3580",
+              "href": "https://servicepublic.gouv.cd/service/3580"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary government service listing"
+            }
+          ]
+        },
+        {
+          "text": "S08 · Catalogue: criminal-record certificate, service 326Accessed 2026-11-22 · Primary government service listing",
+          "runs": [
+            {
+              "text": "S08 · Catalogue: criminal-record certificate, service 326",
+              "href": "https://servicepublic.gouv.cd/service/326"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary government service listing"
+            }
+          ]
+        },
+        {
+          "text": "S09 · Catalogue: online service coming soonAccessed 2026-11-22 · Primary government destination page",
+          "runs": [
+            {
+              "text": "S09 · Catalogue: online service coming soon",
+              "href": "https://servicepublic.gouv.cd/bientot"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary government destination page"
+            }
+          ]
+        },
+        {
+          "text": "S10 · World Bank: DRC Digital Transformation Project factsheet2024-06-27 · Primary development-finance publication",
+          "runs": [
+            {
+              "text": "S10 · World Bank: DRC Digital Transformation Project factsheet",
+              "href": "https://www.worldbank.org/en/news/factsheet/2024/06/27/inclusive-digitalization-in-eastern-and-southern-africa-program-democratic-republic-of-congo-afe-drc"
+            },
+            {
+              "text": "2024-06-27 · Primary development-finance publication"
+            }
+          ]
+        },
+        {
+          "text": "S12 · UGPTN: results frameworkAccessed 2026-11-22 · Primary project implementer publication",
+          "runs": [
+            {
+              "text": "S12 · UGPTN: results framework",
+              "href": "https://www.ugptn.cd/en/results"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary project implementer publication"
+            }
+          ]
+        },
+        {
+          "text": "S13 · UN DESA: E-Government Survey 2024, annex country table2024 · Primary international statistical publication",
+          "runs": [
+            {
+              "text": "S13 · UN DESA: E-Government Survey 2024, annex country table",
+              "href": "https://desapublications.un.org/sites/default/files/publications/2024-09/%28Print%20version%29%20E-Government%20Survey%202024%201392024.pdf"
+            },
+            {
+              "text": "2024 · Primary international statistical publication"
+            }
+          ]
+        },
+        {
+          "text": "S14 · DRC Law 16/008 of 15 July 2016, article 116 (UNICEF-hosted copy)2016-07-15 · Primary legislative text, historical version",
+          "runs": [
+            {
+              "text": "S14 · DRC Law 16/008 of 15 July 2016, article 116 (UNICEF-hosted copy)",
+              "href": "https://data.unicef.org/wp-content/uploads/2017/12/COD-102954.pdf"
+            },
+            {
+              "text": "2016-07-15 · Primary legislative text, historical version"
+            }
+          ]
+        },
+        {
+          "text": "S15 · UNICEF: DRC civil-registration country profileCompiled 2016-2017 · Institutional legal-system profile, historical",
+          "runs": [
+            {
+              "text": "S15 · UNICEF: DRC civil-registration country profile",
+              "href": "https://data.unicef.org/crvs/democratic-republic-congo/"
+            },
+            {
+              "text": "Compiled 2016-2017 · Institutional legal-system profile, historical"
+            }
+          ]
+        },
+        {
+          "text": "S16 · UNICEF: bringing civil-registration services closer to families2022-02-15 · Primary programme account",
+          "runs": [
+            {
+              "text": "S16 · UNICEF: bringing civil-registration services closer to families",
+              "href": "https://www.unicef.org/drcongo/recits/rapprocher-les-services-detat-civil-des-populations"
+            },
+            {
+              "text": "2022-02-15 · Primary programme account"
+            }
+          ]
+        },
+        {
+          "text": "S17 · UGPTN: Component 2, shared digital foundationsAccessed 2026-11-22 · Primary project implementer publication",
+          "runs": [
+            {
+              "text": "S17 · UGPTN: Component 2, shared digital foundations",
+              "href": "https://www.ugptn.cd/en/components/c2"
+            },
+            {
+              "text": "Accessed 2026-11-22 · Primary project implementer publication"
+            }
+          ]
+        },
+        {
+          "text": "S19 · Presidency: National Digital Plan, Horizon 2025Workshop announced for 2019-09-03 · Primary presidential programme page",
+          "runs": [
+            {
+              "text": "S19 · Presidency: National Digital Plan, Horizon 2025",
+              "href": "https://presidence.cd/programme-numerique"
+            },
+            {
+              "text": "Workshop announced for 2019-09-03 · Primary presidential programme page"
+            }
+          ]
+        },
+        {
+          "text": "S20 · Ministry presentation hosted by ENA: the civil-service portalUndated presentation; accessed 2026-11-22 · Primary ministry presentation, page 13 (PDF page index 12)",
+          "runs": [
+            {
+              "text": "S20 · Ministry presentation hosted by ENA: the civil-service portal",
+              "href": "https://ena.cd/wp-content/uploads/2026/03/Demontrer-lapport-de-la-digitalisation-dans-la-simplification-et-la-fiabilisation-de-la-gestion-des-ressources-humaines-de-lEtat-a-travers-le-portail-de-la-Fonction-publique-1.pdf"
+            },
+            {
+              "text": "Undated presentation; accessed 2026-11-22 · Primary ministry presentation, page 13 (PDF page index 12)"
+            }
+          ]
+        },
+        {
+          "text": "S21 · INS / ESP Kinshasa / ICF: EDS-RDC III 2023–2024, table 20.2Survey 2023–2024; report 2025 · Primary national household survey, printed page 506",
+          "runs": [
+            {
+              "text": "S21 · INS / ESP Kinshasa / ICF: EDS-RDC III 2023–2024, table 20.2",
+              "href": "https://dhsprogram.com/pubs/pdf/FR393/FR393.pdf"
+            },
+            {
+              "text": "Survey 2023–2024; report 2025 · Primary national household survey, printed page 506"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK TECH · 2026-11-22"
+    }
+  ]
+}
