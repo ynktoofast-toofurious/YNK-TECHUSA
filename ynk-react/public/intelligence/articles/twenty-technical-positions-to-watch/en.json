@@ -1,0 +1,802 @@
+{
+  "title": "20 Technical Positions to Watch Across Three Regions",
+  "summary": "This is a dated, curated opportunity inventory, not a labor-market survey or a guarantee that applications remain open. The value of the inventory is the direct link to each posting, the stated geography and the emerging skill combinations it reveals.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE",
+      "runs": [
+        {
+          "text": "YNK TECH INTELLIGENCE",
+          "href": "https://ynk-techusa.com/latest"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "RESEARCH & DATA INTELLIGENCE"
+    },
+    {
+      "type": "p",
+      "text": "Opportunity RadarData Library · 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "Ten U.S. roles, five European roles and five African roles, with links and eligibility warnings"
+    },
+    {
+      "type": "p",
+      "text": "English edition · ENFRES",
+      "runs": [
+        {
+          "text": "English edition · "
+        },
+        {
+          "text": "ENFRES",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Measure",
+          "Value"
+        ],
+        [
+          "United States",
+          "10"
+        ],
+        [
+          "Europe",
+          "5"
+        ],
+        [
+          "Africa",
+          "5"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "How to interpret the listings"
+    },
+    {
+      "type": "p",
+      "text": "The list preserves 10 roles in the United States, five roles in Europe and five roles in Africa from the November 16 research snapshot. It prioritizes data analytics, business intelligence, software and data engineering. Employer pages are preferable to aggregators, but an accessible web page does not prove the recruiter is still accepting applicants. Salary is shown only when it was explicitly advertised."
+    },
+    {
+      "type": "h2",
+      "text": "Eligibility before application"
+    },
+    {
+      "type": "p",
+      "text": "A role advertised as remote in the United States, France, Spain or South Africa may still require residence and work authorization in that country. Each applicant should check the employer’s current conditions, travel expectations, language requirements and application deadline. This list should be rechecked before publication and marked stale after 14 days without revalidation."
+    },
+    {
+      "type": "h2",
+      "text": "Positions identified"
+    },
+    {
+      "type": "h3",
+      "text": "Hello Heart · Senior Data Analyst, Client Reporting"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Healthcare client reporting; SQL; analytics · $140,000-$160,000 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://job-boards.greenhouse.io/helloheart/jobs/8782162002"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Healthie · Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Healthcare analytics; SQL; dbt; Snowflake; HIPAA · $155,000-$185,000 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://job-boards.greenhouse.io/healthie/jobs/4469749009"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Clarity Pediatrics · Senior Data Analyst"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Clinical care analytics; patient journey; dashboards · $150,000-$175,000 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.ashbyhq.com/claritypediatrics/3b089bd1-ade4-4ff9-ad6a-cfcae826fb2a"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "LendingTree · Senior Data Engineer"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "SQL; pipelines; dimensional modelling; Snowflake · $100,000-$130,000 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://job-boards.greenhouse.io/lendingtree/jobs/8265347"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "BaubleBar · Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Power BI; Snowflake; SQL; dbt; data modelling · $105,000-$115,000 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://job-boards.greenhouse.io/baublebar/jobs/8303479"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Aspenview Technology Partners · Senior Power BI Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Power BI; DAX; Azure; Microsoft Fabric; ETL · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://job-boards.greenhouse.io/aspenviewtech/jobs/4414791009"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Natera · Sr. Forward Deployed Data Engineer"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Healthcare data engineering; SQL; Python; semantic models; AI · $125,000-$156,300 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://job-boards.greenhouse.io/natera/jobs/6255111004"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Vanta · Senior Data Analyst, Strategic Finance"
+    },
+    {
+      "type": "p",
+      "text": "United States · Remote (US)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Remote (US)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Financial analytics; SQL; forecasting; decision support · $133,000-$156,000 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.ashbyhq.com/vanta/0fab2072-8863-42ec-b00d-de367b90d937"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Capital One · Senior Data Analyst (Financial Services)"
+    },
+    {
+      "type": "p",
+      "text": "United States · Plano, TX (work arrangement unconfirmed)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Plano, TX (work arrangement unconfirmed)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "SQL; Python; business intelligence; data governance · $101,100-$115,400 USD"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://www.capitalonecareers.com/job/plano/job-posting-title-senior-data-analyst-financial-services/1732/103094025584"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Mako Professionals · Senior Data Engineer (SQL Server / Fabric)"
+    },
+    {
+      "type": "p",
+      "text": "United States · Fort Worth, TX (hybrid, 3 days on-site)",
+      "runs": [
+        {
+          "text": "United States",
+          "bold": true
+        },
+        {
+          "text": " · Fort Worth, TX (hybrid, 3 days on-site)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "SQL Server; Snowflake; Databricks; Fabric; migration · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://www.career.com/job/mako-professionals/senior-data-engineer-sql-server-snowflake-databricks-fabric/j202609081051011049076"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Kraken · Senior Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "United Kingdom · London / Manchester (hybrid)",
+      "runs": [
+        {
+          "text": "United Kingdom",
+          "bold": true
+        },
+        {
+          "text": " · London / Manchester (hybrid)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Energy technology; data modelling; analytics engineering · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.ashbyhq.com/krakentech/13f7bc7a-a452-4c76-b5a8-2b441043019e"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Cosuno · Senior Data Analyst"
+    },
+    {
+      "type": "p",
+      "text": "Germany · Berlin / remote (Germany)",
+      "runs": [
+        {
+          "text": "Germany",
+          "bold": true
+        },
+        {
+          "text": " · Berlin / remote (Germany)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Business intelligence; product analytics; SQL · €80,000-€100,000"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.ashbyhq.com/cosuno/a0b8e6f3-2539-4885-993a-40f7a6474050"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Resilience Care · Software & Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "France · Remote (France)",
+      "runs": [
+        {
+          "text": "France",
+          "bold": true
+        },
+        {
+          "text": " · Remote (France)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Healthcare software; analytics engineering; data products · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.ashbyhq.com/Resilience%20Care/10f93d16-2bdb-4ffb-bc60-fb44102924c3"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Mollie · Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "Netherlands · Amsterdam (hybrid; confirm terms)",
+      "runs": [
+        {
+          "text": "Netherlands",
+          "bold": true
+        },
+        {
+          "text": " · Amsterdam (hybrid; confirm terms)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Payments; data modelling; business intelligence · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.ashbyhq.com/mollie/5da9faae-966b-4d1f-82b0-a6bb12dfe858"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Air Apps · Data Engineer"
+    },
+    {
+      "type": "p",
+      "text": "Spain · Madrid / remote (Spain)",
+      "runs": [
+        {
+          "text": "Spain",
+          "bold": true
+        },
+        {
+          "text": " · Madrid / remote (Spain)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Data pipelines; cloud analytics; engineering · €54,000-€67,000"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.ashbyhq.com/airapps/77178c2d-faca-464d-a554-b1377d9b8385"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Lyra Health · Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "South Africa · Johannesburg / remote within South Africa",
+      "runs": [
+        {
+          "text": "South Africa",
+          "bold": true
+        },
+        {
+          "text": " · Johannesburg / remote within South Africa"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Snowflake; dbt; healthcare; platform migration · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.lever.co/lyrahealth/d976452a-4242-41a7-b401-490ccc64a05e"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "SOUM · Data Engineer"
+    },
+    {
+      "type": "p",
+      "text": "Nigeria · Remote (Nigeria eligible)",
+      "runs": [
+        {
+          "text": "Nigeria",
+          "bold": true
+        },
+        {
+          "text": " · Remote (Nigeria eligible)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "E-commerce; ETL; data infrastructure; quality · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.lever.co/soum/d92500f9-6ba1-4c98-8ef5-849dd4f1e4f4/apply"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "African Management Institute · Senior Analytics Engineer"
+    },
+    {
+      "type": "p",
+      "text": "Kenya · Nairobi (hybrid; confirm employer terms)",
+      "runs": [
+        {
+          "text": "Kenya",
+          "bold": true
+        },
+        {
+          "text": " · Nairobi (hybrid; confirm employer terms)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "SQL; BI dashboards; KPI definitions; nonprofit services · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://monicahr.com/jobs/senior-analytics-engineer-at-african-management-institute-ami-7937oj/"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "AmaliTech · Data Engineer"
+    },
+    {
+      "type": "p",
+      "text": "Ghana · Ghana hubs (work arrangement to confirm)",
+      "runs": [
+        {
+          "text": "Ghana",
+          "bold": true
+        },
+        {
+          "text": " · Ghana hubs (work arrangement to confirm)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Cloud data engineering; SQL; Python; ETL · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://jobs.smartrecruiters.com/AmaliTech/744000076075567-data-engineer"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Yassir · Senior Data Analyst, Fintech"
+    },
+    {
+      "type": "p",
+      "text": "Egypt · Cairo / Alexandria (hybrid)",
+      "runs": [
+        {
+          "text": "Egypt",
+          "bold": true
+        },
+        {
+          "text": " · Cairo / Alexandria (hybrid)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Fintech; SQL; Python; Power BI; experiments · Not disclosed"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://yassir.com/career/senior_data_analyst_-_fintech_3e4f2f5a-401b-45ce-9de8-5f512a77cafd/"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Job listings were identified during the November 2026 research cycle. Vacancies may close without notice; check the original employer posting before applying."
+    },
+    {
+      "type": "p",
+      "text": "Research questions",
+      "runs": [
+        {
+          "text": "Research questions",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "How to interpret the listings",
+        "Eligibility before application"
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Explore this research collection",
+      "runs": [
+        {
+          "text": "Explore this research collection",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Why Technical Work Still Matters in the Age of AIExplainerWhere Global Tech Hiring Is ShiftingMarket IntelligenceGrowth Without Enough Formal Jobs: The DRC Employment LinkResearch StudyWho Is Hiring in the DRC, and What Is Still Missing?Hiring SignalsFrom Development Announcements to Congolese JobsDevelopment MonitorEngineering a Project-to-Paycheck Tracker for the DRCEngineering Lab",
+      "runs": [
+        {
+          "text": "Why Technical Work Still Matters in the Age of AI",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters",
+          "bold": true
+        },
+        {
+          "text": "Explainer",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters"
+        },
+        {
+          "text": "Where Global Tech Hiring Is Shifting",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting",
+          "bold": true
+        },
+        {
+          "text": "Market Intelligence",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting"
+        },
+        {
+          "text": "Growth Without Enough Formal Jobs: The DRC Employment Link",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs",
+          "bold": true
+        },
+        {
+          "text": "Research Study",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs"
+        },
+        {
+          "text": "Who Is Hiring in the DRC, and What Is Still Missing?",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc",
+          "bold": true
+        },
+        {
+          "text": "Hiring Signals",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc"
+        },
+        {
+          "text": "From Development Announcements to Congolese Jobs",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs",
+          "bold": true
+        },
+        {
+          "text": "Development Monitor",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs"
+        },
+        {
+          "text": "Engineering a Project-to-Paycheck Tracker for the DRC",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker",
+          "bold": true
+        },
+        {
+          "text": "Engineering Lab",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Sources and verification"
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech Intelligence · Research as of November 16, 2026 · Sources and methodological notes accompany each analysis."
+    }
+  ]
+}
