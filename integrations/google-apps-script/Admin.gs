@@ -222,6 +222,11 @@ function adminSetTopicStatus(requestId, status) {
 function adminApproveArticle(articleId) {
   assertAdmin_()
   let { queue, row } = findArticle_(articleId)
+  const gate = scheduleGate_(row, Date.now())
+  if (gate) throw new Error(gate)
+  if (row.get('scheduledAt') || row.get('scheduleSlot')) {
+    if (REVIEWS.some(([key]) => !/^(pass|passed|approved|verified|reviewed|cleared)$/i.test(str_(row.get(key))))) throw new Error('Complete scheduled editorial reviews in the queue before approval.')
+  }
   if (str_(row.get('syncState')).toUpperCase() === SYNC.published) {
     const assets = {}
     openTable_(CONFIG.registrySheetId, CONFIG.assetsTab, ASSET_COLS, 'assetId', []).rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
@@ -284,11 +289,41 @@ function adminPreview(articleId) {
 }
 
 function mergeArticlePr_(queue, row) {
+  const lock = LockService.getScriptLock()
+  lock.waitLock(30000)
+  try {
+  ;({ queue, row } = findArticle_(str_(row.get('articleId'))))
+  const gate = scheduleGate_(row, Date.now())
+  if (gate) throw new Error(gate)
   const m = str_(row.get('prUrl')).match(/\/pull\/(\d+)/)
   if (!m) throw new Error('Nothing to publish yet.')
+  const props = PropertiesService.getScriptProperties()
+  const receiptKey = `PUBLICATION_RECEIPT_${sha256_(str_(row.get('slug')) || str_(row.get('articleId')))}`
+  const receipt = props.getProperty(receiptKey)
+  const scheduled = row.get('scheduledAt') || row.get('scheduleSlot')
+  if (scheduled) {
+    if (receipt || row.get('publishedAt') || str_(row.get('syncState')).toUpperCase() === SYNC.published) throw new Error('Publication already recorded or pending reconciliation. Review the PR before retrying.')
+    const assets = {}
+    openTable_(CONFIG.registrySheetId, CONFIG.assetsTab, ASSET_COLS, 'assetId', []).rows.forEach((r) => { assets[str_(r.get('assetId'))] = r })
+    const links = openTable_(CONFIG.registrySheetId, CONFIG.articleImagesTab, ARTICLE_IMAGE_COLS, 'articleId', []).rows
+    if (buildArticle_(row, assets, links).hash !== str_(row.get('syncHash'))) throw new Error('Drive content changed after PR creation. Close the stale PR, then review and rebuild before publishing.')
+    let exists = false
+    try { gh_(getToken_(), 'GET', `/contents/${CONFIG.contentRoot}/articles/${str_(row.get('slug'))}/meta.json?ref=${CONFIG.baseBranch}`); exists = true }
+    catch (e) { if (!String(e.message).includes('failed (404)')) throw e }
+    if (exists) throw new Error('This slug already exists on the site. Duplicate publication blocked.')
+  }
+  if (scheduleTime_(props.getProperty('LAST_RELEASE_AT')) + RELEASE_GAP_MS > Date.now()) throw new Error('Wait at least three hours after the previous release.')
+  // Persist before the network call. An ambiguous response fails closed, never retries a new PR.
+  props.setProperty(receiptKey, JSON.stringify({ pr: m[1], state: 'pending', at: new Date().toISOString() }))
+  props.setProperty('LAST_RELEASE_AT', new Date().toISOString())
   mergePr_(getToken_(), m[1])
+  const publishedAt = new Date().toISOString()
+  props.setProperty('LAST_RELEASE_AT', publishedAt)
+  props.setProperty(receiptKey, JSON.stringify({ pr: m[1], state: 'published', at: publishedAt }))
+  if (scheduled) scheduleQueue_().set(row, 'publishedAt', publishedAt)
   queue.set(row, 'syncState', SYNC.published)
   queue.set(row, 'error', '')
+  } finally { lock.releaseLock() }
 }
 
 function mergePr_(token, number) {
@@ -296,10 +331,11 @@ function mergePr_(token, number) {
   // GitHub needs a moment to compute mergeability for a brand-new pull request.
   for (let attempt = 0; attempt < 4; attempt++) {
     const pr = gh_(token, 'GET', `/pulls/${number}`)
-    if (pr.merged_at) break
+    if (pr.merged_at) return
     if (pr.state !== 'open') throw new Error('This version was withdrawn. Approve again to send a fresh copy.')
     try {
-      gh_(token, 'PUT', `/pulls/${number}/merge`, { merge_method: 'squash' })
+      const merged = gh_(token, 'PUT', `/pulls/${number}/merge`, { merge_method: 'squash' })
+      if (!merged.merged) throw new Error('GitHub did not confirm the merge.')
       lastError = null
       break
     } catch (e) {
@@ -601,6 +637,7 @@ function autoPublish() {
   let queue = openTable_(CONFIG.queueSheetId, CONFIG.queueTab, QUEUE_COLS, 'articleId', ['syncState', 'prUrl', 'syncHash', 'error'])
   const flagged = {}
   queue.rows.forEach((row) => {
+    if (scheduleGate_(row, Date.now())) return
     if (/REJECT/i.test(str_(row.get('approval'))) || /^(Rejected|Backlog) /.test(str_(row.get('error')))) return
     const texts = LANGS.map(([, col]) => {
       const id = driveId_(row.get(col))
@@ -616,7 +653,7 @@ function autoPublish() {
     flagged[str_(row.get('articleId'))] = true
     const sync = str_(row.get('syncState')).toUpperCase()
     if (sync === SYNC.published || sync === SYNC.prOpen) return
-    REVIEWS.forEach(([k]) => {
+    if (!(row.get('scheduledAt') || row.get('scheduleSlot'))) REVIEWS.forEach(([k]) => {
       if (!PASSED_RE.test(str_(row.get(k)))) queue.set(row, k, pickOption_(queue.options(row, k), PASSED_RE, 'PASS'))
     })
     queue.set(row, 'approval', APPROVED)
@@ -640,7 +677,7 @@ function autoPublish() {
     const id = str_(row.get('articleId'))
     if (!flagged[id] || str_(row.get('syncState')).toUpperCase() !== SYNC.prOpen) return
     const title = str_(row.get('titleEn')) || str_(row.get('slug'))
-    if (count >= AUTO_PUBLISH_PER_DAY) { problems.push(`${title}: daily limit of ${AUTO_PUBLISH_PER_DAY} reached, waiting in To review`); return }
+    if (!(row.get('scheduledAt') || row.get('scheduleSlot')) && count >= AUTO_PUBLISH_PER_DAY) { problems.push(`${title}: daily limit of ${AUTO_PUBLISH_PER_DAY} reached, waiting in To review`); return }
     try {
       mergeArticlePr_(queue, row)
       count += 1
@@ -651,6 +688,7 @@ function autoPublish() {
       }
     } catch (e) {
       problems.push(`${title}: ${e.message || e}`)
+      queue.set(row, 'error', safeCell_(String(e.message || e).slice(0, 480)))
     }
   })
   props.setProperty('AUTO_PUBLISH_COUNT', JSON.stringify({ day: today, n: count }))
@@ -880,6 +918,7 @@ function articleView_(queue, row) {
     stage,
     approval,
     syncState: sync,
+    scheduled: Boolean(row.get('scheduledAt') || row.get('scheduleSlot')),
     reviews: REVIEWS.map(([key, name]) => ({ name: name.replace(/_review$/, '').replace(/_/g, ' '), value: str_(row.get(key)), passed: PASSED_RE.test(str_(row.get(key))) })),
     docs,
     prUrl: str_(row.get('prUrl')),
