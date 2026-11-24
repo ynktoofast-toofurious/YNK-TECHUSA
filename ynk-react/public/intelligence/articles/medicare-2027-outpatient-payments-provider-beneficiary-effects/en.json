@@ -1,0 +1,503 @@
+{
+  "title": "Medicare’s 2027 outpatient reset: lower drug copayments, uneven hospital effects",
+  "summary": "A lower payment for a hospital-administered drug can lower its coinsurance while leaving the hospital’s overall position dependent on its service mix. Medicare’s 2027 outpatient rule does both: it reduces affected 340B drug payments and redistributes funds to non-drug services. The result is a change in who receives and pays the money, with consequences that a single national savings figure cannot describe.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH · RESEARCH & STUDIESEnglish",
+      "runs": [
+        {
+          "text": "YNK TECH · RESEARCH & STUDIES",
+          "bold": true
+        },
+        {
+          "text": "English"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "HEALTHCARE ECONOMICS · ORIGINAL DATA ANALYSIS"
+    },
+    {
+      "type": "p",
+      "text": "A reanalysis of CMS estimates for 3,502 hospitals shows why a drug-payment reduction, a hospital revenue change and a household saving require different calculations."
+    },
+    {
+      "type": "p",
+      "text": "Evidence reviewed 23 November 2026 · Rule effective 1 January 2027"
+    },
+    {
+      "type": "p",
+      "text": "32.1%Calculated payment reduction for an affected drug at a fixed ASP",
+      "runs": [
+        {
+          "text": "32.1%",
+          "bold": true
+        },
+        {
+          "text": "Calculated payment reduction for an affected drug at a fixed ASP"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "605 / 3,502Hospitals with a decrease in CMS’s modeled payment estimates",
+      "runs": [
+        {
+          "text": "605 / 3,502",
+          "bold": true
+        },
+        {
+          "text": "Hospitals with a decrease in CMS’s modeled payment estimates"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "$68Illustrative statutory coinsurance reduction at a $1,000 ASP",
+      "runs": [
+        {
+          "text": "$68",
+          "bold": true
+        },
+        {
+          "text": "Illustrative statutory coinsurance reduction at a $1,000 ASP"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "The policy starts with two different prices"
+    },
+    {
+      "type": "p",
+      "text": "The 340B program gives eligible providers access to discounted drug acquisition prices. Medicare reimbursement is a separate payment. Average Sales Price (ASP) is the benchmark used here; it is not the particular hospital’s purchase invoice. This analysis concerns affected hospital outpatient Part B drugs under the Outpatient Prospective Payment System (OPPS). It does not estimate retail Part D or employer pharmacy-benefit savings. S1S5"
+    },
+    {
+      "type": "p",
+      "text": "The final rule takes effect on 1 January 2027. As of this review, payment effects are prospective. The new drug rate applies to affected, separately payable 340B drugs at non-exempt OPPS hospitals. Rural sole community hospitals, children’s hospitals and PPS-exempt cancer hospitals are exempt; drug-specific exclusions include pass-through drugs and vaccines. S1"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Policy component",
+          "Verified change",
+          "How to interpret it"
+        ],
+        [
+          "Annual OPPS update",
+          "+2.3% for qualifying hospitals",
+          "A rate update, rather than a guaranteed change in total hospital revenue. S2"
+        ],
+        [
+          "Affected 340B drugs",
+          "ASP +6% becomes ASP −28%",
+          "At constant ASP: (0.72 ÷ 1.06) − 1 = −32.08%. S1S3"
+        ],
+        [
+          "Non-drug redistribution",
+          "Approximately +7.5%",
+          "Offsets the 340B drug reduction within OPPS; applies to eligible non-drug payments. S1S3"
+        ],
+        [
+          "Separate remedy offset",
+          "Annual offset rises from 0.5% to 2%",
+          "A distinct recovery of earlier non-drug payments, with a new-provider exception. Already included in the facility file’s 2027 column. S2S4"
+        ],
+        [
+          "Selected off-campus imaging",
+          "PFS-equivalent payment for specified imaging without contrast",
+          "Separate site-of-service policy; rural sole community hospitals are exempt. S1"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "The components operate on different payment bases. Adding 2.3%, 7.5% and −2% to every hospital bill would therefore be misleading. The 32.1% drug reduction also measures a change from the old payment, not a 32.1% fall in ASP or drug acquisition costs."
+    },
+    {
+      "type": "h2",
+      "text": "An original calculation across 3,502 hospitals"
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech downloaded CMS’s facility impact archive and checked the Excel payment fields against its accessible CSV. The file contains 3,544 provider records. Excluding 42 community mental health centers leaves 3,502 hospitals; children’s and cancer hospitals are already excluded by the source. Both annual payment fields are simulations using a common historical service base, not observed annual receipts. S4"
+    },
+    {
+      "type": "p",
+      "text": "For these hospitals, modeled payments fall from $83.455 billion to $83.319 billion: a decrease of $135.7 million, or 0.16%. Yet the median hospital has a modeled increase of 6.67%. Only 605 hospitals, 17.3% of the sample, have decreases. Larger payment bases can therefore outweigh many smaller increases. The two summaries answer different questions. S4"
+    },
+    {
+      "type": "h3",
+      "text": "The same rule produces different modeled results"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Hospital group",
+          "Hospitals",
+          "Payment-weighted modeled change"
+        ],
+        [
+          "All hospitals",
+          "3,502",
+          "-0.16%"
+        ],
+        [
+          "Major teaching",
+          "466",
+          "-4.36%"
+        ],
+        [
+          "Minor teaching",
+          "955",
+          "+0.86%"
+        ],
+        [
+          "Nonteaching",
+          "2,081",
+          "+3.92%"
+        ],
+        [
+          "Voluntary",
+          "1,989",
+          "-0.48%"
+        ],
+        [
+          "Proprietary",
+          "1,106",
+          "+7.87%"
+        ],
+        [
+          "Government",
+          "407",
+          "-3.40%"
+        ],
+        [
+          "DSH share >35%",
+          "743",
+          "-5.78%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "The 2027 payment field includes the remedy offset according to CMS’s layout. Subtracting another 2% would double count it. Its outlier payments are also already included. These selected-file totals are not national Medicare expenditure estimates, and the −0.16% result is not a measure of the 340B drug policy alone. S4"
+    },
+    {
+      "type": "p",
+      "text": "The group differences show exposure, not the causal effect of being a teaching, government or proprietary hospital. Service mix, drug use and other adjustments differ. DSH denotes the disproportionate-share patient percentage in CMS’s file; the >35% group overlaps the other categories. Revenue changes also do not directly establish changes in profit, staffing or access."
+    },
+    {
+      "type": "h2",
+      "text": "A lower copayment does not identify the person who saves"
+    },
+    {
+      "type": "p",
+      "text": "Hold ASP at $1,000 and apply the old and new rates to one qualifying drug. The allowed amount falls by $340. With a simplified 80/20 split, the statutory coinsurance falls by $68. Medicare’s and the coinsurance payer’s reductions are parts of that same $340 payment change. They must not be added again to the provider’s revenue reduction."
+    },
+    {
+      "type": "h3",
+      "text": "One qualifying drug, with its ASP held at $1,000"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "One qualifying drug line",
+          "Old rate",
+          "2027 rate",
+          "Change"
+        ],
+        [
+          "Total allowed payment",
+          "$1,060",
+          "$720",
+          "−$340"
+        ],
+        [
+          "Simplified Medicare share (80%)",
+          "$848",
+          "$576",
+          "−$272"
+        ],
+        [
+          "Statutory coinsurance (20%)",
+          "$212",
+          "$144",
+          "−$68"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "If the beneficiary pays the full coinsurance, the direct saving in this example is $68. If supplemental insurance pays it all, the immediate claim-level saving accrues to that payer; household premium effects are not established. Partial coverage divides the benefit. Medicare Advantage effects require plan-specific terms rather than an assumed transfer of this fee-for-service example. S5S6"
+    },
+    {
+      "type": "p",
+      "text": "Other services matter too. In a deliberately simplified episode containing this drug and $1,000 of eligible non-drug payments, the 7.5% redistribution increases the latter’s 20% coinsurance by $15. The episode’s combined coinsurance then falls by $53, not $68. This isolates one mechanism while holding all other policies constant; it is not an annual household forecast."
+    },
+    {
+      "type": "h2",
+      "text": "The hospital’s drug exposure determines the policy-only result"
+    },
+    {
+      "type": "p",
+      "text": "Let D be baseline payment for affected 340B drugs at ASP +6%, and N be baseline eligible non-drug payment. Holding prices, volumes and all other policies constant, the drug reduction and non-drug redistribution produce the following change:"
+    },
+    {
+      "type": "p",
+      "text": "On a hypothetical $10 million baseline containing only these two buckets, the scenarios show how the same rule can raise or lower payments. The shares are assumptions, not estimates of a typical hospital."
+    },
+    {
+      "type": "p",
+      "text": "ΔP = 0.075 × N − (0.34 ÷ 1.06) × D"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Exposure scenario",
+          "Affected drug share",
+          "Net payment change",
+          "Change on $10m baseline"
+        ],
+        [
+          "Low exposure",
+          "5%",
+          "$552,123",
+          "+5.52%"
+        ],
+        [
+          "Middle exposure",
+          "20%",
+          "$-41,509",
+          "-0.42%"
+        ],
+        [
+          "High exposure",
+          "40%",
+          "$-833,019",
+          "-8.33%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "A narrow break-even calculation explains the redistribution"
+    },
+    {
+      "type": "p",
+      "text": "In this narrow model, the break-even affected-drug share is 18.95%. Above it, the drug reduction exceeds the non-drug uplift. Unaffected drugs, exemptions, the annual update, remedy offset, wage indexes, other policies and behavioral responses alter the full result. This sensitivity is separate from the complete CMS facility simulation."
+    },
+    {
+      "type": "p",
+      "text": "The revenue effect also differs from the margin effect. With an illustrative acquisition cost of $600, drug payment minus acquisition cost falls from $460 to $120, before staffing and overhead. That is a 73.9% reduction in this simple contribution measure, despite a 32.1% payment reduction. Actual procurement costs are needed before drawing a hospital profitability conclusion."
+    },
+    {
+      "type": "h2",
+      "text": "National savings figures need a consistent denominator"
+    },
+    {
+      "type": "p",
+      "text": "CMS publishes two drug-payment estimates that should remain separately attributed. Its communications describe a first-year reduction, while the regulatory impact analysis describes a claims-model redistribution. The reviewed material does not fully reconcile their dollar difference."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Published estimate",
+          "What the source describes",
+          "Treatment in this analysis"
+        ],
+        [
+          "$4.65bn",
+          "Final rule’s claims-model drug-payment reduction, including copayments, with an equal redistribution to non-drug services. S1",
+          "Used to explain the regulatory model’s redistribution; not labeled net Medicare savings."
+        ],
+        [
+          "$5.45bn",
+          "CMS communications’ first-year drug reduction: $4.35bn in program payments plus $1.1bn in beneficiary drug payments. S2S8",
+          "Reported separately. The reviewed sources do not supply a complete numerical bridge to the $4.65bn model."
+        ],
+        [
+          "$900 per qualifying recipient",
+          "CMS’s projected average reduction in drug costs for a beneficiary receiving a qualifying drug. S2S8",
+          "A conditional mean; not a universal saving or proof of an equal reduction in household cash spending."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "The difference is not a confidence interval and should not be averaged away. More fundamentally, budget neutrality means a drug-payment reduction is offset elsewhere in OPPS. Beneficiaries using affected drugs can face lower coinsurance while users of non-drug services face higher amounts from redistribution. Gross drug savings do not establish lower total program spending or lower annual costs for every beneficiary. S1S2"
+    },
+    {
+      "type": "h2",
+      "text": "What would establish whether the reform works?"
+    },
+    {
+      "type": "p",
+      "text": "The immediate economic mechanism is a redistribution of reimbursement and associated cost sharing. Whether it improves affordability without impairing access is a separate empirical question. The American Hospital Association argues that payment reductions and the accelerated offset could strain care provision. That is a provider position and a hypothesis to test, not a measured 2027 access effect. S7"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Measure",
+          "What is known now",
+          "Evidence needed after implementation"
+        ],
+        [
+          "Hospital payment",
+          "Simulated effects on a common historical service base",
+          "Allowed payments and receipts by hospital and service, adjusted for ASP, volume and case mix"
+        ],
+        [
+          "Patient burden",
+          "Rate arithmetic and CMS’s projected drug cost-sharing reduction",
+          "Patient bills, secondary-payer payments, deductibles and total episode spending"
+        ],
+        [
+          "Care access",
+          "No measured 2027 effect",
+          "Waiting time, treatment starts, transfers and service availability, with comparable baseline cases"
+        ],
+        [
+          "Forecast-versus-actual gap",
+          "No observed 2027 outcomes",
+          "Comparable actual payment minus modeled payment, with coding and policy changes documented"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Before implementation, freeze a comparable service and coverage baseline. During the first quarter of 2027, inspect coding, coverage and payment completeness. Assess outcomes when sufficiently mature paid claims and patient-billing data are available, reporting claim lag and missing records. Actual-versus-modeled comparisons must separate price, volume, service mix and policy effects; a raw year-over-year difference cannot isolate causation."
+    },
+    {
+      "type": "p",
+      "text": "The evidence already supports a distributional conclusion: affected drug users can receive a lower statutory charge, while hospital payment effects vary sharply. It does not yet establish universal household savings, hospital margin losses or changes in care access. Following the money through the whole episode is the test that matters."
+    },
+    {
+      "type": "h2",
+      "text": "Sources and reproducibility"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "S1 · CMS / Federal Register · CY2027 OPPS/ASC final rule, CMS-1850-FC2026-11-06",
+          "runs": [
+            {
+              "text": "S1 · CMS / Federal Register · CY2027 OPPS/ASC final rule, CMS-1850-FC",
+              "href": "https://www.govinfo.gov/content/pkg/FR-2026-11-06/html/2026-22739.htm"
+            },
+            {
+              "text": "2026-11-06"
+            }
+          ]
+        },
+        {
+          "text": "S2 · CMS · CY2027 OPPS/ASC final rule fact sheet2026-11-04",
+          "runs": [
+            {
+              "text": "S2 · CMS · CY2027 OPPS/ASC final rule fact sheet",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/calendar-year-2027-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center-0"
+            },
+            {
+              "text": "2026-11-04"
+            }
+          ]
+        },
+        {
+          "text": "S3 · CMS · CY2027 final rule claims accounting2026-11",
+          "runs": [
+            {
+              "text": "S3 · CMS · CY2027 final rule claims accounting",
+              "href": "https://www.cms.gov/files/document/2027-fr-opps-claims-accounting.pdf"
+            },
+            {
+              "text": "2026-11"
+            }
+          ]
+        },
+        {
+          "text": "S4 · CMS · 2027 FR OPPS Facility Specific Impacts; file and layout dated October 28, 20262026-10-28",
+          "runs": [
+            {
+              "text": "S4 · CMS · 2027 FR OPPS Facility Specific Impacts; file and layout dated October 28, 2026",
+              "href": "https://www.cms.gov/files/zip/2027-fr-opps-facility-specific-impacts.zip"
+            },
+            {
+              "text": "2026-10-28"
+            }
+          ]
+        },
+        {
+          "text": "S5 · Medicare.gov · Prescription drugs (outpatient)Accessed 2026-11-23",
+          "runs": [
+            {
+              "text": "S5 · Medicare.gov · Prescription drugs (outpatient)",
+              "href": "https://www.medicare.gov/coverage/prescription-drugs-outpatient"
+            },
+            {
+              "text": "Accessed 2026-11-23"
+            }
+          ]
+        },
+        {
+          "text": "S6 · Medicare.gov · Medicare costs and MedigapAccessed 2026-11-23",
+          "runs": [
+            {
+              "text": "S6 · Medicare.gov · Medicare costs and Medigap",
+              "href": "https://www.medicare.gov/basics/costs/medicare-costs"
+            },
+            {
+              "text": "Accessed 2026-11-23"
+            }
+          ]
+        },
+        {
+          "text": "S7 · American Hospital Association · Statement on CY2027 OPPS final rule2026-11-04",
+          "runs": [
+            {
+              "text": "S7 · American Hospital Association · Statement on CY2027 OPPS final rule",
+              "href": "https://www.aha.org/press-releases/2026-11-04-aha-statement-cy-2027-opps-final-rule"
+            },
+            {
+              "text": "2026-11-04"
+            }
+          ]
+        },
+        {
+          "text": "S8 · CMS · Medicare outpatient final rule press release2026-11-04",
+          "runs": [
+            {
+              "text": "S8 · CMS · Medicare outpatient final rule press release",
+              "href": "https://www.cms.gov/newsroom/press-releases/medicare-outpatient-final-rule-expands-surgical-options-lowers-out-pocket-costs-340b-drugs"
+            },
+            {
+              "text": "2026-11-04"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Primary policy and data sources are listed above. All YNK calculations use the archived CMS facility file and methods supplied with this analysis. Charts are original data visualizations. Dollar figures are nominal USD; rounded displays retain full precision in the data files. All 2027 outcomes are projected or illustrative, with no observed 2027 impact claimed."
+    },
+    {
+      "type": "p",
+      "text": "YNK TECH · 2026-11-23"
+    }
+  ]
+}

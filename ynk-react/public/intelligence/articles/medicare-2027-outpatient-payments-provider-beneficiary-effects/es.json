@@ -1,0 +1,503 @@
+{
+  "title": "Medicare en 2027: menor coseguro en ciertos medicamentos, efectos hospitalarios desiguales",
+  "summary": "Un pago menor por un medicamento administrado en el hospital puede reducir su coseguro, mientras la posición global del hospital depende de su mezcla de servicios. La regla ambulatoria de Medicare para 2027 combina ambos mecanismos: reduce ciertos pagos de medicamentos 340B y redistribuye fondos hacia servicios no farmacológicos. Una sola cifra nacional de ahorro no describe quién paga y quién recibe ese dinero.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH · RESEARCH & STUDIESEspañol",
+      "runs": [
+        {
+          "text": "YNK TECH · RESEARCH & STUDIES",
+          "bold": true
+        },
+        {
+          "text": "Español"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "ECONOMÍA DE LA SALUD · ANÁLISIS ORIGINAL DE DATOS"
+    },
+    {
+      "type": "p",
+      "text": "Un nuevo análisis de las estimaciones de CMS para 3.502 hospitales muestra por qué reducir un reembolso, cambiar los ingresos y ahorrar dinero al hogar requieren cálculos distintos."
+    },
+    {
+      "type": "p",
+      "text": "Evidencia revisada el 23 de noviembre de 2026 · Vigencia desde el 1 de enero de 2027"
+    },
+    {
+      "type": "p",
+      "text": "32,1%Reducción calculada del pago de un medicamento afectado, con ASP constante",
+      "runs": [
+        {
+          "text": "32,1%",
+          "bold": true
+        },
+        {
+          "text": "Reducción calculada del pago de un medicamento afectado, con ASP constante"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "605 / 3.502Hospitales con disminuciones en las estimaciones de pago modeladas por CMS",
+      "runs": [
+        {
+          "text": "605 / 3.502",
+          "bold": true
+        },
+        {
+          "text": "Hospitales con disminuciones en las estimaciones de pago modeladas por CMS"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "68 USDReducción ilustrativa del coseguro reglamentario con un ASP de 1.000 USD",
+      "runs": [
+        {
+          "text": "68 USD",
+          "bold": true
+        },
+        {
+          "text": "Reducción ilustrativa del coseguro reglamentario con un ASP de 1.000 USD"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "La política parte de dos precios distintos"
+    },
+    {
+      "type": "p",
+      "text": "El programa 340B permite a proveedores elegibles comprar medicamentos con descuento. El reembolso de Medicare es un pago separado. El Average Sales Price (ASP), o precio promedio de venta, es la referencia utilizada aquí; no es la factura de compra particular de cada hospital. Este análisis aborda medicamentos hospitalarios ambulatorios afectados de la Parte B bajo el Outpatient Prospective Payment System (OPPS). No estima ahorros de medicamentos minoristas de la Parte D ni de beneficios farmacéuticos de empleadores. S1S5"
+    },
+    {
+      "type": "p",
+      "text": "La regla definitiva entra en vigor el 1 de enero de 2027. A la fecha de revisión, sus efectos sobre pagos son prospectivos. La nueva tarifa se aplica a medicamentos 340B afectados, pagaderos por separado en hospitales OPPS no exentos. Hospitales rurales sole community, hospitales infantiles y hospitales oncológicos exentos del PPS quedan exceptuados; las exclusiones por medicamento incluyen productos con pago pass-through y vacunas. S1"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Componente de política",
+          "Cambio verificado",
+          "Interpretación"
+        ],
+        [
+          "Actualización anual OPPS",
+          "+2,3% para hospitales elegibles",
+          "Una actualización de tarifas, sin garantía de una variación equivalente de ingresos totales. S2"
+        ],
+        [
+          "Medicamentos 340B afectados",
+          "ASP +6% pasa a ASP −28%",
+          "Con ASP constante: (0,72 ÷ 1,06) − 1 = −32,08%. S1S3"
+        ],
+        [
+          "Redistribución no farmacológica",
+          "Aproximadamente +7,5%",
+          "Compensa la reducción farmacológica dentro del OPPS; se aplica a pagos no farmacológicos elegibles. S1S3"
+        ],
+        [
+          "Compensación separada del remedio 340B",
+          "La tasa anual pasa de 0,5% a 2%",
+          "Recuperación de pagos no farmacológicos anteriores, con excepción para proveedores nuevos. Ya está incluida en la columna 2027 del archivo por establecimiento. S2S4"
+        ],
+        [
+          "Determinadas imágenes fuera del campus",
+          "Pago equivalente al PFS para ciertas imágenes sin contraste",
+          "Política separada por lugar de atención; hospitales rurales sole community exentos. S1"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Los componentes operan sobre bases diferentes. Sumar 2,3%, 7,5% y −2% a cada factura hospitalaria sería engañoso. La reducción de 32,1% compara el pago nuevo con el anterior; no significa una caída equivalente del ASP o del costo de adquisición."
+    },
+    {
+      "type": "h2",
+      "text": "Un cálculo original de 3.502 hospitales"
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech descargó el archivo de impacto por establecimiento de CMS y comparó los campos de pago de Excel con su CSV accesible. Contiene 3.544 proveedores. Al excluir 42 centros comunitarios de salud mental quedan 3.502 hospitales; la fuente ya excluye hospitales infantiles y oncológicos. Ambos campos de pago anual son simulaciones sobre una base histórica común de servicios, no ingresos anuales observados. S4"
+    },
+    {
+      "type": "p",
+      "text": "Para estos hospitales, los pagos modelados pasan de 83,455 a 83,319 mil millones USD: una caída de 135,7 millones, o 0,16%. Sin embargo, el hospital mediano registra un aumento modelado de 6,67%. Solo 605 hospitales, el 17,3% de la muestra, presentan disminuciones. Bases de pago mayores pueden superar muchos aumentos pequeños. Ambos resúmenes responden preguntas distintas. S4"
+    },
+    {
+      "type": "h3",
+      "text": "La misma regla produce resultados modelados distintos"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Grupo hospitalario",
+          "Hospitales",
+          "Cambio modelado ponderado por pagos"
+        ],
+        [
+          "Todos los hospitales",
+          "3.502",
+          "-0,16%"
+        ],
+        [
+          "Docencia mayor",
+          "466",
+          "-4,36%"
+        ],
+        [
+          "Docencia menor",
+          "955",
+          "+0,86%"
+        ],
+        [
+          "Sin docencia",
+          "2.081",
+          "+3,92%"
+        ],
+        [
+          "Voluntarios",
+          "1.989",
+          "-0,48%"
+        ],
+        [
+          "Con fines de lucro",
+          "1.106",
+          "+7,87%"
+        ],
+        [
+          "Públicos",
+          "407",
+          "-3,40%"
+        ],
+        [
+          "Proporción DSH >35 %",
+          "743",
+          "-5,78%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "El diccionario CMS indica que la columna 2027 incluye la compensación del remedio 340B. Restar otro 2% la contaría dos veces. Los pagos adicionales por casos de alto costo también están incluidos. Estos totales del archivo seleccionado no son estimaciones del gasto nacional Medicare, y el −0,16% no mide únicamente la política farmacológica 340B. S4"
+    },
+    {
+      "type": "p",
+      "text": "Las diferencias describen exposición, no el efecto causal de ser un hospital docente, público o con fines de lucro. La mezcla de servicios, los medicamentos y otros ajustes varían. DSH identifica la proporción de pacientes disproportionate share del archivo CMS; el grupo >35% se superpone a las demás categorías. Cambios de ingresos tampoco establecen directamente variaciones en ganancias, personal o acceso."
+    },
+    {
+      "type": "h2",
+      "text": "Un coseguro menor no identifica quién ahorra"
+    },
+    {
+      "type": "p",
+      "text": "Mantengamos el ASP en 1.000 USD y apliquemos ambas tarifas a un medicamento elegible. El pago autorizado baja 340 USD. Con una división simplificada 80/20, el coseguro reglamentario cae 68 USD. La reducción de Medicare y la del pagador del coseguro forman parte del mismo cambio de 340 USD; no deben sumarse otra vez a la reducción de ingresos del proveedor."
+    },
+    {
+      "type": "h3",
+      "text": "Un medicamento elegible, con ASP fijo de 1.000 USD"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Una línea de medicamento elegible",
+          "Tarifa anterior",
+          "Tarifa 2027",
+          "Cambio"
+        ],
+        [
+          "Pago autorizado total",
+          "1.060 USD",
+          "720 USD",
+          "−340 USD"
+        ],
+        [
+          "Parte simplificada de Medicare (80%)",
+          "848 USD",
+          "576 USD",
+          "−272 USD"
+        ],
+        [
+          "Coseguro reglamentario (20%)",
+          "212 USD",
+          "144 USD",
+          "−68 USD"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Si el beneficiario paga todo el coseguro, el ahorro directo del ejemplo es 68 USD. Si un seguro complementario lo cubre por completo, ese pagador recibe el ahorro inmediato de la reclamación; no se ha establecido el efecto en la prima del hogar. La cobertura parcial divide el beneficio. Los efectos en Medicare Advantage requieren términos específicos del plan, sin trasladar automáticamente este ejemplo de pago por servicio. S5S6"
+    },
+    {
+      "type": "p",
+      "text": "También cuentan los otros servicios. En un episodio deliberadamente simplificado con este medicamento y 1.000 USD de pagos no farmacológicos elegibles, la redistribución de 7,5% eleva en 15 USD su coseguro de 20%. El coseguro combinado del episodio baja entonces 53 USD, no 68. El cálculo aísla un mecanismo manteniendo constantes las otras políticas; no pronostica el presupuesto anual del hogar."
+    },
+    {
+      "type": "h2",
+      "text": "La exposición farmacológica determina el efecto aislado"
+    },
+    {
+      "type": "p",
+      "text": "D representa el pago inicial de medicamentos 340B afectados a ASP +6%, y N el pago inicial de servicios no farmacológicos elegibles. Con precios, volúmenes y otras políticas constantes, la reducción y redistribución producen el siguiente cambio:"
+    },
+    {
+      "type": "p",
+      "text": "Sobre una base hipotética de 10 millones USD compuesta solo por estas dos partidas, los escenarios muestran cómo la misma regla puede aumentar o reducir los pagos. Las proporciones son supuestos, no estimaciones de un hospital típico."
+    },
+    {
+      "type": "p",
+      "text": "ΔP = 0.075 × N − (0.34 ÷ 1.06) × D"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Escenario de exposición",
+          "Proporción farmacológica afectada",
+          "Cambio neto de pagos",
+          "Cambio sobre base de 10 M USD"
+        ],
+        [
+          "Exposición baja",
+          "5%",
+          "USD 552.123",
+          "+5,52%"
+        ],
+        [
+          "Exposición intermedia",
+          "20%",
+          "USD -41.509",
+          "-0,42%"
+        ],
+        [
+          "Exposición alta",
+          "40%",
+          "USD -833.019",
+          "-8,33%"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h3",
+      "text": "Un cálculo limitado de equilibrio explica la redistribución"
+    },
+    {
+      "type": "p",
+      "text": "En este modelo limitado, el equilibrio corresponde a una proporción farmacológica afectada de 18,95%. Por encima, la caída farmacológica supera el aumento no farmacológico. Medicamentos no afectados, exenciones, actualización anual, compensación, índices salariales, otras políticas y respuestas de comportamiento cambian el resultado completo. Esta sensibilidad es distinta de la simulación completa de CMS."
+    },
+    {
+      "type": "p",
+      "text": "El efecto en ingresos difiere del efecto en margen. Con un costo de adquisición ilustrativo de 600 USD, pago menos costo de compra baja de 460 a 120 USD, antes de personal y gastos generales. Esa contribución sencilla disminuye 73,9%, aunque el pago cae 32,1%. Se necesitan costos de compra reales antes de concluir sobre rentabilidad hospitalaria."
+    },
+    {
+      "type": "h2",
+      "text": "Las cifras nacionales requieren un denominador coherente"
+    },
+    {
+      "type": "p",
+      "text": "CMS publica dos estimaciones farmacológicas que deben conservar atribución separada. Su comunicación describe una reducción del primer año, mientras el análisis regulatorio describe una redistribución del modelo de reclamaciones. El material revisado no reconcilia por completo la diferencia monetaria."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Estimación publicada",
+          "Qué describe la fuente",
+          "Tratamiento en este análisis"
+        ],
+        [
+          "4,65 mil millones USD",
+          "Reducción de pagos farmacológicos del modelo de reclamaciones de la regla, incluidos copagos, redistribuida en igual cuantía a servicios no farmacológicos. S1",
+          "Explica la redistribución del modelo regulatorio; no se presenta como ahorro neto de Medicare."
+        ],
+        [
+          "5,45 mil millones USD",
+          "Reducción del primer año anunciada por CMS: 4,35 mil millones de pagos del programa y 1,1 mil millones de pagos farmacológicos de beneficiarios. S2S8",
+          "Se presenta por separado. Las fuentes revisadas no ofrecen un puente numérico completo hacia el modelo de 4,65 mil millones."
+        ],
+        [
+          "900 USD por receptor elegible",
+          "Reducción media proyectada por CMS en el costo farmacológico de un beneficiario que recibe un medicamento elegible. S2S8",
+          "Media condicional; no ahorro universal ni prueba de una reducción idéntica del desembolso del hogar."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "La diferencia no es un intervalo de confianza ni debe ocultarse mediante un promedio. La neutralidad presupuestaria implica, sobre todo, que la reducción farmacológica se compensa en otra parte del OPPS. Usuarios de medicamentos afectados pueden afrontar menor coseguro mientras otros servicios aumentan por redistribución. El ahorro farmacológico bruto no establece menor gasto total del programa ni menores costos anuales para cada beneficiario. S1S2"
+    },
+    {
+      "type": "h2",
+      "text": "¿Qué demostraría si la reforma funciona?"
+    },
+    {
+      "type": "p",
+      "text": "El mecanismo económico inmediato redistribuye reembolsos y participación en costos. Determinar si mejora la asequibilidad sin perjudicar el acceso exige otra evaluación. La American Hospital Association sostiene que las reducciones y la compensación acelerada podrían presionar la prestación de atención. Es una posición de proveedores y una hipótesis por comprobar, no un efecto de acceso medido en 2027. S7"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Medida",
+          "Qué se sabe ahora",
+          "Evidencia necesaria tras la implementación"
+        ],
+        [
+          "Pago hospitalario",
+          "Efectos simulados sobre una base histórica común de servicios",
+          "Pagos autorizados e ingresos cobrados por hospital y servicio, ajustados por ASP, volumen y mezcla de casos"
+        ],
+        [
+          "Carga del paciente",
+          "Aritmética tarifaria y proyección CMS de menor participación en medicamentos",
+          "Facturas de pacientes, pagos de otros aseguradores, deducibles y gasto total del episodio"
+        ],
+        [
+          "Acceso a la atención",
+          "Ningún efecto de 2027 medido",
+          "Esperas, inicios de tratamiento, traslados y disponibilidad, con casos de referencia comparables"
+        ],
+        [
+          "Brecha entre pronóstico y resultado",
+          "Sin resultados 2027 observados",
+          "Pago real comparable menos pago modelado, documentando codificación y cambios de política"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Antes de la implementación, fijar una base comparable de servicios y cobertura. Durante el primer trimestre de 2027, revisar codificación, cobertura e integridad de pagos. Evaluar resultados cuando existan suficientes reclamaciones pagadas y facturas consolidadas, publicando rezagos y registros faltantes. Las comparaciones deben separar precio, volumen, mezcla de servicios y política; una diferencia anual bruta no aísla causalidad."
+    },
+    {
+      "type": "p",
+      "text": "La evidencia ya respalda una conclusión distributiva: ciertos usuarios de medicamentos pueden recibir un cargo reglamentario menor, mientras los pagos hospitalarios varían considerablemente. Todavía no demuestra ahorro universal de hogares, pérdidas de margen hospitalario ni cambios de acceso. Seguir el dinero durante todo el episodio es la prueba relevante."
+    },
+    {
+      "type": "h2",
+      "text": "Fuentes y reproducibilidad"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "S1 · CMS / Federal Register · CY2027 OPPS/ASC final rule, CMS-1850-FC2026-11-06",
+          "runs": [
+            {
+              "text": "S1 · CMS / Federal Register · CY2027 OPPS/ASC final rule, CMS-1850-FC",
+              "href": "https://www.govinfo.gov/content/pkg/FR-2026-11-06/html/2026-22739.htm"
+            },
+            {
+              "text": "2026-11-06"
+            }
+          ]
+        },
+        {
+          "text": "S2 · CMS · CY2027 OPPS/ASC final rule fact sheet2026-11-04",
+          "runs": [
+            {
+              "text": "S2 · CMS · CY2027 OPPS/ASC final rule fact sheet",
+              "href": "https://www.cms.gov/newsroom/fact-sheets/calendar-year-2027-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center-0"
+            },
+            {
+              "text": "2026-11-04"
+            }
+          ]
+        },
+        {
+          "text": "S3 · CMS · CY2027 final rule claims accounting2026-11",
+          "runs": [
+            {
+              "text": "S3 · CMS · CY2027 final rule claims accounting",
+              "href": "https://www.cms.gov/files/document/2027-fr-opps-claims-accounting.pdf"
+            },
+            {
+              "text": "2026-11"
+            }
+          ]
+        },
+        {
+          "text": "S4 · CMS · 2027 FR OPPS Facility Specific Impacts; file and layout dated October 28, 20262026-10-28",
+          "runs": [
+            {
+              "text": "S4 · CMS · 2027 FR OPPS Facility Specific Impacts; file and layout dated October 28, 2026",
+              "href": "https://www.cms.gov/files/zip/2027-fr-opps-facility-specific-impacts.zip"
+            },
+            {
+              "text": "2026-10-28"
+            }
+          ]
+        },
+        {
+          "text": "S5 · Medicare.gov · Prescription drugs (outpatient)Accessed 2026-11-23",
+          "runs": [
+            {
+              "text": "S5 · Medicare.gov · Prescription drugs (outpatient)",
+              "href": "https://www.medicare.gov/coverage/prescription-drugs-outpatient"
+            },
+            {
+              "text": "Accessed 2026-11-23"
+            }
+          ]
+        },
+        {
+          "text": "S6 · Medicare.gov · Medicare costs and MedigapAccessed 2026-11-23",
+          "runs": [
+            {
+              "text": "S6 · Medicare.gov · Medicare costs and Medigap",
+              "href": "https://www.medicare.gov/basics/costs/medicare-costs"
+            },
+            {
+              "text": "Accessed 2026-11-23"
+            }
+          ]
+        },
+        {
+          "text": "S7 · American Hospital Association · Statement on CY2027 OPPS final rule2026-11-04",
+          "runs": [
+            {
+              "text": "S7 · American Hospital Association · Statement on CY2027 OPPS final rule",
+              "href": "https://www.aha.org/press-releases/2026-11-04-aha-statement-cy-2027-opps-final-rule"
+            },
+            {
+              "text": "2026-11-04"
+            }
+          ]
+        },
+        {
+          "text": "S8 · CMS · Medicare outpatient final rule press release2026-11-04",
+          "runs": [
+            {
+              "text": "S8 · CMS · Medicare outpatient final rule press release",
+              "href": "https://www.cms.gov/newsroom/press-releases/medicare-outpatient-final-rule-expands-surgical-options-lowers-out-pocket-costs-340b-drugs"
+            },
+            {
+              "text": "2026-11-04"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Las fuentes primarias de política y datos aparecen arriba. Los cálculos YNK utilizan el archivo CMS conservado y los métodos incluidos con este análisis. Los gráficos son visualizaciones originales de datos. Importes en USD corrientes; los archivos conservan toda la precisión de los cálculos. Los efectos de 2027 son proyectados o ilustrativos; no se afirma ningún impacto observado en 2027."
+    },
+    {
+      "type": "p",
+      "text": "YNK TECH · 2026-11-23"
+    }
+  ]
+}
