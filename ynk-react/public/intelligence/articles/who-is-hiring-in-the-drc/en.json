@@ -1,0 +1,541 @@
+{
+  "title": "Who Is Hiring in the DRC, and What Is Still Missing?",
+  "summary": "A shortage of advertisements in one database is not proof that a profession is absent. The DRC vacancy sample identifies recruitment in telecommunications operations, cyber governance, software, monitoring, master data and electrical engineering. The question is whether these occupations have depth, continuity and accessible career pathways.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE",
+      "runs": [
+        {
+          "text": "YNK TECH INTELLIGENCE",
+          "href": "https://ynk-techusa.com/latest"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "RESEARCH & DATA INTELLIGENCE"
+    },
+    {
+      "type": "p",
+      "text": "Hiring SignalsData Library · 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "A dated vacancy audit that distinguishes actual advertisements from inferred labor demand"
+    },
+    {
+      "type": "p",
+      "text": "English edition · ENFRES",
+      "runs": [
+        {
+          "text": "English edition · "
+        },
+        {
+          "text": "ENFRES",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "What the sampled vacancies show"
+    },
+    {
+      "type": "p",
+      "text": "The dated search identified employer and third-party listings linked to Kinshasa and other DRC locations. Several entries concern donor-funded or proposal-contingent projects and must not be counted as unconditional hires. Others require specialized qualifications or advertise expatriate recruitment. A vacancy is a demand signal, not evidence that a person was hired."
+    },
+    {
+      "type": "p",
+      "text": "[R12] [R13] [R15] [R16] [R18]"
+    },
+    {
+      "type": "h2",
+      "text": "What cannot yet be concluded"
+    },
+    {
+      "type": "p",
+      "text": "The sample cannot establish the total number of national technology openings, the most common career nationally, vacancy fill rates or the number of qualified Congolese applicants. Large employers also recruit through closed networks, contractor pipelines and project partners. Missing postings might reflect incomplete capture rather than missing jobs. Equally, a single specialist advert does not establish a mature local employment ecosystem."
+    },
+    {
+      "type": "p",
+      "text": "[R22] [R23] [R24]"
+    },
+    {
+      "type": "h2",
+      "text": "A reproducible audit protocol"
+    },
+    {
+      "type": "p",
+      "text": "Collect listings weekly from employer sites, national job boards and verified program vacancies. Deduplicate by employer, title, location and URL. Classify industry, technical skill, salary disclosure, residency requirements, local or expatriate preference, funding contingency and closing date. Record both newly opened and expired postings to distinguish persistent demand from turnover."
+    },
+    {
+      "type": "h2",
+      "text": "Positions identified"
+    },
+    {
+      "type": "h3",
+      "text": "Helios Towers: SOC Team Leader"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / telecom operations"
+    },
+    {
+      "type": "p",
+      "text": "Employer careers page dated Nov 11; incident response and network reliability."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://careers.heliostowers.com/job/Kinshasa-SOC-Team-Leader-Buil-47-Avenue/1436822733/"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Vodacom: Cyber GRC Specialist"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / cybersecurity"
+    },
+    {
+      "type": "p",
+      "text": "Live third-party listing; regulatory compliance, security controls, audit."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://cd.linkedin.com/jobs/view/cyber-grc-specialist-at-vodacom-4482522738"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "WFP: Supply Chain Officer, Planning"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / logistics analytics"
+    },
+    {
+      "type": "p",
+      "text": "Deadline Nov 24, 2026; operational forecasts and corridor analysis."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://cd.linkedin.com/jobs/view/supply-chain-officer-planning-at-world-food-programme-4489994323"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Global Communities: Software Engineer, iHRIS"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / digital health"
+    },
+    {
+      "type": "p",
+      "text": "Local candidates only; conditional on donor award, so not an unconditional confirmed hire."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://cd.linkedin.com/jobs/view/software-engineer-drc-human-resources-for-health-hrh-at-global-communities-4479152226"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "SoCha: Data Analyst, humanitarian monitoring"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / data quality"
+    },
+    {
+      "type": "p",
+      "text": "Proposal-linked position; final contract subject to funding."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://cd.linkedin.com/jobs/view/data-analyst-third-party-monitoring-drc-humanitarian-fund-at-socha-llc-4486855549"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "WSP: Lead Electrical Engineer"
+    },
+    {
+      "type": "p",
+      "text": "DRC / industrial and data center infrastructure"
+    },
+    {
+      "type": "p",
+      "text": "Recent advertised position; licensing/registration requirements are restrictive."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://cd.linkedin.com/jobs/view/lead-electrical-engineer-technologist-at-wsp-in-canada-4477988102"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "S&K Supermarche: Master Data Management Specialist"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / retail ERP"
+    },
+    {
+      "type": "p",
+      "text": "Recent full-time advertisement explicitly markets an expat position, not necessarily accessible domestically."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://cd.linkedin.com/jobs/view/master-data-management-specialist-at-s-k-supermarche-4488723460"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Congo Digital Connect: Software Developer"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / software"
+    },
+    {
+      "type": "p",
+      "text": "Nov 2 job-board posting; live employer application status not confirmed."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://www.emploi.cd/recherche-jobs-congo-rdc/?f%5B0%5D=im_field_offre_region%3A948&f%5B1%5D=im_field_offre_region%3A64&f%5B2%5D=im_field_offre_secteur%3A150&f%5B3%5D=im_field_offre_secteur%3A25&f%5B4%5D=im_field_offre_secteur%3A133&f%5B5%5D=im_field_offre_niveau_experience%3A71&f%5B6%5D=im_field_offre_niveau_etude%3A54"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Congo Digital Connect: Data Analyst Manager"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / connectivity analytics"
+    },
+    {
+      "type": "p",
+      "text": "Job-board listing; job ID, closing date and salary not independently confirmed."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://www.emploi.cd/recherche-jobs-congo-rdc/?f%5B0%5D=im_field_offre_secteur%3A133&f%5B1%5D=im_field_offre_region%3A948&f%5B2%5D=im_field_offre_secteur%3A154&f%5B3%5D=im_field_offre_secteur%3A142&f%5B4%5D=im_field_offre_metiers%3A31"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "UNDP: Monitoring, Evaluation and Reporting Analyst"
+    },
+    {
+      "type": "p",
+      "text": "Kinshasa / development operations"
+    },
+    {
+      "type": "p",
+      "text": "Listed by UNjobs Nov 11; verify vacancy closing date on UNDP portal."
+    },
+    {
+      "type": "p",
+      "text": "Verification snapshot: 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "View position",
+      "runs": [
+        {
+          "text": "View position",
+          "href": "https://unjobs.org/duty_stations/democratic-republic-of-congo/2/1000"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Job listings were identified during the November 2026 research cycle. Vacancies may close without notice; check the original employer posting before applying."
+    },
+    {
+      "type": "p",
+      "text": "Research questions",
+      "runs": [
+        {
+          "text": "Research questions",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "What the sampled vacancies show",
+        "What cannot yet be concluded",
+        "A reproducible audit protocol"
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Explore this research collection",
+      "runs": [
+        {
+          "text": "Explore this research collection",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Why Technical Work Still Matters in the Age of AIExplainerWhere Global Tech Hiring Is ShiftingMarket Intelligence20 Technical Positions to Watch Across Three RegionsOpportunity RadarGrowth Without Enough Formal Jobs: The DRC Employment LinkResearch StudyFrom Development Announcements to Congolese JobsDevelopment MonitorEngineering a Project-to-Paycheck Tracker for the DRCEngineering Lab",
+      "runs": [
+        {
+          "text": "Why Technical Work Still Matters in the Age of AI",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters",
+          "bold": true
+        },
+        {
+          "text": "Explainer",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters"
+        },
+        {
+          "text": "Where Global Tech Hiring Is Shifting",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting",
+          "bold": true
+        },
+        {
+          "text": "Market Intelligence",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting"
+        },
+        {
+          "text": "20 Technical Positions to Watch Across Three Regions",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch",
+          "bold": true
+        },
+        {
+          "text": "Opportunity Radar",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch"
+        },
+        {
+          "text": "Growth Without Enough Formal Jobs: The DRC Employment Link",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs",
+          "bold": true
+        },
+        {
+          "text": "Research Study",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs"
+        },
+        {
+          "text": "From Development Announcements to Congolese Jobs",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs",
+          "bold": true
+        },
+        {
+          "text": "Development Monitor",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs"
+        },
+        {
+          "text": "Engineering a Project-to-Paycheck Tracker for the DRC",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker",
+          "bold": true
+        },
+        {
+          "text": "Engineering Lab",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Sources and verification"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "Employer: Helios Towers SOC Team Leader, Kinshasa, November 11, 2026",
+          "runs": [
+            {
+              "text": "Employer: Helios Towers SOC Team Leader, Kinshasa, November 11, 2026",
+              "href": "https://careers.heliostowers.com/job/Kinshasa-SOC-Team-Leader-Buil-47-Avenue/1436822733/"
+            }
+          ]
+        },
+        {
+          "text": "Vodacom cyber GRC specialist, Kinshasa",
+          "runs": [
+            {
+              "text": "Vodacom cyber GRC specialist, Kinshasa",
+              "href": "https://cd.linkedin.com/jobs/view/cyber-grc-specialist-at-vodacom-4482522738"
+            }
+          ]
+        },
+        {
+          "text": "WFP supply chain planning consultant, DRC, November 2026",
+          "runs": [
+            {
+              "text": "WFP supply chain planning consultant, DRC, November 2026",
+              "href": "https://cd.linkedin.com/jobs/view/supply-chain-officer-planning-at-world-food-programme-4489994323"
+            }
+          ]
+        },
+        {
+          "text": "Global Communities iHRIS software engineer, Kinshasa",
+          "runs": [
+            {
+              "text": "Global Communities iHRIS software engineer, Kinshasa",
+              "href": "https://cd.linkedin.com/jobs/view/software-engineer-drc-human-resources-for-health-hrh-at-global-communities-4479152226"
+            }
+          ]
+        },
+        {
+          "text": "SoCha third-party monitoring data analyst, Kinshasa",
+          "runs": [
+            {
+              "text": "SoCha third-party monitoring data analyst, Kinshasa",
+              "href": "https://cd.linkedin.com/jobs/view/data-analyst-third-party-monitoring-drc-humanitarian-fund-at-socha-llc-4486855549"
+            }
+          ]
+        },
+        {
+          "text": "WSP lead electrical engineer, DRC",
+          "runs": [
+            {
+              "text": "WSP lead electrical engineer, DRC",
+              "href": "https://cd.linkedin.com/jobs/view/lead-electrical-engineer-technologist-at-wsp-in-canada-4477988102"
+            }
+          ]
+        },
+        {
+          "text": "S&K Supermarche master data management specialist, Kinshasa",
+          "runs": [
+            {
+              "text": "S&K Supermarche master data management specialist, Kinshasa",
+              "href": "https://cd.linkedin.com/jobs/view/master-data-management-specialist-at-s-k-supermarche-4488723460"
+            }
+          ]
+        },
+        {
+          "text": "Emploi.cd: Congo Digital Connect software developer, Kinshasa",
+          "runs": [
+            {
+              "text": "Emploi.cd: Congo Digital Connect software developer, Kinshasa",
+              "href": "https://www.emploi.cd/recherche-jobs-congo-rdc/?f%5B0%5D=im_field_offre_region%3A948&f%5B1%5D=im_field_offre_region%3A64&f%5B2%5D=im_field_offre_secteur%3A150&f%5B3%5D=im_field_offre_secteur%3A25&f%5B4%5D=im_field_offre_secteur%3A133&f%5B5%5D=im_field_offre_niveau_experience%3A71&f%5B6%5D=im_field_offre_niveau_etude%3A54"
+            }
+          ]
+        },
+        {
+          "text": "Emploi.cd: Congo Digital Connect data analyst manager",
+          "runs": [
+            {
+              "text": "Emploi.cd: Congo Digital Connect data analyst manager",
+              "href": "https://www.emploi.cd/recherche-jobs-congo-rdc/?f%5B0%5D=im_field_offre_secteur%3A133&f%5B1%5D=im_field_offre_region%3A948&f%5B2%5D=im_field_offre_secteur%3A154&f%5B3%5D=im_field_offre_secteur%3A142&f%5B4%5D=im_field_offre_metiers%3A31"
+            }
+          ]
+        },
+        {
+          "text": "UNjobs DRC vacancy listing, November 2026",
+          "runs": [
+            {
+              "text": "UNjobs DRC vacancy listing, November 2026",
+              "href": "https://unjobs.org/duty_stations/democratic-republic-of-congo/2/1000"
+            }
+          ]
+        },
+        {
+          "text": "LinkedIn DRC indexed jobs, November 2026",
+          "runs": [
+            {
+              "text": "LinkedIn DRC indexed jobs, November 2026",
+              "href": "https://cd.linkedin.com/jobs/search"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech Intelligence · Research as of November 16, 2026 · Sources and methodological notes accompany each analysis."
+    }
+  ]
+}
