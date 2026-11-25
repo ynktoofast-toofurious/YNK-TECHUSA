@@ -1,0 +1,808 @@
+{
+  "title": "Financiación del ébola y atención sobre el terreno: seguir la evidencia",
+  "summary": "Una conciliación fechada de promesas de los donantes, información financiera y acceso a la atención en la República Democrática del Congo.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH USA Estudio diagnóstico"
+    },
+    {
+      "type": "p",
+      "text": "Investigaciones y estudios · Financiación sanitaria"
+    },
+    {
+      "type": "p",
+      "text": "Una conciliación fechada de promesas de los donantes, información financiera y acceso a la atención en la República Democrática del Congo."
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech · 25 de noviembre de 2026 · EN / FR / ES"
+    },
+    {
+      "type": "p",
+      "text": "2.900 M USD compromisos anunciados",
+      "runs": [
+        {
+          "text": "2.900 M USD",
+          "bold": true
+        },
+        {
+          "text": " compromisos anunciados"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "23 de septiembre · dinero y ayuda en especie"
+    },
+    {
+      "type": "p",
+      "text": "820 M USD visibilidad financiera declarada",
+      "runs": [
+        {
+          "text": "820 M USD",
+          "bold": true
+        },
+        {
+          "text": " visibilidad financiera declarada"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "15 de noviembre · incluye saldos"
+    },
+    {
+      "type": "p",
+      "text": "1.576 M USD necesidad estimada del nuevo plan",
+      "runs": [
+        {
+          "text": "1.576 M USD",
+          "bold": true
+        },
+        {
+          "text": " necesidad estimada del nuevo plan"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "noviembre de 2026–mayo de 2027"
+    },
+    {
+      "type": "p",
+      "text": "62,8 % muertes recientes en comunidades",
+      "runs": [
+        {
+          "text": "62,8 %",
+          "bold": true
+        },
+        {
+          "text": " muertes recientes en comunidades"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "452 de 720 muertes notificadas"
+    },
+    {
+      "type": "p",
+      "text": "La evidencia distingue tres restricciones: disponer de recursos a tiempo, informar de su utilización y prestar servicios con seguridad donde se necesitan. Un volumen elevado de promesas puede coexistir con información incompleta y acceso desigual. Este estudio sigue esas etapas; no permite establecer un total de recursos verificado de forma independiente en los centros sanitarios."
+    },
+    {
+      "type": "h2",
+      "text": "Entender las etapas de la financiación"
+    },
+    {
+      "type": "p",
+      "text": "El brote se declaró en mayo de 2026. El último boletín de la OMS revisado recoge 11.613 casos confirmados y 5.678 muertes en la RDC hasta el 17 de noviembre. Estas cifras de vigilancia describen la emergencia; no miden el efecto de una decisión financiera. [07]"
+    },
+    {
+      "type": "p",
+      "text": "Una promesa es una contribución anunciada. Un desembolso registra un pago al receptor, a menudo una organización ejecutora. El gasto registra el uso de recursos. La entrega efectiva requiere recepción fechada, confirmación de nómina o un registro del servicio. Las donaciones en especie necesitan valoración y pruebas de expedición y aceptación propias. Los sucesivos traspasos del mismo dinero deben conservar un identificador único.",
+      "runs": [
+        {
+          "text": "Una "
+        },
+        {
+          "text": "promesa",
+          "bold": true
+        },
+        {
+          "text": " es una contribución anunciada. Un "
+        },
+        {
+          "text": "desembolso",
+          "bold": true
+        },
+        {
+          "text": " registra un pago al receptor, a menudo una organización ejecutora. El "
+        },
+        {
+          "text": "gasto",
+          "bold": true
+        },
+        {
+          "text": " registra el uso de recursos. La "
+        },
+        {
+          "text": "entrega efectiva",
+          "bold": true
+        },
+        {
+          "text": " requiere recepción fechada, confirmación de nómina o un registro del servicio. Las donaciones en especie necesitan valoración y pruebas de expedición y aceptación propias. Los sucesivos traspasos del mismo dinero deben conservar un identificador único."
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Los importes tienen fechas y ámbitos distintos"
+    },
+    {
+      "type": "p",
+      "text": "Las principales cifras corresponden a periodos y ámbitos diferentes. No forman un único embudo financiero ni pueden sumarse. La publicación del plan revisado de la OMS el 24 de noviembre convierte la necesidad inicial de junio en una referencia histórica. [05]"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Fecha / periodo",
+          "Importe declarado",
+          "Qué mide"
+        ],
+        [
+          "5 de junio",
+          "518 M USD",
+          "Necesidad del primer plan continental, junio–noviembre de 2026. [02]"
+        ],
+        [
+          "23–24 de septiembre",
+          "Unos 2.900 M USD",
+          "Compromisos en dinero y especie, con actividades regionales y un ámbito más amplio. [01]"
+        ],
+        [
+          "14–15 de octubre",
+          "962 / 220 M USD",
+          "Pagos de donantes declarados por Africa CDC / recepciones declaradas por participantes. [03]"
+        ],
+        [
+          "15 de noviembre",
+          "1.200 / 820 M USD",
+          "Pagado o en proceso de pago / importe con visibilidad financiera, incluidos saldos. Relato atribuido. [04]"
+        ],
+        [
+          "24–25 de noviembre",
+          "1.576 M USD",
+          "Necesidad estimada del plan continental noviembre–mayo; rango intercuartílico de 1.509–1.648 M USD. [05] [06]"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Los importes tienen fechas y ámbitos distintos"
+    },
+    {
+      "type": "p",
+      "text": "Las 40 entradas de la tabla de promesas de septiembre suman 2.997,07 M USD, frente al total impreso de 2.997 M USD y el titular aproximado de 2.900 M USD. La diferencia de presentación no se interpreta como una pérdida de efectivo. [01]"
+    },
+    {
+      "type": "h2",
+      "text": "Octubre: una brecha de información cuantificable"
+    },
+    {
+      "type": "p",
+      "text": "Africa CDC aclaró que los 962 M USD se pagaron directamente a socios ejecutores. Las declaraciones disponibles cubrían 220 M USD: 120 M gastados y 100 M disponibles. La diferencia aritmética deja 742 M USD fuera de esa información. Son agregados declarados, no recepciones auditadas en centros sanitarios. [03]"
+    },
+    {
+      "type": "h3",
+      "text": "Información disponible en octubre · millones USD"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Componente",
+          "Millones USD",
+          "Interpretación"
+        ],
+        [
+          "Gasto declarado",
+          "120",
+          "Uso declarado; sin conciliación con los centros."
+        ],
+        [
+          "Saldo disponible declarado",
+          "100",
+          "Saldo comunicado por participantes."
+        ],
+        [
+          "Fuera de la información disponible",
+          "742",
+          "962 − 220; información incompleta no demuestra un desvío."
+        ],
+        [
+          "Cobertura de información",
+          "22,9 %",
+          "220 ÷ 962; cobertura histórica, no tasa de entrega."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Octubre: una brecha de información cuantificable"
+    },
+    {
+      "type": "p",
+      "text": "El 15 de noviembre, el importe con visibilidad financiera comunicado era de 820 M USD e incluía gasto y saldos. El comparador de 1.200 M USD incorpora transferencias en proceso. Dividir ambas cifras mezclaría bases distintas; no mediría la proporción de efectivo liquidado que llegó a pacientes. [04]"
+    },
+    {
+      "type": "h2",
+      "text": "Lo que demuestra la evidencia operativa"
+    },
+    {
+      "type": "p",
+      "text": "El comunicado operativo conjunto del 15 de noviembre informa de retrasos en el pago a trabajadores y de una expansión importante de servicios. También describe interrupciones por inseguridad. Varios obstáculos pueden explicar la transmisión persistente. [08]"
+    },
+    {
+      "type": "p",
+      "text": "El Banco Mundial ofrece un ejemplo: su paquete de 426,6 M USD incluye financiación actual y prevista. Los tramos de 80 M y 13 M USD están incluidos. La mejora declarada del tiempo de detección, de diez días a uno o dos, sigue siendo un resultado comunicado por el donante, sin atribución causal por transacción. [11]"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Evidencia",
+          "Qué respalda",
+          "Qué falta demostrar"
+        ],
+        [
+          "Laboratorios de campo: 2 → 30 [06]",
+          "Aumento de capacidad operativa.",
+          "Qué pagos financiaron cada laboratorio y su funcionamiento continuo."
+        ],
+        [
+          "Retrasos de remuneración [08] [14]",
+          "Un problema de puntualidad de los pagos.",
+          "Su valor total, duración y causas."
+        ],
+        [
+          "Lugar de las muertes recientes [07]",
+          "Una señal sobre el acceso oportuno.",
+          "La proporción atribuible al dinero frente a otros obstáculos."
+        ],
+        [
+          "Recepciones y nóminas verificadas",
+          "Pruebas necesarias para atribuir entregas a recursos.",
+          "No hay un total global verificado en los documentos examinados."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Lo que demuestra la evidencia operativa"
+    },
+    {
+      "type": "h3",
+      "text": "Lugar de las muertes notificadas recientemente · personas"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Lugar",
+          "Muertes notificadas",
+          "Parte de 720"
+        ],
+        [
+          "En comunidades",
+          "452",
+          "62,8 %"
+        ],
+        [
+          "En centros de tratamiento",
+          "268",
+          "37,2 %"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Lugar de las muertes notificadas recientemente · personas"
+    },
+    {
+      "type": "p",
+      "text": "El lugar de fallecimiento señala dificultades de acceso; no estima muertes evitables. Gravedad, selección de pacientes, detección e inseguridad pueden influir en los grupos. Un coste por vida salvada exigiría evidencia clínica y un contrafactual adicionales."
+    },
+    {
+      "type": "h2",
+      "text": "Las promesas agregadas no cubren cada servicio"
+    },
+    {
+      "type": "p",
+      "text": "El 6 de octubre, UNICEF cifró su necesidad en la RDC en 113,4 M USD y los recursos movilizados en 40,1 M USD. La brecha histórica de ese programa es de 73,3 M USD, el 64,6 %. [09]"
+    },
+    {
+      "type": "h3",
+      "text": "Financiación de UNICEF en la RDC · 6 de octubre · millones USD"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Componente financiero",
+          "Millones USD"
+        ],
+        [
+          "Movilizado",
+          "40,1"
+        ],
+        [
+          "Necesidad sin financiar",
+          "73,3"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Financiación de UNICEF en la RDC · 6 de octubre · millones USD"
+    },
+    {
+      "type": "p",
+      "text": "Por separado, UNICEF informó el 24 de noviembre de una brecha del 76 % para actividades de protección de mujeres y niños. No indicó el denominador en dólares. Ambos datos muestran presión sobre la asignación, pero no se pueden combinar ni tratar como una serie temporal. [10]"
+    },
+    {
+      "type": "h2",
+      "text": "El plan revisado cambia la pregunta financiera"
+    },
+    {
+      "type": "p",
+      "text": "La estimación de 1.576 M USD abarca países y socios. La necesidad del Gobierno de la RDC, unos 1.231 M USD, está dentro de su ámbito. Restar importes anteriores de visibilidad o promesas no produce una brecha válida: primero deben conciliarse gasto anterior, saldos, restricciones, periodos y cobertura. [06]"
+    },
+    {
+      "type": "p",
+      "text": "La prueba financiera mira hacia adelante: qué recursos no gastados pueden utilizarse en la nueva fase, dónde y para qué actividades. El plan define una necesidad. Los registros de los receptores deben establecer el saldo utilizable."
+    },
+    {
+      "type": "h2",
+      "text": "Aprovechar los mecanismos que ya existen"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Mecanismo",
+          "Función existente",
+          "Comprobación necesaria"
+        ],
+        [
+          "Seguimiento financiero OMS / Africa CDC",
+          "El plan identifica el BVD Coordinated Financial Tracking Mechanism. [06]",
+          "Conciliar pagos liquidados, asignaciones y saldos; no se recuperaron datos transaccionales en directo."
+        ],
+        [
+          "Africa CDC HEAT",
+          "Marco de seguimiento del desempeño identificado en el plan. [06]",
+          "Vincular dinero con servicios fechados; un marco anunciado no demuestra implantación completa."
+        ],
+        [
+          "CERC HealthCheck",
+          "Interfaces de flujos públicos y declaraciones de centros. [13]",
+          "Comprobar justificantes; la ausencia de entradas no demuestra ausencia de entregas."
+        ],
+        [
+          "Informes de donantes y agencias",
+          "Datos financieros y operativos publicados. [09] [11]",
+          "Identificar solapamientos, periodos y transferencias intermedias antes de agregar."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Aprovechar los mecanismos que ya existen"
+    },
+    {
+      "type": "p",
+      "text": "La aportación investigadora consiste en conciliar estos registros. Un panel adicional solo aportaría valor si mejora integridad, tiempo de verificación o decisiones. No se propone un nuevo producto. La coordinación nacional puede exigir información sin suponer que cada subvención deba pasar por una cuenta gubernamental única. [12]"
+    },
+    {
+      "type": "h2",
+      "text": "Un cuadro de indicadores comprobable"
+    },
+    {
+      "type": "p",
+      "text": "Estos indicadores son propuestas de YNK para el estudio. Los valores desconocidos permanecen desconocidos. Las metas deben acordarse con responsables operativos tras establecer una base comparable."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Indicador",
+          "Base disponible",
+          "Próxima medición"
+        ],
+        [
+          "Cobertura de recepciones declaradas",
+          "22,9 % en el dato de octubre.",
+          "Recepciones declaradas ÷ pagos liquidados del donante para la misma cohorte y fecha."
+        ],
+        [
+          "Cobertura de entregas verificadas",
+          "No disponible.",
+          "Valor sin duplicados vinculado a recepciones, bienes aceptados o nóminas ÷ recursos pagados elegibles del mismo ámbito."
+        ],
+        [
+          "Remuneración puntual",
+          "Retrasos comunicados; tasa desconocida.",
+          "Pagos recibidos en la fecha acordada ÷ pagos vencidos; verificar confidencialmente."
+        ],
+        [
+          "Disponibilidad de suministros",
+          "Sin base por centro.",
+          "Días sin existencias por artículo y centro, conciliados con recepción e inventario."
+        ],
+        [
+          "Acceso clínico",
+          "62,8 % de muertes recientes en comunidades.",
+          "Repetir definición y periodo; medir por separado el tiempo de derivación."
+        ],
+        [
+          "Carga de conciliación",
+          "Sin medir.",
+          "Horas de análisis y plazo para conciliar un conjunto definido de registros."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Un cuadro de indicadores comprobable"
+    },
+    {
+      "type": "h2",
+      "text": "Tres resultados posibles de la próxima evidencia"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "Solo mejora la información. Más fondos son visibles, sin cambios en puntualidad o servicios. El resultado es una mejor declaración.",
+          "runs": [
+            {
+              "text": "Solo mejora la información.",
+              "bold": true
+            },
+            {
+              "text": " Más fondos son visibles, sin cambios en puntualidad o servicios. El resultado es una mejor declaración."
+            }
+          ]
+        },
+        {
+          "text": "Mejoran información y entrega. Aumentan las recepciones concordantes, los pagos puntuales y la continuidad. Respalda una mejora operativa; atribuir causalidad todavía exige comparación.",
+          "runs": [
+            {
+              "text": "Mejoran información y entrega.",
+              "bold": true
+            },
+            {
+              "text": " Aumentan las recepciones concordantes, los pagos puntuales y la continuidad. Respalda una mejora operativa; atribuir causalidad todavía exige comparación."
+            }
+          ]
+        },
+        {
+          "text": "Mejoran las recepciones, pero persisten barreras. Examinar seguridad, personal, derivaciones y confianza junto al dinero.",
+          "runs": [
+            {
+              "text": "Mejoran las recepciones, pero persisten barreras.",
+              "bold": true
+            },
+            {
+              "text": " Examinar seguridad, personal, derivaciones y confianza junto al dinero."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Son resultados diagnósticos condicionales, no previsiones de gasto, contagios o muertes. La evidencia no permite proyectar un impacto sanitario numérico."
+    },
+    {
+      "type": "h2",
+      "text": "El próximo ciclo de verificación"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Ventana propuesta",
+          "Evidencia que reunir",
+          "Decisión que permite"
+        ],
+        [
+          "Días 1–30",
+          "Registro sin duplicados con estado de pagos, fechas, receptores, restricciones, geografía, saldos y documentos.",
+          "Separar compromisos impagados de información incompleta."
+        ],
+        [
+          "Días 31–60",
+          "Muestra consentida de recepciones, confirmaciones de nómina, inventarios y registros de servicios.",
+          "Comprobar correspondencia entre recursos e insumos entregados."
+        ],
+        [
+          "Días 61–90",
+          "Revisión independiente, indicadores comparables y conciliación de partidas pendientes.",
+          "Evaluar cambios operativos y obstáculos persistentes."
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "El próximo ciclo de verificación"
+    },
+    {
+      "type": "p",
+      "text": "Estas ventanas son hitos de investigación propuestos. Mantener la atención durante los controles, proteger identificadores de pacientes y nóminas, agregar datos sensibles y evitar ubicaciones exactas de riesgo. La verificación debe integrarse en las rutinas existentes de coordinación."
+    },
+    {
+      "type": "h2",
+      "text": "Método y limitaciones"
+    },
+    {
+      "type": "p",
+      "text": "Diagnóstico documental con fecha de corte del 25 de noviembre de 2026. Las fuentes principales son declaraciones primarias, el plan oficial y publicaciones de donantes; la actualización financiera de noviembre se atribuye mediante ACP. Las republicaciones de comunicados conjuntos cuentan como una sola fuente. Los cálculos mantienen las fechas y los ámbitos originales."
+    },
+    {
+      "type": "p",
+      "text": "La aclaración de octubre prevalece sobre relatos redondeados a 200 o 260 M USD. Las capturas dinámicas de HealthCheck variaron y no se pudo descargar su CSV: sus agregados quedan fuera de los cálculos. El plan documenta los mecanismos financiero oficial y HEAT, sin acceso a sus datos subyacentes. No se consultaron cuentas bancarias, nóminas, pacientes ni registros de centros."
+    },
+    {
+      "type": "p",
+      "text": "Se distinguen importes declarados, estimaciones modelizadas y cálculos propios. No se establece un total global auditado de entregas, desvío de fondos, efecto causal en mortalidad ni retorno de inversión. Disponibilidad financiera, calidad informativa y acceso operativo seguro requieren mediciones separadas."
+    },
+    {
+      "type": "h2",
+      "text": "Fuentes y fechas de los datos"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "01 · Africa CDC · 2026-09-24 · G20+ financing announcement and pledge table",
+          "runs": [
+            {
+              "text": "01 · Africa CDC",
+              "bold": true
+            },
+            {
+              "text": " · 2026-09-24 · "
+            },
+            {
+              "text": "G20+ financing announcement and pledge table",
+              "href": "https://africacdc.org/news-item/g20-mobilises-us2-9-billion-for-ebola-response-as-africa-cdc-calls-for-full-transparency-and-traceability-of-every-dollar/"
+            }
+          ]
+        },
+        {
+          "text": "02 · WHO / Africa CDC · 2026-06-05 · Initial continental response plan, June–November 2026",
+          "runs": [
+            {
+              "text": "02 · WHO / Africa CDC",
+              "bold": true
+            },
+            {
+              "text": " · 2026-06-05 · "
+            },
+            {
+              "text": "Initial continental response plan, June–November 2026",
+              "href": "https://www.who.int/news/item/05-06-2026-africa-cdc-and-who-launch-joint-continental-ebola-response-plan"
+            }
+          ]
+        },
+        {
+          "text": "03 · Africa CDC · 2026-10-15 · Clarification of the 14 October financial briefing",
+          "runs": [
+            {
+              "text": "03 · Africa CDC",
+              "bold": true
+            },
+            {
+              "text": " · 2026-10-15 · "
+            },
+            {
+              "text": "Clarification of the 14 October financial briefing",
+              "href": "https://africacdc.org/news-item/communique-dafrica-cdc-sur-le-financement-de-la-riposte-a-lepidemie-debola-en-rdc/"
+            }
+          ]
+        },
+        {
+          "text": "04 · Agence Congolaise de Presse · 2026-11-16 · Report of the 15 November Africa CDC briefing",
+          "runs": [
+            {
+              "text": "04 · Agence Congolaise de Presse",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-16 · "
+            },
+            {
+              "text": "Report of the 15 November Africa CDC briefing",
+              "href": "https://acp.cd/anglais/drc-africa-cdc-now-has-a-trail-of-usd-820-million-allocated-to-the-ebola-response/"
+            }
+          ]
+        },
+        {
+          "text": "05 · WHO · 2026-11-24 · Updated continental response plan publication record",
+          "runs": [
+            {
+              "text": "05 · WHO",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-24 · "
+            },
+            {
+              "text": "Updated continental response plan publication record",
+              "href": "https://www.who.int/publications/i/item/9789240126978"
+            }
+          ]
+        },
+        {
+          "text": "06 · WHO / Africa CDC · 2026-11-24 · Updated continental response plan, resource requirements and monitoring framework",
+          "runs": [
+            {
+              "text": "06 · WHO / Africa CDC",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-24 · "
+            },
+            {
+              "text": "Updated continental response plan, resource requirements and monitoring framework",
+              "href": "https://africacdc.org/download/bundibugyo-virus-continental-preparedness-and-response-plan-november-2026-may-2027/"
+            }
+          ]
+        },
+        {
+          "text": "07 · WHO · 2026-11-20 · Disease Outbreak News, Bundibugyo virus disease",
+          "runs": [
+            {
+              "text": "07 · WHO",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-20 · "
+            },
+            {
+              "text": "Disease Outbreak News, Bundibugyo virus disease",
+              "href": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON630"
+            }
+          ]
+        },
+        {
+          "text": "08 · Africa CDC / UNFPA / UNICEF / WFP / WHO · 2026-11-15 · Six-month joint operational statement",
+          "runs": [
+            {
+              "text": "08 · Africa CDC / UNFPA / UNICEF / WFP / WHO",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-15 · "
+            },
+            {
+              "text": "Six-month joint operational statement",
+              "href": "https://africacdc.org/news-item/six-months-on-accessing-hard-to-reach-communities-key-to-halting-ebola-outbreak/"
+            }
+          ]
+        },
+        {
+          "text": "09 · UNICEF · 2026-10-06 · Child protection response and UNICEF financing snapshot",
+          "runs": [
+            {
+              "text": "09 · UNICEF",
+              "bold": true
+            },
+            {
+              "text": " · 2026-10-06 · "
+            },
+            {
+              "text": "Child protection response and UNICEF financing snapshot",
+              "href": "https://www.unicef.org/press-releases/more-1900-children-orphaned-or-separated-their-families-ebola-eastern-dr-congo"
+            }
+          ]
+        },
+        {
+          "text": "10 · UNICEF · 2026-11-24 · Protection needs and the financing gap for children and women",
+          "runs": [
+            {
+              "text": "10 · UNICEF",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-24 · "
+            },
+            {
+              "text": "Protection needs and the financing gap for children and women",
+              "href": "https://www.unicef.org/press-releases/nearly-6-10-women-and-adolescent-girls-surveyed-ebola-hit-ituri-report-increase"
+            }
+          ]
+        },
+        {
+          "text": "11 · World Bank · 2026-10-13 · Current and planned Ebola response support",
+          "runs": [
+            {
+              "text": "11 · World Bank",
+              "bold": true
+            },
+            {
+              "text": " · 2026-10-13 · "
+            },
+            {
+              "text": "Current and planned Ebola response support",
+              "href": "https://www.worldbank.org/en/news/press-release/2026/10/13/world-bank-group-expands-ongoing-support-for-ebola-response-in-drc-and-the-region"
+            }
+          ]
+        },
+        {
+          "text": "12 · Africa CDC · 2026-10-04 · National coordination and financial reporting responsibilities",
+          "runs": [
+            {
+              "text": "12 · Africa CDC",
+              "bold": true
+            },
+            {
+              "text": " · 2026-10-04 · "
+            },
+            {
+              "text": "National coordination and financial reporting responsibilities",
+              "href": "https://africacdc.org/news-item/africa-cdc-supports-the-government-of-the-democratic-republic-of-the-congo-in-strengthening-transparency-and-accountability-in-ebola-response-funding/"
+            }
+          ]
+        },
+        {
+          "text": "13 · CERC / HealthCheck · 2026-11-25 access · Ebola public-finance and facility-declaration interface",
+          "runs": [
+            {
+              "text": "13 · CERC / HealthCheck",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-25 access · "
+            },
+            {
+              "text": "Ebola public-finance and facility-declaration interface",
+              "href": "https://sante.cerc.cd/index.php/en/financements/fonds/riposte-ebola-2026"
+            }
+          ]
+        },
+        {
+          "text": "14 · WHO · 2026-11-11 · Director-General briefing: remuneration and coordination",
+          "runs": [
+            {
+              "text": "14 · WHO",
+              "bold": true
+            },
+            {
+              "text": " · 2026-11-11 · "
+            },
+            {
+              "text": "Director-General briefing: remuneration and coordination",
+              "href": "https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-member-state-briefing-on-ebola-outbreak-in-the-democratic-republic-of-the-congo---11-november-2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Análisis independiente de YNK Tech. Cada editor es responsable de sus datos publicados. No implica respaldo institucional."
+    }
+  ]
+}
