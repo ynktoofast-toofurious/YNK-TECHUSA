@@ -1,0 +1,268 @@
+{
+  "title": "Des annonces de développement aux emplois congolais",
+  "summary": "Une stratégie, une annonce ministérielle ou un accord financier ne signifie ni contrat financé, ni système opérationnel, ni salaire versé localement. Les projets doivent être suivis sur une chaîne de preuves : politique, budget, marchés, livraison, recrutement et maintien des emplois.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "YNK TECH INTELLIGENCE",
+      "runs": [
+        {
+          "text": "YNK TECH INTELLIGENCE",
+          "href": "https://ynk-techusa.com/latest"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "RECHERCHE ET DONNÉES"
+    },
+    {
+      "type": "p",
+      "text": "Suivi du développementIdées et perspectives · 2026-11-16"
+    },
+    {
+      "type": "p",
+      "text": "Un suivi neutre reliant les étapes des projets aux métiers observables"
+    },
+    {
+      "type": "p",
+      "text": "Édition française · ENFRES",
+      "runs": [
+        {
+          "text": "Édition française · "
+        },
+        {
+          "text": "ENFRES",
+          "href": "https://ynk-techusa.com/latest/from-development-announcements-to-congolese-jobs"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Domaines de programmes suivis",
+          "6"
+        ],
+        [
+          "Étapes de preuve, de la politique à l’emploi",
+          "6"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "Administration numérique et données publiques"
+    },
+    {
+      "type": "p",
+      "text": "Le ministère de l’Économie numérique mentionne l’interopérabilité des services publics, le registre des applications de l’État, la gouvernance, le cloud et la cybersécurité. Leur mise en œuvre pourrait demander architectes, experts IAM, ingénieurs d’intégration, administrateurs de bases, chefs de produit et responsables de protection des données. Il faut vérifier les contrats et les effectifs, pas déduire les embauches du texte stratégique."
+    },
+    {
+      "type": "p",
+      "text": "[R05] [R06]"
+    },
+    {
+      "type": "h2",
+      "text": "Transport, énergie et infrastructures extractives"
+    },
+    {
+      "type": "p",
+      "text": "La logistique liée au corridor de Lobito, la modernisation des transports, l’électricité et les mines peuvent mobiliser SCADA, SIG, maintenance prédictive, automatisme, télécommunications ferroviaires et données. Il faut distinguer chantier temporaire, exploitation durable et sous-traitance locale. Un chiffre global annoncé ne précise ni les postes techniques ni la part détenue par des résidents de RDC."
+    },
+    {
+      "type": "p",
+      "text": "[R07] [R10]"
+    },
+    {
+      "type": "h2",
+      "text": "Financement forestier et santé numérique"
+    },
+    {
+      "type": "p",
+      "text": "Les mécanismes de rémunération des forêts pourraient demander suivi environnemental, télédétection, audit des flux et traçabilité des bénéfices communautaires. Les projets de santé numérique pourraient exiger interopérabilité, soutien applicatif et reporting clinique. Ce sont des hypothèses de métiers, non des postes financés constatés. La preuve est un marché, un contrat ou une offre employeur identifiée."
+    },
+    {
+      "type": "p",
+      "text": "[R08] [R15]"
+    },
+    {
+      "type": "h2",
+      "text": "Redevabilité sans jugement prématuré"
+    },
+    {
+      "type": "p",
+      "text": "Pour chaque initiative, publier dates, décaissements vérifiés, marchés attribués, effectifs recrutés, emploi local maintenu et résultats opérationnels. L’absence de rapport public constitue une lacune documentaire, pas la preuve d’une absence d’emplois. De même, une promesse de formation ne doit pas être comptée comme une création de postes."
+    },
+    {
+      "type": "p",
+      "text": "[R05] [R07] [R09]"
+    },
+    {
+      "type": "p",
+      "text": "Questions de recherche",
+      "runs": [
+        {
+          "text": "Questions de recherche",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Administration numérique et données publiques",
+        "Transport, énergie et infrastructures extractives",
+        "Financement forestier et santé numérique",
+        "Redevabilité sans jugement prématuré"
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Explorer cette collection de recherche",
+      "runs": [
+        {
+          "text": "Explorer cette collection de recherche",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Pourquoi les métiers techniques restent essentiels à l’ère de l’IADécryptageOù se redéploie le recrutement technologique mondialIntelligence de marché20 postes techniques à suivre dans trois régionsRadar d’opportunitésCroissance sans suffisamment d’emplois formels : le cas de la RDCÉtude de rechercheQui recrute en RDC et quelles fonctions restent peu visibles ?Signaux de recrutementConcevoir un suivi des projets jusqu’aux emplois en RDCLaboratoire d’ingénierie",
+      "runs": [
+        {
+          "text": "Pourquoi les métiers techniques restent essentiels à l’ère de l’IA",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters",
+          "bold": true
+        },
+        {
+          "text": "Décryptage",
+          "href": "https://ynk-techusa.com/latest/why-technical-work-still-matters"
+        },
+        {
+          "text": "Où se redéploie le recrutement technologique mondial",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting",
+          "bold": true
+        },
+        {
+          "text": "Intelligence de marché",
+          "href": "https://ynk-techusa.com/latest/where-global-tech-hiring-is-shifting"
+        },
+        {
+          "text": "20 postes techniques à suivre dans trois régions",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch",
+          "bold": true
+        },
+        {
+          "text": "Radar d’opportunités",
+          "href": "https://ynk-techusa.com/latest/twenty-technical-positions-to-watch"
+        },
+        {
+          "text": "Croissance sans suffisamment d’emplois formels : le cas de la RDC",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs",
+          "bold": true
+        },
+        {
+          "text": "Étude de recherche",
+          "href": "https://ynk-techusa.com/latest/growth-without-enough-formal-jobs"
+        },
+        {
+          "text": "Qui recrute en RDC et quelles fonctions restent peu visibles ?",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc",
+          "bold": true
+        },
+        {
+          "text": "Signaux de recrutement",
+          "href": "https://ynk-techusa.com/latest/who-is-hiring-in-the-drc"
+        },
+        {
+          "text": "Concevoir un suivi des projets jusqu’aux emplois en RDC",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker",
+          "bold": true
+        },
+        {
+          "text": "Laboratoire d’ingénierie",
+          "href": "https://ynk-techusa.com/latest/engineering-a-project-to-paycheck-tracker"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Sources et vérification"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "text": "DRC Digital Economy Ministry: sector strategy and AI strategy, August 2026",
+          "runs": [
+            {
+              "text": "DRC Digital Economy Ministry: sector strategy and AI strategy, August 2026",
+              "href": "https://economienumerique.gouv.cd/news-en-details/eyJpdiI6InpxeUM0Z3RPVHZBRzlEdlhLQ1JRRVE9PSIsInZhbHVlIjoiWkYwZ1R4djg3bEhqSWgydVRrT1hTQT09IiwibWFjIjoiODg3NTMwNTYwMDMwMTMwNTEwNGE3ZGMzZWU1M2VlMjgzMTc5MmM0OGU2NzZiOWU2MTRjMWFiMWZiNTBkMzAxZCIsInRhZyI6IiJ9"
+            }
+          ]
+        },
+        {
+          "text": "DRC Ministry of Digital Economy: strategic areas",
+          "runs": [
+            {
+              "text": "DRC Ministry of Digital Economy: strategic areas",
+              "href": "https://economienumerique.gouv.cd/ministere"
+            }
+          ]
+        },
+        {
+          "text": "DRC Ministry of Vocational Training: Lobito and digital skills projects, April 2026",
+          "runs": [
+            {
+              "text": "DRC Ministry of Vocational Training: Lobito and digital skills projects, April 2026",
+              "href": "https://formation.gouv.cd/nos_articles/corridor_lobito_projets/"
+            }
+          ]
+        },
+        {
+          "text": "Presidency of DRC: COP31 forest finance statement, November 11, 2026",
+          "runs": [
+            {
+              "text": "Presidency of DRC: COP31 forest finance statement, November 11, 2026",
+              "href": "https://presidence.cd/actualite-detail/actualite/cop31_le_president_felix_tshisekedi_plaide_pour_une_juste_remuneration_des_forets"
+            }
+          ]
+        },
+        {
+          "text": "World Bank DRC country programs and project portfolio, 2026",
+          "runs": [
+            {
+              "text": "World Bank DRC country programs and project portfolio, 2026",
+              "href": "https://www.worldbank.org/ext/en/country/drc"
+            }
+          ]
+        },
+        {
+          "text": "World Bank Inga 3 energy program, June 2025",
+          "runs": [
+            {
+              "text": "World Bank Inga 3 energy program, June 2025",
+              "href": "https://www.worldbank.org/en/news/press-release/2025/06/03/new-inga-3-development-program-to-start-with-investments-in-local-afe-congolese-communities"
+            }
+          ]
+        },
+        {
+          "text": "Global Communities iHRIS software engineer, Kinshasa",
+          "runs": [
+            {
+              "text": "Global Communities iHRIS software engineer, Kinshasa",
+              "href": "https://cd.linkedin.com/jobs/view/software-engineer-drc-human-resources-for-health-hrh-at-global-communities-4479152226"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "YNK Tech Intelligence · Recherche au 16 novembre 2026 · Sources et notes méthodologiques incluses."
+    }
+  ]
+}
