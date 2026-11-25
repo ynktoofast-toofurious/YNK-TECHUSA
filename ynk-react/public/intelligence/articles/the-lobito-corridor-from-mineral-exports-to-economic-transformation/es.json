@@ -1,0 +1,459 @@
+{
+  "title": "El corredor de Lobito: de las exportaciones mineras a la transformación económica",
+  "summary": "La rehabilitación ferroviaria puede reducir los costes comerciales, pero el desarrollo depende de quién capture los beneficios. El estudio distingue el transporte observado, los compromisos financieros y los escenarios condicionales.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Hallazgos clave"
+    },
+    {
+      "type": "p",
+      "text": "El corredor es una red, no una vía construida desde cero. El crecimiento del flete angoleño es observable; la rehabilitación congoleña y la extensión zambiana presentan riesgos distintos. DFC proyecta ahorros de hasta 30 %, no una reducción tarifaria observada. La RDC ya refina importantes volúmenes de cobre, por lo que la política industrial debe superar el relato simplista de exportación en bruto. [2] [3] [4]",
+      "runs": [
+        {
+          "text": "El corredor es una red, no una vía construida desde cero. El crecimiento del flete angoleño es observable; la rehabilitación congoleña y la extensión zambiana presentan riesgos distintos. DFC proyecta ahorros de hasta 30 %, no una reducción tarifaria observada. La RDC ya refina importantes volúmenes de cobre, por lo que la política industrial debe superar el relato simplista de exportación en bruto. "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[3]",
+          "href": "https://www.aman-alliance.org/Home/ContentDetail/107256"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Contexto y conocimientos previos"
+    },
+    {
+      "type": "p",
+      "text": "El ferrocarril de Benguela, terminado en 1931, conectó el Atlántico con el cinturón cuprífero. El tráfico histórico alcanzó unos 3,3 millones de toneladas en 1973. La guerra civil angoleña (1975–2002) dañó la red; siguió una rehabilitación respaldada por China en 2006–2014. La concesión de carga inició operaciones en enero de 2024. El proyecto actual hereda infraestructura extractiva colonial, reconstrucción y una nueva concesión comercial. [1]",
+      "runs": [
+        {
+          "text": "El ferrocarril de Benguela, terminado en 1931, conectó el Atlántico con el cinturón cuprífero. El tráfico histórico alcanzó unos 3,3 millones de toneladas en 1973. La guerra civil angoleña (1975–2002) dañó la red; siguió una rehabilitación respaldada por China en 2006–2014. La concesión de carga inició operaciones en enero de 2024. El proyecto actual hereda infraestructura extractiva colonial, reconstrucción y una nueva concesión comercial. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "La ruta angoleña recorre unos 1.300 km de Lobito a Luau; la conexión congoleña continúa hacia Kolwezi y el cinturón cuprífero. El enlace zambiano propuesto conectaría Chingola con el este de Angola. Durban, Beira y Dar es Salaam son alternativas, con TAZARA hacia el este. La ruta occidental no es necesariamente la más barata: destino, carga, fronteras, retornos y fiabilidad determinan el coste generalizado. [1] [5]",
+      "runs": [
+        {
+          "text": "La ruta angoleña recorre unos 1.300 km de Lobito a Luau; la conexión congoleña continúa hacia Kolwezi y el cinturón cuprífero. El enlace zambiano propuesto conectaría Chingola con el este de Angola. Durban, Beira y Dar es Salaam son alternativas, con TAZARA hacia el este. La ruta occidental no es necesariamente la más barata: destino, carga, fronteras, retornos y fiabilidad determinan el coste generalizado. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[5]",
+          "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Análisis"
+    },
+    {
+      "type": "p",
+      "text": "La referencia económica de 2024 revela concentración y capacidad industrial existente. USGS estima minería y procesamiento en 40 % del PIB, manufactura en 8,8 % y minerales en cerca del 95 % de las exportaciones de bienes y servicios por valor. El cobre representó 79,3 % y el cobalto 10,9 % de las exportaciones de mercancías de la serie citada. Los denominadores difieren y no deben combinarse. [4]",
+      "runs": [
+        {
+          "text": "La referencia económica de 2024 revela concentración y capacidad industrial existente. USGS estima minería y procesamiento en 40 % del PIB, manufactura en 8,8 % y minerales en cerca del 95 % de las exportaciones de bienes y servicios por valor. El cobre representó 79,3 % y el cobalto 10,9 % de las exportaciones de mercancías de la serie citada. Los denominadores difieren y no deben combinarse. "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Indicador",
+          "2023",
+          "2024",
+          "Unidad"
+        ],
+        [
+          "Cobre extraído",
+          "2.93",
+          "2.99",
+          "Mt"
+        ],
+        [
+          "Cobre refinado",
+          "2.17",
+          "2.56",
+          "Mt"
+        ],
+        [
+          "Cobalto extraído (estimación)",
+          "176",
+          "226",
+          "kt"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "La producción refinada de cobre aumentó cerca de 18 % y la estimada de cobalto 28 %. La producción refinada no mide beneficios nacionales ni la proporción del mineral local refinado. [4]",
+      "runs": [
+        {
+          "text": "La producción refinada de cobre aumentó cerca de 18 % y la estimada de cobalto 28 %. La producción refinada no mide beneficios nacionales ni la proporción del mineral local refinado. "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Carga y financiación: realidad y ambición"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261124-ifojmx-cf2257591dd8.png",
+      "alt": "96, 265 y 400 miles de toneladas",
+      "caption": "Carga (miles de toneladas); *previsión"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Año",
+          "Toneladas",
+          "Estado"
+        ],
+        [
+          "2024",
+          "96,000",
+          "Real declarado"
+        ],
+        [
+          "2025",
+          "265,000",
+          "Real declarado"
+        ],
+        [
+          "2026",
+          "400,000",
+          "Previsión operador"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "El crecimiento declarado fue 176 % en 2025; la previsión de 2026 implica 51 %. Las 400.000 toneladas equivalen al 8,7 % de la capacidad futura de 4,6 millones, no a la utilización actual. El operador informó siete a ocho días de Kolwezi a Lobito por tren, pero faltan costes puerta a puerta comparables y muestras independientes de fiabilidad. [2] [3]",
+      "runs": [
+        {
+          "text": "El crecimiento declarado fue 176 % en 2025; la previsión de 2026 implica 51 %. Las 400.000 toneladas equivalen al 8,7 % de la capacidad futura de 4,6 millones, no a la utilización actual. El operador informó siete a ocho días de Kolwezi a Lobito por tren, pero faltan costes puerta a puerta comparables y muestras independientes de fiabilidad. "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[3]",
+          "href": "https://www.aman-alliance.org/Home/ContentDetail/107256"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "EITI estima una inversión total de 6–8 mil millones USD y una brecha superior a 4–7 mil millones USD en 2026. Los rangos no son un balance auditado. La financiación DFC y DBSA para Angola suma 753 millones USD (553 y 200 millones). El estudio Payne de noviembre de 2026 registra la concesión congoleña firmada en agosto, sin obras iniciadas, y la línea zambiana en fase previa a construcción. No sumar garantías, compromisos y desembolsos como flujos independientes. [1] [2] [5] [6]",
+      "runs": [
+        {
+          "text": "EITI estima una inversión total de 6–8 mil millones USD y una brecha superior a 4–7 mil millones USD en 2026. Los rangos no son un balance auditado. La financiación DFC y DBSA para Angola suma 753 millones USD (553 y 200 millones). El estudio Payne de noviembre de 2026 registra la concesión congoleña firmada en agosto, sin obras iniciadas, y la línea zambiana en fase previa a construcción. No sumar garantías, compromisos y desembolsos como flujos independientes. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[5]",
+          "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[6]",
+          "href": "https://www.dfc.gov/sites/default/files/media/documents/DFC_AnnualReport_2024_final_508.pdf"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Economía condicional hacia 2030"
+    },
+    {
+      "type": "p",
+      "text": "Solo ilustrativo, NO datos observados ni previsión validada. Supóngase coste comparable de 150 USD/t y 0,4, 1,0 o 2,0 millones de toneladas elegibles al año en 2030, con reducciones del 10 %, 20 % o 30 %. Ahorro bruto = toneladas × coste previo × reducción. Suponiendo que 30 % del ahorro llega a beneficiarios nacionales se obtiene la segunda medida; no es PIB."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Escenario",
+          "Mt/año",
+          "Reducción",
+          "Bruto M USD/año",
+          "Nacional M USD/año"
+        ],
+        [
+          "Conservador",
+          "0.4",
+          "10%",
+          "6",
+          "1.8"
+        ],
+        [
+          "Base",
+          "1.0",
+          "20%",
+          "30",
+          "9"
+        ],
+        [
+          "Favorable",
+          "2.0",
+          "30%",
+          "90",
+          "27"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261124-ifojmx-51705efe1b42.png",
+      "alt": "6 / 30 / 90 USD M",
+      "caption": "Ahorro bruto ilustrativo (M USD/año)"
+    },
+    {
+      "type": "p",
+      "text": "Referencia de la solución actual no verificada. El beneficio neto descuenta costes adicionales anualizados de capital y operación no incluidos en tarifas, transición y externalidades. En el caso base, 30 millones USD anuales son el máximo coste incremental compatible con un beneficio logístico bruto no negativo; no es una recomendación financiera. En 2035, repetir el modelo con capacidades y tarifas observadas sin extrapolar crecimiento sin respaldo."
+    },
+    {
+      "type": "h2",
+      "text": "Creación de valor nacional"
+    },
+    {
+      "type": "p",
+      "text": "Cinco canales merecen evaluación: fabricación de cobre y procesamiento minero, almacenamiento y reparación, agregación agrícola y cadena de frío, electricidad fiable y formación profesional. Cada uno requiere compradores, energía o transporte fiable, competencias y financiación. Reducir el flete no prueba viabilidad industrial. Medir valor añadido nacional como producción menos consumos intermedios, rastreando insumos importados; informar salarios, impuestos y beneficios por separado sin duplicación."
+    },
+    {
+      "type": "h3",
+      "text": "Soluciones existentes y sus logros"
+    },
+    {
+      "type": "p",
+      "text": "LAR opera carga; DFC supervisa activos financiados; EITI documenta financiación y transparencia; USGS publica producción minera; Payne compara corredores competidores. Son capacidades sustanciales. [1] [2] [4] [5]",
+      "runs": [
+        {
+          "text": "LAR opera carga; DFC supervisa activos financiados; EITI documenta financiación y transparencia; USGS publica producción minera; Payne compara corredores competidores. Son capacidades sustanciales. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[5]",
+          "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Brechas pendientes"
+    },
+    {
+      "type": "p",
+      "text": "No se ha verificado una referencia armonizada de costes por envío y valor nacional. Su ausencia pública no demuestra ausencia en sistemas privados."
+    },
+    {
+      "type": "h3",
+      "text": "Qué aporta YNK Tech"
+    },
+    {
+      "type": "p",
+      "text": "Una integración de investigación candidata conciliaría hitos publicados y costes comparables con indicadores de proveedores nacionales y empleo. Aún no se justifica un producto separado."
+    },
+    {
+      "type": "h3",
+      "text": "¿Construir, asociarse o integrar?"
+    },
+    {
+      "type": "p",
+      "text": "Integrar primero fuentes existentes; buscar acuerdos con operadores y organismos estadísticos para datos agregados. Evitar duplicar paneles o recopilar datos comerciales sensibles sin autorización."
+    },
+    {
+      "type": "h3",
+      "text": "Cómo medir el valor incremental"
+    },
+    {
+      "type": "p",
+      "text": "Comparar tiempo de analista, errores de conciliación y completitud con el proceso vigente sobre la misma muestra. Registrar acceso, mantenimiento y revisión. Objetivos piloto: 100 % de cifras trazables y ninguna confusión entre compromisos y desembolsos; no se presupone mejora de productividad."
+    },
+    {
+      "type": "h2",
+      "text": "Qué observar a continuación"
+    },
+    {
+      "type": "p",
+      "text": "Primeros 90 días: conciliar concesiones y financiación, definir cohortes y obtener acceso. Siguientes 6–12 meses: comparar rutas emparejadas por producto, origen y destino; auditar propiedad de proveedores y empleo. Publicar solo agregados, con consulta comunitaria, salvaguardas laborales, reclamaciones y evaluación ambiental."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Indicador",
+          "Fórmula / fuente / frecuencia"
+        ],
+        [
+          "Coste de carga",
+          "USD total / toneladas; facturas; trimestral"
+        ],
+        [
+          "Fiabilidad",
+          "Envíos puntuales / total; operador; mensual"
+        ],
+        [
+          "Compras locales",
+          "Compras locales elegibles / total; cuentas auditadas; anual"
+        ],
+        [
+          "Ejecución financiera",
+          "USD desembolsados / comprometidos; prestamistas; trimestral"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "Metodología y limitaciones"
+    },
+    {
+      "type": "p",
+      "text": "Corte de evidencia: 24 de noviembre de 2026. La carga histórica y la de la concesión pueden cubrir categorías distintas. Cifras del operador declaradas, no auditadas aquí; falta el resultado anual 2026. Escenarios con precios fijos, sin demanda inducida, shocks de materias primas ni cambio. El impacto causal requiere cohortes emparejadas y contrafactual creíble. No implica prototipo aprobado ni retorno validado."
+    },
+    {
+      "type": "h2",
+      "text": "Fuentes"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "EITI, The Lobito Corridor: A frontier for transition mineral partnerships in Africa (2026)",
+          "runs": [
+            {
+              "text": "EITI, The Lobito Corridor: A frontier for transition mineral partnerships in Africa (2026)",
+              "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+            }
+          ]
+        },
+        {
+          "text": "DFC, Loan Agreement for Lobito Atlantic Railway (2025-12-17)",
+          "runs": [
+            {
+              "text": "DFC, Loan Agreement for Lobito Atlantic Railway (2025-12-17)",
+              "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+            }
+          ]
+        },
+        {
+          "text": "Lusa, Angola freight forecast (2026-09-30)",
+          "runs": [
+            {
+              "text": "Lusa, Angola freight forecast (2026-09-30)",
+              "href": "https://www.aman-alliance.org/Home/ContentDetail/107256"
+            }
+          ]
+        },
+        {
+          "text": "USGS, Congo (Kinshasa), 2024 report (2026)",
+          "runs": [
+            {
+              "text": "USGS, Congo (Kinshasa), 2024 report (2026)",
+              "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+            }
+          ]
+        },
+        {
+          "text": "Payne Institute, Risk Allocation and Traffic on the Rail Corridors Serving the Central African Copperbelt (2026-11-19)",
+          "runs": [
+            {
+              "text": "Payne Institute, Risk Allocation and Traffic on the Rail Corridors Serving the Central African Copperbelt (2026-11-19)",
+              "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+            }
+          ]
+        },
+        {
+          "text": "DFC, Annual Report 2024",
+          "runs": [
+            {
+              "text": "DFC, Annual Report 2024",
+              "href": "https://www.dfc.gov/sites/default/files/media/documents/DFC_AnnualReport_2024_final_508.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
