@@ -1,0 +1,459 @@
+{
+  "title": "The Lobito Corridor: From Mineral Exports to Economic Transformation",
+  "summary": "Rail rehabilitation can lower trade costs, but domestic development depends on who captures the gains. This study separates observed freight, financing commitments and conditional economic scenarios.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Key findings"
+    },
+    {
+      "type": "p",
+      "text": "The corridor is a network, not a new railway from scratch. Freight growth on the Angolan concession is observable; the Congolese rehabilitation and Zambian extension have different execution risks. DFC projects transport savings of up to 30%, not an observed tariff reduction. The DRC already refines substantial copper volumes, so industrial policy must move beyond the simplistic raw-export narrative. [2] [3] [4]",
+      "runs": [
+        {
+          "text": "The corridor is a network, not a new railway from scratch. Freight growth on the Angolan concession is observable; the Congolese rehabilitation and Zambian extension have different execution risks. DFC projects transport savings of up to 30%, not an observed tariff reduction. The DRC already refines substantial copper volumes, so industrial policy must move beyond the simplistic raw-export narrative. "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[3]",
+          "href": "https://www.aman-alliance.org/Home/ContentDetail/107256"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Context and prior knowledge"
+    },
+    {
+      "type": "p",
+      "text": "The Benguela Railway reached completion in 1931 and linked the Atlantic to the Central African Copperbelt. Historical cargo peaked near 3.3 million tonnes in 1973. Angola’s civil war (1975–2002) damaged the network; a Chinese-backed rehabilitation programme followed in 2006–2014. Freight concession operations began in January 2024. The present project therefore builds on colonial extraction infrastructure, postwar reconstruction and a new commercial concession rather than creating an entirely new trade geography. [1]",
+      "runs": [
+        {
+          "text": "The Benguela Railway reached completion in 1931 and linked the Atlantic to the Central African Copperbelt. Historical cargo peaked near 3.3 million tonnes in 1973. Angola’s civil war (1975–2002) damaged the network; a Chinese-backed rehabilitation programme followed in 2006–2014. Freight concession operations began in January 2024. The present project therefore builds on colonial extraction infrastructure, postwar reconstruction and a new commercial concession rather than creating an entirely new trade geography. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "The Angolan route runs roughly 1,300 km from Lobito to Luau; the DRC connection continues toward Kolwezi and the Copperbelt. The proposed Zambia link would connect Chingola to eastern Angola. Alternative gateways include Durban, Beira and Dar es Salaam, with TAZARA offering an eastern railway option. A westward route is not automatically cheapest: port destination, cargo type, border delays, return loads and reliability determine generalized cost. [1] [5]",
+      "runs": [
+        {
+          "text": "The Angolan route runs roughly 1,300 km from Lobito to Luau; the DRC connection continues toward Kolwezi and the Copperbelt. The proposed Zambia link would connect Chingola to eastern Angola. Alternative gateways include Durban, Beira and Dar es Salaam, with TAZARA offering an eastern railway option. A westward route is not automatically cheapest: port destination, cargo type, border delays, return loads and reliability determine generalized cost. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[5]",
+          "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Analysis"
+    },
+    {
+      "type": "p",
+      "text": "The DRC’s 2024 economic baseline reveals both concentration and existing industrial capability. USGS reports mining and mineral processing at an estimated 40% of GDP, manufacturing at 8.8%, and minerals at about 95% of exports of goods and services by value. Copper represented 79.3% and cobalt 10.9% of merchandise exports in the cited trade series. These denominators differ and should not be combined. [4]",
+      "runs": [
+        {
+          "text": "The DRC’s 2024 economic baseline reveals both concentration and existing industrial capability. USGS reports mining and mineral processing at an estimated 40% of GDP, manufacturing at 8.8%, and minerals at about 95% of exports of goods and services by value. Copper represented 79.3% and cobalt 10.9% of merchandise exports in the cited trade series. These denominators differ and should not be combined. "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Indicator",
+          "2023",
+          "2024",
+          "Unit"
+        ],
+        [
+          "Mined copper",
+          "2.93",
+          "2.99",
+          "Mt"
+        ],
+        [
+          "Refined copper",
+          "2.17",
+          "2.56",
+          "Mt"
+        ],
+        [
+          "Mined cobalt (estimate)",
+          "176",
+          "226",
+          "kt"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Refined copper output rose about 18% and estimated cobalt output about 28%. Refined output is not a measure of domestic profit or the share of locally mined material refined. [4]",
+      "runs": [
+        {
+          "text": "Refined copper output rose about 18% and estimated cobalt output about 28%. Refined output is not a measure of domestic profit or the share of locally mined material refined. "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Freight and financing: actual versus ambition"
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261124-ifojmx-655e5bde1bcb.png",
+      "alt": "96, 265 and 400 thousand tonnes",
+      "caption": "Freight (thousand tonnes); *forecast"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Year",
+          "Tonnes",
+          "Status"
+        ],
+        [
+          "2024",
+          "96,000",
+          "Reported actual"
+        ],
+        [
+          "2025",
+          "265,000",
+          "Reported actual"
+        ],
+        [
+          "2026",
+          "400,000",
+          "Operator forecast"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "p",
+      "text": "Reported growth was 176% in 2025; the 2026 forecast implies 51% growth. The 400,000-tonne forecast equals 8.7% of the future 4.6-million-tonne capacity target, not current utilization. The operator reported seven to eight days from Kolwezi to Lobito by rail, but comparable door-to-door costs and independent reliability samples remain unavailable. [2] [3]",
+      "runs": [
+        {
+          "text": "Reported growth was 176% in 2025; the 2026 forecast implies 51% growth. The 400,000-tonne forecast equals 8.7% of the future 4.6-million-tonne capacity target, not current utilization. The operator reported seven to eight days from Kolwezi to Lobito by rail, but comparable door-to-door costs and independent reliability samples remain unavailable. "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[3]",
+          "href": "https://www.aman-alliance.org/Home/ContentDetail/107256"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "EITI estimates total investment at $6–8 billion and the financing gap at over $4–7 billion in its 2026 snapshot. These broad ranges are not an audited balance. DFC and DBSA financing for Angola totals $753 million ($553 million and $200 million). The November 2026 Payne Institute study records the DRC concession signed in August, with works not begun, and the Zambia greenfield line at a pre-construction stage. Do not add guarantees, loan commitments and disbursements as if they were independent cash flows. [1] [2] [5] [6]",
+      "runs": [
+        {
+          "text": "EITI estimates total investment at $6–8 billion and the financing gap at over $4–7 billion in its 2026 snapshot. These broad ranges are not an audited balance. DFC and DBSA financing for Angola totals $753 million ($553 million and $200 million). The November 2026 Payne Institute study records the DRC concession signed in August, with works not begun, and the Zambia greenfield line at a pre-construction stage. Do not add guarantees, loan commitments and disbursements as if they were independent cash flows. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[5]",
+          "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[6]",
+          "href": "https://www.dfc.gov/sites/default/files/media/documents/DFC_AnnualReport_2024_final_508.pdf"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Conditional economics through 2030"
+    },
+    {
+      "type": "p",
+      "text": "Illustrative only, NOT observed data or a validated forecast. Assume comparable incumbent cost of $150/t and 0.4, 1.0 or 2.0 million eligible tonnes per year in 2030, with reductions of 10%, 20% or 30%. Gross savings = tonnes × incumbent cost × reduction. Assuming 30% of savings accrues to domestic beneficiaries yields the second measure; this is not GDP."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Scenario",
+          "Mt/year",
+          "Reduction",
+          "Gross USD M/year",
+          "Domestic USD M/year"
+        ],
+        [
+          "Conservative",
+          "0.4",
+          "10%",
+          "6",
+          "1.8"
+        ],
+        [
+          "Base",
+          "1.0",
+          "20%",
+          "30",
+          "9"
+        ],
+        [
+          "Upside",
+          "2.0",
+          "30%",
+          "90",
+          "27"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "img",
+      "src": "images/ynk-20261124-ifojmx-49c7106c2582.png",
+      "alt": "6 / 30 / 90 USD M",
+      "caption": "Illustrative gross savings (USD M/year)"
+    },
+    {
+      "type": "p",
+      "text": "Current-solution baseline not verified. Net benefit requires deducting incremental annualized capital and operating costs not already reflected in tariffs, transition and external costs. At the base case, $30 million annually is the maximum incremental cost consistent with nonnegative gross logistics benefit; it is not a financing recommendation. In 2035, repeat the model with observed capacity and tariffs rather than extrapolating unsupported growth."
+    },
+    {
+      "type": "h2",
+      "text": "Domestic value creation"
+    },
+    {
+      "type": "p",
+      "text": "Five channels merit testing: copper fabrication and mineral processing, warehousing and repair, agricultural aggregation and cold chains, dependable electricity, and vocational training. Each requires a buyer, reliable power or transport, skills and commercial financing. Lower freight costs alone cannot prove factory viability. Measure domestic value added as output less intermediate consumption, excluding imported inputs through supply-chain tracing; report wages, taxes and profits separately without double counting."
+    },
+    {
+      "type": "h3",
+      "text": "Existing solutions and what they accomplish"
+    },
+    {
+      "type": "p",
+      "text": "LAR operates freight; DFC monitors financed assets; EITI documents financing and transparency; USGS publishes mineral production; Payne compares competing corridors. These are substantial incumbent capabilities. [1] [2] [4] [5]",
+      "runs": [
+        {
+          "text": "LAR operates freight; DFC monitors financed assets; EITI documents financing and transparency; USGS publishes mineral production; Payne compares competing corridors. These are substantial incumbent capabilities. "
+        },
+        {
+          "text": "[1]",
+          "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[2]",
+          "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[4]",
+          "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "[5]",
+          "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Remaining gaps or unmet needs"
+    },
+    {
+      "type": "p",
+      "text": "A harmonized, shipment-level cost and domestic value baseline is not verified. Absence in public sources does not prove absence in private systems."
+    },
+    {
+      "type": "h3",
+      "text": "What YNK Tech adds"
+    },
+    {
+      "type": "p",
+      "text": "A candidate research integration would reconcile published project milestones and comparable freight economics with domestic supplier and employment indicators. No separate product is justified yet."
+    },
+    {
+      "type": "h3",
+      "text": "Build, partner or integrate?"
+    },
+    {
+      "type": "p",
+      "text": "Integrate existing sources first; seek agreements with operators and statistical agencies for aggregate data. Avoid duplicating dashboards or collecting commercially sensitive shipment records without authorization."
+    },
+    {
+      "type": "h3",
+      "text": "How incremental value will be measured"
+    },
+    {
+      "type": "p",
+      "text": "Compare analyst time, source reconciliation errors and completeness against the incumbent reporting workflow on the same sample. Record data access, maintenance and review costs. Pilot targets are 100% traceable numeric claims and zero mixing of commitments with disbursements; productivity improvement is not assumed."
+    },
+    {
+      "type": "h2",
+      "text": "What to watch next"
+    },
+    {
+      "type": "p",
+      "text": "First 90 days: reconcile concession and funding documents, define shipment cohorts and secure data access. Next 6–12 months: compare matched routes by commodity, origin and destination; audit supplier ownership and employment measures. Publish aggregate results only, with community consultation, labor safeguards, grievance channels and environmental review."
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "KPI",
+          "Formula / source / cadence"
+        ],
+        [
+          "Freight cost",
+          "All-in USD / tonnes; invoices; quarterly"
+        ],
+        [
+          "Reliability",
+          "On-time shipments / shipments; operator; monthly"
+        ],
+        [
+          "Local procurement",
+          "Eligible local supplier spend / total spend; audited accounts; annual"
+        ],
+        [
+          "Financing execution",
+          "Disbursed / committed USD; lender reports; quarterly"
+        ]
+      ],
+      "head": true
+    },
+    {
+      "type": "h2",
+      "text": "Methodology and limitations"
+    },
+    {
+      "type": "p",
+      "text": "Evidence cutoff 24 November 2026. Historical freight and current concession volumes may cover different cargo categories. Operator figures are reported, not audited here; the 2026 full-year outcome is unavailable. Scenarios hold prices fixed and omit induced demand, commodity shocks and exchange-rate effects. Causal impacts require matched route cohorts and a credible counterfactual. No prototype approval or validated ROI is implied."
+    },
+    {
+      "type": "h2",
+      "text": "Sources"
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "text": "EITI, The Lobito Corridor: A frontier for transition mineral partnerships in Africa (2026)",
+          "runs": [
+            {
+              "text": "EITI, The Lobito Corridor: A frontier for transition mineral partnerships in Africa (2026)",
+              "href": "https://eiti.org/sites/default/files/EITI_Lobito%20Corridor%20Report%202026%20EN%20WEB.pdf"
+            }
+          ]
+        },
+        {
+          "text": "DFC, Loan Agreement for Lobito Atlantic Railway (2025-12-17)",
+          "runs": [
+            {
+              "text": "DFC, Loan Agreement for Lobito Atlantic Railway (2025-12-17)",
+              "href": "https://www.dfc.gov/media/press-releases/dfc-ceo-ben-black-signs-loan-agreement-lobito-atlantic-railway-securing"
+            }
+          ]
+        },
+        {
+          "text": "Lusa, Angola freight forecast (2026-09-30)",
+          "runs": [
+            {
+              "text": "Lusa, Angola freight forecast (2026-09-30)",
+              "href": "https://www.aman-alliance.org/Home/ContentDetail/107256"
+            }
+          ]
+        },
+        {
+          "text": "USGS, Congo (Kinshasa), 2024 report (2026)",
+          "runs": [
+            {
+              "text": "USGS, Congo (Kinshasa), 2024 report (2026)",
+              "href": "https://www.usgs.gov/centers/national-minerals-information-center/congo-kinshasa"
+            }
+          ]
+        },
+        {
+          "text": "Payne Institute, Risk Allocation and Traffic on the Rail Corridors Serving the Central African Copperbelt (2026-11-19)",
+          "runs": [
+            {
+              "text": "Payne Institute, Risk Allocation and Traffic on the Rail Corridors Serving the Central African Copperbelt (2026-11-19)",
+              "href": "https://payneinstitute.mines.edu/risk-allocation-and-traffic-on-the-rail-corridors-serving-the-central-african-copperbelt/"
+            }
+          ]
+        },
+        {
+          "text": "DFC, Annual Report 2024",
+          "runs": [
+            {
+              "text": "DFC, Annual Report 2024",
+              "href": "https://www.dfc.gov/sites/default/files/media/documents/DFC_AnnualReport_2024_final_508.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
